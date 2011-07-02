@@ -49,6 +49,7 @@
       var data      = $list.data('dropkick') || {};
       var id        = $list.attr('id') || $list.attr('name');
       var minWidth  = 0;
+      var $menu     = false;
 
       if (data.id) {
         return $list;
@@ -56,16 +57,13 @@
         data.cid       = cid++;
         data.id        = id;
         data.$selected = $selected;
-        data.value     = _notBlank($list.val()) || _notBlank($selected.attr('value'));
         data.$list     = $list;
+        data.value     = _notBlank($list.val()) || _notBlank($selected.attr('value'));
         data.label     = $selected.text();
         data.options   = $options;
-
-        $list.data('dropkick', data);
-        data = $list.data('dropkick');
       }
 
-      var $menu = _build(menuTemplate, data);
+      $menu = _build(menuTemplate, data);
 
       for (var i = 0, l = $options.length; i < l; i++) {
         var width = $options.eq(i).text().length * 6;
@@ -75,7 +73,12 @@
       // Hide the <select> list
       $list.hide().before($menu);
 
-      lists[lists.length] = $(this);
+      $menu      = $('#dropkick_container_' + id);
+      data.$menu = $menu;
+
+      $list.data('dropkick', data);
+
+      lists[lists.length] = $list;
 
       var clickBind = settings.quickClick ? 'mousedown' : 'click';
 
@@ -97,7 +100,6 @@
         $(this).addClass('focus');
       }).bind('focusout', function (e) {
         $(this).removeClass('focus');
-        $menu.removeClass('open');
       }).css({
         'width' : minWidth + 'px'
       });
@@ -117,6 +119,14 @@
       cid++;
     });
 
+  };
+
+  methods.reset = function () {
+    for (var i = 0, l = lists.length; i < l; i++) {
+      var data = lists[i].data('dropkick');
+      data.$menu.find('.dropkick_label').text(data.label);
+      data.$menu.find('.dropkick_options_inner').animate( { scrollTop: 0 }, 0);
+    }
   };
 
   function _handleKeyBoardNav(e, menu, data) {
