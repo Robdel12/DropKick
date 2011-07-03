@@ -68,14 +68,14 @@
       padding: 40px 20px 200px;
       width: 600px;
     }
+    .gist {
+      font-size: 12px;
+      margin-top: 20px;
+    }
   </style>
   <script type="text/javascript" charset="utf-8">
     $(function () {
       $('.default').dropkick();
-
-      $('.quick_dropdown').dropkick({
-        quickClick : true
-      });
 
       $('.change').dropkick({
         change: function (value, label) {
@@ -83,12 +83,12 @@
         }
       });
 
-      $('.custom_theme').dropkick({
-        theme  : 'orange',
-        change : function (value, label) {
-          $(this).dropkick('theme', value);
-        }
-      });
+$('.custom_theme').dropkick({
+  theme: 'orange',
+  change: function (value, label) {
+    $(this).dropkick('theme', value);
+  }
+});
 
       // DropKick works great with your existing forms and select fields
       $('.example_form').live('submit', function (e) {
@@ -125,24 +125,8 @@
               <option value="GB">United Kingdom</option>
               <option value="US">United States</option>
             </select>
-            <div style="clear: both;"></div>
-            <input type="submit" name="some_name" value="Submit"tabindex="2">
-            <input type="reset" name="reset" value="Reset">
-          </div>
-
-          <div class="section">
-            <h4>Result</h4>
-            <div class="results"></div>
-          </div>
-        </form>
-      </fieldset>
-
-      <fieldset>
-        <legend>This one is longer</legend>
-        <form action="#" method="post" accept-charset="utf-8" class="example_form">
-          <div class="section">
-            <select name="state" class="quick_dropdown" tabindex="3">
-              <option value="" selected="selected">Try Me!</option>
+            <select name="state" class="default" tabindex="2">
+              <option value="" selected="selected">Try Me, Too!</option>
               <option value="AL">Alabama</option>
               <option value="AK">Alaska</option>
               <option value="AZ">Arizona</option>
@@ -195,7 +179,7 @@
               <option value="WY">Wyoming</option>
             </select>
             <div style="clear: both;"></div>
-            <input type="submit" name="some_name" value="Submit" tabindex="4">
+            <input type="submit" name="some_name" value="Submit"tabindex="3">
             <input type="reset" name="reset" value="Reset">
           </div>
 
@@ -203,6 +187,8 @@
             <h4>Result</h4>
             <div class="results"></div>
           </div>
+          <div style="clear: both;"></div>
+          <script src="https://gist.github.com/1062688.js?file=dropkick_example_default.js"></script>
         </form>
       </fieldset>
 
@@ -210,7 +196,7 @@
         <legend>Specify callbacks for change events</legend>
         <form action="#" method="post" accept-charset="utf-8" class="example_form">
           <div class="section">
-            <select name="color" class="change" tabindex="5">
+            <select name="color" class="change" tabindex="4">
               <option value="black">Pick a color</option>
               <option value="#0000ff">Blue</option>
               <option value="#00ff00">Green</option>
@@ -224,36 +210,8 @@
             <h4>Result</h4>
             <div class="results"></div>
           </div>
-        </form>
-      </fieldset>
-
-      <fieldset>
-        <legend>DropKick plays nice with existing select elements</legend>
-        <form action="#" method="post" accept-charset="utf-8" class="example_form">
-          <div class="section">
-            <select name="bully" class="default" tabindex="6">
-              <option value="">Choose a bully</option>
-              <option value="jimbo">Jimbo Jones</option>
-              <option value="nelson">Nelson Muntz</option>
-              <option value="dolph">Dolph Starbeam</option>
-              <option value="kearny">Kearney Zzyzwicz</option>
-            </select>
-            <div style="clear: both;"></div>
-            <select name="hero" tabindex="7">
-              <option value="">Choose a hero</option>
-              <option value="bart">Bart Simpson</option>
-              <option value="lisa">Lisa Simpson</option>
-              <option value="homer">Homer Simpson</option>
-            </select><br><br>
-            <div style="clear: both;"></div>
-            <input type="submit" name="some_name" value="Submit" tabindex="8">
-            <input type="reset" name="reset" value="Reset">
-          </div>
-
-          <div class="section">
-            <h4>Result</h4>
-            <div class="results"></div>
-          </div>
+          <div style="clear: both;"></div>
+          <script src="https://gist.github.com/1062688.js?file=dropkick_example_callback.js"></script>
         </form>
       </fieldset>
 
@@ -275,12 +233,45 @@
         </style>
         <form action="#" method="post" accept-charset="utf-8" class="example_form">
           <div class="section">
-            <select name="theme" class="custom_theme" tabindex="9">
+            <select name="theme" class="custom_theme" tabindex="8">
               <option value="default">Select a theme</option>
               <option value="default">Blue</option>
               <option value="orange" selected="selected">Orange</option>
             </select>
             <div style="clear: both;"></div>
+          </div>
+          <div style="clear: both;"></div>
+          <script src="https://gist.github.com/1062688.js?file=custom_theme.css"></script>
+          <script src="https://gist.github.com/1062688.js?file=dropkick_example_theme.js"></script>
+        </form>
+      </fieldset>
+
+      <fieldset>
+        <legend>DropKick plays nice with existing select elements</legend>
+        <form action="#" method="post" accept-charset="utf-8" class="example_form">
+          <div class="section">
+            <select name="bully" class="default" tabindex="5">
+              <option value="">Choose a bully</option>
+              <option value="jimbo">Jimbo Jones</option>
+              <option value="nelson">Nelson Muntz</option>
+              <option value="dolph">Dolph Starbeam</option>
+              <option value="kearny">Kearney Zzyzwicz</option>
+            </select>
+            <div style="clear: both;"></div>
+            <select name="hero" tabindex="6">
+              <option value="">Choose a hero</option>
+              <option value="bart">Bart Simpson</option>
+              <option value="lisa">Lisa Simpson</option>
+              <option value="homer">Homer Simpson</option>
+            </select><br><br>
+            <div style="clear: both;"></div>
+            <input type="submit" name="some_name" value="Submit" tabindex="7">
+            <input type="reset" name="reset" value="Reset">
+          </div>
+
+          <div class="section">
+            <h4>Result</h4>
+            <div class="results"></div>
           </div>
         </form>
       </fieldset>

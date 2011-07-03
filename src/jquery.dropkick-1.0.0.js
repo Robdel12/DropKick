@@ -46,7 +46,6 @@
 
     defaults = {
       width  : false,
-      closeOnClick : true,
       theme  : false,
       change : false
     },
@@ -233,10 +232,7 @@
     dkObj.$options.find('a').live(($.browser.msie ? 'mousedown' : 'click'), function (e) {
       var $option = $(this);
 
-      if (dkObj.settings.closeOnClick) {
-        _closeDropdown(dkObj);
-      }
-
+      _closeDropdown(dkObj);
       _updateFields($option, dkObj);
       _setCurrent($option.parent(), dkObj.$current(), dkObj);
 
