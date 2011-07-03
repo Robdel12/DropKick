@@ -4,22 +4,22 @@
  */
 
 /* Feel free to theme this yourself */
-.dropkick_container {
+.dk_container {
   font-family: 'Helvetica', Arial, sans-serif;
   font-size: 12px;
   font-weight: bold;
   line-height: 14px;
   margin-bottom: 20px;
+  position: relative;
 }
-  .dropkick_container:focus {
-    outline: 0;
+  .dk_container:focus {
   }
- .dropkick_container a {
+ .dk_container a {
    cursor: pointer;
    text-decoration: none;
  }
  
- .dropkick_container .dropkick_toggle {
+ .dk_container .dk_toggle {
    background: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#f5f5f5));
    background: -moz-linear-gradient(top, #fff, #f5f5f5);
    background: -o-linear-gradient(top, #fff, #f5f5f5);
@@ -27,6 +27,7 @@
    border: 1px solid #ccc;
    color: #333;
    padding: 7px 45px 7px 10px;
+   position: relative;
    text-shadow: #fff 1px 1px 0;
    border-radius: 5px;
    -moz-border-radius: 5px;
@@ -37,70 +38,73 @@
    transition: border-color .5s;
  }
 
- .dropkick_focus .dropkick_toggle {
-   border-color: #333;
+ .dk_focus .dk_toggle,
+ .dk_open .dk_toggle {
+   border-color: #40b5e2;
    box-shadow: 0 0 5px #40b5e2;
    -moz-box-shadow: 0 0 5px #40b5e2;
    -webkit-box-shadow: 0 0 5px #40b5e2;
  }
- .dropkick_container .dropkick_toggle:hover,
- .dropkick_container.open .dropkick_toggle {
+ .dk_open {
+   position: relative;
+   z-index: 10;
+ }
+ .dk_container .dk_toggle:hover {
    border-color: #8c8c8c;
  }
- .dropkick_container .dropkick_arrows {
+ .dk_container .dk_arrows {
    font-size: 33px;
    padding: 11px 3px 3px;
    text-align: center;
  }
-   .open.dropkick_container .dropkick_arrows {
+   .dk_open.dk_container .dk_arrows {
      padding-top: 10px;
      padding-bottom: 5px;
    }
- .open.dropkick_container .dropkick_toggle {
+ .dk_open.dk_container .dk_toggle {
    background: #ececec;
    border-radius: 5px 5px 0 0;
    -moz-border-radius: 5px 5px 0 0;
    -webkit-border-radius: 5px 5px 0 0;
  }
- .open.dropkick_container .dropkick_label {
+ .dk_open.dk_container .dk_label {
    color: #ccc;
  }
 
 /* Advise against editing */
-.dropkick_container {
+.dk_container {
   clear: both;
   float: left;
   position: relative;
 }
-  .dropkick_container a {
+  .dk_container a {
     outline: 0;
   }
 
-.dropkick_toggle {
+.dk_toggle {
   display: -moz-inline-stack;
   display: inline-block;
   *display: inline;
   position: relative;
   zoom: 1;
 }
-  .dropkick_toggle:active {
+  .dk_toggle:active {
     box-shadow: inset rgba(0, 0, 0, .2) 0 0 10px;
     -moz-box-shadow: inset rgba(0, 0, 0, .2) 0 0 10px;
     -webkit-box-shadow: inset rgba(0, 0, 0, .2) 0 0 10px;
   }
 
-.dropkick_arrows {
+.dk_arrows {
   display: block;
   position: absolute;
   right: 0;
   top: -1px;
 }
-  .open .dropkick_arrows {
+  .dk_open .dk_arrows {
     background-color: #fff;
     background-position: center 9px;
     border-left: 1px solid #8c8c8c;
     border-top: 1px solid #8c8c8c;
-    z-index: 10;
     border-radius: 5px 5px 0 0;
     -moz-border-radius: 5px 5px 0 0;
     -webkit-border-radius: 5px 5px 0 0;
@@ -108,18 +112,17 @@
     -moz-box-shadow: rgba(0, 0, 0, .1) -2px -1px 2px;
     -webkit-box-shadow: rgba(0, 0, 0, .1) -2px -1px 2px;
   }
-    .websockets .open .dropkick_arrows { /* Non-permanent Modernizr fix for WebKit */
+    .websockets .dk_open .dk_arrows { /* Non-permanent Modernizr fix for WebKit */
       padding-bottom: 9px;
     }
 
-.dropkick_options {
+.dk_options {
   display: none;
   margin-top: -1px;
   list-style: none;
   position: absolute;
   right: 0;
   width: 100%;
-  z-index: 5;
   box-shadow: rgba(0, 0, 0, .2) 0 2px 8px;
   -moz-box-shadow: rgba(0, 0, 0, .2) 0 2px 8px;
   -webkit-box-shadow: rgba(0, 0, 0, .2) 0 2px 8px;
@@ -127,12 +130,12 @@
   -moz-border-radius: 0 0 5px 5px;
   -webkit-border-radius: 0 0 5px 5px;
 }
-  .open .dropkick_options {
+  .dk_open .dk_options {
     display: block;
   }
-  .dropkick_options a,
-  .dropkick_options a:link,
-  .dropkick_options a:visited {
+  .dk_options a,
+  .dk_options a:link,
+  .dk_options a:visited {
     border-bottom: 1px solid #999;
     color: inherit;
     display: block;
@@ -140,27 +143,24 @@
     padding: 8px 10px;
     text-shadow: inherit;
   }
-    .dropkick_options li:last-child a {
+    .dk_options li:last-child a {
       border-bottom: none;
     }
-    .dropkick_option_current a {
-      background-color: #0084c7!important;
+    .dk_option_current a,
+    .dk_options a:hover {
+      background-color: #0084c7;
+      border-bottom-color: #004c72;
       color: #fff;
       text-decoration: none;
       text-shadow: rgba(0, 0, 0, .5) 0 1px 0;
-      border-bottom-color: #004c72;
     }
-    .dropkick_options a:hover {
-      background-color: #efefef;
-    }
-    .dropkick_options a:active,
-    .dropkick_options a.active {
+    .dk_theme_default .dk_options a:active {
       background-color: #333;
       color: #fff;
       text-shadow: rgba(0, 0, 0, 1) 0 -2px 0;
     }
 
-.dropkick_options_inner {
+.dk_options_inner {
   background-color: #fff;
   border: 1px solid #8c8c8e;
   border-bottom-width: 2px;
@@ -168,6 +168,7 @@
   color: #333;
   max-height: 250px;
   overflow: auto;
+  position: relative;
   text-shadow: #fff 0 1px 0;
   border-radius: 0 0 5px 5px;
   -moz-border-radius: 0 0 5px 5px;
