@@ -11,6 +11,9 @@
   line-height: 14px;
   margin-bottom: 20px;
 }
+  .dropkick_container:focus {
+    outline: 0;
+  }
  .dropkick_container a {
    cursor: pointer;
    text-decoration: none;
@@ -169,9 +172,4 @@
   border-radius: 0 0 5px 5px;
   -moz-border-radius: 0 0 5px 5px;
   -webkit-border-radius: 0 0 5px 5px;
-}
-
-.dropkick_hidden {
-  position: absolute;
-  top: -9999em;
 }

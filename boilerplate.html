@@ -73,13 +73,14 @@
     $(function () {
       // Turn <select id="example_one"> into a stylish dropdown
       $('.dropdown').dropkick({
-        // height     : '250px',  // Optionally specify a height to the options list
-        // quickClick : false,    // Set this to true to make the dropdown open and close quicker
+        change: function (value, label) {
+          console.log(value, label);
+        }
       });
 
       // DropKick works great with your existing forms and select fields
       $('#example_form').live('submit', function (e) {
-        $('#results').html($(this).serialize());
+        $(this).find('#results').html($(this).serialize());
         return false;
       }).bind('reset', function (e) {
         $('.dropdown').dropkick('reset');
@@ -105,7 +106,7 @@
         <legend>Sample form using default options</legend>
         <form action="#" method="post" accept-charset="utf-8" id="example_form">
           <section>
-            <select name="country" class="dropdown">
+            <select name="country" class="dropdown" tabindex="1">
               <option value="">What country do you live in?</option>
               <option value="AU">Australia</option>
               <option value="CA">Canada</option>
@@ -114,7 +115,7 @@
               <option value="GB">United Kingdom</option>
               <option value="US">United States</option>
             </select>
-            <select name="state" class="dropdown">
+            <select name="state" class="dropdown" tabindex="2">
               <option value="" selected="selected">What state do you live in?</option>
               <option value="AL">Alabama</option>
               <option value="AK">Alaska</option>
@@ -171,6 +172,85 @@
             <div style="clear: both;"></div>
             <input type="submit" name="some_name" value="Submit" id="some_name">
             <input type="reset" name="reset" value="Reset" id="reset">
+          </section>
+
+          <section>
+            <h4>Result</h4>
+            <div id="results"></div>
+          </section>
+
+        </form>
+      </fieldset>
+      <fieldset>
+        <legend>Sample form using default options</legend>
+        <form action="#" method="post" accept-charset="utf-8">
+          <section>
+            <select name="blah" class="quick">
+              <option value="">What country do you live in?</option>
+              <option value="AU">Australia</option>
+              <option value="CA">Canada</option>
+              <option value="DE">Germany</option>
+              <option value="JP">Japan</option>
+              <option value="GB">United Kingdom</option>
+              <option value="US">United States</option>
+            </select>
+            <select name="lol" class="quick">
+              <option value="" selected="selected">What state do you live in?</option>
+              <option value="AL">Alabama</option>
+              <option value="AK">Alaska</option>
+              <option value="AZ">Arizona</option>
+              <option value="AR">Arkansas</option>
+              <option value="CA">California</option>
+              <option value="CO">Colorado</option>
+              <option value="CT">Connecticut</option>
+              <option value="DE">Delaware</option>
+              <option value="FL">Florida</option>
+              <option value="GA">Georgia</option>
+              <option value="HI">Hawaii</option>
+              <option value="ID">Idaho</option>
+              <option value="IL">Illinois</option>
+              <option value="IN">Indiana</option>
+              <option value="IA">Iowa</option>
+              <option value="KS">Kansas</option>
+              <option value="KY">Kentucky</option>
+              <option value="LA">Louisiana</option>
+              <option value="ME">Maine</option>
+              <option value="MD">Maryland</option>
+              <option value="MA">Massachusetts</option>
+              <option value="MI">Michigan</option>
+              <option value="MN">Minnesota</option>
+              <option value="MS">Mississippi</option>
+              <option value="MO">Missouri</option>
+              <option value="MT">Montana</option>
+              <option value="NE">Nebraska</option>
+              <option value="NV">Nevada</option>
+              <option value="NH">New Hampshire</option>
+              <option value="NJ">New Jersey</option>
+              <option value="NM">New Mexico</option>
+              <option value="NY">New York</option>
+              <option value="NC">North Carolina</option>
+              <option value="ND">North Dakota</option>
+              <option value="OH">Ohio</option>
+              <option value="OK">Oklahoma</option>
+              <option value="OR">Oregon</option>
+              <option value="PA">Pennsylvania</option>
+              <option value="RI">Rhode Island</option>
+              <option value="SC">South Carolina</option>
+              <option value="SD">South Dakota</option>
+              <option value="TN">Tennessee</option>
+              <option value="TX">Texas</option>
+              <option value="UT">Utah</option>
+              <option value="VT">Vermont</option>
+              <option value="VA">Virginia</option>
+              <option value="WA">Washington</option>
+              <option value="WV">West Virginia</option>
+              <option value="WI">Wisconsin</option>
+              <option value="WY">Wyoming</option>
+
+            </select>
+            <div style="clear: both;"></div>
+            <input type="submit" name="some_name" value="Submit">
+            <input type="reset" name="reset" value="Reset">
           </section>
 
           <section>

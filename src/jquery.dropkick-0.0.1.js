@@ -9,7 +9,6 @@
 
   var methods = {};
   var lists   = [];
-  var Mustache = (window.Mustache && window.Mustache.to_html) ? window.Mustache : false;
 
   var keyMap = {
     'left'  : 37,
@@ -20,10 +19,9 @@
   };
 
   var menuTemplate = [
-    '<div class="dropkick_container" id="dropkick_container_{{ id }}">',
+    '<div class="dropkick_container" id="dropkick_container_{{ id }}" tabindex="{{ tabindex }}">',
       '<a class="dropkick_toggle">',
         '<span class="dropkick_label">{{ label }}</span>',
-        '<span class="dropkick_arrows">&#8227;</span>',
       '</a>',
       '<div class="dropkick_options">',
         '<div class="dropkick_options_inner">',
@@ -32,13 +30,16 @@
     '</div>'
   ].join('');
 
+  var optionTemplate = '<li class="{{ current }}"><a data-dk-menu-value="{{ value }}">{{ text }}</a></li>';
+
   var defaults = {
     height     : '250px',
     fixed      : true,
+    change     : false,
     quickClick : false
   };
 
-  var cid = 1;
+  var tabindex;
 
   methods.init = function ( settings ) {
 
@@ -59,23 +60,25 @@
     });
 
     return this.each(function () {
-      var $list     = $(this);
-      var $selected = $list.find(':selected').first();
-      var $options  = $list.find('option');
-      var data      = $list.data('dropkick') || {};
-      var id        = $list.attr('id') || $list.attr('name');
+      var $select   = $(this);
+      var $original = $select.find(':selected').first();
+      var $options  = $select.find('option');
+      var data      = $select.data('dropkick') || {};
+      var id        = $select.attr('id') || $select.attr('name');
       var minWidth  = 0;
+      var tabindex  = $select.attr('tabindex') ? $select.attr('tabindex') : '';
       var $menu     = false;
+      var clickEvt  = settings.quickClick ? 'mousedown' : 'click';
 
       if (data.id) {
-        return $list;
+        return $select;
       } else {
-        data.cid       = cid;
+        data.tabindex  = tabindex;
         data.id        = id;
-        data.$selected = $selected;
-        data.$list     = $list;
-        data.value     = _notBlank($list.val()) || _notBlank($selected.attr('value'));
-        data.label     = $selected.text();
+        data.$original = $original;
+        data.$select     = $select;
+        data.value     = _notBlank($select.val()) || _notBlank($original.attr('value'));
+        data.label     = $original.text();
         data.options   = $options;
       }
 
@@ -89,67 +92,91 @@
       }
 
       // Hide the <select> list
-      $list.attr('tabindex', cid).addClass('dropkick_hidden').before($menu);
+      $select.hide().before($menu);
 
       $menu      = $('#dropkick_container_' + id);
       data.$menu = $menu;
 
-      $list.data('dropkick', data);
-      $menu.data('dropkick', data);
+      $select.data('dropkick', data);
 
-      lists[lists.length] = $list;
+      $menu.data('dropkick', $.extend({}, data, {
+        isOpen    : $menu.hasClass('open'),
+        isFocus   : $menu.hasClass('dropkick_focus'),
+        $toggle   : function () {
+          return $menu.find('.dropkick_toggle');
+        },
+        $current  : function () {
+          return $menu.find('.dropkick_option_current');
+        },
+        $options : function () {
+          return $menu.find('.dropkick_options a');
+        },
+        settings: settings
+      }));
 
-      var clickBind = settings.quickClick ? 'mousedown' : 'click';
+      lists[lists.length] = $select;
 
-      $menu.find('.dropkick_toggle').bind(clickBind, function (e) {
-        $('.dropkick_container.open').not($menu).removeClass('open');
+      
 
-        $menu.toggleClass('open');
-        $menu.toggleClass('focus');
-
-        e.preventDefault();
-        return false;
-      }).css({
-        'width' : minWidth + 'px'
+      $menu.data('dropkick').$toggle().css({
+        'width' : minWidth > 0 ? minWidth + 'px' : 'auto'
       });
 
-      $list.bind('focus.dropkick', function (e) {
-        $menu.addClass('dropkick_focus');
-      }).bind('blur.dropkick', function (e) {
-        $menu.removeClass('dropkick_focus');
-      });
+      _setupMenuBindings($menu.data('dropkick'), clickEvt);
 
-      $menu.find('.dropkick_options a').bind(clickBind, function (e) {
-        var $option = $(this), value, label;
-
-        value = $option.attr('data-dk-menu-value');
-        label = $option.text();
-
-        $menu.removeClass('open');
-        $menu.find('.dropkick_label').text(label);
-        $list.val(value);
-        e.preventDefault();
-        return false;
-      });
-
-      cid++;
+      tabindex++;
     });
-
   };
 
   methods.reset = function () {
     for (var i = 0, l = lists.length; i < l; i++) {
       var data = lists[i].data('dropkick');
-      var current = data.$menu.find('.dropkick_option_current');
+      var current = data.$menu.data('dropkick').$current();
 
       data.$menu.find('.dropkick_label').text(data.options.eq(0).text());
       data.$menu.find('.dropkick_options_inner').animate( { scrollTop: 0 }, 0);
+
       current.removeClass('dropkick_option_current');
+      console.log(data.$original);
     }
   };
 
+  function _setupMenuBindings(dk, clickEvt) {
+    var $menu = dk.$menu;
+
+    // Handle click events on the dropdown toggler
+    dk.$toggle().bind(clickEvt, function (e) {
+      _openMenu($menu);
+      e.preventDefault();
+      return false;
+    });
+
+    // Handle click events on individual dropdown options
+    dk.$options().bind(clickEvt, function (e) {
+      var $option = $(this);
+
+      _closeMenu($menu);
+      _updateFields($option, $menu);
+      _setCurrent($option.parent(), $menu.find('.dropkick_option_current'), $menu);
+
+      if (dk.settings.change) {
+        dk.settings.change.call($option, $option.attr('data-dk-menu-value'), $option.text());
+      }
+
+      e.preventDefault();
+      return false;
+    });
+
+    // Focus events
+    $menu.bind('focus.dropkick', function (e) {
+      $menu.addClass('dropkick_focus');
+    }).bind('blur.dropkick', function (e) {
+      $menu.removeClass('open dropkick_focus');
+    });
+
+  }
+
   function _handleKeyBoardNav(e, $menu) {
-    console.log('w');
     var code    = e.keyCode;
     var options = $menu.find('.dropkick_options');
     var current = options.find('.dropkick_option_current');
@@ -173,11 +200,13 @@
         } else {
           _setCurrent(last, current, $menu);
         }
+        e.preventDefault();
       break;
       case keyMap.down:
         if ($menu.hasClass('open')) {
           next = current.next('li');
           if (next.length) {
+            console.log(next);
             _setCurrent(next, current, $menu);
           } else {
             _setCurrent(first, current, $menu);
@@ -185,6 +214,8 @@
         } else {
           _openMenu($menu);
         }
+        console.log(e);
+        e.preventDefault();
       break;
       default:
       break;
@@ -196,15 +227,13 @@
 
     value = option.attr('data-dk-menu-value');
     label = option.text();
-    $list = $menu.data('dropkick').$list;
+    $select = $menu.data('dropkick').$select;
 
-    $list.val(value);
+    $select.val(value);
     $menu.find('.dropkick_label').text(label);
   }
 
   function _setCurrent(newOption, oldOption, $menu) {
-    var height;
-
     oldOption.removeClass('dropkick_option_current');
     newOption.addClass('dropkick_option_current');
 
@@ -213,48 +242,56 @@
 
   function _setScrollPos($menu, anchor) {
     var height = anchor.prevAll('li').outerHeight() * anchor.prevAll('li').length;
-
     $menu.find('.dropkick_options_inner').animate( { scrollTop: height + 'px' }, 0);
   }
 
   function _closeMenu($menu) {
-    $menu.removeClass('open focus');
-    $menu.data('dropkick').$list.focus();
+    $menu.removeClass('open');
   }
 
   function _openMenu($menu) {
-    $menu.addClass('open');
+    $menu.toggleClass('open');
     _setScrollPos($menu, $menu.find('.dropkick_option_current'));
   }
 
+  /**
+   * _build
+   *
+   * Turn our menuTemplate a jQuery object 
+   * and fill in the variables.
+   *
+   */
   function _build ( tpl, view ) {
-    if (Mustache) {
-      return $(Mustache.to_html(tpl, view));
-    } else {
-      var built = tpl, $built, options = [];
+    var
+      template  = tpl,             // Template for the dropdown
+      options   = [],              // Holder of the dropdowns options
+      $dropdown                    // This will be the built jquery object
+    ;
 
-      built = built.replace('{{ id }}', view.id);
-      built = built.replace('{{ label }}', view.label);
-      built = built.replace('{{ cid }}', view.cid);
+    template = template.replace('{{ id }}', view.id);
+    template = template.replace('{{ label }}', view.label);
+    template = template.replace('{{ tabindex }}', view.tabindex);
 
-      if (view.options && view.options.length) {
-        for (var i = 0, l = view.options.length; i < l; i++) {
-          var option = $(view.options[i]);
-          var optionTpl = '<li class="{{ current }}"><a data-dk-menu-value="{{ value }}">{{ text }}</a></li>';
-          var current   = 'dropkick_option_current';
+    if (view.options && view.options.length) {
+      for (var i = 0, l = view.options.length; i < l; i++) {
+        var
+          $option   = $(view.options[i]),
+          current   = 'dropkick_option_current',
+          oTemplate = optionTemplate
+        ;
 
-          optionTpl = optionTpl.replace('{{ value }}', option.val()).replace('{{ current }}', (_notBlank(option.val()) === view.value) ? current : '');
-          optionTpl = optionTpl.replace('{{ text }}', option.text());
+        oTemplate = oTemplate.replace('{{ value }}', $option.val());
+        oTemplate = oTemplate.replace('{{ current }}', (_notBlank($option.val()) === view.value) ? current : '');
+        oTemplate = oTemplate.replace('{{ text }}', $option.text());
 
-          options[options.length] = optionTpl;
-        }
+        options[options.length] = oTemplate;
       }
-
-      $built = $(built);
-
-      $built.find('.dropkick_options_inner').html(options.join(''));
-      return $built;
     }
+
+    $dropdown = $(template);
+    $dropdown.find('.dropkick_options_inner').html(options.join(''));
+
+    return $dropdown;
   }
 
   function _notBlank( text ) {
