@@ -224,6 +224,10 @@
     dkObj.$toggle.bind('click', function (e) {
       _openDropdown(dkObj);
 
+      if ("ontouchstart" in window) {
+        dkObj.$inner.addClass('scrollable vertical');
+      }
+
       e.preventDefault();
       return false;
     });

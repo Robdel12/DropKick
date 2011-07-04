@@ -117,7 +117,10 @@
     }
 
 .dk_options {
+  background-color: #fff;
   display: none;
+  max-height: 250px;
+  overflow: auto;
   margin-top: -1px;
   list-style: none;
   position: absolute;
@@ -166,11 +169,11 @@
   border-bottom-width: 2px;
   border-bottom-color: #999;
   color: #333;
-  max-height: 250px;
-  overflow: auto;
   position: relative;
   text-shadow: #fff 0 1px 0;
   border-radius: 0 0 5px 5px;
   -moz-border-radius: 0 0 5px 5px;
   -webkit-border-radius: 0 0 5px 5px;
+  -webkit-perspective: 1000;
+	-webkit-backface-visibility: hidden;
 }
