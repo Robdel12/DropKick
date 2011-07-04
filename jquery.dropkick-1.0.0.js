@@ -10,6 +10,9 @@
  */
 (function ($, window, document) {
 
+  // Help prevent flashes of unstyled content
+  document.documentElement.className = document.documentElement.className + ' dk_fouc';
+  
   var
     // Public methods exposed to $.fn.dropkick()
     methods = {},
@@ -44,7 +47,7 @@
 
     // Some nice default values
     defaults = {
-      startSpeed : 2000,  // I recommend a high value here, it makes the changes less noticeable to the user
+      startSpeed : 1000,  // I recommend a high value here, I feel it makes the changes less noticeable to the user
       theme  : false,
       change : false
     },
@@ -55,13 +58,12 @@
 
   // Called by using $('foo').dropkick();
   methods.init = function (settings) {
+    settings = $.extend({}, defaults, settings);
 
     if ($.browser.msie && $.browser.version.substr(0, 1) < 7) {
       alert('omg');
       return this;
     }
-
-    settings = $.extend({}, defaults, settings);
 
     // Setup keyboard navigation if it isn't already
     if (!keysBound) {
@@ -123,6 +125,7 @@
 
         // The completed dk_container element
         $dropdown = false,
+
         theme
       ;
 
