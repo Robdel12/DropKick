@@ -1,15 +1,14 @@
 DropKick
-========
+=
 Simple, Beautiful, Graceful. Dropdowns.
 -
-***
 
 Requirements:
 -
 DropKick requires the latest version of jQuery. jQuery 1.6.1 is included on this repository.
 
 How it works:
---
+-
 DropKick works by taking regular `<select>` lists and turning them into a customizable HTML dropdowns.
 
 
