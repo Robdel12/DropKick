@@ -3,15 +3,17 @@ DropKick
 Simple, Beautiful, Graceful. Dropdowns.
 --------
 ***
-How to use:
+
+Requirements:
 --------
+DropKick requires the latest version of jQuery. jQuery 1.6.1 is included on this repository.
 
-DropKick requires the latest version of jQuery and Mustache.js, both of which are included here. DropKick works by taking regular `<select>` lists and turning them into a customizable, more modern dropdown menu. Because of this, functionality is not impaired in any way if the user has Javascript disabled. Your forms and Ajax requests will continue working as normal with no changes necessary.
+How it works:
+--------
+DropKick works by taking regular `<select>` lists and turning them into a customizable HTML dropdowns.
 
-1. Include jquery.dropkick.min.js, jquery.-1.6.1.js, and mustache.js in your document.
-2. Create a `<select>` list in regular HTML. ID and name attributes are required.
-3. Add the following right before the closing `</body>` tag
 
-    `$(function () {`
-        `$('#id_of_your_select_list').dropkick();`
-    `});`
+Features:
+-------
+*Tabbing: set a `tabindex` attribute on your `<select>` elements and DropKick will enable tabbing.
+*Keyboard Navigation: Keyboard navigation in DropKick is very similar to native `<select>` navigation. While highlighted, pressing enter, up, or down on your keyboard will open the dropdown. While opened, pressing up or down will navigate through the options, and pressing enter will select the currently highlighted option.
