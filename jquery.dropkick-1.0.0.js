@@ -55,6 +55,12 @@
 
   // Called by using $('foo').dropkick();
   methods.init = function (settings) {
+
+    if ($.browser.msie && $.browser.version.substr(0, 1) < 7) {
+      alert('omg');
+      return this;
+    }
+
     settings = $.extend({}, defaults, settings);
 
     // Setup keyboard navigation if it isn't already
