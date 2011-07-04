@@ -39,7 +39,7 @@
    * Help: Arrow image not appearing
    * Try updating this property to your correct dk_arrows.png path
    */
-  background-image: url('/images/dk_arrows.png');
+  background-image: url('../images/dk_arrows.png');
   background-repeat: no-repeat;
   background-position: 90% center;
   border: 1px solid #ccc;
