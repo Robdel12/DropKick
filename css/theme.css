@@ -201,4 +201,8 @@
   visibility: hidden;
 }
 
+.dk_ie6 .dk_options {
+  right: 0;
+}
+
 /***** End Critical to the continued enjoyment of working dropdowns ******/

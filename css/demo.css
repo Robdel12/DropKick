@@ -79,13 +79,7 @@ body {
     zoom: 1; /* For IE 6/7 (trigger hasLayout) */
 }
 
-.section_left {
-  float: left;
-  padding-right: 10px;
-  width: 290px;
-}
-
-.section p {
+.part p {
   clear: left;
   margin-bottom: 1.5em;
 }
@@ -137,7 +131,7 @@ code {
   line-height: 30px;
 }
 
-.section {
+.part {
   border-bottom: 1px solid #ccc;
   margin: 0 auto 30px auto;
   padding:  0 0 10px;
@@ -154,10 +148,6 @@ code {
   .header h1 span {
     color: #556270;
   }
-
-.examples.section {
-  display: none;
-}
 
 ul {
   list-style: none;
@@ -222,7 +212,4 @@ h1 span {
 
 .dk_container {
   margin-right: 10px;
-}
-
-.content {
 }
