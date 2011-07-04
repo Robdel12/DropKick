@@ -1,7 +1,5 @@
 DropKick
 =
-Simple, Beautiful, Graceful. Dropdowns.
--
 
 Requirements:
 -
