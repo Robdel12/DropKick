@@ -10,11 +10,12 @@
  */
 (function ($, window, document) {
 
+  var ie6 = false;
+
   // Help prevent flashes of unstyled content
   if ($.browser.msie && $.browser.version.substr(0, 1) < 7) {
-    var ie6 = true;
+    ie6 = true;
   } else {
-    var ie6 = false;
     document.documentElement.className = document.documentElement.className + ' dk_fouc';
   }
   
@@ -45,7 +46,7 @@
           '</ul>',
         '</div>',
       '</div>'
-    ].join('');
+    ].join(''),
 
     // HTML template for dropdown options
     optionTemplate = '<li class="{{ current }}"><a data-dk-dropdown-value="{{ value }}">{{ text }}</a></li>',
@@ -156,14 +157,14 @@
     var
       $select   = $(this),
       list      = $select.data('dropkick'),
-      $dk       = list.$dk
+      $dk       = list.$dk,
       oldtheme  = 'dk_theme_' + list.theme
     ;
 
     $dk.removeClass(oldtheme).addClass('dk_theme_' + newTheme);
 
     list.theme = newTheme;
-  }
+  };
 
   // Reset all <selects and dropdowns in our lists array
   methods.reset = function () {
@@ -259,7 +260,7 @@
     label = option.text();
     data  = $dk.data('dropkick');
 
-    $select = data.$select
+    $select = data.$select;
     $select.val(value);
 
     $dk.find('.dk_label').text(label);
