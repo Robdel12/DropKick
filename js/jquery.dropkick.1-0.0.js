@@ -44,7 +44,7 @@
 
     // Some nice default values
     defaults = {
-      startSpeed : 2000,  // I recommend a high value here, it makes the changes less noticeable to the user
+      startSpeed : 1000,  // I recommend a high value here, I feel it makes the changes less noticeable to the user
       theme  : false,
       change : false
     },
@@ -117,6 +117,7 @@
 
         // The completed dk_container element
         $dropdown = false,
+
         theme
       ;
 
