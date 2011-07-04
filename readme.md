@@ -24,6 +24,14 @@ Features:
 
 * *Custom Callbacks*
 
+Compability:
+-
+DropKick was tested on Opera 10+, Google Chrome 10+, FireFox 5+, Safari 5+, and Internet Explorer 7 - 8. IE6 is not supported and will simply continue using your plain dropdowns instead.
+
+Known Issues:
+-
+* Opened DropKick menus on Internet Explorer 7 will be covered by other DropKick containers if they are vertically stacked and too close together.
+
 How to use:
 -
 Please see examples.html or [the DropKick homepage](http://jamielottering.github.com/DropKick/) for usage
