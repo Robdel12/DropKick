@@ -213,3 +213,8 @@ h1 span {
 .dk_container {
   margin-right: 10px;
 }
+
+.sharing li {
+  float: left;
+  margin-right: 10px;
+}
