@@ -151,3 +151,11 @@ ul {
   .dk_container {
     margin-right: 5px;
   }
+
+.download {
+  float: right;
+}
+
+hgroup {
+  float: left;
+}
