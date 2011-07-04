@@ -12,8 +12,6 @@
   margin-bottom: 20px;
   position: relative;
 }
-  .dk_container:focus {
-  }
  .dk_container a {
    cursor: pointer;
    text-decoration: none;

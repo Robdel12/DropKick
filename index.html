@@ -7,9 +7,7 @@
   <meta name="description" content="Use this page to get started.">
   <meta name="author" content="Jamie Lottering">
 
-  <link rel="stylesheet" href="css/dropkick.css">
-  <script src="jquery.1.6.1.js">("I suggest using the minified version")</script>
-  <script src="src/jquery.dropkick-1.0.0.js"></script>
+  <link rel="stylesheet" href="css/dropkick.min.css">
   <style type="text/css" media="screen">
     /* These styles are only used in this demo. You don't need them */
     * {
@@ -30,7 +28,7 @@
     }
     h4 {
       clear: both;
-      margin-bottom: 18px;
+      margin-bottom: 5px;
     }
 
     body {
@@ -43,7 +41,7 @@
 
     fieldset {
       border: none;
-      border-bottom: 1px dashed #004c72;
+      border-bottom: 1px solid #ccc;
       margin-bottom: 36px;
       padding-bottom: 36px;
     }
@@ -74,7 +72,8 @@
     #container {
       background-color: #fff;
       border-bottom: none;
-      padding: 18px 0 100px;
+      margin-bottom: -36px;
+      padding: 18px 0 0;
       position: relative;
     }
     .gist {
@@ -84,9 +83,10 @@
     .results {
       background-color: #efefef;
       border: 1px solid #ccc;
+      font-family: 'Monaco', 'Helvetica', Arial;
+      height: 50px;
       padding: 10px;
     }
-
     .dk_info {
       background: rgba(0, 0, 0, .5);
       border-right: 3px solid #333;
@@ -158,6 +158,13 @@
         text-decoration: none;
       }
   </style>
+
+  <script src="jquery.1.6.1.js"></script>
+  <script src="jquery.dropkick.min.js"></script>
+  <!-- Optional: Include scrollability.js to enable dropdown scrolling in touch devices -->
+  <script src="optional/scrollability.js" type="text/javascript"></script>
+
+
   <script type="text/javascript" charset="utf-8">
     $(function () {
       $('.default').dropkick();
@@ -269,7 +276,7 @@
             </div>
 
             <div class="section">
-              <h4>Results</h4>
+              <h4>POST Data:</h4>
               <div class="results"></div>
             </div>
             <div style="clear: both;"></div>
@@ -349,7 +356,7 @@
             </div>
 
             <div class="section">
-              <h4>Results</h4>
+              <h4>POST Data:</h4>
               <div class="results"></div>
             </div>
           </form>
@@ -373,6 +380,5 @@
       </div>
     </div>
   </div>
-  <script src="scrollability.js" type="text/javascript" charset="utf-8"></script>
 </body>
 </html>
