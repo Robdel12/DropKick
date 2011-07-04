@@ -8,7 +8,7 @@ DropKick requires the latest version of jQuery, available at jQuery.com. Other t
 
 How it works:
 -
-DropKick works by transforming your existing, boring <select> into beautiful, customizable HTML dropdowns. The name attribute is the only one that is required. You should also set a tabindex attribute to enable navigation via tabbing.
+DropKick works by transforming your existing, boring `<select>` lists into beautiful, customizable HTML dropdowns. The name attribute is the only one that is required. You should also set a tabindex attribute to enable navigation via tabbing.
 
 Features:
 -
