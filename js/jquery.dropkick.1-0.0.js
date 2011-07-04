@@ -10,6 +10,9 @@
  */
 (function ($, window, document) {
 
+  // Help prevent flashes of unstyled content
+  document.documentElement.className = document.documentElement.className + ' dk_fouc';
+  
   var
     // Public methods exposed to $.fn.dropkick()
     methods = {},

@@ -195,9 +195,10 @@
  * Help: I'm seeing a flash of unstyled content
  * Try applying this class to your <select> elements
  */
-select.dk {
+.dk_fouc select {
   position: relative;
   top: -99999em;
+  visibility: hidden;
 }
 
 /***** End Critical to the continued enjoyment of working dropdowns ******/

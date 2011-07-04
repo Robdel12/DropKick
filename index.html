@@ -73,11 +73,6 @@
   <script src="js/scrollability.js" type="text/javascript" charset="utf-8"></script>
   <script type="text/javascript" charset="utf-8">
     $(function () {
-
-      // I recommend adding 'dk' to your <select> classes
-      // Using this will automatically take advantage of a fix
-      // to help prevent flashes of unstyled content
-      // http://en.wikipedia.org/wiki/Flash_of_unstyled_content
       $('.pretty').dropkick();
 
       $('.black').dropkick({
@@ -114,12 +109,12 @@
     <div class="what_is_it section">
       <p class="bigintro">Creating custom dropdowns is usually a tedious process that requires a ton of extra setup time. Oftentimes lacking conveniences that native dropdowns have such as keyboard navigation. DropKick removes the tedium and lets you focus on making s@#t look good.</p>
       <p class="group">
-        <select name="try_me" class="pretty dk" tabindex="1">
+        <select name="try_me" class="pretty" tabindex="1">
           <option value="">Here is a demo</option>
           <option value="value">Check my source code!</option>
           <option value="test">Go ahead!</option>
         </select>
-        <select name="and_me" class="black dk" tabindex="2">
+        <select name="and_me" class="black" tabindex="2">
           <option value="">I'm a demo</option>
           <option value="he">He's a demo</option>
           <option value="she">She's a demo</option>
@@ -138,7 +133,7 @@
     </div>
     <div class="how_to_use section group">
         <h2>How to use</h2>
-        <p>DropKick works by transforming your existing, boring <code>&lt;select&gt;</code> into beautiful, customizable HTML dropdowns. The <code>name</code> attribute is the only one that is required. It is recommend that you add <code>dk</code> to your <code>&lt;select&gt;</code> classes in addition to any other class names. You should also set a tabindex attribute to enable navigation via tabbing.</p>
+        <p>DropKick works by transforming your existing, boring <code>&lt;select&gt;</code> into beautiful, customizable HTML dropdowns. The <code>name</code> attribute is the only one that is required. You should also set a tabindex attribute to enable navigation via tabbing.</p>
         <script src="https://gist.github.com/1062688.js?file=select.html"></script>
     </div>
 
@@ -148,7 +143,7 @@
       <div class="example">
         <fieldset>
           <form action="#" method="post" accept-charset="utf-8" class="example_form">
-            <select name="country" class="pretty dk" tabindex="2">
+            <select name="country" class="pretty" tabindex="2">
               <option value="">Try Me!</option>
               <option value="AU">Australia</option>
               <option value="CA">Canada</option>
@@ -157,7 +152,7 @@
               <option value="GB">United Kingdom</option>
               <option value="US">United States</option>
             </select>
-            <select name="state" class="pretty dk" tabindex="3">
+            <select name="state" class="pretty" tabindex="3">
               <option value="" selected="selected">Try Me, Too!</option>
               <option value="AL">Alabama</option>
               <option value="AK">Alaska</option>
@@ -221,7 +216,7 @@
       <div class="example">
         <fieldset>
           <form action="#" method="post" accept-charset="utf-8" class="example_form">
-            <select name="color" class="change dk" tabindex="4">
+            <select name="color" class="change" tabindex="4">
               <option value="">Please select a color</option>
               <option value="#0084c7">Blue</option>
               <option value="#E15A01">Orange</option>
@@ -236,7 +231,7 @@
       <div class="example">
         <fieldset>
           <form action="#" method="post" accept-charset="utf-8" class="example_form">
-            <select name="theme" class="custom_theme dk" tabindex="5">
+            <select name="theme" class="custom_theme" tabindex="5">
               <option value="">Pick a theme. Any theme</option>
               <option value="default">Default Theme</option>
               <option value="black" >Dark Gloss</option>
