@@ -225,6 +225,7 @@
       _openDropdown(dkObj);
 
       if ("ontouchstart" in window) {
+        dkObj.$dropdown.addClass('dk_touch');
         dkObj.$inner.addClass('scrollable vertical');
       }
 
