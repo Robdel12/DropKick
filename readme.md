@@ -19,3 +19,10 @@ Features:
    Keyboard navigation in DropKick is very similar to native `<select>` navigation.
    While highlighted, pressing enter, up, or down on your keyboard will open the dropdown.
    While opened, pressing up or down will navigate through the options, and pressing enter will select the currently highlighted option.
+
+* *Themeing:* 
+  DropKick was made to be easily theme-able and supports dynamic theme changing.
+
+How to use:
+-
+Please see [the DropKick homepage](http://dropkick.jamielottering.com/) for usage
