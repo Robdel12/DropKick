@@ -33,8 +33,8 @@
           '<span class="dk_label">{{ label }}</span>',
         '</a>',
         '<div class="dk_options">',
-          '<div class="dk_options_inner">',
-          '</div>',
+          '<ul class="dk_options_inner">',
+          '</ul>',
         '</div>',
       '</div>'
     ].join('');

@@ -1,0 +1,153 @@
+/* These styles are only used in this demo. You don't need them */
+* {
+  margin: 0;
+  padding: 0;
+}
+h1 {
+  color: #fff;
+  margin-bottom: 10px;
+  margin-top: 20px;
+  text-shadow: #004c72 1px 1px 0;
+}
+h2 {
+  color: rgba(255, 255, 255, .5);
+  font-weight: normal;
+  font-size: 18px;
+  margin-bottom: 18px;
+}
+h4 {
+  clear: both;
+  margin-bottom: 5px;
+}
+
+body {
+  background-color: #0084c7;
+  color: #333;
+  font-family: "Helvetica Neue", "Helvetica", Arial, sans-serif;
+  font-size: 100%;
+  line-height: 1;
+}
+
+fieldset {
+  border: none;
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 36px;
+  padding-bottom: 36px;
+}
+  fieldset form {
+    padding: 36px 18px 0;
+  }
+  fieldset .section {
+    margin-bottom: 18px;
+  }
+
+input {
+  clear: both;
+}
+
+legend {
+  color: #E15A01;
+  font-size: 18px;
+  font-weight: bold;
+  padding-left: 18px;
+}
+
+.wrapper {
+  margin: 0 auto;
+  width: 620px;
+}
+
+#container {
+  background-color: #fff;
+  border-bottom: none;
+  margin-bottom: -36px;
+  padding: 18px 0 0;
+  position: relative;
+}
+.gist {
+  font-size: 12px;
+  margin-top: 20px;
+}
+.results {
+  background-color: #efefef;
+  border: 1px solid #ccc;
+  font-family: 'Monaco', 'Helvetica', Arial;
+  height: 50px;
+  padding: 10px;
+}
+.dk_info {
+  background: rgba(0, 0, 0, .5);
+  border-right: 3px solid #333;
+  color: #fff;
+  font-size: 12px;
+  font-weight: bold;
+  left: -163px;
+  line-height: 18px;
+  padding: 20px 20px 0 20px;
+  position: absolute;
+  top: 20px;
+  width: 120px;
+  text-shadow: #333 0 1px 0;
+}
+  .dk_info a {
+    color: #fff;
+    font-size: 11px;
+    font-weight: normal;
+    text-decoration: underline;
+  }
+  .dk_info p a {
+    display: block;
+    margin-bottom: 18px;
+  }
+  .dk_info .compat {
+    margin-bottom: 18px;
+  }
+ul {
+  list-style: none;
+}
+.button {
+  background: -webkit-gradient(linear, left top, left bottom, from(#f8bb3d), to(#f89804));
+  background: -moz-linear-gradient(top, #f8bb3d, #f89804);
+  background: -o-linear-gradient(top, #f8bb3d, #f89804);
+  background-color: #f89804;
+  border: 1px solid #c57816;
+  border: none;
+  color: #4e3227!important;
+  cursor: pointer;
+  display: block;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: bold!important;
+  font-size: 12px;
+  margin-bottom: 18px;
+  letter-spacing: .01em;
+  overflow: visible;
+  padding: 7px 18px;
+  text-align: center;
+  text-decoration: none!important;
+  text-shadow: rgba(255, 255, 255, .3) 0 1px 0;
+  text-transform: uppercase;
+  width: auto;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  box-shadow: inset 1px 1px 0 rgba(255, 255, 255, .3), 0 2px 0 rgba(0, 0, 0, .2);
+  -moz-box-shadow: inset 1px 1px 0 rgba(255, 255, 255, .3), 0 2px 0 rgba(0, 0, 0, .2);
+  -webkit-box-shadow: inset 1px 1px 0 rgba(255, 255, 255, .3), 0 2px 0 rgba(0, 0, 0, .2);
+}
+  /* States */
+  .button:active,
+  .button.active {
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, .3);
+    -moz-box-shadow: inset 0 0 10px rgba(0, 0, 0, .3);
+    -webkit-box-shadow: inset 0 0 10px rgba(0, 0, 0, .3);
+  }
+  .button:hover,
+  .button.hover {
+    text-decoration: none;
+  }
+  select {
+    float: left;
+  }
+  .dk_container {
+    margin-right: 5px;
+  }
