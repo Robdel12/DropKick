@@ -81,13 +81,11 @@
   .dk_open .dk_toggle {
     background-color: #ececec;
     border-color: #8c8c8c;
+    color: #ccc;
     box-shadow: inset 0 -2px 5px #ccc;
     border-radius: 5px 5px 0 0;
     -moz-border-radius: 5px 5px 0 0;
     -webkit-border-radius: 5px 5px 0 0;
-  }
-  .dk_open .dk_label {
-    color: #ccc;
   }
 
 /* The outer container of the options */
@@ -99,9 +97,7 @@
   -moz-border-radius: 0 0 5px 5px;
   -webkit-border-radius: 0 0 5px 5px;
 }
-  .dk_options a,
-  .dk_options a:link,
-  .dk_options a:visited {
+  .dk_options a {
     background-color: #fff;
     border-bottom: 1px solid #999;
     font-weight: bold;
@@ -118,15 +114,9 @@
     text-decoration: none;
     text-shadow: rgba(0, 0, 0, .5) 0 1px 0;
   }
-  .dk_options a:active {
-    background-color: #333;
-    color: #fff;
-    text-shadow: rgba(0, 0, 0, 1) 0 -2px 0;
-  }
 
 /* Inner container for options, this is what makes the scrollbar possible. */
 .dk_options_inner {
-  background-color: #fff;
   border: 1px solid #8c8c8e;
   border-bottom-width: 2px;
   border-bottom-color: #999;
@@ -170,6 +160,9 @@
 }
   .dk_open .dk_options {
     display: block;
+  }
+  .dk_open .dk_label {
+    color: inherit;
   }
 
 .dk_options {
