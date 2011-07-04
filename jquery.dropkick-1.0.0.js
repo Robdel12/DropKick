@@ -11,7 +11,12 @@
 (function ($, window, document) {
 
   // Help prevent flashes of unstyled content
-  document.documentElement.className = document.documentElement.className + ' dk_fouc';
+  if ($.browser.msie && $.browser.version.substr(0, 1) < 7) {
+    var ie6 = true;
+  } else {
+    var ie6 = false;
+    document.documentElement.className = document.documentElement.className + ' dk_fouc';
+  }
   
   var
     // Public methods exposed to $.fn.dropkick()
@@ -59,11 +64,6 @@
   // Called by using $('foo').dropkick();
   methods.init = function (settings) {
     settings = $.extend({}, defaults, settings);
-
-    if ($.browser.msie && $.browser.version.substr(0, 1) < 7) {
-      alert('omg');
-      return this;
-    }
 
     // Setup keyboard navigation if it isn't already
     if (!keysBound) {
@@ -222,10 +222,12 @@
 
   // Expose the plugin
   $.fn.dropkick = function (method) {
-    if (methods[method]) {
-      return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
-    } else if (typeof method === 'object' || ! method) {
-      return methods.init.apply(this, arguments);
+    if (!ie6) {
+      if (methods[method]) {
+        return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
+      } else if (typeof method === 'object' || ! method) {
+        return methods.init.apply(this, arguments);
+      }
     }
   };
 

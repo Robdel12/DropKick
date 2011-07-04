@@ -39,7 +39,7 @@
    * Help: Arrow image not appearing
    * Try updating this property to your correct dk_arrows.png path
    */
-  background-image: url('../images/dk_arrows.png');
+  background-image: url('images/dk_arrows.png');
   background-repeat: no-repeat;
   background-position: 90% center;
   border: 1px solid #ccc;
@@ -191,13 +191,10 @@
   overflow: visible;
 }
 
-/**
- * Help: I'm seeing a flash of unstyled content
- * Try applying this class to your <select> elements
- */
-select.dk {
+.dk_fouc select {
   position: relative;
   top: -99999em;
+  visibility: hidden;
 }
 
 /***** End Critical to the continued enjoyment of working dropdowns ******/
