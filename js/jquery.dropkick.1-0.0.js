@@ -68,7 +68,6 @@
     // Setup keyboard navigation if it isn't already
     if (!keysBound) {
       $(document).bind('keydown.dk_nav', function (e) {
-        alert(e.keyCode);
         var
           // Look for an open dropdown...
           $open    = $('.dk_container.dk_open'),
