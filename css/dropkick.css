@@ -5,6 +5,7 @@
 
 /* Feel free to theme this yourself */
 .dk_container {
+  display: none;
   font-family: 'Helvetica', Arial, sans-serif;
   font-size: 12px;
   font-weight: bold;
@@ -183,3 +184,9 @@
   max-height: none;
   overflow: visible;
 }
+
+select.dk {
+  position: relative;
+  top: -99999px;
+}
+

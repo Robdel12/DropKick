@@ -43,9 +43,8 @@
     optionTemplate = '<li class="{{ current }}"><a data-dk-dropdown-value="{{ value }}">{{ text }}</a></li>',
 
     // Some nice default values
-
     defaults = {
-      width  : false,
+      startSpeed : 2000,  // I recommend a high value here, it makes the changes less noticeable to the user
       theme  : false,
       change : false
     },
@@ -144,16 +143,17 @@
       });
 
       // Hide the <select> list and place our new one in front of it
-      $select.hide().before($dropdown);
+      $select.before($dropdown);
 
       // Update the reference to $dropdown
-      $dropdown = $('#dk_container_' + id);
+      $dropdown = $('#dk_container_' + id).fadeIn(settings.startSpeed);
 
+      // Save the current theme
       theme = settings.theme ? settings.theme : 'default';
       $dropdown.addClass('dk_theme_' + theme);
       data.theme = theme;
 
-      // Save the updated $dropdown reference into our data
+      // Save the updated $dropdown reference into our data object
       data.$dropdown = $dropdown;
 
       // Save the dropkick data onto the <select> element
@@ -175,6 +175,10 @@
       lists[lists.length] = $select;
 
       _setupDropdownBindings($dropdown.data('dropkick'));
+
+      setTimeout(function () {
+        $select.hide();
+      }, 100);
     });
   };
 

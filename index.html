@@ -1,5 +1,5 @@
 <!doctype html>
-<html>
+<html class="fuck">
 <head>
   <meta charset="utf-8">
 
@@ -7,7 +7,7 @@
   <meta name="description" content="Use this page to get started.">
   <meta name="author" content="Jamie Lottering">
 
-  <link rel="stylesheet" href="css/dropkick.min.css">
+  <link rel="stylesheet" href="css/dropkick.css">
   <style type="text/css" media="screen">
     /* These styles are only used in this demo. You don't need them */
     * {
@@ -157,16 +157,22 @@
       .button.hover {
         text-decoration: none;
       }
+      select {
+        display: block;
+      }
   </style>
-
   <script src="jquery.1.6.1.js"></script>
-  <script src="jquery.dropkick.min.js"></script>
+  <script src="src/jquery.dropkick-1.0.0.js"></script>
   <!-- Optional: Include scrollability.js to enable dropdown scrolling in touch devices -->
   <script src="optional/scrollability.js" type="text/javascript"></script>
 
-
   <script type="text/javascript" charset="utf-8">
     $(function () {
+
+      // I recommend adding 'dk' to your <select> classes
+      // Using this will automatically take advantage of a fix
+      // to help prevent flashes of unstyled content
+      // http://en.wikipedia.org/wiki/Flash_of_unstyled_content
       $('.default').dropkick();
 
       $('.change').dropkick({
@@ -208,7 +214,7 @@
           <legend>Default options</legend>
           <form action="#" method="post" accept-charset="utf-8" class="example_form">
             <div class="section">
-              <select name="country" class="default" tabindex="1">
+              <select name="country" class="default dk" tabindex="1">
                 <option value="">Try Me!</option>
                 <option value="AU">Australia</option>
                 <option value="CA">Canada</option>
@@ -217,7 +223,7 @@
                 <option value="GB">United Kingdom</option>
                 <option value="US">United States</option>
               </select>
-              <select name="state" class="default" tabindex="2">
+              <select name="state" class="default dk" tabindex="2">
                 <option value="" selected="selected">Try Me, Too!</option>
                 <option value="AL">Alabama</option>
                 <option value="AK">Alaska</option>
@@ -288,7 +294,7 @@
           <legend>Specify callbacks for change events</legend>
           <form action="#" method="post" accept-charset="utf-8" class="example_form">
             <div class="section">
-              <select name="color" class="change" tabindex="4">
+              <select name="color" class="change dk" tabindex="4">
                 <option value="">Pick a color</option>
                 <option value="#0084c7">Blue</option>
                 <option value="#E15A01">Orange</option>
@@ -319,7 +325,7 @@
           </style>
           <form action="#" method="post" accept-charset="utf-8" class="example_form">
             <div class="section">
-              <select name="theme" class="custom_theme" tabindex="5">
+              <select name="theme" class="custom_theme dk" tabindex="5">
                 <option value="default">Select a theme</option>
                 <option value="default">Blue</option>
                 <option value="orange" selected="selected">Orange</option>
@@ -336,7 +342,7 @@
           <legend>DropKick plays nice with existing select elements</legend>
           <form action="#" method="post" accept-charset="utf-8" class="example_form">
             <div class="section">
-              <select name="bully" class="default" tabindex="6">
+              <select name="bully" class="default dk" tabindex="6">
                 <option value="">Choose a bully</option>
                 <option value="jimbo">Jimbo Jones</option>
                 <option value="nelson">Nelson Muntz</option>
