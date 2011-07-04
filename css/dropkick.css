@@ -11,25 +11,37 @@
 /***** Begin Theme, feel free to edit in here! ******/
 
 /* One container to bind them... */
-  .dk_container {
-    float: left;
-    font-family: 'Helvetica', Arial, sans-serif;
-    font-size: 12px;
-    font-weight: bold;
-    line-height: 14px;
-    margin-bottom: 18px;
-  }
-    .dk_container a {
-      cursor: pointer;
-      text-decoration: none;
-    }
-
-/* Opens the dropdown and holds the menu label */
-.dk_toggle {
+.dk_theme_default {
   background: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#f5f5f5));
   background: -moz-linear-gradient(top, #fff, #f5f5f5);
   background: -o-linear-gradient(top, #fff, #f5f5f5);
   background-color: #f5f5f5;
+  font-family: 'Helvetica', Arial, sans-serif;
+  font-size: 12px;
+  font-weight: bold;
+  line-height: 14px;
+  margin-bottom: 18px;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+}
+  .dk_container:focus {
+    outline: 0;
+  }
+  .dk_container a {
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+/* Opens the dropdown and holds the menu label */
+.dk_toggle {
+  /**
+   * Help: Arrow image not appearing
+   * Try updating this property to your correct dk_arrows.png path
+   */
+  background-image: url('../images/dk_arrows.png');
+  background-repeat: no-repeat;
+  background-position: 90% center;
   border: 1px solid #ccc;
   color: #333;
   padding: 7px 45px 7px 10px;
@@ -45,31 +57,38 @@
   .dk_toggle:hover {
     border-color: #8c8c8c;
   }
-  .dk_toggle:active {
-    box-shadow: inset rgba(0, 0, 0, .2) 0 0 10px;
-    -moz-box-shadow: inset rgba(0, 0, 0, .2) 0 0 10px;
-    -webkit-box-shadow: inset rgba(0, 0, 0, .2) 0 0 10px;
-  }
-  /* Applied when the dropdown is focused or openend */
+  /* Applied when the dropdown is focused */
   .dk_focus .dk_toggle {
     border-color: #40b5e2;
+  }
+  .dk_focus .dk_toggle {
     box-shadow: 0 0 5px #40b5e2;
     -moz-box-shadow: 0 0 5px #40b5e2;
     -webkit-box-shadow: 0 0 5px #40b5e2;
   }
 
-  .dk_open {
-    z-index: 10; /* You may need to make this higher if your dropdowns are covered by something else */
+/* Applied whenever the dropdown is open */
+.dk_open {
+  box-shadow: 0 0 5px #40b5e2;
+  -moz-box-shadow: 0 0 5px #40b5e2;
+  -webkit-box-shadow: 0 0 5px #40b5e2;
+  /**
+   * Help: Dropdown menu is covered by something
+   * Try setting this value higher
+   */
+  z-index: 10;
+}
+  .dk_open .dk_toggle {
+    background-color: #ececec;
+    border-color: #8c8c8c;
+    box-shadow: inset 0 -2px 5px #ccc;
+    border-radius: 5px 5px 0 0;
+    -moz-border-radius: 5px 5px 0 0;
+    -webkit-border-radius: 5px 5px 0 0;
   }
-    .dk_open .dk_toggle {
-      background: #ececec;
-      border-radius: 5px 5px 0 0;
-      -moz-border-radius: 5px 5px 0 0;
-      -webkit-border-radius: 5px 5px 0 0;
-    }
-    .dk_open .dk_label {
-      color: #ccc;
-    }
+  .dk_open .dk_label {
+    color: #ccc;
+  }
 
 /* The outer container of the options */
 .dk_options {
@@ -131,6 +150,7 @@
 
 .dk_container {
   display: none;
+  float: left;
   position: relative;
 }
   .dk_container a {
@@ -178,6 +198,10 @@
   overflow: visible;
 }
 
+/**
+ * Help: I'm seeing a flash of unstyled content
+ * Try applying this class to your <select> elements
+ */
 select.dk {
   position: relative;
   top: -99999em;

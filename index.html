@@ -22,7 +22,9 @@
       // Using this will automatically take advantage of a fix
       // to help prevent flashes of unstyled content
       // http://en.wikipedia.org/wiki/Flash_of_unstyled_content
-      $('.default').dropkick();
+      $('.default').dropkick({
+        startSpeed: 1000
+      });
 
       $('.change').dropkick({
         change: function (value, label) {
