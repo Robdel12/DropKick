@@ -154,6 +154,10 @@ code {
     color: #556270;
   }
 
+.examples.section {
+  display: none;
+}
+
 ul {
   list-style: none;
 }
