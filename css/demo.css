@@ -219,6 +219,9 @@ h1 span {
   margin-right: 10px;
 }
 
+.sharing {
+  float: left;
+}
 .sharing li {
   float: left;
   margin-right: 10px;
