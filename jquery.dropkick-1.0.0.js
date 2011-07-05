@@ -4,7 +4,7 @@
  * Highly customizable <select> lists
  * https://github.com/JamieLottering/DropKick
  *
- * © 2011 Jamie Lottering <http://github.com/JamieLottering>
+ * &copy; 2011 Jamie Lottering <http://github.com/JamieLottering>
  *                        <http://twitter.com/JamieLottering>
  * 
  */
