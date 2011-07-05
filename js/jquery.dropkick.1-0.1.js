@@ -53,7 +53,7 @@
 
     // Some nice default values
     defaults = {
-      startSpeed : 0,
+      startSpeed : 1000,
       theme      : false,
       change     : $.noop,
       onRender   : $.noop
