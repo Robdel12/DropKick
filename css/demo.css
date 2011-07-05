@@ -205,6 +205,11 @@ h2 {
   margin-bottom: 18px;
 }
 
+h3 {
+  color: #556270;
+  margin-bottom: 18px;
+}
+
 h1 span {
   display: block;
   font-size: 16px;
@@ -217,4 +222,21 @@ h1 span {
 .sharing li {
   float: left;
   margin-right: 10px;
+}
+
+.example {
+  background-color: #fff;
+}
+
+input {
+  clear: both;
+  margin-bottom: 10px;
+}
+
+.results {
+  clear: both;
+  height: 18px;
+  line-height: 18px;
+  display: block;
+  margin: 5px 0;
 }
