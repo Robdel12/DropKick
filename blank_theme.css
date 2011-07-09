@@ -13,6 +13,7 @@
 
 /* Toggle */
 .dk_mytheme .dk_toggle {}
+	.dk_mytheme .dk_toggle:after {}
   .dk_mytheme .dk_toggle:hover {}
 
 /* Focus State */
