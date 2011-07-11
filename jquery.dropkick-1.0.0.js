@@ -197,58 +197,91 @@
   // private
   function _handleKeyBoardNav(e, $dk) {
     var
-      code     = e.keyCode,
-      data     = $dk.data('dropkick'),
-      options  = $dk.find('.dk_options'),
-      open     = $dk.hasClass('dk_open'),
-      current  = $dk.find('.dk_option_current'),
-      first    = options.find('li').first(),
-      last     = options.find('li').last(),
-      next,
-      prev
+    code     = e.keyCode,
+    data     = $dk.data('dropkick'),
+    options  = $dk.find('.dk_options'),
+    letter   = String.fromCharCode(code),
+    open     = $dk.hasClass('dk_open'),
+    lis	     = options.find('li'),
+    current  = $dk.find('.dk_option_current'),
+    first    = lis.first(),
+    last     = lis.last(),
+    next,
+    prev
     ;
 
     switch (code) {
       case keyMap.enter:
-        if (open) {
-          _updateFields(current.find('a'), $dk);
-          _closeDropdown($dk);
-        } else {
-          _openDropdown($dk);
-        }
-        e.preventDefault();
+      if (open) {
+        _updateFields(current.find('a'), $dk);
+        _closeDropdown($dk);
+      } else {
+        _openDropdown($dk);
+      }
+      e.preventDefault();
       break;
 
       case keyMap.up:
-        prev = current.prev('li');
-        if (open) {
-          if (prev.length) {
-            _setCurrent(prev, $dk);
-          } else {
-            _setCurrent(last, $dk);
-          }
+      prev = current.prev('li');
+      if (open) {
+        if (prev.length) {
+          _setCurrent(prev, $dk);
         } else {
-          _openDropdown($dk);
+          _setCurrent(last, $dk);
         }
-        e.preventDefault();
+      } else {
+        _openDropdown($dk);
+      }
+      e.preventDefault();
       break;
 
       case keyMap.down:
-        if (open) {
-          next = current.next('li').first();
-          if (next.length) {
-            _setCurrent(next, $dk);
-          } else {
-            _setCurrent(first, $dk);
-          }
+      if (open) {
+        next = current.next('li').first();
+        if (next.length) {
+          _setCurrent(next, $dk);
         } else {
-          _openDropdown($dk);
+          _setCurrent(first, $dk);
         }
-        e.preventDefault();
+      } else {
+        _openDropdown($dk);
+      }
+      e.preventDefault();
       break;
 
       default:
       break;
+    }
+    
+    //if typing a letter
+    if (code > 47 && code < 91) {
+      //update data
+      var now = new Date().getTime();
+      if (data.finder == null) {
+        data.finder = letter.toUpperCase();
+        data.timer = now;
+
+      }else {
+        if (now > parseInt(data.timer) + 1000) {
+          data.finder = letter.toUpperCase();
+          data.timer =  now;
+        } else {
+          data.finder = data.finder + letter.toUpperCase();
+          data.timer = now;
+        }
+      }
+      //find and switch to the appropriate option
+      var list = lis.find('a');
+      for(var i = 0, len = list.length; i<len; i++){
+        var $a = $(list[i]);
+        if ($a.html().toUpperCase().indexOf(data.finder) == 0) {
+          _updateFields($a, $dk);
+          _setCurrent($a.parent(), $dk);
+          break;
+        }
+      }
+      $dk.data('dropkick', data);
+
     }
   }
 
