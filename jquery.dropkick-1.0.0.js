@@ -32,7 +32,9 @@
       'up'    : 38,
       'right' : 39,
       'down'  : 40,
-      'enter' : 13
+      'enter' : 13,
+      'zero'	: 48,
+      'z'     : 90
     },
 
     // HTML template for the dropdowns
@@ -197,56 +199,56 @@
   // private
   function _handleKeyBoardNav(e, $dk) {
     var
-    code     = e.keyCode,
-    data     = $dk.data('dropkick'),
-    options  = $dk.find('.dk_options'),
-    letter   = String.fromCharCode(code),
-    open     = $dk.hasClass('dk_open'),
-    lis	     = options.find('li'),
-    current  = $dk.find('.dk_option_current'),
-    first    = lis.first(),
-    last     = lis.last(),
-    next,
-    prev
+      code     = e.keyCode,
+      data     = $dk.data('dropkick'),
+      options  = $dk.find('.dk_options'),
+      letter   = String.fromCharCode(code),
+      open     = $dk.hasClass('dk_open'),
+      lis	     = options.find('li'),
+      current  = $dk.find('.dk_option_current'),
+      first    = lis.first(),
+      last     = lis.last(),
+      next,
+      prev
     ;
 
     switch (code) {
       case keyMap.enter:
-      if (open) {
-        _updateFields(current.find('a'), $dk);
-        _closeDropdown($dk);
-      } else {
-        _openDropdown($dk);
-      }
-      e.preventDefault();
+        if (open) {
+          _updateFields(current.find('a'), $dk);
+          _closeDropdown($dk);
+        } else {
+          _openDropdown($dk);
+        }
+        e.preventDefault();
       break;
 
       case keyMap.up:
-      prev = current.prev('li');
-      if (open) {
-        if (prev.length) {
-          _setCurrent(prev, $dk);
+        prev = current.prev('li');
+        if (open) {
+          if (prev.length) {
+            _setCurrent(prev, $dk);
+          } else {
+            _setCurrent(last, $dk);
+          }
         } else {
-          _setCurrent(last, $dk);
+          _openDropdown($dk);
         }
-      } else {
-        _openDropdown($dk);
-      }
-      e.preventDefault();
+        e.preventDefault();
       break;
 
       case keyMap.down:
-      if (open) {
-        next = current.next('li').first();
-        if (next.length) {
-          _setCurrent(next, $dk);
+        if (open) {
+          next = current.next('li').first();
+          if (next.length) {
+            _setCurrent(next, $dk);
+          } else {
+            _setCurrent(first, $dk);
+          }
         } else {
-          _setCurrent(first, $dk);
+          _openDropdown($dk);
         }
-      } else {
-        _openDropdown($dk);
-      }
-      e.preventDefault();
+        e.preventDefault();
       break;
 
       default:
@@ -254,7 +256,7 @@
     }
     
     //if typing a letter
-    if (code > 47 && code < 91) {
+    if (code >= keyMap.zero && code <= keyMap.z) {
       //update data
       var now = new Date().getTime();
       if (data.finder == null) {
@@ -272,9 +274,9 @@
       }
       //find and switch to the appropriate option
       var list = lis.find('a');
-      for(var i = 0, len = list.length; i<len; i++){
+      for(var i = 0, len = list.length; i < len; i++){
         var $a = $(list[i]);
-        if ($a.html().toUpperCase().indexOf(data.finder) == 0) {
+        if ($a.html().toUpperCase().indexOf(data.finder) === 0) {
           _updateFields($a, $dk);
           _setCurrent($a.parent(), $dk);
           break;
