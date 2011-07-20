@@ -83,6 +83,12 @@
         }
       });
 
+      $('.existing_event').dropkick({
+        change: function () {
+          $(this).change();
+        }
+      });
+
       $('.custom_theme').dropkick({
         theme: 'black',
         change: function (value, label) {
@@ -171,6 +177,17 @@
               <option value="WI">Wisconsin</option>
               <option value="WY">Wyoming</option>
             </select>
+
+            <select name="country" class="existing_event" tabindex="4" onchange="alert('hi, from ' + this.value)">
+              <option value="">Try Me!</option>
+              <option value="AU">Australia</option>
+              <option value="CA">Canada</option>
+              <option value="DE">Germany</option>
+              <option value="JP">Japan</option>
+              <option value="GB">United Kingdom</option>
+              <option value="US">United States</option>
+            </select>
+
             <p><script src="https://gist.github.com/1062688.js?file=dropkick_example_default.js"></script></p>
           </form>
         </fieldset>
