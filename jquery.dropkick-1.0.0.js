@@ -353,7 +353,6 @@
         $dk.find('.dk_options_inner').addClass('scrollable vertical');
       }
 
-      e.preventDefault();
       return false;
     });
 
@@ -369,7 +368,6 @@
       _updateFields($option, $dk);
       _setCurrent($option.parent(), $dk);
     
-      e.preventDefault();
       return false;
     });
 
