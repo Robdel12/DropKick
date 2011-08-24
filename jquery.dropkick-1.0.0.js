@@ -12,16 +12,8 @@
 /*globals jQuery */
 (function ($, window, document) {
 
-  var ie6 = false;
-
-  // Help prevent flashes of unstyled content
-  if ($.browser.msie && $.browser.version.substr(0, 1) < 7) {
-    ie6 = true;
-  } else {
-    document.documentElement.className = document.documentElement.className + ' dk_fouc';
-  }
+  var ie6 = $.browser.msie && $.browser.version.substr(0, 1) < 7,
   
-  var
     // Public methods exposed to $.fn.dropkick()
     methods = {},
 
@@ -63,6 +55,11 @@
     // Make sure we only bind keydown on the document once
     keysBound = false
   ;
+  
+  // Help prevent flashes of unstyled content
+  if (!ie6) {
+    document.documentElement.className = document.documentElement.className + ' dk_fouc';
+  }
 
   // Called by using $('foo').dropkick();
   methods.init = function (settings) {
@@ -170,12 +167,17 @@
 
   // Reset all <selects and dropdowns in our lists array
   methods.reset = function () {
-    for (var i = 0, l = lists.length; i < l; i++) {
       var
-        listData  = lists[i].data('dropkick'),
-        $dk       = listData.$dk,
-        $current  = $dk.find('li').first()
+        i,
+        l,
+        listData,
+        $dk,
+        $current
       ;
+    for (i = 0, l = lists.length; i < l; i++) {
+      listData  = lists[i].data('dropkick');
+      $dk       = listData.$dk;
+      $current  = $dk.find('li').first();
 
       $dk.find('.dk_label').text(listData.label);
       $dk.find('.dk_options_inner').animate({ scrollTop: 0 }, 0);
@@ -303,13 +305,18 @@
   /**
    * Turn the dropdownTemplate into a jQuery object and fill in the variables.
    */
-  function _build (tpl, view) {
+  function _build(tpl, view) {
     var
       // Template for the dropdown
       template  = tpl,
       // Holder of the dropdowns options
       options   = [],
-      $dk
+      $dk,
+      i,
+      l,
+      $option,
+      current,
+      oTemplate
     ;
 
     template = template.replace('{{ id }}', view.id);
@@ -317,12 +324,10 @@
     template = template.replace('{{ tabindex }}', view.tabindex);
 
     if (view.options && view.options.length) {
-      for (var i = 0, l = view.options.length; i < l; i++) {
-        var
-          $option   = $(view.options[i]),
-          current   = 'dk_option_current',
-          oTemplate = optionTemplate
-        ;
+      for (i = 0, l = view.options.length; i < l; i++) {
+        $option   = $(view.options[i]);
+        current   = 'dk_option_current';
+        oTemplate = optionTemplate;
 
         oTemplate = oTemplate.replace('{{ value }}', $option.val());
         oTemplate = oTemplate.replace('{{ current }}', (_notBlank($option.val()) === view.value) ? current : '');
