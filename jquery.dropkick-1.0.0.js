@@ -9,6 +9,7 @@
  * 
  */
 /*jshint white: false, undef: false */
+/*globals jQuery */
 (function ($, window, document) {
 
   var ie6 = false;
