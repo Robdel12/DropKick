@@ -234,7 +234,7 @@
         width  = settings.width || $select.outerWidth(),
 
         // Check if we have a tabindex set or not
-        tabindex  = $select.attr('tabindex') ? $select.attr('tabindex') : '',
+        tabindex  = $select.attr('tabindex') || '',
 
         // The completed dk_container element
         $dk = false,
@@ -271,7 +271,7 @@
       $dk = $('#dk_container_' + id).fadeIn(settings.startSpeed);
 
       // Save the current theme
-      theme = settings.theme ? settings.theme : 'default';
+      theme = settings.theme || 'default';
       $dk.addClass('dk_theme_' + theme);
       data.theme = theme;
 
