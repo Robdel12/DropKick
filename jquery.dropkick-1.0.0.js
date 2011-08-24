@@ -53,9 +53,6 @@
       theme  : false,
       change : false
     },
-
-    // Make sure we only bind keydown on the document once
-    keysBound = false,
     
     // start private function declarations
     // Update the <select> value, and the dropdown label
@@ -85,7 +82,6 @@
 
     // Open a dropdown
     _openDropdown = function ($dk) {
-      var data = $dk.data('dropkick');
       $dk.find('.dk_options').css({ top : $dk.find('.dk_toggle').outerHeight() - 1 });
       $dk.toggleClass('dk_open');
     },
@@ -106,7 +102,6 @@
     _handleKeyBoardNav = function (e, $dk) {
       var
         code     = e.keyCode,
-        data     = $dk.data('dropkick'),
         options  = $dk.find('.dk_options'),
         open     = $dk.hasClass('dk_open'),
         current  = $dk.find('.dk_option_current'),
@@ -287,9 +282,9 @@
       lists[lists.length] = $select;
 
       // Focus events
-      $dk.bind('focus.dropkick', function (e) {
+      $dk.bind('focus.dropkick', function () {
         $dk.addClass('dk_focus');
-      }).bind('blur.dropkick', function (e) {
+      }).bind('blur.dropkick', function () {
         $dk.removeClass('dk_open dk_focus');
       });
 
@@ -367,8 +362,7 @@
     $('.dk_options a').live(($.browser.msie ? 'mousedown' : 'click'), function (e) {
       var
         $option = $(this),
-        $dk     = $option.parents('.dk_container').first(),
-        data    = $dk.data('dropkick')
+        $dk     = $option.parents('.dk_container').first()
       ;
     
       _closeDropdown($dk);
