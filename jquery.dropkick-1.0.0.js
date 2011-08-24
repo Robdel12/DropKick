@@ -8,7 +8,8 @@
  *                        <http://twitter.com/JamieLottering>
  * 
  */
-/*jshint indent: 2, strict: true */
+/*jslint indent: 2, strict: true, nomen: true, browser: true, white: true, plusplus: true */
+/*jshint indent: 2, strict: true, nomen: false, browser: true */
 /*globals jQuery */
 (function ($, window, document) {
   'use strict';
