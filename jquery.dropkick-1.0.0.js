@@ -251,7 +251,7 @@
 
   // Update the <select> value, and the dropdown label
   function _updateFields(option, $dk, reset) {
-    var value, label, data;
+    var value, label, data, $select;
 
     value = option.attr('data-dk-dropdown-value');
     label = option.text();
