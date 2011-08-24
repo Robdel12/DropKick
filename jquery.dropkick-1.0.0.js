@@ -94,7 +94,7 @@
 
       // Dont do anything if we've already setup dropkick on this element
       if (data.id) {
-        return $select;
+        return;
       } else {
         data.settings  = settings;
         data.tabindex  = tabindex;
