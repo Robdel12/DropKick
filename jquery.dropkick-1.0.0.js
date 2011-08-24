@@ -11,7 +11,7 @@
 /*jshint indent: 2 */
 /*globals jQuery */
 (function ($, window, document) {
-
+ 
   var ie6 = $.browser.msie && $.browser.version.substr(0, 1) < 7,
   
     // Public methods exposed to $.fn.dropkick()
@@ -55,7 +55,52 @@
     // Make sure we only bind keydown on the document once
     keysBound = false,
     
-    // private functions
+    // start private function declarations
+    // Update the <select> value, and the dropdown label
+    _updateFields = function (option, $dk, reset) {
+      var value, label, data;
+
+      value = option.attr('data-dk-dropdown-value');
+      label = option.text();
+      data  = $dk.data('dropkick');
+
+      $select = data.$select;
+      $select.val(value);
+
+      $dk.find('.dk_label').text(label);
+
+      reset = reset || false;
+
+      if (data.settings.change && !reset) {
+        data.settings.change.call($select, value, label);
+      }
+    },
+
+    // Close a dropdown
+    _closeDropdown = function ($dk) {
+      $dk.removeClass('dk_open');
+    },
+
+    // Open a dropdown
+    _openDropdown = function ($dk) {
+      var data = $dk.data('dropkick');
+      $dk.find('.dk_options').css({ top : $dk.find('.dk_toggle').outerHeight() - 1 });
+      $dk.toggleClass('dk_open');
+    },
+
+    _setScrollPos = function ($dk, anchor) {
+      var height = anchor.prevAll('li').outerHeight() * anchor.prevAll('li').length;
+      $dk.find('.dk_options_inner').animate({ scrollTop: height + 'px' }, 0);
+    },
+
+    // Set the currently selected option
+    _setCurrent = function ($current, $dk) {
+      $dk.find('.dk_option_current').removeClass('dk_option_current');
+      $current.addClass('dk_option_current');
+
+      _setScrollPos($dk, $current);
+    },
+    
     _handleKeyBoardNav = function (e, $dk) {
       var
         code     = e.keyCode,
@@ -112,51 +157,9 @@
         break;
       }
     },
-    
-    // Update the <select> value, and the dropdown label
-    _updateFields = function (option, $dk, reset) {
-      var value, label, data;
 
-      value = option.attr('data-dk-dropdown-value');
-      label = option.text();
-      data  = $dk.data('dropkick');
-
-      $select = data.$select;
-      $select.val(value);
-
-      $dk.find('.dk_label').text(label);
-
-      reset = reset || false;
-
-      if (data.settings.change && !reset) {
-        data.settings.change.call($select, value, label);
-      }
-    },
-
-    // Set the currently selected option
-    _setCurrent = function ($current, $dk) {
-      $dk.find('.dk_option_current').removeClass('dk_option_current');
-      $current.addClass('dk_option_current');
-
-      _setScrollPos($dk, $current);
-    },
-
-    _setScrollPos = function ($dk, anchor) {
-      var height = anchor.prevAll('li').outerHeight() * anchor.prevAll('li').length;
-      $dk.find('.dk_options_inner').animate({ scrollTop: height + 'px' }, 0);
-    },
-
-    // Close a dropdown
-    _closeDropdown = function ($dk) {
-      $dk.removeClass('dk_open');
-    },
-
-    // Open a dropdown
-    _openDropdown = function ($dk) {
-      var data = $dk.data('dropkick');
-      $dk.find('.dk_options').css({ top : $dk.find('.dk_toggle').outerHeight() - 1 });
-      $dk.toggleClass('dk_open');
-
+    _notBlank = function (text) {
+      return ($.trim(text).length > 0) ? text : false;
     },
 
     // Turn the dropdownTemplate into a jQuery object and fill in the variables.
@@ -196,10 +199,6 @@
       $dk.find('.dk_options_inner').html(options.join(''));
 
       return $dk;
-    },
-
-    _notBlank = function (text) {
-      return ($.trim(text).length > 0) ? text : false;
     }
   ;
   
