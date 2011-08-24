@@ -87,7 +87,7 @@
         tabindex  = $select.attr('tabindex') ? $select.attr('tabindex') : '',
 
         // The completed dk_container element
-        $dk = false,
+        $dk,
 
         theme
       ;
