@@ -56,10 +56,7 @@
       startSpeed : 1000,  // I recommend a high value here, I feel it makes the changes less noticeable to the user
       theme  : false,
       change : false
-    },
-
-    // Make sure we only bind keydown on the document once
-    keysBound = false
+    }
   ;
 
   // Called by using $('foo').dropkick();
@@ -140,9 +137,9 @@
       lists[lists.length] = $select;
 
       // Focus events
-      $dk.bind('focus.dropkick', function (e) {
+      $dk.bind('focus.dropkick', function () {
         $dk.addClass('dk_focus');
-      }).bind('blur.dropkick', function (e) {
+      }).bind('blur.dropkick', function () {
         $dk.removeClass('dk_open dk_focus');
       });
 
@@ -192,13 +189,13 @@
         return methods.init.apply(this, arguments);
       }
     }
+    return this;
   };
 
   // private
   function _handleKeyBoardNav(e, $dk) {
     var
       code     = e.keyCode,
-      data     = $dk.data('dropkick'),
       options  = $dk.find('.dk_options'),
       open     = $dk.hasClass('dk_open'),
       current  = $dk.find('.dk_option_current'),
@@ -292,10 +289,8 @@
 
   // Open a dropdown
   function _openDropdown($dk) {
-    var data = $dk.data('dropkick');
     $dk.find('.dk_options').css({ top : $dk.find('.dk_toggle').outerHeight() - 1 });
     $dk.toggleClass('dk_open');
-
   }
 
   /**
@@ -361,8 +356,7 @@
     $('.dk_options a').live(($.browser.msie ? 'mousedown' : 'click'), function (e) {
       var
         $option = $(this),
-        $dk     = $option.parents('.dk_container').first(),
-        data    = $dk.data('dropkick')
+        $dk     = $option.parents('.dk_container').first()
       ;
     
       _closeDropdown($dk);
