@@ -8,10 +8,11 @@
  *                        <http://twitter.com/JamieLottering>
  * 
  */
-/*jshint indent: 2 */
+/*jshint indent: 2, strict: true */
 /*globals jQuery */
 (function ($, window, document) {
- 
+  'use strict';
+  
   var ie6 = $.browser.msie && $.browser.version.substr(0, 1) < 7,
   
     // Public methods exposed to $.fn.dropkick()
