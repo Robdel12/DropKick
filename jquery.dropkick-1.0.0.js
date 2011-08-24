@@ -8,7 +8,7 @@
  *                        <http://twitter.com/JamieLottering>
  * 
  */
-/*jshint white: false, undef: false */
+/*jshint indent: 2, undef: false */
 /*globals jQuery */
 (function ($, window, document) {
 
@@ -32,13 +32,13 @@
     // HTML template for the dropdowns
     dropdownTemplate = [
       '<div class="dk_container" id="dk_container_{{ id }}" tabindex="{{ tabindex }}">',
-        '<a class="dk_toggle">',
-          '<span class="dk_label">{{ label }}</span>',
-        '</a>',
-        '<div class="dk_options">',
-          '<ul class="dk_options_inner">',
-          '</ul>',
-        '</div>',
+      '  <a class="dk_toggle">',
+      '    <span class="dk_label">{{ label }}</span>',
+      '  </a>',
+      '  <div class="dk_options">',
+      '    <ul class="dk_options_inner">',
+      '    </ul>',
+      '  </div>',
       '</div>'
     ].join(''),
 
@@ -174,18 +174,18 @@
         $dk,
         $current
       ;
-    for (i = 0, l = lists.length; i < l; i++) {
-      listData  = lists[i].data('dropkick');
-      $dk       = listData.$dk;
-      $current  = $dk.find('li').first();
+      for (i = 0, l = lists.length; i < l; i++) {
+        listData  = lists[i].data('dropkick');
+        $dk       = listData.$dk;
+        $current  = $dk.find('li').first();
 
-      $dk.find('.dk_label').text(listData.label);
-      $dk.find('.dk_options_inner').animate({ scrollTop: 0 }, 0);
+        $dk.find('.dk_label').text(listData.label);
+        $dk.find('.dk_options_inner').animate({ scrollTop: 0 }, 0);
 
-      _setCurrent($current, $dk);
-      _updateFields($current, $dk, true);
-    }
-  };
+        _setCurrent($current, $dk);
+        _updateFields($current, $dk, true);
+      }
+    };
 
   // Expose the plugin
   $.fn.dropkick = function (method) {
@@ -213,45 +213,45 @@
     ;
 
     switch (code) {
-      case keyMap.enter:
-        if (open) {
-          _updateFields(current.find('a'), $dk);
-          _closeDropdown($dk);
-        } else {
-          _openDropdown($dk);
-        }
-        e.preventDefault();
+    case keyMap.enter:
+      if (open) {
+        _updateFields(current.find('a'), $dk);
+        _closeDropdown($dk);
+      } else {
+        _openDropdown($dk);
+      }
+      e.preventDefault();
       break;
 
-      case keyMap.up:
-        prev = current.prev('li');
-        if (open) {
-          if (prev.length) {
-            _setCurrent(prev, $dk);
-          } else {
-            _setCurrent(last, $dk);
-          }
+    case keyMap.up:
+      prev = current.prev('li');
+      if (open) {
+        if (prev.length) {
+          _setCurrent(prev, $dk);
         } else {
-          _openDropdown($dk);
+          _setCurrent(last, $dk);
         }
-        e.preventDefault();
+      } else {
+        _openDropdown($dk);
+      }
+      e.preventDefault();
       break;
 
-      case keyMap.down:
-        if (open) {
-          next = current.next('li').first();
-          if (next.length) {
-            _setCurrent(next, $dk);
-          } else {
-            _setCurrent(first, $dk);
-          }
+    case keyMap.down:
+      if (open) {
+        next = current.next('li').first();
+        if (next.length) {
+          _setCurrent(next, $dk);
         } else {
-          _openDropdown($dk);
+          _setCurrent(first, $dk);
         }
-        e.preventDefault();
+      } else {
+        _openDropdown($dk);
+      }
+      e.preventDefault();
       break;
 
-      default:
+    default:
       break;
     }
   }
