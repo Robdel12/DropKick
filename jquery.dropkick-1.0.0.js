@@ -8,7 +8,7 @@
  *                        <http://twitter.com/JamieLottering>
  * 
  */
-/*jshint indent: 2, undef: false */
+/*jshint indent: 2 */
 /*globals jQuery */
 (function ($, window, document) {
 
@@ -53,7 +53,154 @@
     },
 
     // Make sure we only bind keydown on the document once
-    keysBound = false
+    keysBound = false,
+    
+    // private functions
+    _handleKeyBoardNav = function (e, $dk) {
+      var
+        code     = e.keyCode,
+        data     = $dk.data('dropkick'),
+        options  = $dk.find('.dk_options'),
+        open     = $dk.hasClass('dk_open'),
+        current  = $dk.find('.dk_option_current'),
+        first    = options.find('li').first(),
+        last     = options.find('li').last(),
+        next,
+        prev
+      ;
+
+      switch (code) {
+      case keyMap.enter:
+        if (open) {
+          _updateFields(current.find('a'), $dk);
+          _closeDropdown($dk);
+        } else {
+          _openDropdown($dk);
+        }
+        e.preventDefault();
+        break;
+
+      case keyMap.up:
+        prev = current.prev('li');
+        if (open) {
+          if (prev.length) {
+            _setCurrent(prev, $dk);
+          } else {
+            _setCurrent(last, $dk);
+          }
+        } else {
+          _openDropdown($dk);
+        }
+        e.preventDefault();
+        break;
+
+      case keyMap.down:
+        if (open) {
+          next = current.next('li').first();
+          if (next.length) {
+            _setCurrent(next, $dk);
+          } else {
+            _setCurrent(first, $dk);
+          }
+        } else {
+          _openDropdown($dk);
+        }
+        e.preventDefault();
+        break;
+
+      default:
+        break;
+      }
+    },
+    
+    // Update the <select> value, and the dropdown label
+    _updateFields = function (option, $dk, reset) {
+      var value, label, data;
+
+      value = option.attr('data-dk-dropdown-value');
+      label = option.text();
+      data  = $dk.data('dropkick');
+
+      $select = data.$select;
+      $select.val(value);
+
+      $dk.find('.dk_label').text(label);
+
+      reset = reset || false;
+
+      if (data.settings.change && !reset) {
+        data.settings.change.call($select, value, label);
+      }
+    },
+
+    // Set the currently selected option
+    _setCurrent = function ($current, $dk) {
+      $dk.find('.dk_option_current').removeClass('dk_option_current');
+      $current.addClass('dk_option_current');
+
+      _setScrollPos($dk, $current);
+    },
+
+    _setScrollPos = function ($dk, anchor) {
+      var height = anchor.prevAll('li').outerHeight() * anchor.prevAll('li').length;
+      $dk.find('.dk_options_inner').animate({ scrollTop: height + 'px' }, 0);
+    },
+
+    // Close a dropdown
+    _closeDropdown = function ($dk) {
+      $dk.removeClass('dk_open');
+    },
+
+    // Open a dropdown
+    _openDropdown = function ($dk) {
+      var data = $dk.data('dropkick');
+      $dk.find('.dk_options').css({ top : $dk.find('.dk_toggle').outerHeight() - 1 });
+      $dk.toggleClass('dk_open');
+
+    },
+
+    // Turn the dropdownTemplate into a jQuery object and fill in the variables.
+    _build = function (tpl, view) {
+      var
+        // Template for the dropdown
+        template  = tpl,
+        // Holder of the dropdowns options
+        options   = [],
+        $dk,
+        i,
+        l,
+        $option,
+        current,
+        oTemplate
+      ;
+
+      template = template.replace('{{ id }}', view.id);
+      template = template.replace('{{ label }}', view.label);
+      template = template.replace('{{ tabindex }}', view.tabindex);
+
+      if (view.options && view.options.length) {
+        for (i = 0, l = view.options.length; i < l; i++) {
+          $option   = $(view.options[i]);
+          current   = 'dk_option_current';
+          oTemplate = optionTemplate;
+
+          oTemplate = oTemplate.replace('{{ value }}', $option.val());
+          oTemplate = oTemplate.replace('{{ current }}', (_notBlank($option.val()) === view.value) ? current : '');
+          oTemplate = oTemplate.replace('{{ text }}', $option.text());
+
+          options[options.length] = oTemplate;
+        }
+      }
+
+      $dk = $(template);
+      $dk.find('.dk_options_inner').html(options.join(''));
+
+      return $dk;
+    },
+
+    _notBlank = function (text) {
+      return ($.trim(text).length > 0) ? text : false;
+    }
   ;
   
   // Help prevent flashes of unstyled content
@@ -197,155 +344,6 @@
       }
     }
   };
-
-  // private
-  function _handleKeyBoardNav(e, $dk) {
-    var
-      code     = e.keyCode,
-      data     = $dk.data('dropkick'),
-      options  = $dk.find('.dk_options'),
-      open     = $dk.hasClass('dk_open'),
-      current  = $dk.find('.dk_option_current'),
-      first    = options.find('li').first(),
-      last     = options.find('li').last(),
-      next,
-      prev
-    ;
-
-    switch (code) {
-    case keyMap.enter:
-      if (open) {
-        _updateFields(current.find('a'), $dk);
-        _closeDropdown($dk);
-      } else {
-        _openDropdown($dk);
-      }
-      e.preventDefault();
-      break;
-
-    case keyMap.up:
-      prev = current.prev('li');
-      if (open) {
-        if (prev.length) {
-          _setCurrent(prev, $dk);
-        } else {
-          _setCurrent(last, $dk);
-        }
-      } else {
-        _openDropdown($dk);
-      }
-      e.preventDefault();
-      break;
-
-    case keyMap.down:
-      if (open) {
-        next = current.next('li').first();
-        if (next.length) {
-          _setCurrent(next, $dk);
-        } else {
-          _setCurrent(first, $dk);
-        }
-      } else {
-        _openDropdown($dk);
-      }
-      e.preventDefault();
-      break;
-
-    default:
-      break;
-    }
-  }
-
-  // Update the <select> value, and the dropdown label
-  function _updateFields(option, $dk, reset) {
-    var value, label, data;
-
-    value = option.attr('data-dk-dropdown-value');
-    label = option.text();
-    data  = $dk.data('dropkick');
-
-    $select = data.$select;
-    $select.val(value);
-
-    $dk.find('.dk_label').text(label);
-
-    reset = reset || false;
-
-    if (data.settings.change && !reset) {
-      data.settings.change.call($select, value, label);
-    }
-  }
-
-  // Set the currently selected option
-  function _setCurrent($current, $dk) {
-    $dk.find('.dk_option_current').removeClass('dk_option_current');
-    $current.addClass('dk_option_current');
-
-    _setScrollPos($dk, $current);
-  }
-
-  function _setScrollPos($dk, anchor) {
-    var height = anchor.prevAll('li').outerHeight() * anchor.prevAll('li').length;
-    $dk.find('.dk_options_inner').animate({ scrollTop: height + 'px' }, 0);
-  }
-
-  // Close a dropdown
-  function _closeDropdown($dk) {
-    $dk.removeClass('dk_open');
-  }
-
-  // Open a dropdown
-  function _openDropdown($dk) {
-    var data = $dk.data('dropkick');
-    $dk.find('.dk_options').css({ top : $dk.find('.dk_toggle').outerHeight() - 1 });
-    $dk.toggleClass('dk_open');
-
-  }
-
-  /**
-   * Turn the dropdownTemplate into a jQuery object and fill in the variables.
-   */
-  function _build(tpl, view) {
-    var
-      // Template for the dropdown
-      template  = tpl,
-      // Holder of the dropdowns options
-      options   = [],
-      $dk,
-      i,
-      l,
-      $option,
-      current,
-      oTemplate
-    ;
-
-    template = template.replace('{{ id }}', view.id);
-    template = template.replace('{{ label }}', view.label);
-    template = template.replace('{{ tabindex }}', view.tabindex);
-
-    if (view.options && view.options.length) {
-      for (i = 0, l = view.options.length; i < l; i++) {
-        $option   = $(view.options[i]);
-        current   = 'dk_option_current';
-        oTemplate = optionTemplate;
-
-        oTemplate = oTemplate.replace('{{ value }}', $option.val());
-        oTemplate = oTemplate.replace('{{ current }}', (_notBlank($option.val()) === view.value) ? current : '');
-        oTemplate = oTemplate.replace('{{ text }}', $option.text());
-
-        options[options.length] = oTemplate;
-      }
-    }
-
-    $dk = $(template);
-    $dk.find('.dk_options_inner').html(options.join(''));
-
-    return $dk;
-  }
-
-  function _notBlank(text) {
-    return ($.trim(text).length > 0) ? text : false;
-  }
 
   $(function () {
 
