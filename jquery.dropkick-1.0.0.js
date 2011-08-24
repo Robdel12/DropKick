@@ -8,6 +8,7 @@
  *                        <http://twitter.com/JamieLottering>
  * 
  */
+/*jshint white: false, undef: false */
 (function ($, window, document) {
 
   var ie6 = false;
