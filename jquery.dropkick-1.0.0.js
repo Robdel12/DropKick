@@ -55,7 +55,9 @@
     defaults = {
       startSpeed : 1000,  // I recommend a high value here, I feel it makes the changes less noticeable to the user
       theme  : false,
-      change : false
+      change : false,
+      reverseSync: false
+
     },
 
     // Make sure we only bind keydown on the document once
@@ -145,6 +147,14 @@
       }).bind('blur.dropkick', function (e) {
         $dk.removeClass('dk_open dk_focus');
       });
+
+      // Sync to change events on the original <select> if requested
+      if (data.settings.reverseSync) {
+        $select.bind('change', function(e){
+          var $dkopt = $(':[data-dk-dropdown-value="'+$select.val()+'"]', $dk);
+          _updateFields($dkopt, $dk, true);
+        });
+      }
 
       setTimeout(function () {
         $select.hide();
