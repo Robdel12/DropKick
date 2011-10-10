@@ -1,3 +1,16 @@
+Why this fork?
+=
+The creator [Jamie Lottering](http://twitter.com/jamielottering) has been pretty busy. This fork is to integrate additional bug fixes and even enhancements into the project that he began.
+
+Bug Fixes
+-
+* Allows selects with the same name to exist on the page
+* Only selects with a specific class `.dk_fouc` will be hidden off the page. This way you can dropkick specific selects leaving other selects untouched.
+
+Planned Future Additions
+-
+* Add multi-select capability as inline checkboxes.
+
 DropKick
 =
 Creating custom dropdowns is usually a tedious process that requires a ton of extra setup time. Oftentimes lacking conveniences that native dropdowns have such as keyboard navigation. DropKick removes the tedium and lets you focus on making s@#t look good.
