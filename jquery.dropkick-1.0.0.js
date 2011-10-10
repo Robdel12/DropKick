@@ -81,7 +81,7 @@
         data = $select.data('dropkick') || {},
 
         // This gets applied to the 'dk_container' element
-        id = $select.attr('id') || $select.attr('name'),
+        id = $select.attr('id') || lists.length,
 
         // This gets updated to be equal to the longest <option> element
         width  = settings.width || $select.outerWidth(),
@@ -96,7 +96,7 @@
       ;
 
       // Dont do anything if we've already setup dropkick on this element
-      if (data.id) {
+      if (data.loaded) {
         return $select;
       } else {
         data.settings  = settings;
@@ -107,6 +107,7 @@
         data.value     = _notBlank($select.val()) || _notBlank($original.attr('value'));
         data.label     = $original.text();
         data.options   = $options;
+		data.loaded    = true;
       }
 
       // Build the dropdown HTML
@@ -121,8 +122,8 @@
       $select.before($dk);
 
       // Update the reference to $dk
-      $dk = $('#dk_container_' + id).fadeIn(settings.startSpeed);
-
+	  $dk = $dk.fadeIn(settings.startSpeed);
+	  
       // Save the current theme
       theme = settings.theme ? settings.theme : 'default';
       $dk.addClass('dk_theme_' + theme);
