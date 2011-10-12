@@ -113,7 +113,7 @@
       $dk = _build(dropdownTemplate, data);
 
       // Make the dropdown fixed width if desired
-      $dk.find('.dk_toggle').css({
+      $dk.css({
         'width' : width + 'px'
       });
 
