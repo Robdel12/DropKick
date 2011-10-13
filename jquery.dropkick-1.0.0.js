@@ -37,7 +37,7 @@
 
     // HTML template for the dropdowns
     dropdownTemplate = [
-      '<div class="dk_container" id="dk_container_{{ id }}" tabindex="{{ tabindex }}">',
+      '<div class="dk_container {{ classes }}" id="dk_container_{{ id }}" tabindex="{{ tabindex }}">',
         '<a class="dk_toggle">',
           '<span class="dk_label">{{ label }}</span>',
         '</a>',
@@ -70,6 +70,8 @@
       var
         // The current <select> element
         $select = $(this),
+
+				$classes = $select.attr('class'),
 
         // Store a reference to the originally selected <option> element
         $original = $select.find(':selected').first(),
@@ -104,6 +106,7 @@
         data.id        = id;
         data.$original = $original;
         data.$select   = $select;
+				data.$classes  = $classes;
         data.value     = _notBlank($select.val()) || _notBlank($original.attr('value'));
         data.label     = $original.text();
         data.options   = $options;
@@ -311,6 +314,7 @@
     ;
 
     template = template.replace('{{ id }}', view.id);
+		template = template.replace('{{ classes }}', view.$classes);
     template = template.replace('{{ label }}', view.label);
     template = template.replace('{{ tabindex }}', view.tabindex);
 
