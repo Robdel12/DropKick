@@ -139,12 +139,21 @@
 
       lists[lists.length] = $select;
 
-      // Focus events
-      $dk.bind('focus.dropkick', function (e) {
-        $dk.addClass('dk_focus');
-      }).bind('blur.dropkick', function (e) {
-        $dk.removeClass('dk_open dk_focus');
-      });
+      // Fix identified in issue #11.
+      if(!$.browser.msie) {
+        // Focus events
+        $dk.bind('focus.dropkick', function (e) {
+          $dk.addClass('dk_focus');
+        }).bind('blur.dropkick', function (e) {
+          $dk.removeClass('dk_open dk_focus');
+        });
+      } else {
+        $('body').click(function(event) {
+          if(!$(event.target).parents('.dk_container').length) {
+            _closeDropdown($dk);
+          }
+        });
+      }
 
       setTimeout(function () {
         $select.hide();
