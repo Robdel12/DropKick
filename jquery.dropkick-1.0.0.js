@@ -152,6 +152,10 @@
       setTimeout(function () {
         $select.hide();
       }, 0);
+
+      $dk.closest('form').bind('reset', function(){
+        $dk.dropkick('reset');
+      });
     });
   };
 
