@@ -142,6 +142,11 @@
       $dk.bind('focus.dropkick', function (e) {
         $dk.addClass('dk_focus');
       }).bind('blur.dropkick', function (e) {
+		/*** IE moves focus from the .dk_container to .dk_options on scroll bar click ***/
+		if ($(document.activeElement).closest($dk).length > 0) {
+			$dk.focus();
+			return false;
+		}
         $dk.removeClass('dk_open dk_focus');
       });
 

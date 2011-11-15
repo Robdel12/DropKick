@@ -6,6 +6,7 @@ Bug Fixes
 -
 * Allows selects with the same name to exist on the page
 * Only selects with a specific class `.dk_fouc` will be hidden off the page. This way you can dropkick specific selects leaving other selects untouched.
+* IE8 - IE9 clicking scroll bar no longer causes dropdown to lose focus.
 
 Planned Future Additions
 -
