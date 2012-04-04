@@ -290,10 +290,23 @@
     $dk.removeClass('dk_open');
   }
 
+  // Report whether there is enough space in the window to drop down.
+  function _enoughSpaceBelow($dk) {
+    var
+      $dk_toggle = $dk.find('.dk_toggle'),
+      optionsHeight = $dk.find('.dk_options').outerHeight(),
+      spaceBelow = $(window).height() - $dk_toggle.outerHeight() - $dk_toggle.offset().top
+    ;
+    return optionsHeight < spaceBelow;
+  }
+
   // Open a dropdown
   function _openDropdown($dk) {
     var data = $dk.data('dropkick');
-    $dk.find('.dk_options').css({ top : $dk.find('.dk_toggle').outerHeight() - 1 });
+    $dk.find('.dk_options').css({
+      top : _enoughSpaceBelow($dk) ? $dk.find('.dk_toggle').outerHeight() - 1 : '',
+      bottom : _enoughSpaceBelow($dk) ? '' : $dk.find('.dk_toggle').outerHeight() - 1
+    });
     $dk.toggleClass('dk_open');
 
   }
