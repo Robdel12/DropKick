@@ -49,7 +49,7 @@
     ].join(''),
 
     // HTML template for dropdown options
-    optionTemplate = '<li class="{{ current }}"><a data-dk-dropdown-value="{{ value }}">{{ text }}</a></li>',
+    optionTemplate = '<li class="{{ current }} {{ currentclass }}"><a data-dk-dropdown-value="{{ value }}">{{ text }}</a></li>',
 
     // Some nice default values
     defaults = {
@@ -67,6 +67,10 @@
     settings = $.extend({}, defaults, settings);
 
     return this.each(function () {
+		if( !$(this).attr('id') ) {
+			var nm = $(this).attr('name').replace( new RegExp( "(\\W)+", "gi" ), "_" ).toLowerCase();
+			$(this).attr('id', nm );
+		}
       var
         // The current <select> element
         $select = $(this),
@@ -295,7 +299,6 @@
     var data = $dk.data('dropkick');
     $dk.find('.dk_options').css({ top : $dk.find('.dk_toggle').outerHeight() - 1 });
     $dk.toggleClass('dk_open');
-
   }
 
   /**
@@ -324,6 +327,7 @@
 
         oTemplate = oTemplate.replace('{{ value }}', $option.val());
         oTemplate = oTemplate.replace('{{ current }}', (_notBlank($option.val()) === view.value) ? current : '');
+        oTemplate = oTemplate.replace('{{ currentclass }}', $option.attr('disabled') || '' ); 
         oTemplate = oTemplate.replace('{{ text }}', $option.text());
 
         options[options.length] = oTemplate;
@@ -364,11 +368,13 @@
         $dk     = $option.parents('.dk_container').first(),
         data    = $dk.data('dropkick')
       ;
-    
-      _closeDropdown($dk);
-      _updateFields($option, $dk);
-      _setCurrent($option.parent(), $dk);
-    
+
+      if( !$option.parent().hasClass('disabled') ) {
+	      _closeDropdown($dk);
+	      _updateFields($option, $dk);
+	      _setCurrent($option.parent(), $dk);
+      }
+
       e.preventDefault();
       return false;
     });
