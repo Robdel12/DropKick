@@ -2,6 +2,13 @@ Why this fork?
 =
 The creator [Jamie Lottering](http://twitter.com/jamielottering) has been pretty busy. This fork is to integrate additional bug fixes and even enhancements into the project that he began.
 
+New Features
+-
+The following features, developed by [Curt Kirkhoff](https://github.com/kirkhoff), enhance the key nav on select boxes, mimicking the default select box behavior. Below is a list of new behaviors:
+* Type in one letter repeatedly to cycle through options that start with that letter.
+* Type in a string of letters (within 500ms) to perform a filter/query on the options.
+* 'Space' bar now has the same functionality as 'enter' (it will select an option that is highlighted).
+
 Bug Fixes
 -
 * Allows selects with the same name to exist on the page
