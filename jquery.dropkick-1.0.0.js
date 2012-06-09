@@ -183,6 +183,18 @@
     }
   };
 
+  // Redraw the selected dropkick to reflect changes on <select>
+  methods.redraw = function () {
+    var
+      $select   = $(this)
+      $dk       = $select.data('dropkick').$dk
+    ;
+
+    $select.removeData('dropkick');
+    $dk.remove();
+    $select.dropkick();
+  };
+
   // Expose the plugin
   $.fn.dropkick = function (method) {
     if (!ie6) {
