@@ -32,7 +32,9 @@
       'up'    : 38,
       'right' : 39,
       'down'  : 40,
-      'enter' : 13
+      'enter' : 13,
+      'zero'	: 48,
+      'z'     : 90
     },
 
     // HTML template for the dropdowns
@@ -200,10 +202,12 @@
       code     = e.keyCode,
       data     = $dk.data('dropkick'),
       options  = $dk.find('.dk_options'),
+      letter   = String.fromCharCode(code),
       open     = $dk.hasClass('dk_open'),
+      lis	     = options.find('li'),
       current  = $dk.find('.dk_option_current'),
-      first    = options.find('li').first(),
-      last     = options.find('li').last(),
+      first    = lis.first(),
+      last     = lis.last(),
       next,
       prev
     ;
@@ -249,6 +253,37 @@
 
       default:
       break;
+    }
+    
+    //if typing a letter
+    if (code >= keyMap.zero && code <= keyMap.z) {
+      //update data
+      var now = new Date().getTime();
+      if (data.finder == null) {
+        data.finder = letter.toUpperCase();
+        data.timer = now;
+
+      }else {
+        if (now > parseInt(data.timer) + 1000) {
+          data.finder = letter.toUpperCase();
+          data.timer =  now;
+        } else {
+          data.finder = data.finder + letter.toUpperCase();
+          data.timer = now;
+        }
+      }
+      //find and switch to the appropriate option
+      var list = lis.find('a');
+      for(var i = 0, len = list.length; i < len; i++){
+        var $a = $(list[i]);
+        if ($a.html().toUpperCase().indexOf(data.finder) === 0) {
+          _updateFields($a, $dk);
+          _setCurrent($a.parent(), $dk);
+          break;
+        }
+      }
+      $dk.data('dropkick', data);
+
     }
   }
 
