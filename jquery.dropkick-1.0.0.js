@@ -182,6 +182,11 @@
       _updateFields($current, $dk, true);
     }
   };
+  
+  // Close the dropdown manually
+  methods.close = function() {
+    _closeDropdown($(this).data('dropkick').$dk);
+  }
 
   // Expose the plugin
   $.fn.dropkick = function (method) {
