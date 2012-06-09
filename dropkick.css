@@ -39,9 +39,6 @@
    * Help: Arrow image not appearing
    * Try updating this property to your correct dk_arrows.png path
    */
-  background-image: url('images/dk_arrows.png');
-  background-repeat: no-repeat;
-  background-position: 90% center;
   border: 1px solid #ccc;
   color: #333;
   padding: 7px 45px 7px 10px;
@@ -54,6 +51,19 @@
   -o-transition: border-color .5s;
   transition: border-color .5s;
 }
+	/* Fixed position arrows */
+	.dk_toggle:after{
+		display: block;
+		position: absolute;
+		background-image: url('images/dk_arrows.png');
+	  background-repeat: no-repeat;
+	  background-position: center center;
+		content: "";
+		height:100%;
+		width:25px;
+		right:0px;
+		top:0px;
+	}
   .dk_toggle:hover {
     border-color: #8c8c8c;
   }
