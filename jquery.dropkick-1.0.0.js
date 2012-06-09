@@ -8,18 +8,14 @@
  *                        <http://twitter.com/JamieLottering>
  * 
  */
+/*jslint indent: 2, strict: true, browser: true, white: true, plusplus: true */
+/*jshint indent: 2, strict: true, browser: true, plusplus: false */
+/*globals jQuery */
 (function ($, window, document) {
-
-  var ie6 = false;
-
-  // Help prevent flashes of unstyled content
-  if ($.browser.msie && $.browser.version.substr(0, 1) < 7) {
-    ie6 = true;
-  } else {
-    document.documentElement.className = document.documentElement.className + ' dk_fouc';
-  }
+  'use strict';
   
-  var
+  var ie6 = $.browser.msie && $.browser.version.substr(0, 1) < 7,
+  
     // Public methods exposed to $.fn.dropkick()
     methods = {},
 
@@ -38,13 +34,13 @@
     // HTML template for the dropdowns
     dropdownTemplate = [
       '<div class="dk_container" id="dk_container_{{ id }}" tabindex="{{ tabindex }}">',
-        '<a class="dk_toggle">',
-          '<span class="dk_label">{{ label }}</span>',
-        '</a>',
-        '<div class="dk_options">',
-          '<ul class="dk_options_inner">',
-          '</ul>',
-        '</div>',
+      '  <a class="dk_toggle">',
+      '    <span class="dk_label">{{ label }}</span>',
+      '  </a>',
+      '  <div class="dk_options">',
+      '    <ul class="dk_options_inner">',
+      '    </ul>',
+      '  </div>',
       '</div>'
     ].join(''),
 
@@ -57,10 +53,156 @@
       theme  : false,
       change : false
     },
+    
+    // start private function declarations
+    // Update the <select> value, and the dropdown label
+    updateFields = function (option, $dk, reset) {
+      var value, label, data, $select;
 
-    // Make sure we only bind keydown on the document once
-    keysBound = false
+      value = option.attr('data-dk-dropdown-value');
+      label = option.text();
+      data  = $dk.data('dropkick');
+
+      $select = data.$select;
+      $select.val(value);
+
+      $dk.find('.dk_label').text(label);
+
+      reset = reset || false;
+
+      if (data.settings.change && !reset) {
+        data.settings.change.call($select, value, label);
+      }
+    },
+
+    // Close a dropdown
+    closeDropdown = function ($dk) {
+      $dk.removeClass('dk_open');
+    },
+
+    // Open a dropdown
+    openDropdown = function ($dk) {
+      $dk.find('.dk_options').css({ top : $dk.find('.dk_toggle').outerHeight() - 1 });
+      $dk.toggleClass('dk_open');
+    },
+
+    setScrollPos = function ($dk, anchor) {
+      var height = anchor.prevAll('li').outerHeight() * anchor.prevAll('li').length;
+      $dk.find('.dk_options_inner').animate({ scrollTop: height + 'px' }, 0);
+    },
+
+    // Set the currently selected option
+    setCurrent = function ($current, $dk) {
+      $dk.find('.dk_option_current').removeClass('dk_option_current');
+      $current.addClass('dk_option_current');
+
+      setScrollPos($dk, $current);
+    },
+    
+    handleKeyBoardNav = function (e, $dk) {
+      var
+        code     = e.keyCode,
+        options  = $dk.find('.dk_options'),
+        open     = $dk.hasClass('dk_open'),
+        current  = $dk.find('.dk_option_current'),
+        first    = options.find('li').first(),
+        last     = options.find('li').last(),
+        next,
+        prev
+      ;
+
+      switch (code) {
+      case keyMap.enter:
+        if (open) {
+          updateFields(current.find('a'), $dk);
+          closeDropdown($dk);
+        } else {
+          openDropdown($dk);
+        }
+        e.preventDefault();
+        break;
+
+      case keyMap.up:
+        prev = current.prev('li');
+        if (open) {
+          if (prev.length) {
+            setCurrent(prev, $dk);
+          } else {
+            setCurrent(last, $dk);
+          }
+        } else {
+          openDropdown($dk);
+        }
+        e.preventDefault();
+        break;
+
+      case keyMap.down:
+        if (open) {
+          next = current.next('li').first();
+          if (next.length) {
+            setCurrent(next, $dk);
+          } else {
+            setCurrent(first, $dk);
+          }
+        } else {
+          openDropdown($dk);
+        }
+        e.preventDefault();
+        break;
+
+      default:
+        break;
+      }
+    },
+
+    notBlank = function (text) {
+      return ($.trim(text).length > 0) ? text : false;
+    },
+
+    // Turn the dropdownTemplate into a jQuery object and fill in the variables.
+    build = function (tpl, view) {
+      var
+        // Template for the dropdown
+        template  = tpl,
+        // Holder of the dropdowns options
+        options   = [],
+        $dk,
+        i,
+        l,
+        $option,
+        current,
+        oTemplate
+      ;
+
+      template = template.replace('{{ id }}', view.id);
+      template = template.replace('{{ label }}', view.label);
+      template = template.replace('{{ tabindex }}', view.tabindex);
+
+      if (view.options && view.options.length) {
+        for (i = 0, l = view.options.length; i < l; i++) {
+          $option   = $(view.options[i]);
+          current   = 'dk_option_current';
+          oTemplate = optionTemplate;
+
+          oTemplate = oTemplate.replace('{{ value }}', $option.val());
+          oTemplate = oTemplate.replace('{{ current }}', (notBlank($option.val()) === view.value) ? current : '');
+          oTemplate = oTemplate.replace('{{ text }}', $option.text());
+
+          options[options.length] = oTemplate;
+        }
+      }
+
+      $dk = $(template);
+      $dk.find('.dk_options_inner').html(options.join(''));
+
+      return $dk;
+    }
   ;
+  
+  // Help prevent flashes of unstyled content
+  if (!ie6) {
+    document.documentElement.className = document.documentElement.className + ' dk_fouc';
+  }
 
   // Called by using $('foo').dropkick();
   methods.init = function (settings) {
@@ -87,7 +229,7 @@
         width  = settings.width || $select.outerWidth(),
 
         // Check if we have a tabindex set or not
-        tabindex  = $select.attr('tabindex') ? $select.attr('tabindex') : '',
+        tabindex  = $select.attr('tabindex') || '',
 
         // The completed dk_container element
         $dk = false,
@@ -104,13 +246,13 @@
         data.id        = id;
         data.$original = $original;
         data.$select   = $select;
-        data.value     = _notBlank($select.val()) || _notBlank($original.attr('value'));
+        data.value     = notBlank($select.val()) || notBlank($original.attr('value'));
         data.label     = $original.text();
         data.options   = $options;
       }
 
       // Build the dropdown HTML
-      $dk = _build(dropdownTemplate, data);
+      $dk = build(dropdownTemplate, data);
 
       // Make the dropdown fixed width if desired
       $dk.find('.dk_toggle').css({
@@ -124,7 +266,7 @@
       $dk = $('#dk_container_' + id).fadeIn(settings.startSpeed);
 
       // Save the current theme
-      theme = settings.theme ? settings.theme : 'default';
+      theme = settings.theme || 'default';
       $dk.addClass('dk_theme_' + theme);
       data.theme = theme;
 
@@ -140,9 +282,9 @@
       lists[lists.length] = $select;
 
       // Focus events
-      $dk.bind('focus.dropkick', function (e) {
+      $dk.bind('focus.dropkick', function () {
         $dk.addClass('dk_focus');
-      }).bind('blur.dropkick', function (e) {
+      }).bind('blur.dropkick', function () {
         $dk.removeClass('dk_open dk_focus');
       });
 
@@ -168,20 +310,25 @@
 
   // Reset all <selects and dropdowns in our lists array
   methods.reset = function () {
-    for (var i = 0, l = lists.length; i < l; i++) {
       var
-        listData  = lists[i].data('dropkick'),
-        $dk       = listData.$dk,
-        $current  = $dk.find('li').first()
+        i,
+        l,
+        listData,
+        $dk,
+        $current
       ;
+      for (i = 0, l = lists.length; i < l; i++) {
+        listData  = lists[i].data('dropkick');
+        $dk       = listData.$dk;
+        $current  = $dk.find('li').first();
 
-      $dk.find('.dk_label').text(listData.label);
-      $dk.find('.dk_options_inner').animate({ scrollTop: 0 }, 0);
+        $dk.find('.dk_label').text(listData.label);
+        $dk.find('.dk_options_inner').animate({ scrollTop: 0 }, 0);
 
-      _setCurrent($current, $dk);
-      _updateFields($current, $dk, true);
-    }
-  };
+        setCurrent($current, $dk);
+        updateFields($current, $dk, true);
+      }
+    };
 
   // Expose the plugin
   $.fn.dropkick = function (method) {
@@ -194,161 +341,15 @@
     }
   };
 
-  // private
-  function _handleKeyBoardNav(e, $dk) {
-    var
-      code     = e.keyCode,
-      data     = $dk.data('dropkick'),
-      options  = $dk.find('.dk_options'),
-      open     = $dk.hasClass('dk_open'),
-      current  = $dk.find('.dk_option_current'),
-      first    = options.find('li').first(),
-      last     = options.find('li').last(),
-      next,
-      prev
-    ;
-
-    switch (code) {
-      case keyMap.enter:
-        if (open) {
-          _updateFields(current.find('a'), $dk);
-          _closeDropdown($dk);
-        } else {
-          _openDropdown($dk);
-        }
-        e.preventDefault();
-      break;
-
-      case keyMap.up:
-        prev = current.prev('li');
-        if (open) {
-          if (prev.length) {
-            _setCurrent(prev, $dk);
-          } else {
-            _setCurrent(last, $dk);
-          }
-        } else {
-          _openDropdown($dk);
-        }
-        e.preventDefault();
-      break;
-
-      case keyMap.down:
-        if (open) {
-          next = current.next('li').first();
-          if (next.length) {
-            _setCurrent(next, $dk);
-          } else {
-            _setCurrent(first, $dk);
-          }
-        } else {
-          _openDropdown($dk);
-        }
-        e.preventDefault();
-      break;
-
-      default:
-      break;
-    }
-  }
-
-  // Update the <select> value, and the dropdown label
-  function _updateFields(option, $dk, reset) {
-    var value, label, data;
-
-    value = option.attr('data-dk-dropdown-value');
-    label = option.text();
-    data  = $dk.data('dropkick');
-
-    $select = data.$select;
-    $select.val(value);
-
-    $dk.find('.dk_label').text(label);
-
-    reset = reset || false;
-
-    if (data.settings.change && !reset) {
-      data.settings.change.call($select, value, label);
-    }
-  }
-
-  // Set the currently selected option
-  function _setCurrent($current, $dk) {
-    $dk.find('.dk_option_current').removeClass('dk_option_current');
-    $current.addClass('dk_option_current');
-
-    _setScrollPos($dk, $current);
-  }
-
-  function _setScrollPos($dk, anchor) {
-    var height = anchor.prevAll('li').outerHeight() * anchor.prevAll('li').length;
-    $dk.find('.dk_options_inner').animate({ scrollTop: height + 'px' }, 0);
-  }
-
-  // Close a dropdown
-  function _closeDropdown($dk) {
-    $dk.removeClass('dk_open');
-  }
-
-  // Open a dropdown
-  function _openDropdown($dk) {
-    var data = $dk.data('dropkick');
-    $dk.find('.dk_options').css({ top : $dk.find('.dk_toggle').outerHeight() - 1 });
-    $dk.toggleClass('dk_open');
-
-  }
-
-  /**
-   * Turn the dropdownTemplate into a jQuery object and fill in the variables.
-   */
-  function _build (tpl, view) {
-    var
-      // Template for the dropdown
-      template  = tpl,
-      // Holder of the dropdowns options
-      options   = [],
-      $dk
-    ;
-
-    template = template.replace('{{ id }}', view.id);
-    template = template.replace('{{ label }}', view.label);
-    template = template.replace('{{ tabindex }}', view.tabindex);
-
-    if (view.options && view.options.length) {
-      for (var i = 0, l = view.options.length; i < l; i++) {
-        var
-          $option   = $(view.options[i]),
-          current   = 'dk_option_current',
-          oTemplate = optionTemplate
-        ;
-
-        oTemplate = oTemplate.replace('{{ value }}', $option.val());
-        oTemplate = oTemplate.replace('{{ current }}', (_notBlank($option.val()) === view.value) ? current : '');
-        oTemplate = oTemplate.replace('{{ text }}', $option.text());
-
-        options[options.length] = oTemplate;
-      }
-    }
-
-    $dk = $(template);
-    $dk.find('.dk_options_inner').html(options.join(''));
-
-    return $dk;
-  }
-
-  function _notBlank(text) {
-    return ($.trim(text).length > 0) ? text : false;
-  }
-
   $(function () {
 
     // Handle click events on the dropdown toggler
     $('.dk_toggle').live('click', function (e) {
       var $dk  = $(this).parents('.dk_container').first();
 
-      _openDropdown($dk);
+      openDropdown($dk);
 
-      if ("ontouchstart" in window) {
+      if (window.ontouchstart !== undefined) {
         $dk.addClass('dk_touch');
         $dk.find('.dk_options_inner').addClass('scrollable vertical');
       }
@@ -361,13 +362,12 @@
     $('.dk_options a').live(($.browser.msie ? 'mousedown' : 'click'), function (e) {
       var
         $option = $(this),
-        $dk     = $option.parents('.dk_container').first(),
-        data    = $dk.data('dropkick')
+        $dk     = $option.parents('.dk_container').first()
       ;
     
-      _closeDropdown($dk);
-      _updateFields($option, $dk);
-      _setCurrent($option.parent(), $dk);
+      closeDropdown($dk);
+      updateFields($option, $dk);
+      setCurrent($option.parent(), $dk);
     
       e.preventDefault();
       return false;
@@ -395,8 +395,8 @@
       }
 
       if ($dk) {
-        _handleKeyBoardNav(e, $dk);
+        handleKeyBoardNav(e, $dk);
       }
     });
   });
-})(jQuery, window, document);
+}(jQuery, window, document));
