@@ -49,7 +49,7 @@
     ].join(''),
 
     // HTML template for dropdown options
-    optionTemplate = '<li class="{{ current }}"><a data-dk-dropdown-value="{{ value }}">{{ text }}</a></li>',
+    optionTemplate = '<li class="{{ current }}"><a data-dk-dropdown-value="{{ value }}" data-dk-dropdown-text="{{ text }}">{{ text }}</a></li>',
 
     // Some nice default values
     defaults = {
@@ -248,6 +248,25 @@
       break;
 
       default:
+	      if ((code>=48 && code<=57) || (code>=65 && code<=90)){
+              var dk_parent = $(current).parent();
+              var dk_find = 'a[data-dk-dropdown-text^=\"'+String.fromCharCode(code)+'\"]';
+              var dk_selects = $(dk_parent).find(dk_find);
+              var dk_find = 'a[data-dk-dropdown-text^=\"'+String.fromCharCode(code).toLowerCase()+'\"]';
+              var dk_selects1 = $(dk_parent).find(dk_find);
+              dk_selects = dk_selects.add(dk_selects1);
+              var index = $(dk_selects).index($(current).children('a'));
+              var dk_select;
+              if($(dk_selects).length-1 != index){
+                  dk_select = $(dk_selects)[index+1];
+              }
+              else{
+                  dk_select = $(dk_selects).first();
+              }
+              if($(dk_select).length){
+                 _setCurrent($(dk_select).parent(), $dk);
+              }
+          }
       break;
     }
   }
@@ -324,7 +343,7 @@
 
         oTemplate = oTemplate.replace('{{ value }}', $option.val());
         oTemplate = oTemplate.replace('{{ current }}', (_notBlank($option.val()) === view.value) ? current : '');
-        oTemplate = oTemplate.replace('{{ text }}', $option.text());
+	oTemplate = oTemplate.replace(RegExp('{{ text }}','g'),
 
         options[options.length] = oTemplate;
       }
