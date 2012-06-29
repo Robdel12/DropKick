@@ -160,6 +160,15 @@
             $.fn.dropkick.keySearchTimeout = setTimeout(function () {
                 $.fn.dropkick.searchStr = '';
             }, 500);
+
+            // Handle change events from select boxes after newly styled dropkick selects have been rendered
+            $select.change(function(){
+                var $this = $(this);
+                var $selected = $dk.find('a[data-dk-dropdown-value=' + $this.val() + ']').parent().first();
+                var label = $this.children('option').filter(':selected').text();
+                $dk.find('.dk_label').text(label);
+                _setCurrent($selected, $dk);
+            });
         });
     };
 
@@ -247,7 +256,7 @@
 
             case keyMap.up:
                 prev = current.prev('li');
-                console.log(prev);
+                //console.log(prev);
                 if (open) {
                     if (prev.length) {
                         _setCurrent(prev, $dk);
@@ -287,7 +296,7 @@
                 } else {
                     $.fn.dropkick.searchStr += codeChar;
                 }
-                console.log($.fn.dropkick.searchStr);
+                //console.log($.fn.dropkick.searchStr);
                 searchArr = ul.children().children('a:contains("' + $.fn.dropkick.searchStr + '")');
                 if (searchArr && searchArr.length > 0) {
                     currentLink = current.children().first();
@@ -318,7 +327,7 @@
         data = $dk.data('dropkick');
 
         $select = data.$select;
-        $select.val(value);
+        $select.val(value).change();
 
         $dk.find('.dk_label').text(label);
 
