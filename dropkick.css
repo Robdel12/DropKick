@@ -191,7 +191,7 @@
   overflow: visible;
 }
 
-.dk_fouc select {
+select.dk_fouc {
   position: relative;
   top: -99999em;
   visibility: hidden;

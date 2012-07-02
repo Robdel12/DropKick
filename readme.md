@@ -1,3 +1,26 @@
+Why this fork?
+=
+The creator [Jamie Lottering](http://twitter.com/jamielottering) has been pretty busy. This fork is to integrate additional bug fixes and even enhancements into the project that he began.
+
+New Features
+-
+The following features, developed by [Curt Kirkhoff](https://github.com/kirkhoff), enhance the key nav on select boxes, mimicking the default select box behavior. Below is a list of new behaviors:
+* Type in one letter repeatedly to cycle through options that start with that letter.
+* Type in a string of letters (within 500ms) to perform a filter/query on the options.
+* 'Space' bar now has the same functionality as 'enter' (it will select an option that is highlighted).
+* Dropkick stays in sync with the underlying select element. If a change is made to the select element via JS, the dropkick element will also change.
+* Dropkick fires off the corresponding select element's change event when the user selects a new option.
+
+Bug Fixes
+-
+* Allows selects with the same name to exist on the page
+* Only selects with a specific class `.dk_fouc` will be hidden off the page. This way you can dropkick specific selects leaving other selects untouched.
+* IE8 - IE9 clicking scroll bar no longer causes dropdown to lose focus.
+
+Planned Future Additions
+-
+* Add multi-select capability as inline checkboxes.
+
 DropKick
 =
 Creating custom dropdowns is usually a tedious process that requires a ton of extra setup time. Oftentimes lacking conveniences that native dropdowns have such as keyboard navigation. DropKick removes the tedium and lets you focus on making s@#t look good.
