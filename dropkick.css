@@ -8,6 +8,16 @@
  *
  */
 
+/* Disable Dropkick */
+.gd-disable{
+opacity:0.4;
+}
+
+.gd-disable a{
+cursor: no-drop !important;
+}
+/* End */
+
 /***** Begin Theme, feel free to edit in here! ******/
 
 /* One container to bind them... */
