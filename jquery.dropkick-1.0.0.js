@@ -37,7 +37,7 @@
 
     // HTML template for the dropdowns
     dropdownTemplate = [
-      '<div class="dk_container" id="dk_container_{{ id }}" tabindex="{{ tabindex }}">',
+      '<div class="dk_container {{ isDisabled }}" id="dk_container_{{ id }}" tabindex="{{ tabindex }}">',
         '<a class="dk_toggle">',
           '<span class="dk_label">{{ label }}</span>',
         '</a>',
@@ -91,6 +91,9 @@
 
         // The completed dk_container element
         $dk = false,
+        
+        // Disable feature
+        isDisabled  = ($(this).attr('disabled') !== undefined) ? 'gd-disable' : '',
 
         theme
       ;
@@ -107,6 +110,9 @@
         data.value     = _notBlank($select.val()) || _notBlank($original.attr('value'));
         data.label     = $original.text();
         data.options   = $options;
+        
+        // Disable Feature
+        data.isDisabled  = isDisabled;
       }
 
       // Build the dropdown HTML
@@ -313,6 +319,9 @@
     template = template.replace('{{ id }}', view.id);
     template = template.replace('{{ label }}', view.label);
     template = template.replace('{{ tabindex }}', view.tabindex);
+    
+    // Disable Feature
+    template = template.replace('{{ isDisabled }}', view.isDisabled);
 
     if (view.options && view.options.length) {
       for (var i = 0, l = view.options.length; i < l; i++) {
@@ -346,7 +355,9 @@
     $('.dk_toggle').live('click', function (e) {
       var $dk  = $(this).parents('.dk_container').first();
 
-      _openDropdown($dk);
+      if(!$dk.hasClass('gd-disable')){
+    	  _openDropdown($dk);
+      } 
 
       if ("ontouchstart" in window) {
         $dk.addClass('dk_touch');
