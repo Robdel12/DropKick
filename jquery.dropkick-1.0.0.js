@@ -2,11 +2,13 @@
  * DropKick
  *
  * Highly customizable <select> lists
- * https://github.com/JamieLottering/DropKick
+ * https://github.com/paritosh90/DropKick
  *
  * &copy; 2011 Jamie Lottering <http://github.com/JamieLottering>
  *                        <http://twitter.com/JamieLottering>
- * 
+ *
+ * edited by: Paritosh Singh <https://github.com/paritosh90/>
+ *                        <http://twitter.com/paritoshprakhar> 
  */
 (function ($, window, document) {
 
@@ -48,12 +50,12 @@
       '</div>'
     ].join(''),
 
-    // HTML template for dropdown options
-    optionTemplate = '<li class="{{ current }}"><a data-dk-dropdown-value="{{ value }}">{{ text }}</a></li>',
+    // HTML template for dropdown options     (This line has been changed by paritosh in order to dropkick keypress to work)
+    optionTemplate = '<li class="{{ current }}"><a data-dk-dropdown-value="{{ value }}" data-dk-dropdown-text="{{ text }}">{{ text }}</a></li>',
 
     // Some nice default values
     defaults = {
-      startSpeed : 1000,  // I recommend a high value here, I feel it makes the changes less noticeable to the user
+      startSpeed : 0,  // I recommend a high value here, I feel it makes the changes less noticeable to the user
       theme  : false,
       change : false
     },
@@ -140,11 +142,24 @@
       lists[lists.length] = $select;
 
       // Focus events
-      $dk.bind('focus.dropkick', function (e) {
-        $dk.addClass('dk_focus');
-      }).bind('blur.dropkick', function (e) {
-        $dk.removeClass('dk_open dk_focus');
-      });
+      if (!$.browser.msie) {
+	
+		  // old / orig. focus events
+		  $dk.bind('focus.dropkick', function (e) {
+			$dk.addClass('dk_focus');
+		  }).bind('blur.dropkick', function (e) {
+			$dk.removeClass('dk_open dk_focus');
+		  });
+	
+	  } else {
+	
+		  $("body").click( function(event) {          
+			if (!$(event.target).parents('.dk_container').length  || $(event.target).parent().attr('id') != $dk.attr('id')) {
+			  _closeDropdown($dk);
+			}           
+		  });
+	
+	  }
 
       setTimeout(function () {
         $select.hide();
@@ -248,6 +263,31 @@
       break;
 
       default:
+          /////////////////////////////Changed by Paritosh for keys to work //////////////////////////////////
+
+          // added to recognize num key pad  (Thanks to David Cumps)
+          code = (code >= 96 && code <=105)? code-48: code;
+
+          if ((code>=48 && code<=57) || (code>=65 && code<=90)){
+              var dk_parent = $(current).parent();
+              var dk_find = 'a[data-dk-dropdown-text^=\"'+String.fromCharCode(code)+'\"]';
+              var dk_selects = $(dk_parent).find(dk_find);
+              var dk_find = 'a[data-dk-dropdown-text^=\"'+String.fromCharCode(code).toLowerCase()+'\"]';
+              var dk_selects1 = $(dk_parent).find(dk_find);
+              dk_selects = dk_selects.add(dk_selects1);
+              var index = $(dk_selects).index($(current).children('a'));
+              var dk_select;
+              if($(dk_selects).length-1 != index){
+                  dk_select = $(dk_selects)[index+1];
+              }
+              else{
+                  dk_select = $(dk_selects).first();
+              }
+              if($(dk_select).length){
+                 _setCurrent($(dk_select).parent(), $dk);
+              }
+          }
+          //////////////////////////////////////////////////////////////////////////////////////////////////
       break;
     }
   }
@@ -324,7 +364,7 @@
 
         oTemplate = oTemplate.replace('{{ value }}', $option.val());
         oTemplate = oTemplate.replace('{{ current }}', (_notBlank($option.val()) === view.value) ? current : '');
-        oTemplate = oTemplate.replace('{{ text }}', $option.text());
+        oTemplate = oTemplate.replace(RegExp('{{ text }}','g'), $option.text());  // This line is edited by paritosh in order to dropkick keypress to work
 
         options[options.length] = oTemplate;
       }
