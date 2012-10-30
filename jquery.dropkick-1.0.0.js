@@ -264,6 +264,10 @@
 
       default:
           /////////////////////////////Changed by Paritosh for keys to work //////////////////////////////////
+
+          // added to recognize num key pad  (Thanks to David Cumps)
+          code = (code >= 96 && code <=105)? code-48: code;
+
           if ((code>=48 && code<=57) || (code>=65 && code<=90)){
               var dk_parent = $(current).parent();
               var dk_find = 'a[data-dk-dropdown-text^=\"'+String.fromCharCode(code)+'\"]';
