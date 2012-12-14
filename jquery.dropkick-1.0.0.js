@@ -183,6 +183,12 @@
     }
   };
 
+  methods.setValue = function (value) {
+    var $dk = $(this).data('dropkick').$dk;
+    var $option = $dk.find('.dk_options a[data-dk-dropdown-value="' + value + '"]');
+    _updateFields($option, $dk);
+  };
+
   // Expose the plugin
   $.fn.dropkick = function (method) {
     if (!ie6) {
@@ -262,6 +268,7 @@
 
     $select = data.$select;
     $select.val(value);
+    $select.trigger('change');
 
     $dk.find('.dk_label').text(label);
 
