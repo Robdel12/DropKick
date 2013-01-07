@@ -121,7 +121,7 @@
       $select.before($dk);
 
       // Update the reference to $dk
-      $dk = $('#dk_container_' + id).fadeIn(settings.startSpeed);
+      $dk = $select.prev('#dk_container_' + id).fadeIn(settings.startSpeed);
 
       // Save the current theme
       theme = settings.theme ? settings.theme : 'default';
