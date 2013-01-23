@@ -87,7 +87,8 @@
         width  = settings.width || $select.outerWidth(),
 
         // Check if we have a tabindex set or not
-        tabindex  = $select.attr('tabindex') ? $select.attr('tabindex') : '',
+        tabindex  = $select.attr('tabindex').toString(), // undefined/null will be parsed as zero by jQuery.
+        tabindex  = (tabindex !== '-1') ? tabindex : '',
 
         // The completed dk_container element
         $dk = false,
