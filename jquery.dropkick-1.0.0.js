@@ -343,7 +343,7 @@
   $(function () {
 
     // Handle click events on the dropdown toggler
-    $('.dk_toggle').live('click', function (e) {
+    $(document).on('click', '.dk_toggle', function (e) {
       var $dk  = $(this).parents('.dk_container').first();
 
       _openDropdown($dk);
@@ -358,7 +358,7 @@
     });
 
     // Handle click events on individual dropdown options
-    $('.dk_options a').live((msie ? 'mousedown' : 'click'), function (e) {
+    $(document).on((msie ? 'mousedown' : 'click'), '.dk_options a', function (e) {
       var
         $option = $(this),
         $dk     = $option.parents('.dk_container').first(),
