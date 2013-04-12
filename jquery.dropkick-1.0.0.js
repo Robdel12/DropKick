@@ -293,7 +293,7 @@
   // Open a dropdown
   function _openDropdown($dk) {
     var data = $dk.data('dropkick');
-    $dk.find('.dk_options').css({ top : $dk.find('.dk_toggle').outerHeight() - 1 });
+    $dk.find('.dk_options').css({ top : $dk.find('.dk_toggle').outerHeight() /2 - 1 });
     $dk.toggleClass('dk_open');
 
   }
