@@ -6,7 +6,7 @@
  *
  * &copy; 2011 Jamie Lottering <http://github.com/JamieLottering>
  *                        <http://twitter.com/JamieLottering>
- * 
+ *
  */
 (function ($, window, document) {
 
@@ -18,7 +18,7 @@
   if (!ie6) {
     document.documentElement.className = document.documentElement.className + ' dk_fouc';
   }
-  
+
   var
     // Public methods exposed to $.fn.dropkick()
     methods = {},
@@ -183,6 +183,19 @@
     }
   };
 
+  // Regenerating dk wrapper to update it's content
+  // http://stackoverflow.com/a/13280151
+  methods.refresh = function(){
+    return this.each(function () {
+      var
+        $select   = $(this),
+        data      = $select.data('dropkick');
+
+      $select.removeData("dropkick");
+      $("#dk_container_"+ data.id).remove();
+      $select.dropkick(data.settings);
+    });
+  };
   // Expose the plugin
   $.fn.dropkick = function (method) {
     if (!ie6) {
