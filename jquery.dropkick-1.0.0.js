@@ -193,7 +193,7 @@
 
       $select.removeData("dropkick");
       $("#dk_container_"+ data.id).remove();
-      $select.vdnaSelect(data.settings);
+      $select.dropkick(data.settings);
     });
   };
   // Expose the plugin
