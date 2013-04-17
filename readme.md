@@ -12,6 +12,8 @@ DropKick works by transforming your existing, boring `<select>` lists into beaut
 When an option is selected in a DropKick menu, the corresponding `<select>` value is updated. This means that your forms and AJAX requests should work the same without having to make any changes. However, if you previously had
 an `onchange` event bound to your `<select>` list, you will have to instead use a DropKick change event. Please see examples.html for usage
 
+Use `$(object).dropkick('refresh')` method to update dropkick if the `<select>` content has changed dinamically
+
 Features:
 -
 * *Keyboard Navigation:*
