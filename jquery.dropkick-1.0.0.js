@@ -398,5 +398,12 @@
         _handleKeyBoardNav(e, $dk);
       }
     });
+    
+    // Globally handle a click outside of the dropdown list by closing it.
+    $(document).on('click', null, function(e) {
+        if($(e.target).closest(".dk_container").length == 0) {
+            _closeDropdown($('.dk_toggle').parents(".dk_container").first());
+        }
+    });
   });
 })(jQuery, window, document);
