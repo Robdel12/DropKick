@@ -95,19 +95,14 @@
         theme
       ;
 
-      // Dont do anything if we've already setup dropkick on this element
-      if (data.id) {
-        return $select;
-      } else {
-        data.settings  = settings;
-        data.tabindex  = tabindex;
-        data.id        = id;
-        data.$original = $original;
-        data.$select   = $select;
-        data.value     = _notBlank($select.val()) || _notBlank($original.attr('value'));
-        data.label     = $original.text();
-        data.options   = $options;
-      }
+      data.settings  = settings;
+      data.tabindex  = tabindex;
+      data.id        = id;
+      data.$original = $original;
+      data.$select   = $select;
+      data.value     = _notBlank($select.val()) || _notBlank($original.attr('value'));
+      data.label     = $original.text();
+      data.options   = $options;
 
       // Build the dropdown HTML
       $dk = _build(dropdownTemplate, data);
