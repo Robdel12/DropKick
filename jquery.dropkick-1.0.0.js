@@ -49,7 +49,7 @@
     ].join(''),
 
     // HTML template for dropdown options
-    optionTemplate = '<li class="{{ current }}"><a data-dk-dropdown-value="{{ value }}">{{ text }}</a></li>',
+    optionTemplate = '<li class="{{ current }}"><a data-dk-dropdown-value="{{ value }}" {{ disabled }}>{{ text }}</a></li>',
 
     // Some nice default values
     defaults = {
@@ -325,6 +325,7 @@
         oTemplate = oTemplate.replace('{{ value }}', $option.val());
         oTemplate = oTemplate.replace('{{ current }}', (_notBlank($option.val()) === view.value) ? current : '');
         oTemplate = oTemplate.replace('{{ text }}', $option.text());
+        oTemplate = oTemplate.replace('{{ disabled }}', $option.attr('disabled') !== undefined ? 'class="disabled"' : '');
 
         options[options.length] = oTemplate;
       }
@@ -358,7 +359,7 @@
     });
 
     // Handle click events on individual dropdown options
-    $(document).on((msie ? 'mousedown' : 'click'), '.dk_options a', function (e) {
+    $(document).on((msie ? 'mousedown' : 'click'), '.dk_options a:not(.disabled)', function (e) {
       var
         $option = $(this),
         $dk     = $option.parents('.dk_container').first(),
