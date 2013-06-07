@@ -8,6 +8,7 @@
  *                        <http://twitter.com/JamieLottering>
  * 
  */
+
 (function ($, window, document) {
 
   var msVersion = navigator.userAgent.match(/MSIE ([0-9]{1,}[\.0-9]{0,})/),
@@ -176,6 +177,26 @@
       _setCurrent($current, $dk);
       _updateFields($current, $dk, true);
     }
+  };
+
+
+  // Refresh options after appending or changing current options
+  // use with $('#element').dropkick('refresh');
+  // Tested in IE7, IE8, IE9, Chrome 27, Firefox 20 and Safari 6
+  methods.refresh = function() {
+
+    var select = $(this),
+        data = select.data('dropkick');
+
+    select.removeData('dropkick');
+    $('#dk_container_'+ data.id).remove();
+    
+    // selector so it can be a class or id
+    $(this.selector).dropkick({
+        theme: data.settings.theme,
+        change: data.settings.change
+    });
+
   };
 
   // Expose the plugin
