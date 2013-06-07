@@ -56,7 +56,8 @@
     defaults = {
       startSpeed : 1000,  // I recommend a high value here, I feel it makes the changes less noticeable to the user
       theme  : false,
-      change : false
+      change : false,
+      fadeIn : true
     },
 
     // Make sure we only bind keydown on the document once
@@ -93,17 +94,24 @@
         // The completed dk_container element
         $dk = false,
 
-        theme
+        theme,
+
+        fadeIn
       ;
 
-      data.settings  = settings;
-      data.tabindex  = tabindex;
-      data.id        = id;
-      data.$original = $original;
-      data.$select   = $select;
-      data.value     = _notBlank($select.val()) || _notBlank($original.attr('value'));
-      data.label     = $original.text();
-      data.options   = $options;
+      // Dont do anything if we've already setup dropkick on this element
+      if (data.id) {
+       return $select;
+      } else {
+       data.settings  = settings;
+       data.tabindex  = tabindex;
+       data.id        = id;
+       data.$original = $original;
+       data.$select   = $select;
+       data.value     = _notBlank($select.val()) || _notBlank($original.attr('value'));
+       data.label     = $original.text();
+       data.options   = $options;
+      }
 
       // Build the dropdown HTML
       $dk = _build(dropdownTemplate, data);
@@ -116,8 +124,15 @@
       // Hide the <select> list and place our new one in front of it
       $select.before($dk);
 
+      // Fade in or not
+      fadeIn = typeof settings.fadeIn !== 'undefined' ? settings.fadeIn : defaults.fadeIn;
+
       // Update the reference to $dk
-      $dk = $('#dk_container_' + id).fadeIn(settings.startSpeed);
+      if(fadeIn === true) {
+        $dk = $('#dk_container_' + id).fadeIn(settings.startSpeed);
+      } else {
+        $dk = $('#dk_container_' + id).show();
+      }
 
       // Save the current theme
       theme = settings.theme ? settings.theme : 'default';
@@ -179,14 +194,15 @@
     }
   };
 
+  // $(this.selector) tested in IE7, IE8, IE9, Chrome 27, Firefox 20 and Safari 6
 
   // Refresh options after appending or changing current options
-  // use with $('#element').dropkick('refresh');
-  // Tested in IE7, IE8, IE9, Chrome 27, Firefox 20 and Safari 6
-  methods.refresh = function() {
+  // use with $('#element').dropkick('refresh', false); or true if you want to fadeIn
+  methods.refresh = function(fadeIn) {
 
     var select = $(this),
-        data = select.data('dropkick');
+        data = select.data('dropkick'),
+        fade = typeof fadeIn !== 'undefined' ? fadeIn : defaults.fadeIn;
 
     select.removeData('dropkick');
     $('#dk_container_'+ data.id).remove();
@@ -194,7 +210,29 @@
     // selector so it can be a class or id
     $(this.selector).dropkick({
         theme: data.settings.theme,
-        change: data.settings.change
+        change: data.settings.change,
+        fadeIn: fade
+    });
+
+  };
+
+  // Dynamic attach a change callback. Overwrites the change callback set on initialization
+  // use with $('.element').dropkick('change', function(value,label) { console.log(value, label); });
+  methods.change = function(callback) {
+
+    if(typeof callback !== 'function') {
+      throw new Error('Dropkick .change: You need to pass a function as parameter.');
+    }
+
+    var select = $(this),
+        data = select.data('dropkick');
+
+    select.removeData('dropkick');
+    
+    // selector so it can be a class or id
+    $(this.selector).dropkick({
+        theme: data.settings.theme,
+        change: callback
     });
 
   };
