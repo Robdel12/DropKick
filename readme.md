@@ -4,7 +4,7 @@ Creating custom dropdowns is usually a tedious process that requires a ton of ex
 
 Requirements:
 -
-DropKick requires the latest version of jQuery, available at jQuery.com. Other than jQuery, you should include scrollability.js if you want to enable scrolling on iOS devices (you do).
+DropKick requires the latest version of jQuery, available at jQuery.com.
 
 How it works:
 -
@@ -27,6 +27,8 @@ Features:
 Compatibility:
 -
 DropKick was tested on Opera 10+, Google Chrome 10+, FireFox 5+, Safari 5+, and Internet Explorer 7 - 8. IE6 is not supported and will simply continue using your plain dropdowns instead.
+
+iOS 5+ is now supported natively without any additional add-ons required.
 
 Known Issues:
 -

@@ -179,17 +179,9 @@
   }
   .dk_options_inner {
     overflow: auto;
+    -webkit-overflow-scrolling:touch;
     position: relative;
   }
-
-.dk_touch .dk_options {
-  overflow: hidden;
-}
-
-.dk_touch .dk_options_inner {
-  max-height: none;
-  overflow: visible;
-}
 
 .dk_fouc select {
   position: relative;
