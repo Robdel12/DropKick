@@ -1,7 +1,6 @@
-DropKick is no longer supported
+DropKick is under new management!
 =
-Initially I created this plugin as a fun side project over a weekend and it ended up becoming more popular than I originally envisioned.
-I don't plan on supporting, fixing bugs, or updating this project in any way for the foreseeable future. There are lots of good <select> replacements out there nowadays and I am sure you will find one that suits your needs.
+Dropkick.js is now with a loving owner. I'll do my best to manage the project and keeping it up to date. So, lets get crackin'!
 
 DropKick
 =
