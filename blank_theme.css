@@ -29,6 +29,8 @@
   .dk_mytheme .dk_options a {}
   .dk_mytheme .dk_options a:hover,
   .dk_mytheme .dk_option_current a {}
+  .dk_mytheme .dk_options .disabled {}
+  .dk_mytheme .dk_options .disabled:hover {}
 
 /* Inner options */
 .dk_mytheme .dk_options_inner {}

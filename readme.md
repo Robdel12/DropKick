@@ -46,6 +46,29 @@ What next:
 -
 Got an idea for improving DropKick? Or maybe a bug fix? Please feel free to fork a copy and submit a pull request!
 
+Update:
+-
+Choose if you want to fadeIn your Dropkick or not:
+```javascript
+$('#element').dropkick({
+	fadeIn: false
+});
+```
+
+Add a change callback after initialization:
+```javascript
+var callback =  function(value,label) {
+	console.log(value,label);
+};
+
+$('#element').dropkick('change', callback);
+```
+
+Refresh your options after appending or changing your original select. The second parameter defines if it will fadeIn or not:
+```javascript
+$('#element').dropkick('refresh', false);
+```
+
 Created by:
 -
 [Jamie Lottering](http://twitter.com/jamielottering), default theme designed by [Addison Kowalski](http://twitter.com/addisonkowalski)

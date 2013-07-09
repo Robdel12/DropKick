@@ -8,6 +8,7 @@
  *                        <http://twitter.com/JamieLottering>
  * 
  */
+
 (function ($, window, document) {
 
   var msVersion = navigator.userAgent.match(/MSIE ([0-9]{1,}[\.0-9]{0,})/),
@@ -49,13 +50,14 @@
     ].join(''),
 
     // HTML template for dropdown options
-    optionTemplate = '<li class="{{ current }}"><a data-dk-dropdown-value="{{ value }}">{{ text }}</a></li>',
+    optionTemplate = '<li class="{{ current }}"><a data-dk-dropdown-value="{{ value }}" {{ disabled }}>{{ text }}</a></li>',
 
     // Some nice default values
     defaults = {
       startSpeed : 1000,  // I recommend a high value here, I feel it makes the changes less noticeable to the user
       theme  : false,
-      change : false
+      change : false,
+      fadeIn : true
     },
 
     // Make sure we only bind keydown on the document once
@@ -92,21 +94,23 @@
         // The completed dk_container element
         $dk = false,
 
-        theme
+        theme,
+
+        fadeIn
       ;
 
       // Dont do anything if we've already setup dropkick on this element
       if (data.id) {
-        return $select;
+       return $select;
       } else {
-        data.settings  = settings;
-        data.tabindex  = tabindex;
-        data.id        = id;
-        data.$original = $original;
-        data.$select   = $select;
-        data.value     = _notBlank($select.val()) || _notBlank($original.attr('value'));
-        data.label     = $original.text();
-        data.options   = $options;
+       data.settings  = settings;
+       data.tabindex  = tabindex;
+       data.id        = id;
+       data.$original = $original;
+       data.$select   = $select;
+       data.value     = _notBlank($select.val()) || _notBlank($original.attr('value'));
+       data.label     = $original.text();
+       data.options   = $options;
       }
 
       // Build the dropdown HTML
@@ -120,8 +124,15 @@
       // Hide the <select> list and place our new one in front of it
       $select.before($dk);
 
+      // Fade in or not
+      fadeIn = typeof settings.fadeIn !== 'undefined' ? settings.fadeIn : defaults.fadeIn;
+
       // Update the reference to $dk
-      $dk = $('#dk_container_' + id).fadeIn(settings.startSpeed);
+      if(fadeIn === true) {
+        $dk = $('#dk_container_' + id).fadeIn(settings.startSpeed);
+      } else {
+        $dk = $('#dk_container_' + id).show();
+      }
 
       // Save the current theme
       theme = settings.theme ? settings.theme : 'default';
@@ -181,6 +192,49 @@
       _setCurrent($current, $dk);
       _updateFields($current, $dk, true);
     }
+  };
+
+  // $(this.selector) tested in IE7, IE8, IE9, Chrome 27, Firefox 20 and Safari 6
+
+  // Refresh options after appending or changing current options
+  // use with $('#element').dropkick('refresh', false); or true if you want to fadeIn
+  methods.refresh = function(fadeIn) {
+
+    var select = $(this),
+        data = select.data('dropkick'),
+        fade = typeof fadeIn !== 'undefined' ? fadeIn : defaults.fadeIn;
+
+    select.removeData('dropkick');
+    $('#dk_container_'+ data.id).remove();
+    
+    // selector so it can be a class or id
+    $(this.selector).dropkick({
+        theme: data.settings.theme,
+        change: data.settings.change,
+        fadeIn: fade
+    });
+
+  };
+
+  // Dynamic attach a change callback. Overwrites the change callback set on initialization
+  // use with $('.element').dropkick('change', function(value,label) { console.log(value, label); });
+  methods.change = function(callback) {
+
+    if(typeof callback !== 'function') {
+      throw new Error('Dropkick .change: You need to pass a function as parameter.');
+    }
+
+    var select = $(this),
+        data = select.data('dropkick');
+
+    select.removeData('dropkick');
+    
+    // selector so it can be a class or id
+    $(this.selector).dropkick({
+        theme: data.settings.theme,
+        change: callback
+    });
+
   };
 
   // Expose the plugin
@@ -325,6 +379,7 @@
         oTemplate = oTemplate.replace('{{ value }}', $option.val());
         oTemplate = oTemplate.replace('{{ current }}', (_notBlank($option.val()) === view.value) ? current : '');
         oTemplate = oTemplate.replace('{{ text }}', $option.text());
+        oTemplate = oTemplate.replace('{{ disabled }}', $option.attr('disabled') !== undefined ? 'class="disabled"' : '');
 
         options[options.length] = oTemplate;
       }
@@ -358,7 +413,7 @@
     });
 
     // Handle click events on individual dropdown options
-    $(document).on((msie ? 'mousedown' : 'click'), '.dk_options a', function (e) {
+    $(document).on((msie ? 'mousedown' : 'click'), '.dk_options a:not(.disabled)', function (e) {
       var
         $option = $(this),
         $dk     = $option.parents('.dk_container').first(),
