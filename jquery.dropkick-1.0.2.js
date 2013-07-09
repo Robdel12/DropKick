@@ -2,11 +2,15 @@
  * DropKick
  *
  * Highly customizable <select> lists
- * https://github.com/JamieLottering/DropKick
+ * https://github.com/robdel12/DropKick
  *
  * &copy; 2011 Jamie Lottering <http://github.com/JamieLottering>
  *                        <http://twitter.com/JamieLottering>
- * 
+ *
+ * History:
+ * 2013-02: live > on (joeblynch)
+ * 2013-06: + trigger "change" at update (so one can detect the change) (joeri210)
+ *          + method: "reload" to rebuild the pulldown (when dynamic populated) (joeri210)
  */
 
 (function ($, window, document) {
@@ -19,7 +23,7 @@
   if (!ie6) {
     document.documentElement.className = document.documentElement.className + ' dk_fouc';
   }
-  
+
   var
     // Public methods exposed to $.fn.dropkick()
     methods = {},
@@ -193,7 +197,6 @@
       _updateFields($current, $dk, true);
     }
   };
-
   // $(this.selector) tested in IE7, IE8, IE9, Chrome 27, Firefox 20 and Safari 6
 
   // Refresh options after appending or changing current options
@@ -234,8 +237,6 @@
         theme: data.settings.theme,
         change: callback
     });
-
-  };
 
   // Expose the plugin
   $.fn.dropkick = function (method) {
@@ -315,7 +316,7 @@
     data  = $dk.data('dropkick');
 
     $select = data.$select;
-    $select.val(value);
+    $select.val(value).trigger('change'); // Added to let it act like a normal select
 
     $dk.find('.dk_label').text(label);
 
@@ -419,11 +420,11 @@
         $dk     = $option.parents('.dk_container').first(),
         data    = $dk.data('dropkick')
       ;
-    
+
       _closeDropdown($dk);
       _updateFields($option, $dk);
       _setCurrent($option.parent(), $dk);
-    
+
       e.preventDefault();
       return false;
     });
