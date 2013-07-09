@@ -36,17 +36,18 @@ Known Issues:
 -
 * Opened DropKick menus on Internet Explorer 7 will be covered by other DropKick containers if they are vertically stacked and too close together.
 
-Found a bug? Please [let me know](https://github.com/JamieLottering/DropKick/issues).
+Found a bug? Please [let me know](https://github.com/robdel12/DropKick/issues).
 
 How to use:
 -
-Please see examples.html or [the DropKick homepage](http://jamielottering.github.com/DropKick/) for usage
+Please see examples.html or [the DropKick homepage](http://robdel12.github.com/DropKick/) for usage
 
 What next:
 -
 Got an idea for improving DropKick? Or maybe a bug fix? Please feel free to fork a copy and submit a pull request!
 
 Maintained by:
+-
 [Robert DeLuca](http://twitter.com/robdel12)
 
 Created by:
