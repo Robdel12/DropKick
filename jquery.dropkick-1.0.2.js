@@ -4,21 +4,25 @@
  * Highly customizable <select> lists
  * https://github.com/JamieLottering/DropKick
  *
- * © 2011 Jamie Lottering <http://github.com/JamieLottering>
+ * &copy; 2011 Jamie Lottering <http://github.com/JamieLottering>
  *                        <http://twitter.com/JamieLottering>
- * 
+ *
+ * History:
+ * 2013-02: live > on (joeblynch)
+ * 2013-06: + trigger "change" at update (so one can detect the change) (joeri210)
+ *          + method: "reload" to rebuild the pulldown (when dynamic populated) (joeri210)
  */
 (function ($, window, document) {
 
-  var ie6 = false;
+  var msVersion = navigator.userAgent.match(/MSIE ([0-9]{1,}[\.0-9]{0,})/),
+      msie = !!msVersion,
+      ie6 = msie && parseFloat(msVersion[1]) < 7;
 
   // Help prevent flashes of unstyled content
-  if ($.browser.msie && $.browser.version.substr(0, 1) < 7) {
-    ie6 = true;
-  } else {
+  if (!ie6) {
     document.documentElement.className = document.documentElement.className + ' dk_fouc';
   }
-  
+
   var
     // Public methods exposed to $.fn.dropkick()
     methods = {},
@@ -53,11 +57,13 @@
 
     // Some nice default values
     defaults = {
-      startSpeed : 1000,
-      theme      : false,
-      change     : $.noop,
-      onRender   : $.noop
-    }
+      startSpeed : 1000,  // I recommend a high value here, I feel it makes the changes less noticeable to the user
+      theme  : false,
+      change : false
+    },
+
+    // Make sure we only bind keydown on the document once
+    keysBound = false
   ;
 
   // Called by using $('foo').dropkick();
@@ -150,7 +156,7 @@
     });
   };
 
-  // Allows dynamic theme chnages
+  // Allows dynamic theme changes
   methods.theme = function (newTheme) {
     var
       $select   = $(this),
@@ -179,6 +185,16 @@
       _setCurrent($current, $dk);
       _updateFields($current, $dk, true);
     }
+  };
+
+  // Reload / rebuild, in case of dynamic updates etc.
+  // Credits to Jeremy (http://stackoverflow.com/users/1380047/jeremy-p)
+  methods.reload = function () {
+    var $select = $(this);
+    var data = $select.data('dropkick');
+    $select.removeData("dropkick");
+    $("#dk_container_"+ data.id).remove();
+    $select.dropkick(data.settings);
   };
 
   // Expose the plugin
@@ -259,13 +275,13 @@
     data  = $dk.data('dropkick');
 
     $select = data.$select;
-    $select.val(value);
+    $select.val(value).trigger('change'); // Added to let it act like a normal select
 
     $dk.find('.dk_label').text(label);
 
     reset = reset || false;
 
-    if (!reset) {
+    if (data.settings.change && !reset) {
       data.settings.change.call($select, value, label);
     }
   }
@@ -299,7 +315,7 @@
   /**
    * Turn the dropdownTemplate into a jQuery object and fill in the variables.
    */
-  function _build(tpl, view) {
+  function _build (tpl, view) {
     var
       // Template for the dropdown
       template  = tpl,
@@ -331,8 +347,6 @@
     $dk = $(template);
     $dk.find('.dk_options_inner').html(options.join(''));
 
-    view.settings.onRender.call($dk);
-
     return $dk;
   }
 
@@ -343,7 +357,7 @@
   $(function () {
 
     // Handle click events on the dropdown toggler
-    $('.dk_toggle').live('click', function (e) {
+    $(document).on('click', '.dk_toggle', function (e) {
       var $dk  = $(this).parents('.dk_container').first();
 
       _openDropdown($dk);
@@ -358,17 +372,17 @@
     });
 
     // Handle click events on individual dropdown options
-    $('.dk_options a').live(($.browser.msie ? 'mousedown' : 'click'), function (e) {
+    $(document).on((msie ? 'mousedown' : 'click'), '.dk_options a', function (e) {
       var
         $option = $(this),
         $dk     = $option.parents('.dk_container').first(),
         data    = $dk.data('dropkick')
       ;
-    
+
       _closeDropdown($dk);
       _updateFields($option, $dk);
       _setCurrent($option.parent(), $dk);
-    
+
       e.preventDefault();
       return false;
     });

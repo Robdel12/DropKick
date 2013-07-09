@@ -1,63 +1,9 @@
+/* This file is a mess and i dont care about it...get out of here! */
+
 * {
   margin: 0;
   padding: 0;
 }
-
-.link,
-.github_dl {
-  background-color: #4ECDC4;
-  color: #fff;
-  display: -moz-inline-stack;
-  display: inline-block;
-  *display: inline;
-  margin: 0 5px;
-  zoom: 1;
-  padding: 1px 5px;
-  text-decoration: none;
-  text-shadow: rgba(0, 0, 0, .5) 0 1px 0;
-  border-radius: 3px;
-  -moz-border-radius: 3px;
-  -webkit-border-radius: 3px;
-  -webkit-transition: background-color .5s;
-  -moz-transition: background-color .5s;
-  -o-transition: background-color .5s;
-  transition: background-color .5s;
-}
-  .link:hover {
-    background-color: #333;
-  }
-
-.github_dl {
-  background-color: #F27435;
-  float: left;
-  font-size: 14px;
-  font-weight: bold;
-  padding: 10px 15px;
-  text-align: center;
-  box-shadow: 0 5px 0 #a65026;
-  -moz-box-shadow: 0 5px 0 #a65026;
-  -webkit-box-shadow: 0 5px 0 #a65026;
-  border-radius: 5px;
-  -moz-border-radius: 5px;
-  -webkit-border-radius: 5px;
-}
-  .github_dl:hover {
-    background-color: #F02475;
-    box-shadow: 0 5px 0 #af1a55;
-    -moz-box-shadow: 0 5px 0 #af1a55;
-    -webkit-box-shadow: 0 5px 0 #af1a55;
-  }
-  .github_dl span {
-    display: block;
-    font-size: 14px;
-  }
-  .github_dl:active {
-    position: relative;
-    top: 5px;
-    box-shadow: none;
-    -moz-box-shadow: none;
-    -webkit-box-shadow: none;
-  }
 
 body {
   background-color: #F4EAD5;
@@ -82,12 +28,6 @@ body {
 .part p {
   clear: left;
   margin-bottom: 1.5em;
-}
-
-.awesomeness {
-  background-color: #556270;
-  color: #fff;
-  padding: 10px;
 }
 
 .gist {
@@ -126,11 +66,6 @@ code {
   border-bottom: 1px dotted #ccc;
 }
 
-.bigintro {
-  font-size: 21px;
-  line-height: 30px;
-}
-
 .part {
   border-bottom: 1px solid #ccc;
   margin: 0 auto 30px auto;
@@ -161,7 +96,6 @@ ul {
   .header_inner h1 {
     float: left;
   }
-
 
 .example {
   background-color: rgba(255, 255, 255, .5);
@@ -201,12 +135,7 @@ h2 {
 
 h2 {
   color: #556270;
-  font-size: 24px;
-  margin-bottom: 18px;
-}
-
-h3 {
-  color: #556270;
+  font-size: 18px;
   margin-bottom: 18px;
 }
 
@@ -217,29 +146,4 @@ h1 span {
 
 .dk_container {
   margin-right: 10px;
-}
-
-.sharing {
-  float: left;
-}
-.sharing li {
-  float: left;
-  margin-right: 10px;
-}
-
-.example {
-  background-color: #fff;
-}
-
-input {
-  clear: both;
-  margin-bottom: 10px;
-}
-
-.results {
-  clear: both;
-  height: 18px;
-  line-height: 18px;
-  display: block;
-  margin: 5px 0;
 }

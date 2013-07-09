@@ -39,7 +39,7 @@
    * Help: Arrow image not appearing
    * Try updating this property to your correct dk_arrows.png path
    */
-  background-image: url('../images/dk_arrows.png');
+  background-image: url('images/dk_arrows.png');
   background-repeat: no-repeat;
   background-position: 90% center;
   border: 1px solid #ccc;
@@ -113,6 +113,15 @@
     color: #fff;
     text-decoration: none;
     text-shadow: rgba(0, 0, 0, .5) 0 1px 0;
+  }
+  .dk_options .disabled {
+    cursor: default;
+  }
+  .dk_options .disabled:hover {
+    cursor: default;
+    background-color: #fff;
+    border-bottom-color: #999;
+    text-shadow: none;
   }
 
 /* Inner container for options, this is what makes the scrollbar possible. */
@@ -191,18 +200,10 @@
   overflow: visible;
 }
 
-/**
- * Help: I'm seeing a flash of unstyled content
- * Try applying this class to your <select> elements
- */
 .dk_fouc select {
   position: relative;
   top: -99999em;
   visibility: hidden;
-}
-
-.dk_ie6 .dk_options {
-  right: 0;
 }
 
 /***** End Critical to the continued enjoyment of working dropdowns ******/
