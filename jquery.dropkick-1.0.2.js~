@@ -235,8 +235,8 @@
       break;
 
 	case keyMap.tab:
-        if(open){
-      	_updateFields(current.find('a'), $dk);
+      	if(open){
+      		_updateFields(current.find('a'), $dk);
         	_closeDropdown($dk);
         }
       break;
