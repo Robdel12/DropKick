@@ -36,7 +36,8 @@
       'up'    : 38,
       'right' : 39,
       'down'  : 40,
-      'enter' : 13
+      'enter' : 13,
+	'tab'	  : 9
     },
 
     // HTML template for the dropdowns
@@ -231,6 +232,13 @@
           _openDropdown($dk);
         }
         e.preventDefault();
+      break;
+
+	case keyMap.tab:
+        if(open){
+      	_updateFields(current.find('a'), $dk);
+        	_closeDropdown($dk);
+        }
       break;
 
       case keyMap.up:
