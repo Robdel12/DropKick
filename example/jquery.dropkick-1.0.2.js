@@ -19,7 +19,13 @@
       ie6 = msie && parseFloat(msVersion[1]) < 7;
 
   // Help prevent flashes of unstyled content
+<<<<<<< HEAD:example/jquery.dropkick-1.0.2.js
   if (!ie6) {
+=======
+  if ($.browser.msie && $.browser.version.match(/^(\d+)\./)[1] < 7) {
+    ie6 = true;
+  } else {
+>>>>>>> 16eaa3e04a91aac50d6507fc0b0c3683d8c3b260:jquery.dropkick-1.0.0.js
     document.documentElement.className = document.documentElement.className + ' dk_fouc';
   }
 
