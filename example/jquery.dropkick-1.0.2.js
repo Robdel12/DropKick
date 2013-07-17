@@ -66,10 +66,7 @@
       startSpeed : 1000,  // I recommend a high value here, I feel it makes the changes less noticeable to the user
       theme  : false,
       change : false
-    },
-
-    // Make sure we only bind keydown on the document once
-    keysBound = false
+    }
   ;
 
   // Called by using $('foo').dropkick();
@@ -100,14 +97,14 @@
         tabindex  = $select.attr('tabindex') ? $select.attr('tabindex') : '',
 
         // The completed dk_container element
-        $dk = false,
+        $dk,
 
         theme
       ;
 
       // Dont do anything if we've already setup dropkick on this element
       if (data.id) {
-        return $select;
+        return;
       } else {
         data.settings  = settings;
         data.tabindex  = tabindex;
@@ -150,9 +147,9 @@
       lists[lists.length] = $select;
 
       // Focus events
-      $dk.bind('focus.dropkick', function (e) {
+      $dk.bind('focus.dropkick', function () {
         $dk.addClass('dk_focus');
-      }).bind('blur.dropkick', function (e) {
+      }).bind('blur.dropkick', function () {
         $dk.removeClass('dk_open dk_focus');
       });
 
@@ -212,13 +209,13 @@
         return methods.init.apply(this, arguments);
       }
     }
+    return this;
   };
 
   // private
   function _handleKeyBoardNav(e, $dk) {
     var
       code     = e.keyCode,
-      data     = $dk.data('dropkick'),
       options  = $dk.find('.dk_options'),
       open     = $dk.hasClass('dk_open'),
       current  = $dk.find('.dk_option_current'),
@@ -274,7 +271,7 @@
 
   // Update the <select> value, and the dropdown label
   function _updateFields(option, $dk, reset) {
-    var value, label, data;
+    var value, label, data, $select;
 
     value = option.attr('data-dk-dropdown-value');
     label = option.text();
@@ -312,10 +309,8 @@
 
   // Open a dropdown
   function _openDropdown($dk) {
-    var data = $dk.data('dropkick');
     $dk.find('.dk_options').css({ top : $dk.find('.dk_toggle').outerHeight() - 1 });
     $dk.toggleClass('dk_open');
-
   }
 
   /**
@@ -381,8 +376,7 @@
     $(document).on((msie ? 'mousedown' : 'click'), '.dk_options a', function (e) {
       var
         $option = $(this),
-        $dk     = $option.parents('.dk_container').first(),
-        data    = $dk.data('dropkick')
+        $dk     = $option.parents('.dk_container').first()
       ;
 
       _closeDropdown($dk);
