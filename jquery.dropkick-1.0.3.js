@@ -2,7 +2,7 @@
  * DropKick
  *
  * Highly customizable <select> lists
- * https://github.com/JamieLottering/DropKick
+ * https://github.com/robdel12/DropKick
  *
  * &copy; 2011 Jamie Lottering <http://github.com/JamieLottering>
  *                        <http://twitter.com/JamieLottering>
@@ -36,7 +36,8 @@
       'up'    : 38,
       'right' : 39,
       'down'  : 40,
-      'enter' : 13
+      'enter' : 13,
+	'tab'	  : 9
     },
 
     // HTML template for the dropdowns
@@ -233,6 +234,13 @@
         e.preventDefault();
       break;
 
+	case keyMap.tab:
+        if(open){
+      	_updateFields(current.find('a'), $dk);
+        	_closeDropdown($dk);
+        }
+      break;
+
       case keyMap.up:
         prev = current.prev('li');
         if (open) {
@@ -411,6 +419,13 @@
       if ($dk) {
         _handleKeyBoardNav(e, $dk);
       }
+    });
+    
+    // Globally handle a click outside of the dropdown list by closing it.
+    $(document).on('click', null, function(e) {
+        if($(e.target).closest(".dk_container").length == 0) {
+            _closeDropdown($('.dk_toggle').parents(".dk_container").first());
+        }
     });
   });
 })(jQuery, window, document);
