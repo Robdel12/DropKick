@@ -2,7 +2,7 @@
  * DropKick
  *
  * Highly customizable <select> lists
- * https://github.com/JamieLottering/DropKick
+ * https://github.com/robdel12/DropKick
  *
  * &copy; 2011 Jamie Lottering <http://github.com/JamieLottering>
  *                        <http://twitter.com/JamieLottering>
@@ -19,13 +19,7 @@
       ie6 = msie && parseFloat(msVersion[1]) < 7;
 
   // Help prevent flashes of unstyled content
-<<<<<<< HEAD:example/jquery.dropkick-1.0.2.js
   if (!ie6) {
-=======
-  if ($.browser.msie && $.browser.version.match(/^(\d+)\./)[1] < 7) {
-    ie6 = true;
-  } else {
->>>>>>> 16eaa3e04a91aac50d6507fc0b0c3683d8c3b260:jquery.dropkick-1.0.0.js
     document.documentElement.className = document.documentElement.className + ' dk_fouc';
   }
 
@@ -42,7 +36,8 @@
       'up'    : 38,
       'right' : 39,
       'down'  : 40,
-      'enter' : 13
+      'enter' : 13,
+	'tab'	  : 9
     },
 
     // HTML template for the dropdowns
@@ -66,7 +61,10 @@
       startSpeed : 1000,  // I recommend a high value here, I feel it makes the changes less noticeable to the user
       theme  : false,
       change : false
-    }
+    },
+
+    // Make sure we only bind keydown on the document once
+    keysBound = false
   ;
 
   // Called by using $('foo').dropkick();
@@ -97,14 +95,14 @@
         tabindex  = $select.attr('tabindex') ? $select.attr('tabindex') : '',
 
         // The completed dk_container element
-        $dk,
+        $dk = false,
 
         theme
       ;
 
       // Dont do anything if we've already setup dropkick on this element
       if (data.id) {
-        return;
+        return $select;
       } else {
         data.settings  = settings;
         data.tabindex  = tabindex;
@@ -112,7 +110,7 @@
         data.$original = $original;
         data.$select   = $select;
         data.value     = _notBlank($select.val()) || _notBlank($original.attr('value'));
-        data.label     = $original.html();
+        data.label     = $original.text();
         data.options   = $options;
       }
 
@@ -128,7 +126,7 @@
       $select.before($dk);
 
       // Update the reference to $dk
-      $dk = $select.prev('#dk_container_' + id).fadeIn(settings.startSpeed);
+      $dk = $('#dk_container_' + id).fadeIn(settings.startSpeed);
 
       // Save the current theme
       theme = settings.theme ? settings.theme : 'default';
@@ -147,9 +145,9 @@
       lists[lists.length] = $select;
 
       // Focus events
-      $dk.bind('focus.dropkick', function () {
+      $dk.bind('focus.dropkick', function (e) {
         $dk.addClass('dk_focus');
-      }).bind('blur.dropkick', function () {
+      }).bind('blur.dropkick', function (e) {
         $dk.removeClass('dk_open dk_focus');
       });
 
@@ -209,13 +207,13 @@
         return methods.init.apply(this, arguments);
       }
     }
-    return this;
   };
 
   // private
   function _handleKeyBoardNav(e, $dk) {
     var
       code     = e.keyCode,
+      data     = $dk.data('dropkick'),
       options  = $dk.find('.dk_options'),
       open     = $dk.hasClass('dk_open'),
       current  = $dk.find('.dk_option_current'),
@@ -234,6 +232,13 @@
           _openDropdown($dk);
         }
         e.preventDefault();
+      break;
+
+	case keyMap.tab:
+        if(open){
+      	_updateFields(current.find('a'), $dk);
+        	_closeDropdown($dk);
+        }
       break;
 
       case keyMap.up:
@@ -271,7 +276,7 @@
 
   // Update the <select> value, and the dropdown label
   function _updateFields(option, $dk, reset) {
-    var value, label, data, $select;
+    var value, label, data;
 
     value = option.attr('data-dk-dropdown-value');
     label = option.text();
@@ -309,8 +314,10 @@
 
   // Open a dropdown
   function _openDropdown($dk) {
+    var data = $dk.data('dropkick');
     $dk.find('.dk_options').css({ top : $dk.find('.dk_toggle').outerHeight() - 1 });
     $dk.toggleClass('dk_open');
+
   }
 
   /**
@@ -339,7 +346,7 @@
 
         oTemplate = oTemplate.replace('{{ value }}', $option.val());
         oTemplate = oTemplate.replace('{{ current }}', (_notBlank($option.val()) === view.value) ? current : '');
-        oTemplate = oTemplate.replace('{{ text }}', $option.html());
+        oTemplate = oTemplate.replace('{{ text }}', $option.text());
 
         options[options.length] = oTemplate;
       }
@@ -376,7 +383,8 @@
     $(document).on((msie ? 'mousedown' : 'click'), '.dk_options a', function (e) {
       var
         $option = $(this),
-        $dk     = $option.parents('.dk_container').first()
+        $dk     = $option.parents('.dk_container').first(),
+        data    = $dk.data('dropkick')
       ;
 
       _closeDropdown($dk);
@@ -411,6 +419,13 @@
       if ($dk) {
         _handleKeyBoardNav(e, $dk);
       }
+    });
+    
+    // Globally handle a click outside of the dropdown list by closing it.
+    $(document).on('click', null, function(e) {
+        if($(e.target).closest(".dk_container").length == 0) {
+            _closeDropdown($('.dk_toggle').parents(".dk_container").first());
+        }
     });
   });
 })(jQuery, window, document);
