@@ -37,12 +37,7 @@
       'right' : 39,
       'down'  : 40,
       'enter' : 13,
-<<<<<<< HEAD:example/jquery.dropkick-1.0.3.js
 	'tab'	  : 9
-=======
-      'zero'	: 48,
-      'z'     : 90
->>>>>>> 2ad26f6cf1424ae1a5dde1ac9d3ea722a1eb1858:jquery.dropkick-1.0.0.js
     },
 
     // HTML template for the dropdowns
@@ -220,12 +215,10 @@
       code     = e.keyCode,
       data     = $dk.data('dropkick'),
       options  = $dk.find('.dk_options'),
-      letter   = String.fromCharCode(code),
       open     = $dk.hasClass('dk_open'),
-      lis	     = options.find('li'),
       current  = $dk.find('.dk_option_current'),
-      first    = lis.first(),
-      last     = lis.last(),
+      first    = options.find('li').first(),
+      last     = options.find('li').last(),
       next,
       prev
     ;
@@ -278,37 +271,6 @@
 
       default:
       break;
-    }
-    
-    //if typing a letter
-    if (code >= keyMap.zero && code <= keyMap.z) {
-      //update data
-      var now = new Date().getTime();
-      if (data.finder == null) {
-        data.finder = letter.toUpperCase();
-        data.timer = now;
-
-      }else {
-        if (now > parseInt(data.timer) + 1000) {
-          data.finder = letter.toUpperCase();
-          data.timer =  now;
-        } else {
-          data.finder = data.finder + letter.toUpperCase();
-          data.timer = now;
-        }
-      }
-      //find and switch to the appropriate option
-      var list = lis.find('a');
-      for(var i = 0, len = list.length; i < len; i++){
-        var $a = $(list[i]);
-        if ($a.html().toUpperCase().indexOf(data.finder) === 0) {
-          _updateFields($a, $dk);
-          _setCurrent($a.parent(), $dk);
-          break;
-        }
-      }
-      $dk.data('dropkick', data);
-
     }
   }
 
