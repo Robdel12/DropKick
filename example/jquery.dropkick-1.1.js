@@ -3,7 +3,7 @@
  *
  * Highly customizable <select> lists
  * https://github.com/robdel12/DropKick
- *
+
  * &copy; 2011 Jamie Lottering <http://github.com/JamieLottering>
  *                        <http://twitter.com/JamieLottering>
  *
@@ -32,12 +32,14 @@
 
     // Convenience keys for keyboard navigation
     keyMap = {
-      'left'  : 37,
-      'up'    : 38,
-      'right' : 39,
-      'down'  : 40,
-      'enter' : 13,
-  'tab'   : 9
+        'left'  : 37,
+        'up'    : 38,
+        'right' : 39,
+        'down'  : 40,
+        'enter' : 13,
+        'tab'   : 9,
+        'zero'  : 48,
+        'z'     : 90
     },
 
     // HTML template for the dropdowns
@@ -215,10 +217,12 @@
       code     = e.keyCode,
       data     = $dk.data('dropkick'),
       options  = $dk.find('.dk_options'),
+      letter   = String.fromCharCode(code),
       open     = $dk.hasClass('dk_open'),
+      lis      = options.find('li'),
       current  = $dk.find('.dk_option_current'),
-      first    = options.find('li').first(),
-      last     = options.find('li').last(),
+      first    = lis.first(),
+      last     = lis.last(),
       next,
       prev
     ;
@@ -272,6 +276,37 @@
       default:
       break;
     }
+    
+    //if typing a letter
+    if (code >= keyMap.zero && code <= keyMap.z) {
+      //update data
+      var now = new Date().getTime();
+      if (data.finder == null) {
+        data.finder = letter.toUpperCase();
+        data.timer = now;
+
+      }else {
+        if (now > parseInt(data.timer) + 1000) {
+          data.finder = letter.toUpperCase();
+          data.timer =  now;
+        } else {
+          data.finder = data.finder + letter.toUpperCase();
+          data.timer = now;
+        }
+      }
+      //find and switch to the appropriate option
+      var list = lis.find('a');
+      for(var i = 0, len = list.length; i < len; i++){
+        var $a = $(list[i]);
+        if ($a.html().toUpperCase().indexOf(data.finder) === 0) {
+          _updateFields($a, $dk);
+          _setCurrent($a.parent(), $dk);
+          break;
+        }
+      }
+      $dk.data('dropkick', data);
+
+    }
   }
 
   // Update the <select> value, and the dropdown label
@@ -312,10 +347,23 @@
     $dk.removeClass('dk_open');
   }
 
+  // Report whether there is enough space in the window to drop down.
+  function _enoughSpaceBelow($dk) {
+    var
+      $dk_toggle = $dk.find('.dk_toggle'),
+      optionsHeight = $dk.find('.dk_options').outerHeight(),
+      spaceBelow = $(window).height() - $dk_toggle.outerHeight() - $dk_toggle.offset().top
+    ;
+    return optionsHeight < spaceBelow;
+  }
+
   // Open a dropdown
   function _openDropdown($dk) {
     var data = $dk.data('dropkick');
-    $dk.find('.dk_options').css({ top : $dk.find('.dk_toggle').outerHeight() - 1 });
+    $dk.find('.dk_options').css({
+      top : _enoughSpaceBelow($dk) ? $dk.find('.dk_toggle').outerHeight() - 1 : '',
+      bottom : _enoughSpaceBelow($dk) ? '' : $dk.find('.dk_toggle').outerHeight() - 1
+    });
     $dk.toggleClass('dk_open');
 
   }
