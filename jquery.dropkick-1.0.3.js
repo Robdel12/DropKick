@@ -220,6 +220,13 @@
     $select.removeData('dropkick');
     $dk.remove();
     $select.dropkick();
+    $(this).each(function() {
+      var $select = $(this);
+      var data = $select.data('dropkick');
+      $select.removeData("dropkick");
+      $("#dk_container_"+ data.id).remove();
+      $select.dropkick(data.settings);
+    });
   };
 
   // Expose the plugin
@@ -447,7 +454,7 @@
         _handleKeyBoardNav(e, $dk);
       }
     });
-    
+
     // Globally handle a click outside of the dropdown list by closing it.
     $(document).on('click', null, function(e) {
         if($(e.target).closest(".dk_container").length == 0) {
