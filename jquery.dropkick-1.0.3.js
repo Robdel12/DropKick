@@ -226,8 +226,10 @@
     switch (code) {
       case keyMap.enter:
         if (open) {
-          _updateFields(current.find('a'), $dk);
-          _closeDropdown($dk);
+        	if(!current.hasClass('disabled')){
+        		_updateFields(current.find('a'), $dk);
+                _closeDropdown($dk);
+        	}
         } else {
           _openDropdown($dk);
         }
