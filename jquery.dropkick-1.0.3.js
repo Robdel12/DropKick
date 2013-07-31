@@ -187,7 +187,6 @@
       _updateFields($current, $dk, true);
     }
   };
-
   // Reload / rebuild, in case of dynamic updates etc.
   // Credits to Jeremy (http://stackoverflow.com/users/1380047/jeremy-p)
   methods.reload = function () {
@@ -196,6 +195,16 @@
     $select.removeData("dropkick");
     $("#dk_container_"+ data.id).remove();
     $select.dropkick(data.settings);
+  // Redraw the selected dropkick to reflect changes on <select>
+  methods.redraw = function () {
+    var
+      $select   = $(this)
+      $dk       = $select.data('dropkick').$dk
+    ;
+
+    $select.removeData('dropkick');
+    $dk.remove();
+    $select.dropkick();
   };
 
   // Expose the plugin
