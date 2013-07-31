@@ -11,6 +11,7 @@
  * 2013-02: live > on (joeblynch)
  * 2013-06: + trigger "change" at update (so one can detect the change) (joeri210)
  *          + method: "reload" to rebuild the pulldown (when dynamic populated) (joeri210)
+
  */
 (function ($, window, document) {
 
@@ -184,6 +185,54 @@
     $dk.removeClass(oldtheme).addClass('dk_theme_' + newTheme);
 
     list.theme = newTheme;
+  };
+
+  /*
+   * Change value of current select
+   * usage: $("...").dropkick('select', select_value);
+   */
+  methods.select = function (value) {
+    for (var i = 0, l = lists.length; i < l; i++) {
+      var   listData = lists[i].data('dropkick');
+      var   $dk = listData.$dk;
+
+      if ($(this)[0] == $dk.next()[0]) {
+        var   $current;
+
+        $current = $($dk.find('li a[data-dk-dropdown-value="' + value + '"]')[0]).closest('li');
+        $dk.find('.dk_label').text(listData.label);
+        $dk.find('.dk_options_inner').animate({ scrollTop: 0 }, 0);
+
+        _setCurrent($current, $dk);
+        _updateFields($current, $dk, true);
+
+        var   data = $dk.data('dropkick');
+        var   $select = data.$select;
+
+        $select.val(value);
+
+        if ($.browser.msie) {
+          $current.find('a').trigger('mousedown');
+        }
+        else {
+          $current.find('a').trigger('click');
+        }
+        break;
+      }
+    }
+  };
+
+  /*
+   * Reload the dropkick select widget after options have changed
+   * usage: $("...").dropkick('reload');
+   */
+  methods.reload = function () {
+    var  $select = $(this);
+    var  data = $select.data('dropkick');
+
+    $select.removeData("dropkick");
+    $("#dk_container_"+ data.id).remove();
+    $select.dropkick(data.settings);
   };
 
   // Reset all <selects and dropdowns in our lists array
@@ -425,7 +474,7 @@
       _closeDropdown($dk);
       _updateFields($option, $dk);
       _setCurrent($option.parent(), $dk);
-      
+
       return false;
     });
 
