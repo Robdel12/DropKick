@@ -1,5 +1,8 @@
-DropKick is under new management!
+Version 2.0 Planning
 =
+We're planning version 2.0 right now. Please if you have suggestions go to the version-2.0 branch and edit the readme with any suggestions you have for features. 
+
+## DropKick is under new management!
 Dropkick.js is now with a loving owner. I'll do my best to manage the project and keeping it up to date. So, lets get crackin'!
 
 DropKick
