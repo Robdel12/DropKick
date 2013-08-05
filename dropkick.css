@@ -20,7 +20,7 @@
   font-size: 12px;
   font-weight: bold;
   line-height: 14px;
-  margin-bottom: 18px;
+  margin-bottom: 0px;
   border-radius: 5px;
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
@@ -31,6 +31,15 @@
   .dk_container a {
     cursor: pointer;
     text-decoration: none;
+  }
+
+  .dk_container * {
+     margin: 0;
+     padding: 0;
+  }
+
+  .dk_container  ul {
+     list-style: none;
   }
 
 /* Opens the dropdown and holds the menu label */
