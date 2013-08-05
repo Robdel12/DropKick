@@ -11,7 +11,6 @@
  * 2013-02: live > on (joeblynch)
  * 2013-06: + trigger "change" at update (so one can detect the change) (joeri210)
  *          + method: "reload" to rebuild the pulldown (when dynamic populated) (joeri210)
-
  */
 (function ($, window, document) {
 
@@ -34,16 +33,18 @@
     // Convenience keys for keyboard navigation
     keyMap = {
       'left'  : 37,
-      'up'    : 38,
-      'right' : 39,
-      'down'  : 40,
-      'enter' : 13,
-  'tab'   : 9
+       'up'    : 38,
+       'right' : 39,
+       'down'  : 40,
+       'enter' : 13,
+       'tab'   : 9,
+       'zero'  : 48,
+       'z'     : 90
     },
 
     // HTML template for the dropdowns
     dropdownTemplate = [
-      '<div class="dk_container {{ isDisabled }}" id="dk_container_{{ id }}" tabindex="{{ tabindex }}">',
+      '<div class="dk_container" id="dk_container_{{ id }}" tabindex="{{ tabindex }}">',
         '<a class="dk_toggle">',
           '<span class="dk_label">{{ label }}</span>',
         '</a>',
@@ -97,9 +98,6 @@
 
         // The completed dk_container element
         $dk = false,
-        
-        // Disable feature
-        isDisabled  = ($(this).attr('disabled') !== undefined) ? 'gd-disable' : '',
 
         theme
       ;
@@ -116,9 +114,6 @@
         data.value     = _notBlank($select.val()) || _notBlank($original.attr('value'));
         data.label     = $original.text();
         data.options   = $options;
-        
-        // Disable Feature
-        data.isDisabled  = isDisabled;
       }
 
       // Build the dropdown HTML
@@ -151,21 +146,12 @@
 
       lists[lists.length] = $select;
 
-      // Fix identified in issue #11.
-      if(!$.browser.msie) {
-        // Focus events
-        $dk.bind('focus.dropkick', function (e) {
-          $dk.addClass('dk_focus');
-        }).bind('blur.dropkick', function (e) {
-          $dk.removeClass('dk_open dk_focus');
-        });
-      } else {
-        $('body').click(function(event) {
-          if(!$(event.target).parents('.dk_container').length) {
-            _closeDropdown($dk);
-          }
-        });
-      }
+      // Focus events
+      $dk.bind('focus.dropkick', function (e) {
+        $dk.addClass('dk_focus');
+      }).bind('blur.dropkick', function (e) {
+        $dk.removeClass('dk_open dk_focus');
+      });
 
       setTimeout(function () {
         $select.hide();
@@ -187,54 +173,6 @@
     list.theme = newTheme;
   };
 
-  /*
-   * Change value of current select
-   * usage: $("...").dropkick('select', select_value);
-   */
-  methods.select = function (value) {
-    for (var i = 0, l = lists.length; i < l; i++) {
-      var   listData = lists[i].data('dropkick');
-      var   $dk = listData.$dk;
-
-      if ($(this)[0] == $dk.next()[0]) {
-        var   $current;
-
-        $current = $($dk.find('li a[data-dk-dropdown-value="' + value + '"]')[0]).closest('li');
-        $dk.find('.dk_label').text(listData.label);
-        $dk.find('.dk_options_inner').animate({ scrollTop: 0 }, 0);
-
-        _setCurrent($current, $dk);
-        _updateFields($current, $dk, true);
-
-        var   data = $dk.data('dropkick');
-        var   $select = data.$select;
-
-        $select.val(value);
-
-        if ($.browser.msie) {
-          $current.find('a').trigger('mousedown');
-        }
-        else {
-          $current.find('a').trigger('click');
-        }
-        break;
-      }
-    }
-  };
-
-  /*
-   * Reload the dropkick select widget after options have changed
-   * usage: $("...").dropkick('reload');
-   */
-  methods.reload = function () {
-    var  $select = $(this);
-    var  data = $select.data('dropkick');
-
-    $select.removeData("dropkick");
-    $("#dk_container_"+ data.id).remove();
-    $select.dropkick(data.settings);
-  };
-
   // Reset all <selects and dropdowns in our lists array
   methods.reset = function () {
     for (var i = 0, l = lists.length; i < l; i++) {
@@ -251,6 +189,7 @@
       _updateFields($current, $dk, true);
     }
   };
+
   // Reload / rebuild, in case of dynamic updates etc.
   // Credits to Jeremy (http://stackoverflow.com/users/1380047/jeremy-p)
   methods.reload = function () {
@@ -259,23 +198,6 @@
     $select.removeData("dropkick");
     $("#dk_container_"+ data.id).remove();
     $select.dropkick(data.settings);
-  // Redraw the selected dropkick to reflect changes on <select>
-  methods.redraw = function () {
-    var
-      $select   = $(this)
-      $dk       = $select.data('dropkick').$dk
-    ;
-
-    $select.removeData('dropkick');
-    $dk.remove();
-    $select.dropkick();
-    $(this).each(function() {
-      var $select = $(this);
-      var data = $select.data('dropkick');
-      $select.removeData("dropkick");
-      $("#dk_container_"+ data.id).remove();
-      $select.dropkick(data.settings);
-    });
   };
 
   // Expose the plugin
@@ -294,11 +216,13 @@
     var
       code     = e.keyCode,
       data     = $dk.data('dropkick'),
+      letter   = String.fromCharCode(code),
       options  = $dk.find('.dk_options'),
       open     = $dk.hasClass('dk_open'),
+      lis      = options.find('li'),
       current  = $dk.find('.dk_option_current'),
-      first    = options.find('li').first(),
-      last     = options.find('li').last(),
+      first    = lis.first(),
+      last     = lis.last(),
       next,
       prev
     ;
@@ -352,6 +276,35 @@
       default:
       break;
     }
+    //if typing a letter
+    if (code >= keyMap.zero && code <= keyMap.z) {
+      //update data
+      var now = new Date().getTime();
+      if (data.finder == null) {
+        data.finder = letter.toUpperCase();
+        data.timer = now;
+
+      }else {
+        if (now > parseInt(data.timer) + 1000) {
+          data.finder = letter.toUpperCase();
+          data.timer =  now;
+        } else {
+          data.finder = data.finder + letter.toUpperCase();
+          data.timer = now;
+        }
+      }
+      //find and switch to the appropriate option
+      var list = lis.find('a');
+      for(var i = 0, len = list.length; i < len; i++){
+        var $a = $(list[i]);
+        if ($a.html().toUpperCase().indexOf(data.finder) === 0) {
+          _updateFields($a, $dk);
+          _setCurrent($a.parent(), $dk);
+          break;
+        }
+      }
+      $dk.data('dropkick', data);
+    }
   }
 
   // Update the <select> value, and the dropdown label
@@ -373,7 +326,7 @@
       data.settings.change.call($select, value, label);
     }
   }
-
+  
   // Set the currently selected option
   function _setCurrent($current, $dk) {
     $dk.find('.dk_option_current').removeClass('dk_option_current');
@@ -392,10 +345,27 @@
     $dk.removeClass('dk_open');
   }
 
+  // Report whether there is enough space in the window to drop down.
+
+  //****TO DO**** If you're far down the page then the dropdown still opens up. Even if theres enough room below
+  function _enoughSpaceBelow($dk) {
+    var
+      $dk_toggle = $dk.find('.dk_toggle'),
+      optionsHeight = $dk.find('.dk_options').outerHeight(),
+      spaceBelow = $(window).height() - $dk_toggle.outerHeight() - $dk_toggle.offset().top
+    ;
+    console.log(spaceBelow);
+    //Also hugely inefficent. Prints to console on one click 4 times.
+    return optionsHeight < spaceBelow;
+  }
+
   // Open a dropdown
   function _openDropdown($dk) {
     var data = $dk.data('dropkick');
-    $dk.find('.dk_options').css({ top : $dk.find('.dk_toggle').outerHeight() - 1 });
+    $dk.find('.dk_options').css({
+      top : _enoughSpaceBelow($dk) ? $dk.find('.dk_toggle').outerHeight() - 1 : '',
+      bottom : _enoughSpaceBelow($dk) ? '' : $dk.find('.dk_toggle').outerHeight() - 1
+    });
     $dk.toggleClass('dk_open');
 
   }
@@ -415,9 +385,6 @@
     template = template.replace('{{ id }}', view.id);
     template = template.replace('{{ label }}', view.label);
     template = template.replace('{{ tabindex }}', view.tabindex);
-    
-    // Disable Feature
-    template = template.replace('{{ isDisabled }}', view.isDisabled);
 
     if (view.options && view.options.length) {
       for (var i = 0, l = view.options.length; i < l; i++) {
@@ -451,15 +418,14 @@
     $(document).on('click', '.dk_toggle', function (e) {
       var $dk  = $(this).parents('.dk_container').first();
 
-      if(!$dk.hasClass('gd-disable')){
-    	  _openDropdown($dk);
-      } 
+      _openDropdown($dk);
 
       if ("ontouchstart" in window) {
         $dk.addClass('dk_touch');
         $dk.find('.dk_options_inner').addClass('scrollable vertical');
       }
 
+      e.preventDefault();
       return false;
     });
 
@@ -475,6 +441,7 @@
       _updateFields($option, $dk);
       _setCurrent($option.parent(), $dk);
 
+      e.preventDefault();
       return false;
     });
 
@@ -503,7 +470,7 @@
         _handleKeyBoardNav(e, $dk);
       }
     });
-
+    
     // Globally handle a click outside of the dropdown list by closing it.
     $(document).on('click', null, function(e) {
         if($(e.target).closest(".dk_container").length == 0) {
