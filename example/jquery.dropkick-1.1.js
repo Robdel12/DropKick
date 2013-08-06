@@ -39,7 +39,8 @@
        'enter' : 13,
        'tab'   : 9,
        'zero'  : 48,
-       'z'     : 90
+       'z'     : 90,
+       'last': 221  //support extend charsets such as Danish, Ukrainian etc.
     },
 
     // HTML template for the dropdowns
@@ -56,13 +57,14 @@
     ].join(''),
 
     // HTML template for dropdown options
-    optionTemplate = '<li class="{{ current }}"><a data-dk-dropdown-value="{{ value }}">{{ text }}</a></li>',
+    optionTemplate = '<li class="{{ current }} {{ disabled }}"><a data-dk-dropdown-value="{{ value }}">{{ text }}</a></li>',
 
     // Some nice default values
     defaults = {
       startSpeed : 1000,  // I recommend a high value here, I feel it makes the changes less noticeable to the user
       theme  : false,
-      change : false
+      change : false,
+      reverseSync: false
     },
 
     // Make sure we only bind keydown on the document once
@@ -128,7 +130,7 @@
       $select.before($dk);
 
       // Update the reference to $dk
-      $dk = $('#dk_container_' + id).fadeIn(settings.startSpeed);
+      $dk = $('div[id="dk_container_' + id + '"]').fadeIn(settings.startSpeed);
 
       // Save the current theme
       theme = settings.theme ? settings.theme : 'default';
@@ -152,6 +154,14 @@
       }).bind('blur.dropkick', function (e) {
         $dk.removeClass('dk_open dk_focus');
       });
+
+      // Sync to change events on the original <select> if requested
+      if (data.settings.reverseSync) {
+        $select.bind('change', function(e){
+          var $dkopt = $(':[data-dk-dropdown-value="'+$select.val()+'"]', $dk);
+          _updateFields($dkopt, $dk, true);
+        });
+      }
 
       setTimeout(function () {
         $select.hide();
@@ -230,8 +240,10 @@
     switch (code) {
       case keyMap.enter:
         if (open) {
-          _updateFields(current.find('a'), $dk);
-          _closeDropdown($dk);
+         if(!current.hasClass('disabled')){
+            _updateFields(current.find('a'), $dk);
+                _closeDropdown($dk);
+          }
         } else {
           _openDropdown($dk);
         }
@@ -391,11 +403,13 @@
         var
           $option   = $(view.options[i]),
           current   = 'dk_option_current',
+          disabled  = ' disabled',
           oTemplate = optionTemplate
         ;
 
         oTemplate = oTemplate.replace('{{ value }}', $option.val());
         oTemplate = oTemplate.replace('{{ current }}', (_notBlank($option.val()) === view.value) ? current : '');
+        oTemplate = oTemplate.replace('{{ disabled }}', (typeof $option.attr('disabled') != 'undefined') ? disabled : '');
         oTemplate = oTemplate.replace('{{ text }}', $option.text());
 
         options[options.length] = oTemplate;
@@ -437,9 +451,11 @@
         data    = $dk.data('dropkick')
       ;
 
-      _closeDropdown($dk);
-      _updateFields($option, $dk);
-      _setCurrent($option.parent(), $dk);
+      if(!$option.parent().hasClass('disabled')){
+        _closeDropdown($dk);
+          _updateFields($option, $dk);
+          _setCurrent($option.parent(), $dk);
+      }
 
       e.preventDefault();
       return false;
