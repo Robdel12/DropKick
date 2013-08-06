@@ -191,7 +191,15 @@
     -webkit-overflow-scrolling:touch;
     position: relative;
   }
-
+.dk_options .disabled a {
+   	color: #aaa;
+   }
+  .dk_options .disabled:hover a {
+    cursor: default;
+    background-color: #fff;
+    border-bottom-color: #999;
+    text-shadow: none;
+  }
 .dk_fouc select {
   position: relative;
   top: -99999em;
