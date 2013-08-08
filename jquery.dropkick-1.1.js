@@ -61,7 +61,7 @@
 
     // Some nice default values
     defaults = {
-      startSpeed : 1000,  // I recommend a high value here, I feel it makes the changes less noticeable to the user
+      startSpeed : 100,  // I reccomend a low value (lowest is probably 100) to stop a "fade in" effect.
       theme  : false,
       change : false,
       reverseSync: false
