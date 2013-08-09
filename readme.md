@@ -1,14 +1,10 @@
-DropKick is under new management!
-=
-Dropkick.js is now with a loving owner. I'll do my best to manage the project and keeping it up to date. So, lets get crackin'!
-
 DropKick
 =
 Creating custom dropdowns is usually a tedious process that requires a ton of extra setup time. Oftentimes lacking conveniences that native dropdowns have such as keyboard navigation. DropKick removes the tedium and lets you focus on making s@#t look good.
 
 Requirements:
 -
-DropKick requires the latest version of jQuery, available at jQuery.com.
+DropKick requires the latest version of jQuery, available at jQuery.com. Currently we're [using jQuery 1.10.2.](http://blog.jquery.com/2013/07/03/jquery-1-10-2-and-2-0-3-released/)
 
 How it works:
 -
@@ -18,6 +14,8 @@ an `onchange` event bound to your `<select>` list, you will have to instead use 
 
 Features:
 -
+# To do: go back through these features and actually write a good list out
+
 * *Keyboard Navigation:*
    Keyboard navigation in DropKick is very similar to native `<select>` navigation.
    While highlighted, pressing enter, up, or down on your keyboard will open the dropdown.
@@ -32,21 +30,24 @@ Compatibility:
 -
 DropKick was tested on Opera 10+, Google Chrome 10+, FireFox 5+, Safari 5+, and Internet Explorer 7 - 8. IE6 is not supported and will simply continue using your plain dropdowns instead.
 
-iOS 5+ is now supported natively without any additional add-ons required.
+iOS is supported natively without any additional add-ons required. It opens up the default select picker while you still have custom styled selects.
 
 Known Issues:
 -
-* Opened DropKick menus on Internet Explorer 7 will be covered by other DropKick containers if they are vertically stacked and too close together.
+# To do: there are a lot. Lets get them either in here or fixed ;)
 
 Found a bug? Please [let me know](https://github.com/robdel12/DropKick/issues).
 
 How to use:
 -
+# To do: do a little guide in the readme and then update example page.
 Please see examples.html or [the DropKick homepage](http://robdel12.github.com/DropKick/) for usage
 
-What next:
--
-Got an idea for improving DropKick? Or maybe a bug fix? Please feel free to fork a copy and submit a pull request!
+## What next: 
+#### Version 2.0
+Version 2.0 is going to be a compleate rewrite of the plugin. Suggestions are welcome for features :)
+
+Got an idea for improving DropKick? Or maybe a bug fix? Please feel free to fork a copy and submit a pull request! We've merged in over 30 pull requests in the past month. We're no stranger to it
 
 Maintained by:
 -
