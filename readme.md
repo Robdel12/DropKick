@@ -21,6 +21,8 @@ Features:
    While highlighted, pressing enter, up, or down on your keyboard will open the dropdown.
    While opened, pressing up or down will navigate through the options, and pressing enter will select the currently highlighted option.
 
+Use `$(object).dropkick('refresh')` method to update dropkick if the `<select>` content has changed dinamically
+
 * *Themeing:* 
   DropKick was made to be easily theme-able and supports dynamic theme changing.
 
