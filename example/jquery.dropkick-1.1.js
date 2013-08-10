@@ -361,27 +361,28 @@
 
   // Report whether there is enough space in the window to drop down.
 
-  //****TO DO**** If you're far down the page then the dropdown still opens up. Even if theres enough room below
-  function _enoughSpaceBelow($dk) {
+  //****TO DO**** If you're far down the page then the dropdown still opens up. Even if theres enough room below [FIXED]
+  function _enoughSpace($dk) {
     var
       $dk_toggle = $dk.find('.dk_toggle'),
       optionsHeight = $dk.find('.dk_options').outerHeight(),
-      spaceBelow = $(window).height() - $dk_toggle.outerHeight() - $dk_toggle.offset().top
+      spaceBelow = $(window).height() - $dk_toggle.outerHeight() - $dk_toggle.offset().top + $(window).scrollTop(),
+      spaceAbove = $dk_toggle.offset().top - $(window).scrollTop()
     ;
-    console.log(spaceBelow);
-    //Also hugely inefficent. Prints to console on one click 4 times.
-    return optionsHeight < spaceBelow;
+
+    //Also hugely inefficent. Prints to console on one click 4 times. [FIXED]
+      return !(optionsHeight < spaceAbove) ? true : (optionsHeight < spaceBelow); // [Acemir] If no space above, default is opens down. If has space on top, check if will need open it to up
   }
 
   // Open a dropdown
   function _openDropdown($dk) {
-    var data = $dk.data('dropkick');
+    var data = $dk.data('dropkick'),
+        hasSpace = _enoughSpace($dk); // Avoids duplication of call to _enoughSpace
     $dk.find('.dk_options').css({
-      top : _enoughSpaceBelow($dk) ? $dk.find('.dk_toggle').outerHeight() - 1 : '',
-      bottom : _enoughSpaceBelow($dk) ? '' : $dk.find('.dk_toggle').outerHeight() - 1
+      top : hasSpace ? $dk.find('.dk_toggle').outerHeight() - 1 : '',
+      bottom : hasSpace ? '' : $dk.find('.dk_toggle').outerHeight() - 1
     });
     $dk.toggleClass('dk_open');
-
   }
 
   /**
@@ -434,7 +435,7 @@
     $(document).on('click', '.dk_toggle', function (e) {
       var $dk  = $(this).parents('.dk_container').first();
 
-      _openDropdown($dk);
+      $dk.hasClass('dk_open') ? _closeDropdown($dk) : _openDropdown($dk); // Avoids duplication of call to _openDropdown
 
       if ("ontouchstart" in window) {
         $dk.addClass('dk_touch');
