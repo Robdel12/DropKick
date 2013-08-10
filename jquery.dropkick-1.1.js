@@ -7,10 +7,6 @@
  * &copy; 2011 Jamie Lottering <http://github.com/JamieLottering>
  *                        <http://twitter.com/JamieLottering>
  *
- * History:
- * 2013-02: live > on (joeblynch)
- * 2013-06: + trigger "change" at update (so one can detect the change) (joeri210)
- *          + method: "reload" to rebuild the pulldown (when dynamic populated) (joeri210)
  */
 (function ($, window, document) {
 
@@ -208,6 +204,12 @@
     $select.removeData("dropkick");
     $("#dk_container_"+ data.id).remove();
     $select.dropkick(data.settings);
+  };
+
+  methods.setValue = function (value) {
+    var $dk = $(this).data('dropkick').$dk;
+    var $option = $dk.find('.dk_options a[data-dk-dropdown-value="' + value + '"]');
+    _updateFields($option, $dk);
   };
 
   // Expose the plugin
