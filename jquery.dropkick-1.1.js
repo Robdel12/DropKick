@@ -12,16 +12,18 @@
  * 2013-06: + trigger "change" at update (so one can detect the change) (joeri210)
  *          + method: "reload" to rebuild the pulldown (when dynamic populated) (joeri210)
  */
-/*jslint browser: true, plusplus: true, white: true, indent: 2, todo: true */
-/*globals jQuery*/
 (function ($, window, document) {
-  'use strict';
 
-  var 
-    msVersion = navigator.userAgent.match(/MSIE ([0-9]{1,}[\.0-9]{0,})/),
-    msie = !!msVersion,
-    ie6 = msie && parseFloat(msVersion[1]) < 7,
+  var msVersion = navigator.userAgent.match(/MSIE ([0-9]{1,}[\.0-9]{0,})/),
+      msie = !!msVersion,
+      ie6 = msie && parseFloat(msVersion[1]) < 7;
 
+  // Help prevent flashes of unstyled content
+  if (!ie6) {
+    document.documentElement.className = document.documentElement.className + ' dk_fouc';
+  }
+
+  var
     // Public methods exposed to $.fn.dropkick()
     methods = {},
 
@@ -31,26 +33,26 @@
     // Convenience keys for keyboard navigation
     keyMap = {
       'left'  : 37,
-      'up'    : 38,
-      'right' : 39,
-      'down'  : 40,
-      'enter' : 13,
-      'tab'   : 9,
-      'zero'  : 48,
-      'z'     : 90,
-      'last': 221  //support extend charsets such as Danish, Ukrainian etc.
+       'up'    : 38,
+       'right' : 39,
+       'down'  : 40,
+       'enter' : 13,
+       'tab'   : 9,
+       'zero'  : 48,
+       'z'     : 90,
+       'last': 221  //support extend charsets such as Danish, Ukrainian etc.
     },
 
     // HTML template for the dropdowns
     dropdownTemplate = [
       '<div class="dk_container" id="dk_container_{{ id }}" tabindex="{{ tabindex }}">',
-      '   <a class="dk_toggle">',
-      '   <span class="dk_label">{{ label }}</span>',
-      ' </a>',
-      ' <div class="dk_options">',
-      '   <ul class="dk_options_inner">',
-      '   </ul>',
-      ' </div>',
+        '<a class="dk_toggle">',
+          '<span class="dk_label">{{ label }}</span>',
+        '</a>',
+        '<div class="dk_options">',
+          '<ul class="dk_options_inner">',
+          '</ul>',
+        '</div>',
       '</div>'
     ].join(''),
 
@@ -59,226 +61,15 @@
 
     // Some nice default values
     defaults = {
-      startSpeed : 100,  // I reccomend a low value (lowest is probably 100) to stop a "fade in" effect.
+      startSpeed : 1000,  // I recommend a high value here, I feel it makes the changes less noticeable to the user
       theme  : false,
       change : false,
-      syncReverse: false
+      reverseSync: false
     },
 
-    // private
-    // Update the <select> value, and the dropdown label
-    updateFields = function(option, $dk, reset) {
-      var value, label, data, $select;
-
-      value = option.attr('data-dk-dropdown-value');
-      label = option.text();
-      data  = $dk.data('dropkick');
-
-      $select = data.$select;
-      $select.val(value).trigger('change'); // Added to let it act like a normal select
-
-      $dk.find('.dk_label').text(label);
-
-      reset = reset || false;
-
-      if (data.settings.change && !reset) {
-        data.settings.change.call($select, value, label);
-      }
-    },
-   
-    // Close a dropdown
-    closeDropdown = function($dk) {
-      $dk.removeClass('dk_open');
-    },
-
-    // Report whether there is enough space in the window to drop down.
-    //****TO DO**** If you're far down the page then the dropdown still opens up. Even if theres enough room below
-    enoughSpaceBelow = function($dk) {
-      var
-        $dk_toggle = $dk.find('.dk_toggle'),
-        optionsHeight = $dk.find('.dk_options').outerHeight(),
-        spaceBelow = $(window).height() - $dk_toggle.outerHeight() - $dk_toggle.offset().top
-      ;
-      // console.log(spaceBelow);
-      //Also hugely inefficent. Prints to console on one click 4 times.
-      return optionsHeight < spaceBelow;
-    },
- 
-    // Open a dropdown
-    openDropdown = function($dk) {
-      $dk.find('.dk_options').css({
-        top : enoughSpaceBelow($dk) ? $dk.find('.dk_toggle').outerHeight() - 1 : '',
-        bottom : enoughSpaceBelow($dk) ? '' : $dk.find('.dk_toggle').outerHeight() - 1
-      });
-      $dk.toggleClass('dk_open');
-    },
-
-    setScrollPos = function($dk, anchor) {
-      var height = anchor.prevAll('li').outerHeight() * anchor.prevAll('li').length;
-      $dk.find('.dk_options_inner').animate({ scrollTop: height + 'px' }, 0);
-    },
-
-    // Set the currently selected option
-    setCurrent = function($current, $dk) {
-      $dk.find('.dk_option_current').removeClass('dk_option_current');
-      $current.addClass('dk_option_current');
-
-      setScrollPos($dk, $current);
-    },
-
-    handleKeyBoardNav = function(e, $dk) {
-      var
-        code     = e.keyCode,
-        data     = $dk.data('dropkick'),
-        letter   = String.fromCharCode(code),
-        options  = $dk.find('.dk_options'),
-        open     = $dk.hasClass('dk_open'),
-        lis      = options.find('li'),
-        current  = $dk.find('.dk_option_current'),
-        first    = lis.first(),
-        last     = lis.last(),
-        next,
-        prev,
-        now,
-        list,
-        i,
-        l,
-        $a
-      ;
-
-      switch (code) {
-      case keyMap.enter:
-        if (open) {
-          if(!current.hasClass('disabled')){
-            updateFields(current.find('a'), $dk);
-            closeDropdown($dk);
-          }
-        } else {
-          openDropdown($dk);
-        }
-        e.preventDefault();
-        break;
-
-      case keyMap.tab:
-        if(open){
-          updateFields(current.find('a'), $dk);
-          closeDropdown($dk);
-        }
-        break;
-
-      case keyMap.up:
-        prev = current.prev('li');
-        if (open) {
-          if (prev.length) {
-            setCurrent(prev, $dk);
-          } else {
-            setCurrent(last, $dk);
-          }
-        } else {
-          openDropdown($dk);
-        }
-        e.preventDefault();
-        break;
-
-      case keyMap.down:
-        if (open) {
-          next = current.next('li').first();
-          if (next.length) {
-            setCurrent(next, $dk);
-          } else {
-            setCurrent(first, $dk);
-          }
-        } else {
-          openDropdown($dk);
-        }
-        e.preventDefault();
-        break;
-
-      default:
-        break;
-      }
-      //if typing a letter
-      if (code >= keyMap.zero && code <= keyMap.z) {
-        //update data
-        now = new Date().getTime();
-        if (data.finder === null) {
-          data.finder = letter.toUpperCase();
-          data.timer = now;
-
-        }else {
-          if (now > parseInt(data.timer, 10) + 1000) {
-            data.finder = letter.toUpperCase();
-            data.timer =  now;
-          } else {
-            data.finder = data.finder + letter.toUpperCase();
-            data.timer = now;
-          }
-        }
-        //find and switch to the appropriate option
-        list = lis.find('a');
-        for(i = 0, l = list.length; i < l; i++){
-          $a = $(list[i]);
-          if ($a.html().toUpperCase().indexOf(data.finder) === 0) {
-            updateFields($a, $dk);
-            setCurrent($a.parent(), $dk);
-            break;
-          }
-        }
-        $dk.data('dropkick', data);
-      }
-    },
-
-    notBlank = function(text) {
-      return ($.trim(text).length > 0) ? text : false;
-    },
-
-    // Turn the dropdownTemplate into a jQuery object and fill in the variables.
-    build = function (tpl, view) {
-      var
-        // Template for the dropdown
-        template  = tpl,
-        // Holder of the dropdowns options
-        options   = [],
-        $dk,
-        i,
-        l,
-        $option,
-        current,
-        disabled,
-        oTemplate
-      ;
-
-      template = template.replace('{{ id }}', view.id);
-      template = template.replace('{{ label }}', view.label);
-      template = template.replace('{{ tabindex }}', view.tabindex);
-
-      if (view.options && view.options.length) {
-        for (i = 0, l = view.options.length; i < l; i++) {
-          $option   = $(view.options[i]);
-          current   = 'dk_option_current';
-          disabled  = ' disabled';
-          oTemplate = optionTemplate;
-
-          oTemplate = oTemplate.replace('{{ value }}', $option.val());
-          oTemplate = oTemplate.replace('{{ current }}', (notBlank($option.val()) === view.value) ? current : '');
-          oTemplate = oTemplate.replace('{{ disabled }}', ($option.attr('disabled') !== undefined) ? disabled : '');
-          oTemplate = oTemplate.replace('{{ text }}', $option.text());
-
-          options[options.length] = oTemplate;
-        }
-      }
-
-      $dk = $(template);
-      $dk.find('.dk_options_inner').html(options.join(''));
-
-      return $dk;
-    }
+    // Make sure we only bind keydown on the document once
+    keysBound = false
   ;
-
-  // Help prevent flashes of unstyled content
-  if (!ie6) {
-    document.documentElement.className = document.documentElement.className + ' dk_fouc';
-  }
 
   // Called by using $('foo').dropkick();
   methods.init = function (settings) {
@@ -305,7 +96,7 @@
         width  = settings.width || $select.outerWidth(),
 
         // Check if we have a tabindex set or not
-        tabindex  = $select.attr('tabindex') || '',
+        tabindex  = $select.attr('tabindex') ? $select.attr('tabindex') : '',
 
         // The completed dk_container element
         $dk = false,
@@ -316,19 +107,19 @@
       // Dont do anything if we've already setup dropkick on this element
       if (data.id) {
         return $select;
+      } else {
+        data.settings  = settings;
+        data.tabindex  = tabindex;
+        data.id        = id;
+        data.$original = $original;
+        data.$select   = $select;
+        data.value     = _notBlank($select.val()) || _notBlank($original.attr('value'));
+        data.label     = $original.text();
+        data.options   = $options;
       }
 
-      data.settings  = settings;
-      data.tabindex  = tabindex;
-      data.id        = id;
-      data.$original = $original;
-      data.$select   = $select;
-      data.value     = notBlank($select.val()) || notBlank($original.attr('value'));
-      data.label     = $original.text();
-      data.options   = $options;
-
       // Build the dropdown HTML
-      $dk = build(dropdownTemplate, data);
+      $dk = _build(dropdownTemplate, data);
 
       // Make the dropdown fixed width if desired
       $dk.find('.dk_toggle').css({
@@ -342,7 +133,7 @@
       $dk = $('div[id="dk_container_' + id + '"]').fadeIn(settings.startSpeed);
 
       // Save the current theme
-      theme = settings.theme || 'default';
+      theme = settings.theme ? settings.theme : 'default';
       $dk.addClass('dk_theme_' + theme);
       data.theme = theme;
 
@@ -358,17 +149,17 @@
       lists[lists.length] = $select;
 
       // Focus events
-      $dk.bind('focus.dropkick', function () {
+      $dk.bind('focus.dropkick', function (e) {
         $dk.addClass('dk_focus');
-      }).bind('blur.dropkick', function () {
+      }).bind('blur.dropkick', function (e) {
         $dk.removeClass('dk_open dk_focus');
       });
 
       // Sync to change events on the original <select> if requested
-      if (data.settings.syncReverse) {
-        $select.bind('change', function () {
+      if (data.settings.reverseSync) {
+        $select.bind('change', function(e){
           var $dkopt = $(':[data-dk-dropdown-value="'+$select.val()+'"]', $dk);
-          updateFields($dkopt, $dk, true);
+          _updateFields($dkopt, $dk, true);
         });
       }
 
@@ -394,33 +185,26 @@
 
   // Reset all <selects and dropdowns in our lists array
   methods.reset = function () {
-    var
-      i,
-      l,
-      listData,
-      $dk,
-      $current
-    ;
-    for (i = 0, l = lists.length; i < l; i++) {
-      listData  = lists[i].data('dropkick');
-      $dk       = listData.$dk;
-      $current  = $dk.find('li').first();
+    for (var i = 0, l = lists.length; i < l; i++) {
+      var
+        listData  = lists[i].data('dropkick'),
+        $dk       = listData.$dk,
+        $current  = $dk.find('li').first()
+      ;
 
       $dk.find('.dk_label').text(listData.label);
       $dk.find('.dk_options_inner').animate({ scrollTop: 0 }, 0);
 
-      setCurrent($current, $dk);
-      updateFields($current, $dk, true);
+      _setCurrent($current, $dk);
+      _updateFields($current, $dk, true);
     }
   };
 
   // Reload / rebuild, in case of dynamic updates etc.
   // Credits to Jeremy (http://stackoverflow.com/users/1380047/jeremy-p)
   methods.reload = function () {
-    var 
-      $select = $(this),
-      data = $select.data('dropkick')
-    ;
+    var $select = $(this);
+    var data = $select.data('dropkick');
     $select.removeData("dropkick");
     $("#dk_container_"+ data.id).remove();
     $select.dropkick(data.settings);
@@ -431,12 +215,216 @@
     if (!ie6) {
       if (methods[method]) {
         return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
-      }
-      if (typeof method === 'object' || ! method) {
+      } else if (typeof method === 'object' || ! method) {
         return methods.init.apply(this, arguments);
       }
     }
   };
+
+  // private
+  function _handleKeyBoardNav(e, $dk) {
+    var
+      code     = e.keyCode,
+      data     = $dk.data('dropkick'),
+      letter   = String.fromCharCode(code),
+      options  = $dk.find('.dk_options'),
+      open     = $dk.hasClass('dk_open'),
+      lis      = options.find('li'),
+      current  = $dk.find('.dk_option_current'),
+      first    = lis.first(),
+      last     = lis.last(),
+      next,
+      prev
+    ;
+
+    switch (code) {
+      case keyMap.enter:
+        if (open) {
+         if(!current.hasClass('disabled')){
+            _updateFields(current.find('a'), $dk);
+                _closeDropdown($dk);
+          }
+        } else {
+          _openDropdown($dk);
+        }
+        e.preventDefault();
+      break;
+
+  case keyMap.tab:
+        if(open){
+        _updateFields(current.find('a'), $dk);
+          _closeDropdown($dk);
+        }
+      break;
+
+      case keyMap.up:
+        prev = current.prev('li');
+        if (open) {
+          if (prev.length) {
+            _setCurrent(prev, $dk);
+          } else {
+            _setCurrent(last, $dk);
+          }
+        } else {
+          _openDropdown($dk);
+        }
+        e.preventDefault();
+      break;
+
+      case keyMap.down:
+        if (open) {
+          next = current.next('li').first();
+          if (next.length) {
+            _setCurrent(next, $dk);
+          } else {
+            _setCurrent(first, $dk);
+          }
+        } else {
+          _openDropdown($dk);
+        }
+        e.preventDefault();
+      break;
+
+      default:
+      break;
+    }
+    //if typing a letter
+    if (code >= keyMap.zero && code <= keyMap.z) {
+      //update data
+      var now = new Date().getTime();
+      if (data.finder == null) {
+        data.finder = letter.toUpperCase();
+        data.timer = now;
+
+      }else {
+        if (now > parseInt(data.timer) + 1000) {
+          data.finder = letter.toUpperCase();
+          data.timer =  now;
+        } else {
+          data.finder = data.finder + letter.toUpperCase();
+          data.timer = now;
+        }
+      }
+      //find and switch to the appropriate option
+      var list = lis.find('a');
+      for(var i = 0, len = list.length; i < len; i++){
+        var $a = $(list[i]);
+        if ($a.html().toUpperCase().indexOf(data.finder) === 0) {
+          _updateFields($a, $dk);
+          _setCurrent($a.parent(), $dk);
+          break;
+        }
+      }
+      $dk.data('dropkick', data);
+    }
+  }
+
+  // Update the <select> value, and the dropdown label
+  function _updateFields(option, $dk, reset) {
+    var value, label, data;
+
+    value = option.attr('data-dk-dropdown-value');
+    label = option.text();
+    data  = $dk.data('dropkick');
+
+    $select = data.$select;
+    $select.val(value).trigger('change'); // Added to let it act like a normal select
+
+    $dk.find('.dk_label').text(label);
+
+    reset = reset || false;
+
+    if (data.settings.change && !reset) {
+      data.settings.change.call($select, value, label);
+    }
+  }
+  
+  // Set the currently selected option
+  function _setCurrent($current, $dk) {
+    $dk.find('.dk_option_current').removeClass('dk_option_current');
+    $current.addClass('dk_option_current');
+
+    _setScrollPos($dk, $current);
+  }
+
+  function _setScrollPos($dk, anchor) {
+    var height = anchor.prevAll('li').outerHeight() * anchor.prevAll('li').length;
+    $dk.find('.dk_options_inner').animate({ scrollTop: height + 'px' }, 0);
+  }
+
+  // Close a dropdown
+  function _closeDropdown($dk) {
+    $dk.removeClass('dk_open');
+  }
+
+  // Report whether there is enough space in the window to drop down.
+
+  //****TO DO**** If you're far down the page then the dropdown still opens up. Even if theres enough room below
+  function _enoughSpaceBelow($dk) {
+    var
+      $dk_toggle = $dk.find('.dk_toggle'),
+      optionsHeight = $dk.find('.dk_options').outerHeight(),
+      spaceBelow = $(window).height() - $dk_toggle.outerHeight() - $dk_toggle.offset().top
+    ;
+    console.log(spaceBelow);
+    //Also hugely inefficent. Prints to console on one click 4 times.
+    return optionsHeight < spaceBelow;
+  }
+
+  // Open a dropdown
+  function _openDropdown($dk) {
+    var data = $dk.data('dropkick');
+    $dk.find('.dk_options').css({
+      top : _enoughSpaceBelow($dk) ? $dk.find('.dk_toggle').outerHeight() - 1 : '',
+      bottom : _enoughSpaceBelow($dk) ? '' : $dk.find('.dk_toggle').outerHeight() - 1
+    });
+    $dk.toggleClass('dk_open');
+
+  }
+
+  /**
+   * Turn the dropdownTemplate into a jQuery object and fill in the variables.
+   */
+  function _build (tpl, view) {
+    var
+      // Template for the dropdown
+      template  = tpl,
+      // Holder of the dropdowns options
+      options   = [],
+      $dk
+    ;
+
+    template = template.replace('{{ id }}', view.id);
+    template = template.replace('{{ label }}', view.label);
+    template = template.replace('{{ tabindex }}', view.tabindex);
+
+    if (view.options && view.options.length) {
+      for (var i = 0, l = view.options.length; i < l; i++) {
+        var
+          $option   = $(view.options[i]),
+          current   = 'dk_option_current',
+          disabled  = ' disabled',
+          oTemplate = optionTemplate
+        ;
+
+        oTemplate = oTemplate.replace('{{ value }}', $option.val());
+        oTemplate = oTemplate.replace('{{ current }}', (_notBlank($option.val()) === view.value) ? current : '');
+        oTemplate = oTemplate.replace('{{ disabled }}', (typeof $option.attr('disabled') != 'undefined') ? disabled : '');
+        oTemplate = oTemplate.replace('{{ text }}', $option.text());
+
+        options[options.length] = oTemplate;
+      }
+    }
+
+    $dk = $(template);
+    $dk.find('.dk_options_inner').html(options.join(''));
+
+    return $dk;
+  }
+
+  function _notBlank(text) {
+    return ($.trim(text).length > 0) ? text : false;
+  }
 
   $(function () {
 
@@ -444,9 +432,9 @@
     $(document).on('click', '.dk_toggle', function (e) {
       var $dk  = $(this).parents('.dk_container').first();
 
-      openDropdown($dk);
+      _openDropdown($dk);
 
-      if (window.ontouchstart !== undefined) {
+      if ("ontouchstart" in window) {
         $dk.addClass('dk_touch');
         $dk.find('.dk_options_inner').addClass('scrollable vertical');
       }
@@ -459,13 +447,14 @@
     $(document).on((msie ? 'mousedown' : 'click'), '.dk_options a', function (e) {
       var
         $option = $(this),
-        $dk     = $option.parents('.dk_container').first()
+        $dk     = $option.parents('.dk_container').first(),
+        data    = $dk.data('dropkick')
       ;
 
       if(!$option.parent().hasClass('disabled')){
-        closeDropdown($dk);
-        updateFields($option, $dk);
-        setCurrent($option.parent(), $dk);
+        _closeDropdown($dk);
+          _updateFields($option, $dk);
+          _setCurrent($option.parent(), $dk);
       }
 
       e.preventDefault();
@@ -494,15 +483,15 @@
       }
 
       if ($dk) {
-        handleKeyBoardNav(e, $dk);
+        _handleKeyBoardNav(e, $dk);
       }
     });
     
     // Globally handle a click outside of the dropdown list by closing it.
     $(document).on('click', null, function(e) {
-      if($(e.target).closest(".dk_container").length === 0) {
-        closeDropdown($('.dk_toggle').parents(".dk_container").first());
-      }
+        if($(e.target).closest(".dk_container").length == 0) {
+            _closeDropdown($('.dk_toggle').parents(".dk_container").first());
+        }
     });
   });
-}(jQuery, window, document));
+})(jQuery, window, document);
