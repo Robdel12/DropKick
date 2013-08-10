@@ -360,8 +360,6 @@
   }
 
   // Report whether there is enough space in the window to drop down.
-
-  //****TO DO**** If you're far down the page then the dropdown still opens up. Even if theres enough room below [FIXED]
   function _enoughSpace($dk) {
     var
       $dk_toggle = $dk.find('.dk_toggle'),
@@ -369,9 +367,8 @@
       spaceBelow = $(window).height() - $dk_toggle.outerHeight() - $dk_toggle.offset().top + $(window).scrollTop(),
       spaceAbove = $dk_toggle.offset().top - $(window).scrollTop()
     ;
-
-    //Also hugely inefficent. Prints to console on one click 4 times. [FIXED]
-      return !(optionsHeight < spaceAbove) ? true : (optionsHeight < spaceBelow); // [Acemir] If no space above, default is opens down. If has space on top, check if will need open it to up
+      //[Acemir] If no space above, default is opens down. If has space on top, check if will need open it to up
+      return !(optionsHeight < spaceAbove) ? true : (optionsHeight < spaceBelow);
   }
 
   // Open a dropdown
