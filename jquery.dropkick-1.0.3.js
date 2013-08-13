@@ -154,6 +154,12 @@
       setTimeout(function () {
         $select.hide();
       }, 0);
+
+      // Calls the onload after everything has finished loaded
+      if (data.settings.onload) {
+        data.settings.onload.call($select, $dk);
+      }
+
     });
   };
 
