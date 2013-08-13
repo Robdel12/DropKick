@@ -307,6 +307,12 @@
     $dk.find('.dk_options_inner').animate({ scrollTop: height + 'px' }, 0);
   }
 
+  // Closes all opened dropdowns
+  function _closeAllDropdowns() {
+    // Closes all current dropdowns
+    $('.dk_open').removeClass('dk_open');
+  }
+
   // Close a dropdown
   function _closeDropdown($dk) {
     $dk.removeClass('dk_open');
@@ -314,6 +320,7 @@
 
   // Open a dropdown
   function _openDropdown($dk) {
+    _closeAllDropdowns();
     var data = $dk.data('dropkick');
     $dk.find('.dk_options').css({ top : $dk.find('.dk_toggle').outerHeight() - 1 });
     $dk.toggleClass('dk_open');
@@ -367,12 +374,20 @@
     // Handle click events on the dropdown toggler
     $(document).on('click', '.dk_toggle', function (e) {
       var $dk  = $(this).parents('.dk_container').first();
+      
+      if($dk.hasClass('dk_open')) {
+        _closeDropdown($dk);
+      }
 
-      _openDropdown($dk);
+      else {
 
-      if ("ontouchstart" in window) {
-        $dk.addClass('dk_touch');
-        $dk.find('.dk_options_inner').addClass('scrollable vertical');
+        _openDropdown($dk);
+  
+        if ("ontouchstart" in window) {
+          $dk.addClass('dk_touch');
+          $dk.find('.dk_options_inner').addClass('scrollable vertical');
+        }
+
       }
 
       e.preventDefault();
