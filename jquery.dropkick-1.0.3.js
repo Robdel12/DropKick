@@ -375,6 +375,11 @@
         $dk.find('.dk_options_inner').addClass('scrollable vertical');
       }
 
+      // Close other open DK dropdowns, besides this one.
+      $('.dk_container').not($dk).each(function(){
+        _closeDropdown($(this));
+      });
+
       e.preventDefault();
       return false;
     });
@@ -424,7 +429,11 @@
     // Globally handle a click outside of the dropdown list by closing it.
     $(document).on('click', null, function(e) {
         if($(e.target).closest(".dk_container").length == 0) {
-            _closeDropdown($('.dk_toggle').parents(".dk_container").first());
+       	    // click is not within any DK dropdown, so all should be closed.
+       	    $('.dk_container').each(function(){
+       	    	_closeDropdown($(this));	
+       	    });
+            //_closeDropdown($('.dk_toggle').parents(".dk_container").first());
         }
     });
   });
