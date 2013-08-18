@@ -70,6 +70,8 @@
   // Called by using $('foo').dropkick();
   methods.init = function (settings) {
     settings = $.extend({}, defaults, settings);
+	dropdownTemplate = settings.dropdownTemplate ? settings.dropdownTemplate : dropdownTemplate;
+	optionTemplate = settings.optionTemplate ? settings.optionTemplate : optionTemplate;
 
     return this.each(function () {
       var
@@ -420,7 +422,7 @@
         _handleKeyBoardNav(e, $dk);
       }
     });
-    
+
     // Globally handle a click outside of the dropdown list by closing it.
     $(document).on('click', null, function(e) {
         if($(e.target).closest(".dk_container").length == 0) {
