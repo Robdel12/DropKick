@@ -87,23 +87,24 @@
     },
 
     // Report whether there is enough space in the window to drop down.
-    //****TO DO**** If you're far down the page then the dropdown still opens up. Even if theres enough room below
-    enoughSpaceBelow = function($dk) {
+    enoughSpace = function($dk)  {
       var
         $dk_toggle = $dk.find('.dk_toggle'),
         optionsHeight = $dk.find('.dk_options').outerHeight(),
-        spaceBelow = $(window).height() - $dk_toggle.outerHeight() - $dk_toggle.offset().top
+        spaceBelow = $(window).height() - $dk_toggle.outerHeight() - $dk_toggle.offset().top + $(window).scrollTop(),
+        spaceAbove = $dk_toggle.offset().top - $(window).scrollTop()
       ;
-      // console.log(spaceBelow);
-      //Also hugely inefficent. Prints to console on one click 4 times.
-      return optionsHeight < spaceBelow;
+      // [Acemir] If no space above, default is opens down. If has space on top, check if will need open it to up
+      return !(optionsHeight < spaceAbove) ? true : (optionsHeight < spaceBelow);
     },
  
     // Open a dropdown
     openDropdown = function($dk) {
+      var data = $dk.data('dropkick'),
+        hasSpace = enoughSpace($dk); // Avoids duplication of call to _enoughSpace
       $dk.find('.dk_options').css({
-        top : enoughSpaceBelow($dk) ? $dk.find('.dk_toggle').outerHeight() - 1 : '',
-        bottom : enoughSpaceBelow($dk) ? '' : $dk.find('.dk_toggle').outerHeight() - 1
+        top : hasSpace ? $dk.find('.dk_toggle').outerHeight() - 1 : '',
+        bottom : hasSpace ? '' : $dk.find('.dk_toggle').outerHeight() - 1
       });
       $dk.toggleClass('dk_open');
     },
@@ -459,7 +460,7 @@
     $(document).on('click', '.dk_toggle', function (e) {
       var $dk  = $(this).parents('.dk_container').first();
 
-      openDropdown($dk);
+      $dk.hasClass('dk_open') ? closeDropdown($dk) : openDropdown($dk); // Avoids duplication of call to _openDropdown
 
       if (window.ontouchstart !== undefined) {
         $dk.addClass('dk_touch');
