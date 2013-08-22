@@ -8,6 +8,16 @@
  *
  */
 
+.dk_options .disabled a {
+  color: #aaa;
+}
+.dk_options .disabled:hover a {
+  cursor: default;
+  background-color: #fff;
+  border-bottom-color: #999;
+  text-shadow: none;
+}
+
 /***** Begin Theme, feel free to edit in here! ******/
 
 /* One container to bind them... */
