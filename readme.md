@@ -21,7 +21,7 @@ Features:
    While highlighted, pressing enter, up, or down on your keyboard will open the dropdown.
    While opened, pressing up or down will navigate through the options, and pressing enter will select the currently highlighted option.
 
-Use `$(object).dropkick('refresh')` method to update dropkick if the `<select>` content has changed dinamically
+* *Update DK when selects change* Use `$(object).dropkick('refresh')` method to update dropkick if the `<select>` content has changed dinamically
 
 * *Themeing:* 
   DropKick was made to be easily theme-able and supports dynamic theme changing.
@@ -32,18 +32,21 @@ Compatibility:
 -
 DropKick was tested on Opera 10+, Google Chrome 10+, FireFox 5+, Safari 5+, and Internet Explorer 7 - 8. IE6 is not supported and will simply continue using your plain dropdowns instead.
 
-iOS is supported natively without any additional add-ons required. It opens up the default select picker while you still have custom styled selects.
-
 Known Issues:
 -
 # To do: there are a lot. Lets get them either in here or fixed ;)
 
-Found a bug? Please [let me know](https://github.com/robdel12/DropKick/issues).
+Found a bug? Please [let us know](https://github.com/robdel12/DropKick/issues).
 
 How to use:
 -
-# To do: do a little guide in the readme and then update example page.
-Please see examples.html or [the DropKick homepage](http://robdel12.github.com/DropKick/) for usage
+* Make sure you have jQuery 1.10 or later running
+* Add all the DK files to their proper spots (CSS files can be added to your main CSS file if you like)
+* Set a `class` or `id` on the select(s)
+* Call `$('#select').dropkick();`
+* Have a happy time with new awesome selects!
+
+Please see examples.html or [the DropKick homepage](http://robdel12.github.com/DropKick/) for more ways to use DK.
 
 ## What next: 
 #### Version 2.0
@@ -54,6 +57,7 @@ Got an idea for improving DropKick? Or maybe a bug fix? Please feel free to fork
 Maintained by:
 -
 [Robert DeLuca](http://twitter.com/robdel12)
+[Wil Wilsman](http://twitter.com/wwilsman)
 
 Created by:
 -
