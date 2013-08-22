@@ -9,34 +9,23 @@ DropKick requires the latest version of jQuery, available at jQuery.com. Current
 How it works:
 -
 DropKick works by transforming your existing, boring `<select>` lists into beautiful, customizable HTML dropdowns. The name attribute is the only one that is required. You should also set a tabindex attribute to enable navigation via tabbing.
-When an option is selected in a DropKick menu, the corresponding `<select>` value is updated. This means that your forms and AJAX requests should work the same without having to make any changes. However, if you previously had
-an `onchange` event bound to your `<select>` list, you will have to instead use a DropKick change event. Please see examples.html for usage
+When an option is selected in a DropKick menu, the corresponding `<select>` value is updated. This means that your forms and AJAX requests should work the same without having to make any changes.
 
 Features:
 -
-# To do: go back through these features and actually write a good list out
-
+* *Acts Just Like A Select*
 * *Keyboard Navigation:*
    Keyboard navigation in DropKick is very similar to native `<select>` navigation.
    While highlighted, pressing enter, up, or down on your keyboard will open the dropdown.
    While opened, pressing up or down will navigate through the options, and pressing enter will select the currently highlighted option.
 
-* *Update DK when selects change* Use `$(object).dropkick('refresh')` method to update dropkick if the `<select>` content has changed dinamically
+* *Dynamic Selects:*
+ Use `$(object).dropkick('refresh')` method to update dropkick if the `<select>` content has changed dinamically
 
-* *Themeing:* 
+* *Theming:* 
   DropKick was made to be easily theme-able and supports dynamic theme changing.
 
 * *Custom Callbacks*
-
-Compatibility:
--
-DropKick was tested on Opera 10+, Google Chrome 10+, FireFox 5+, Safari 5+, and Internet Explorer 7 - 8. IE6 is not supported and will simply continue using your plain dropdowns instead.
-
-Known Issues:
--
-# To do: there are a lot. Lets get them either in here or fixed ;)
-
-Found a bug? Please [let us know](https://github.com/robdel12/DropKick/issues).
 
 How to use:
 -
@@ -48,8 +37,31 @@ How to use:
 
 Please see examples.html or [the DropKick homepage](http://robdel12.github.com/DropKick/) for more ways to use DK.
 
-## What next: 
-#### Version 2.0
+
+Compatibility:
+-
+DropKick was tested on Opera 10+, Google Chrome 10+, FireFox 5+, Safari 5+, and Internet Explorer 7 - 8. IE6 is not supported and will simply continue using your plain dropdowns instead.
+
+Whats new in 1.1?
+-
+* [Disabled feature added](https://github.com/Robdel12/DropKick/pull/133)
+* [Selects drop up now when there isn't enough space below](https://github.com/Robdel12/DropKick/pull/135)
+* [Trigger changes on orignal selects](https://github.com/Robdel12/DropKick/pull/22)
+* [Keypress navigation works](https://github.com/Robdel12/DropKick/pull/67)
+* [Fix for touching scrollbar in IE8/9, and losing the dropdown.](https://github.com/Robdel12/DropKick/pull/31)
+* [Remove unused variables, small cleanup](https://github.com/Robdel12/DropKick/pull/23)
+* [Added SCSS Theme](https://github.com/Robdel12/DropKick/pull/55)
+* [Added native iOS support without Scrollability.js](https://github.com/Robdel12/DropKick/pull/123)
+* [2 selects now can have the same name](https://github.com/Robdel12/DropKick/pull/93)
+* [JSLinted the code](https://github.com/Robdel12/DropKick/commit/9698ac29c50ad537b41e743aac121cb7b8e1216c)
+
+Found a bug? 
+-
+Please [let us know](https://github.com/robdel12/DropKick/issues).
+
+What next: 
+-
+### Version 2.0
 Version 2.0 is going to be a compleate rewrite of the plugin. Suggestions are welcome for features :)
 
 Got an idea for improving DropKick? Or maybe a bug fix? Please feel free to fork a copy and submit a pull request! We've merged in over 30 pull requests in the past month. We're no stranger to it
@@ -57,6 +69,7 @@ Got an idea for improving DropKick? Or maybe a bug fix? Please feel free to fork
 Maintained by:
 -
 [Robert DeLuca](http://twitter.com/robdel12)
+
 [Wil Wilsman](http://twitter.com/wwilsman)
 
 Created by:
