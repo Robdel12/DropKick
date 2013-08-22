@@ -59,6 +59,12 @@
       syncReverse: false
     },
 
+    // Make sure that only one dropdown is open the document
+    $opened = null,
+
+    // Make sure that only one dropdown has focus in the document
+    $focused = null,
+
     // private
     // Update the <select> value, and the dropdown label
     updateFields = function(option, $dk, reset) {
@@ -69,8 +75,8 @@
       data  = $dk.data('dropkick');
 
       $select = data.$select;
-      $select.trigger('change');
-      $select.val(value).trigger('change'); // Added to let it act like a normal select
+      // $select.trigger('change'); // Duplicated! Why?
+      data.settings.syncReverse ? $select.val(value) : $select.val(value).trigger('change'); // Added to let it act like a normal select [Acemir >> In fact, I suggest that this must always be true]
 
       $dk.find('.dk_label').text(label);
 
@@ -84,6 +90,7 @@
     // Close a dropdown
     closeDropdown = function($dk) {
       $dk.removeClass('dk_open');
+      $opened = null;
     },
 
     // Report whether there is enough space in the window to drop down.
@@ -107,6 +114,7 @@
         bottom : hasSpace ? '' : $dk.find('.dk_toggle').outerHeight() - 1
       });
       $dk.toggleClass('dk_open');
+      $opened = $dk;
     },
 
     setScrollPos = function($dk, anchor) {
@@ -119,7 +127,7 @@
       $dk.find('.dk_option_current').removeClass('dk_option_current');
       $current.addClass('dk_option_current');
 
-      setScrollPos($dk, $current);
+      event.type != "mousedown" && setScrollPos($dk, $current); // Prevents IE back to top when an option is clicked
     },
 
     handleKeyBoardNav = function(e, $dk) {
@@ -355,22 +363,24 @@
 
       // Focus events
       $dk.bind('focus.dropkick', function () {
-        $dk.addClass('dk_focus');
+        $focused = $dk.addClass('dk_focus');
       }).bind('blur.dropkick', function () {
-        $dk.removeClass('dk_open dk_focus');
+        $dk.removeClass('dk_focus');
+        $focused = null;
       });
 
       // Sync to change events on the original <select> if requested
       if (data.settings.syncReverse) {
         $select.bind('change', function () {
-          var $dkopt = $(':[data-dk-dropdown-value="'+$select.val()+'"]', $dk);
+          var $dkopt = $('a[data-dk-dropdown-value="'+$select.val()+'"]', $dk);
           updateFields($dkopt, $dk, true);
         });
       }
 
-      setTimeout(function () {
-        $select.hide();
-      }, 0);
+      // [Issue #126] Validation do not fires in <select> is not (':visible')
+      // setTimeout(function () {
+      //   $select.hide();
+      // }, 0);
     });
   };
 
@@ -425,7 +435,7 @@
   methods.setValue = function (value) {
     var $dk = $(this).data('dropkick').$dk;
     var $option = $dk.find('.dk_options a[data-dk-dropdown-value="' + value + '"]');
-    _updateFields($option, $dk);
+    updateFields($option, $dk);
   };
 
   // Regenerating dk wrapper to update it's content
@@ -456,21 +466,6 @@
 
   $(function () {
 
-    // Handle click events on the dropdown toggler
-    $(document).on('click', '.dk_toggle', function (e) {
-      var $dk  = $(this).parents('.dk_container').first();
-
-      $dk.hasClass('dk_open') ? closeDropdown($dk) : openDropdown($dk); // Avoids duplication of call to _openDropdown
-
-      if (window.ontouchstart !== undefined) {
-        $dk.addClass('dk_touch');
-        $dk.find('.dk_options_inner').addClass('scrollable vertical');
-      }
-
-      e.preventDefault();
-      return false;
-    });
-
     // Handle click events on individual dropdown options
     $(document).on((msie ? 'mousedown' : 'click'), '.dk_options a', function (e) {
       var
@@ -481,7 +476,7 @@
       if(!$option.parent().hasClass('disabled')){
         closeDropdown($dk);
         updateFields($option, $dk);
-        setCurrent($option.parent(), $dk);
+        setCurrent($option.parent(), $dk); // IE, iOS4 and some Android [4.0] Browsers back to scrollTop 0 when an option is clicked and the dropdown is opened again
       }
 
       e.preventDefault();
@@ -490,21 +485,12 @@
 
     // Setup keyboard nav
     $(document).bind('keydown.dk_nav', function (e) {
-      var
-        // Look for an open dropdown...
-        $open    = $('.dk_container.dk_open'),
-
-        // Look for a focused dropdown
-        $focused = $('.dk_container.dk_focus'),
-
-        // Will be either $open, $focused, or null
-        $dk = null
-      ;
+      var $dk = null;
 
       // If we have an open dropdown, key events should get sent to that one
-      if ($open.length) {
-        $dk = $open;
-      } else if ($focused.length && !$open.length) {
+      if ($opened) {
+        $dk = $opened;
+      } else if ($focused && !$opened) {
         // But if we have no open dropdowns, use the focused dropdown instead
         $dk = $focused;
       }
@@ -516,9 +502,57 @@
     
     // Globally handle a click outside of the dropdown list by closing it.
     $(document).on('click', null, function(e) {
-      if($(e.target).closest(".dk_container").length === 0) {
-        closeDropdown($('.dk_toggle').parents(".dk_container").first());
+      if ($opened && $(e.target).closest(".dk_container").length == 0 ) {
+        closeDropdown($opened); // Improves performance by minimizing DOM Traversal Operations
+      } else if ($(e.target).is(".dk_toggle, .dk_label")) {
+        var $dk  = $(e.target).parents('.dk_container').first();
+
+        if ($dk.hasClass('dk_open')) {
+          closeDropdown($dk);
+        } else {
+          $opened && closeDropdown($opened);
+          openDropdown($dk);
+        } // Avoids duplication of call to _openDropdown
+
+        if (window.ontouchstart !== undefined) {
+          $dk.addClass('dk_touch');
+          $dk.find('.dk_options_inner').addClass('scrollable vertical');
+        }
+
+        return false;
       }
     });
+
+    // [BEGIN] Prevents window scroll when scrolling  through dk_options, simulating native behaviour
+    var startY, //
+        wheelSupport =  'onwheel' in window ? 'wheel' : // Modern browsers support "wheel"
+                        'onmousewheel' in document ? 'mousewheel' : // Webkit and IE support at least "mousewheel"
+                        "MouseScrollEvent" in window ? 'DOMMouseScroll MozMousePixelScroll' : // legacy non-standard event for older Firefox
+                        false // lacks support
+    ; 
+
+    wheelSupport && $(document).on(wheelSupport, '.dk_options_inner', function(event) {
+        var delta = event.originalEvent.wheelDelta || -event.originalEvent.deltaY || -event.originalEvent.detail; // Gets scroll ammount
+        if (msie) { this.scrollTop -= Math.round(delta/10); return false; } // Normalize IE behaviour
+        return (delta > 0 && this.scrollTop <= 0 ) || (delta < 0 && this.scrollTop >= this.scrollHeight - this.offsetHeight ) ? false : true; // Finally cancels page scroll when nedded
+    });
+
+    // * TO DO: Find a better way to do this for touch * //
+    $(document).on('touchstart','.dk_options_inner',function(event) { startY = event.originalEvent.touches[0].clientY; });
+    $(document).on('touchmove','.dk_options_inner',function(event) {
+      var movedY = event.originalEvent.changedTouches[0].clientY - startY;
+      return (movedY > 0 && this.scrollTop <= 0) || (movedY < 0 && this.scrollTop >= this.scrollHeight - this.clientHeight ) ? false : true;
+    });
+    // [NEEDS MORE DEVELOPMENT ABOVE] Only for 'WebkitOverflowScrolling' in document.documentElement.style
+    // $(document).on('touchend','.dk_options_inner',function(event) {
+    //   $(this).on('scroll',function(){
+    //     if (this.scrollTop === 0) {
+    //       this.scrollTop = 1;
+    //     } else if ( this.scrollTop + this.clientHeight === this.scrollHeight) {
+    //       this.scrollTop -= 1;
+    //     }
+    //   });
+    // });
+    // [END] Prevents window scroll when scrolling  through dk_options, simulating native behaviour
   });
 }(jQuery, window, document));

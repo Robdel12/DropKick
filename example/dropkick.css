@@ -19,7 +19,7 @@
   font-family: 'Helvetica', Arial, sans-serif;
   font-size: 12px;
   font-weight: bold;
-  line-height: 14px;
+  /*line-height: 14px;*/ /* Redundant and breaking tab navigation in IE7 */
   margin-bottom: 18px;
   border-radius: 5px;
   -moz-border-radius: 5px;
@@ -90,6 +90,7 @@
 
 /* The outer container of the options */
 .dk_options {
+  background: #fefefe; /* Removes transparent background on iOS5+ scroll */
   box-shadow: rgba(0, 0, 0, .2) 0 2px 8px;
   -moz-box-shadow: rgba(0, 0, 0, .2) 0 2px 8px;
   -webkit-box-shadow: rgba(0, 0, 0, .2) 0 2px 8px;
@@ -117,11 +118,16 @@
   .dk_options .disabled {
     cursor: default;
   }
-  .dk_options .disabled:hover {
-    cursor: default;
-    background-color: #fff;
-    border-bottom-color: #999;
-    text-shadow: none;
+    .dk_options .disabled:hover,
+    .dk_options .disabled:hover a {
+      cursor: default;
+      background-color: #fff;
+      border-bottom-color: #999;
+      text-shadow: none;
+    }
+
+  .dk_options .disabled a {
+    color: #aaa;
   }
 
 /* Inner container for options, this is what makes the scrollbar possible. */
@@ -138,8 +144,7 @@
 }
 
 /* Set a max-height on the options inner */
-.dk_options_inner,
-.dk_touch .dk_options {
+.dk_options_inner {
   max-height: 250px;
 }
 
@@ -150,7 +155,7 @@
 .dk_container {
   display: none;
   float: left;
-  position: relative;
+  /*position: relative;*/ /* By removing this line, IE7 will not cover other DropKicks */
 }
   .dk_container a {
     outline: 0;
@@ -189,19 +194,22 @@
   .dk_options_inner {
     overflow: auto;
     position: relative;
+    -webkit-overflow-scrolling: touch; /* Enables "momentum" scrolling for iOS5+. iOS4- need to scroll with two fingers */
   }
 
-.dk_touch .dk_options {
+/* Is this necessary? This is disabling scrolling with touch */
+/*.dk_touch .dk_options {
   overflow: hidden;
 }
 
 .dk_touch .dk_options_inner {
   max-height: none;
   overflow: visible;
-}
+}*/
 
-.dk_fouc select {
-  position: relative;
+/* Hides only dropkick <select> instances */
+.dk_container + select {
+  position: absolute; /* Absolute better than relative */
   top: -99999em;
   visibility: hidden;
 }
