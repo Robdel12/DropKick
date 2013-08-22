@@ -8,6 +8,9 @@
  *                        <http://twitter.com/JamieLottering>
 */
 
+/*jslint browser: true, plusplus: true, todo: true, white: true, indent: 2 */
+/*global jQuery */
+
 (function ($, window, document) {
   'use strict';
 
@@ -95,13 +98,12 @@
         spaceAbove = $dk_toggle.offset().top - $(window).scrollTop()
       ;
       // [Acemir] If no space above, default is opens down. If has space on top, check if will need open it to up
-      return !(optionsHeight < spaceAbove) ? true : (optionsHeight < spaceBelow);
+      return (optionsHeight >= spaceAbove) ? true : (optionsHeight < spaceBelow);
     },
  
     // Open a dropdown
     openDropdown = function($dk) {
-      var data = $dk.data('dropkick'),
-        hasSpace = enoughSpace($dk); // Avoids duplication of call to _enoughSpace
+      var hasSpace = enoughSpace($dk); // Avoids duplication of call to enoughSpace()
       $dk.find('.dk_options').css({
         top : hasSpace ? $dk.find('.dk_toggle').outerHeight() - 1 : '',
         bottom : hasSpace ? '' : $dk.find('.dk_toggle').outerHeight() - 1
@@ -423,9 +425,9 @@
   };
 
   methods.setValue = function (value) {
-    var $dk = $(this).data('dropkick').$dk;
-    var $option = $dk.find('.dk_options a[data-dk-dropdown-value="' + value + '"]');
-    _updateFields($option, $dk);
+    var $dk = $(this).data('dropkick').$dk,
+      $option = $dk.find('.dk_options a[data-dk-dropdown-value="' + value + '"]');
+    updateFields($option, $dk);
   };
 
   // Regenerating dk wrapper to update it's content
@@ -460,7 +462,9 @@
     $(document).on('click', '.dk_toggle', function (e) {
       var $dk  = $(this).parents('.dk_container').first();
 
-      $dk.hasClass('dk_open') ? closeDropdown($dk) : openDropdown($dk); // Avoids duplication of call to _openDropdown
+      // Avoids duplication of call to openDropdown()
+      if ($dk.hasClass('dk_open')) { closeDropdown($dk); }
+      else { openDropdown($dk); } 
 
       if (window.ontouchstart !== undefined) {
         $dk.addClass('dk_touch');
