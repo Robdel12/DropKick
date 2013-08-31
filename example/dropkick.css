@@ -208,7 +208,7 @@
 }*/
 
 /* Hides only dropkick <select> instances */
-.dk_container + select {
+.dk_fouc .dk_container + select {
   position: absolute; /* Absolute better than relative */
   top: -99999em;
   visibility: hidden;

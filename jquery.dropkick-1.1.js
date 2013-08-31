@@ -56,7 +56,7 @@
       startSpeed : 100,  // I reccomend a low value (lowest is probably 100) to stop a "fade in" effect.
       theme  : false,
       change : false,
-      syncReverse: false
+      syncReverse: true
     },
 
     // Make sure that only one dropdown is open the document
@@ -67,7 +67,7 @@
 
     // private
     // Update the <select> value, and the dropdown label
-    updateFields = function(option, $dk, reset) {
+    updateFields = function(option, $dk, reset, e) {
       var value, label, data, $select;
 
       value = option.attr('data-dk-dropdown-value');
@@ -76,13 +76,13 @@
 
       $select = data.$select;
       // $select.trigger('change'); // Duplicated! Why?
-      data.settings.syncReverse ? $select.val(value) : $select.val(value).trigger('change'); // Added to let it act like a normal select [Acemir >> In fact, I suggest that this must always be true]
+      $select.val(value).trigger('change'); // Added to let it act like a normal select [Acemir >> In fact, I suggest that this must always be true]
 
       $dk.find('.dk_label').text(label);
 
       reset = reset || false;
 
-      if (data.settings.change && !reset) {
+      if (data.settings.change && !reset && !data.settings.syncReverse) {
         data.settings.change.call($select, value, label);
       }
     },
@@ -106,28 +106,41 @@
     },
  
     // Open a dropdown
-    openDropdown = function($dk) {
-      var data = $dk.data('dropkick'),
-        hasSpace = enoughSpace($dk); // Avoids duplication of call to _enoughSpace
+    openDropdown = function($dk,e) {
+      var
+        data = $dk.data('dropkick'),
+        hasSpace = enoughSpace($dk) // Avoids duplication of call to _enoughSpace
+      ; 
       $dk.find('.dk_options').css({
         top : hasSpace ? $dk.find('.dk_toggle').outerHeight() - 1 : '',
         bottom : hasSpace ? '' : $dk.find('.dk_toggle').outerHeight() - 1
       });
       $dk.toggleClass('dk_open');
+
+      setScrollPos($dk,$dk.find('.dk_option_current'),e); // IE8+ needs to set scrollTop only after the dropdow is opened
+      
       $opened = $dk;
     },
 
-    setScrollPos = function($dk, anchor) {
-      var height = anchor.prevAll('li').outerHeight() * anchor.prevAll('li').length;
-      $dk.find('.dk_options_inner').animate({ scrollTop: height + 'px' }, 0);
+    setScrollPos = function($dk, anchor, e) {
+      var
+        wrapper = $dk.find('.dk_options_inner'),
+        height = anchor.prevAll('li').outerHeight() * anchor.prevAll('li').length,
+        minHeight = wrapper.scrollTop(),
+        maxHeight = wrapper.height() + wrapper.scrollTop() - anchor.outerHeight()
+      ;
+
+      if ( (e && e.type === 'keydown') || (height < minHeight || height > maxHeight) ) {
+        wrapper.scrollTop(height); // A more direct approach
+      }
     },
 
     // Set the currently selected option
-    setCurrent = function($current, $dk) {
+    setCurrent = function($current, $dk, e) {
       $dk.find('.dk_option_current').removeClass('dk_option_current');
       $current.addClass('dk_option_current');
 
-      event.type != "mousedown" && setScrollPos($dk, $current); // Prevents IE back to top when an option is clicked
+      setScrollPos($dk, $current, e);
     },
 
     handleKeyBoardNav = function(e, $dk) {
@@ -158,7 +171,7 @@
             closeDropdown($dk);
           }
         } else {
-          openDropdown($dk);
+          openDropdown($dk,e);
         }
         e.preventDefault();
         break;
@@ -174,12 +187,12 @@
         prev = current.prev('li');
         if (open) {
           if (prev.length) {
-            setCurrent(prev, $dk);
+            setCurrent(prev, $dk, e);
           } else {
-            setCurrent(last, $dk);
+            setCurrent(last, $dk, e);
           }
         } else {
-          openDropdown($dk);
+          openDropdown($dk,e);
         }
         e.preventDefault();
         break;
@@ -188,12 +201,12 @@
         if (open) {
           next = current.next('li').first();
           if (next.length) {
-            setCurrent(next, $dk);
+            setCurrent(next, $dk, e);
           } else {
-            setCurrent(first, $dk);
+            setCurrent(first, $dk, e);
           }
         } else {
-          openDropdown($dk);
+          openDropdown($dk,e);
         }
         e.preventDefault();
         break;
@@ -224,7 +237,7 @@
           $a = $(list[i]);
           if ($a.html().toUpperCase().indexOf(data.finder) === 0) {
             updateFields($a, $dk);
-            setCurrent($a.parent(), $dk);
+            setCurrent($a.parent(), $dk, e);
             break;
           }
         }
@@ -371,9 +384,14 @@
 
       // Sync to change events on the original <select> if requested
       if (data.settings.syncReverse) {
-        $select.bind('change', function () {
-          var $dkopt = $('a[data-dk-dropdown-value="'+$select.val()+'"]', $dk);
-          updateFields($dkopt, $dk, true);
+        $select.bind('change', function (e) {
+          var value = $select.val(),
+              option = $('a[data-dk-dropdown-value="'+value+'"]', $dk),
+              label = option.text();
+          // updateFields($dkopt, $dk, true, e); // Triggers a resumed updateFilds function
+          $dk.find('.dk_label').text(label);
+          data.settings.change && data.settings.change.call($select, value, label);
+          setCurrent(option.parent(), $dk, e);
         });
       }
 
@@ -415,7 +433,7 @@
       $dk.find('.dk_label').text(listData.label);
       $dk.find('.dk_options_inner').animate({ scrollTop: 0 }, 0);
 
-      setCurrent($current, $dk);
+      setCurrent($current, $dk, e);
       updateFields($current, $dk, true);
     }
   };
@@ -433,9 +451,12 @@
   };
 
   methods.setValue = function (value) {
-    var $dk = $(this).data('dropkick').$dk;
-    var $option = $dk.find('.dk_options a[data-dk-dropdown-value="' + value + '"]');
+    var
+      $dk = $(this).data('dropkick').$dk,
+      $option = $dk.find('.dk_options a[data-dk-dropdown-value="' + value + '"]')
+    ;
     updateFields($option, $dk);
+    setCurrent($option.parent(), $dk);
   };
 
   // Regenerating dk wrapper to update it's content
@@ -474,9 +495,9 @@
       ;
 
       if(!$option.parent().hasClass('disabled')){
-        closeDropdown($dk);
         updateFields($option, $dk);
-        setCurrent($option.parent(), $dk); // IE, iOS4 and some Android [4.0] Browsers back to scrollTop 0 when an option is clicked and the dropdown is opened again
+        setCurrent($option.parent(), $dk); // IE8+, iOS4 and some Android [4.0] Browsers back to scrollTop 0 when an option is clicked and the dropdown is opened again
+        closeDropdown($dk);
       }
 
       e.preventDefault();
@@ -501,7 +522,7 @@
     });
     
     // Globally handle a click outside of the dropdown list by closing it.
-    $(document).on('click', null, function(e) {
+    $(document).on('click', null, function (e) {
       if ($opened && $(e.target).closest(".dk_container").length == 0 ) {
         closeDropdown($opened); // Improves performance by minimizing DOM Traversal Operations
       } else if ($(e.target).is(".dk_toggle, .dk_label")) {
@@ -511,7 +532,7 @@
           closeDropdown($dk);
         } else {
           $opened && closeDropdown($opened);
-          openDropdown($dk);
+          openDropdown($dk,e);
         } // Avoids duplication of call to _openDropdown
 
         if (window.ontouchstart !== undefined) {
