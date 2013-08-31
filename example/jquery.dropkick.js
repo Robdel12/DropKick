@@ -1,11 +1,12 @@
 /**
- * DropKick
+ * DropKick 1.2
  *
  * Highly customizable <select> lists
  * https://github.com/robdel12/DropKick
  *
  * 2011 Jamie Lottering <http://github.com/JamieLottering>
  *                        <http://twitter.com/JamieLottering>
+ *
 */
 
 (function ($, window, document) {
@@ -75,7 +76,6 @@
       data  = $dk.data('dropkick');
 
       $select = data.$select;
-      // $select.trigger('change'); // Duplicated! Why?
       $select.val(value).trigger('change'); // Added to let it act like a normal select [Acemir >> In fact, I suggest that this must always be true]
 
       $dk.find('.dk_label').text(label);
@@ -321,14 +321,20 @@
         // This gets updated to be equal to the longest <option> element
         width  = settings.width || $select.outerWidth(),
 
-        // Check if we have a tabindex set or not
-        tabindex  = $select.attr('tabindex') || '',
+        // Check if we have a tabindex set or not set to 0
+        tabindex  = $select.attr('tabindex') || '0',
 
         // The completed dk_container element
         $dk = false,
 
         theme
       ;
+      
+      //If its mobile show normal selects
+      if (navigator.userAgent.match(/iPad|iPhone|Android|IEMobile|BlackBerry/i)) {
+        $('.dk_fouc select').css('top', '0');
+        return false;
+      }
 
       // Dont do anything if we've already setup dropkick on this element
       if (data.id) {
@@ -368,6 +374,9 @@
 
       // Save the dropkick data onto the <select> element
       $select.data('dropkick', data);
+
+      //Adds original select classs to dk_container 
+      $dk.addClass($select.attr('class')); 
 
       // Do the same for the dropdown, but add a few helpers
       $dk.data('dropkick', data);
@@ -557,23 +566,6 @@
         if (msie) { this.scrollTop -= Math.round(delta/10); return false; } // Normalize IE behaviour
         return (delta > 0 && this.scrollTop <= 0 ) || (delta < 0 && this.scrollTop >= this.scrollHeight - this.offsetHeight ) ? false : true; // Finally cancels page scroll when nedded
     });
-
-    // * TO DO: Find a better way to do this for touch * //
-    $(document).on('touchstart','.dk_options_inner',function(event) { startY = event.originalEvent.touches[0].clientY; });
-    $(document).on('touchmove','.dk_options_inner',function(event) {
-      var movedY = event.originalEvent.changedTouches[0].clientY - startY;
-      return (movedY > 0 && this.scrollTop <= 0) || (movedY < 0 && this.scrollTop >= this.scrollHeight - this.clientHeight ) ? false : true;
-    });
-    // [NEEDS MORE DEVELOPMENT ABOVE] Only for 'WebkitOverflowScrolling' in document.documentElement.style
-    // $(document).on('touchend','.dk_options_inner',function(event) {
-    //   $(this).on('scroll',function(){
-    //     if (this.scrollTop === 0) {
-    //       this.scrollTop = 1;
-    //     } else if ( this.scrollTop + this.clientHeight === this.scrollHeight) {
-    //       this.scrollTop -= 1;
-    //     }
-    //   });
-    // });
-    // [END] Prevents window scroll when scrolling  through dk_options, simulating native behaviour
   });
+
 }(jQuery, window, document));
