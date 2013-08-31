@@ -68,9 +68,9 @@ code {
 
 .part {
   border-bottom: 1px solid #ccc;
-  margin: 0 auto 30px auto;
-  padding:  0 0 10px;
-  width: 600px;
+  margin: 0 auto 30px;
+  padding:  0 10px 10px;
+  max-width: 600px;
 }
 
 .header {
@@ -90,14 +90,15 @@ ul {
 
 .header_inner {
   margin: 0 auto;
-  padding: 50px;
-  width: 600px;
+  padding: 50px 10px;
+  max-width: 600px;
 }
   .header_inner h1 {
     float: left;
   }
 
 .example {
+  background-color: #f9f4ea;
   background-color: rgba(255, 255, 255, .5);
   border-bottom: 1px solid #ccc;
   margin-bottom: 20px;
@@ -106,6 +107,7 @@ ul {
   .example .gist-data {
     font-size: 12px!important;
   }
+
 
 fieldset {
   border: none;
