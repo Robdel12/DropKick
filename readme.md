@@ -55,6 +55,7 @@ Changed thanks to [acemir](https://github.com/acemir)
 #### Other changes:
 
 * File name now doesn't show DK version. This is so pull requests are easier to go through even when we release new versions.
+* Removed images and the dropdown arrow is now done with CSS.
 * dk_container now has the same classes applied to as the original select had
 * DK now reverts to the orginal selects on mobile
 * Minified version supplied
