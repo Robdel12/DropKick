@@ -54,7 +54,7 @@
 
     // Some nice default values
     defaults = {
-      startSpeed : 100,  // I reccomend a low value (lowest is probably 100) to stop a "fade in" effect.
+      startSpeed : 400,  // I reccomend a low value (lowest is probably 100) to stop a "fade in" effect.
       theme  : false,
       change : false,
       syncReverse: true
