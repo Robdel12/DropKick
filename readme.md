@@ -40,7 +40,8 @@ Please see examples.html or [the DropKick homepage](http://robdel12.github.com/D
 
 Compatibility:
 -
-DropKick was tested on Opera 10+, Google Chrome 10+, FireFox 5+, Safari 5+, and Internet Explorer 7 - 8. IE6 is not supported and will simply continue using your plain dropdowns instead.
+DropKick was tested on Opera 10+, Google Chrome 10+, FireFox 5+, Safari 5+, and Internet Explorer 7+. IE6 is not supported and will simply continue using your plain dropdowns instead.
+
 Whats new in 1.2?
 -
 Changed thanks to [acemir](https://github.com/acemir)
