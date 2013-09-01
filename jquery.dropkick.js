@@ -104,7 +104,20 @@
       // [Acemir] If no space above, default is opens down. If has space on top, check if will need open it to up
       return !(optionsHeight < spaceAbove) ? true : (optionsHeight < spaceBelow);
     },
- 
+    
+    setScrollPos = function($dk, anchor, e) {
+      var
+        wrapper = $dk.find('.dk_options_inner'),
+        height = anchor.prevAll('li').outerHeight() * anchor.prevAll('li').length,
+        minHeight = wrapper.scrollTop(),
+        maxHeight = wrapper.height() + wrapper.scrollTop() - anchor.outerHeight()
+      ;
+
+      if ( (e && e.type === 'keydown') || (height < minHeight || height > maxHeight) ) {
+        wrapper.scrollTop(height); // A more direct approach
+      }
+    },
+
     // Open a dropdown
     openDropdown = function($dk,e) {
       var
@@ -120,19 +133,6 @@
       setScrollPos($dk,$dk.find('.dk_option_current'),e); // IE8+ needs to set scrollTop only after the dropdow is opened
       
       $opened = $dk;
-    },
-
-    setScrollPos = function($dk, anchor, e) {
-      var
-        wrapper = $dk.find('.dk_options_inner'),
-        height = anchor.prevAll('li').outerHeight() * anchor.prevAll('li').length,
-        minHeight = wrapper.scrollTop(),
-        maxHeight = wrapper.height() + wrapper.scrollTop() - anchor.outerHeight()
-      ;
-
-      if ( (e && e.type === 'keydown') || (height < minHeight || height > maxHeight) ) {
-        wrapper.scrollTop(height); // A more direct approach
-      }
     },
 
     // Set the currently selected option
