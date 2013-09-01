@@ -2,6 +2,8 @@
 <html>
 <head>
   <meta charset='utf-8'>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
   <title>Robdel12/DropKick @ GitHub</title>
   <link rel="stylesheet" href="example.css" type="text/css">
   <link rel="stylesheet" href="dropkick.css" type="text/css">
@@ -31,11 +33,11 @@
         }
       });
 
-      $('.existing_event').dropkick({
+      $('.existing_event').dropkick(/*{
         change: function () {
-          $(this).change();
+          $(this).change(); // This is just duplicating the event, let's remove
         }
-      });
+      }*/);
 
       $('.custom_theme').dropkick({
         theme: 'black',
@@ -124,7 +126,7 @@
               <option value="WY">Wyoming</option>
             </select>
 
-            <select name="country" class="existing_event" tabindex="4" onchange="alert('hi, from ' + this.value)">
+            <select name="country-2" class="existing_event" tabindex="4" onchange="alert('hi, from ' + this.value)">
               <option value="">Try Me!</option>
               <option value="AU">Australia</option>
               <option value="CA">Canada</option>
@@ -133,10 +135,9 @@
               <option value="GB">United Kingdom</option>
               <option value="US">United States</option>
             </select>
-
-            <p><script src="https://gist.github.com/1062688.js?file=dropkick_example_default.js"></script></p>
           </form>
         </fieldset>
+        <div class="gist-wrap"><script src="https://gist.github.com/1062688.js?file=dropkick_example_default.js"></script></div>
       </div>
 
       <div class="example">
@@ -149,10 +150,9 @@
               <option value="#E15A01">Orange</option>
               <option value="#604A42">Brown</option>
             </select>
-            <div style="clear: both;"></div>
-            <script src="https://gist.github.com/1062688.js?file=dropkick_example_callback.js"></script>
           </form>
         </fieldset>
+        <div class="gist-wrap"><script src="https://gist.github.com/1062688.js?file=dropkick_example_callback.js"></script></div>
       </div>
 
       <div class="example">
@@ -165,11 +165,10 @@
               <option value="black" >Dark Gloss</option>
               <option value="orange">Light Gloss</option>
             </select>
-            <div style="clear: both;"></div>
-            <script src="https://gist.github.com/1062688.js?file=custom_theme.css"></script>
-            <script src="https://gist.github.com/1062688.js?file=dropkick_example_theme.js"></script>
           </form>
         </fieldset>
+        <div class="gist-wrap"><script src="https://gist.github.com/1062688.js?file=custom_theme.css"></script></div>
+        <div class="gist-wrap"><script src="https://gist.github.com/1062688.js?file=dropkick_example_theme.js"></script></div>
       </div>
     </div>
   </div>
