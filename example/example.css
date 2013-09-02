@@ -200,6 +200,9 @@ h1 span {
     color: #fff;
     text-shadow: none;
   }
+    .dk_theme_black .dk_toggle:after {
+      border-top-color: #fff;
+    }
   .dk_theme_black .dk_options a {
     background-color: #333;
     color: #fff;

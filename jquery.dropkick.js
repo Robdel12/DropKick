@@ -5,7 +5,7 @@
  * https://github.com/robdel12/DropKick
  *
  * 2011 Jamie Lottering <http://github.com/JamieLottering>
- *                        <http://twitter.com/JamieLottering>
+ *                      <http://twitter.com/JamieLottering>
  *
 */
 
@@ -16,6 +16,7 @@
     msVersion = navigator.userAgent.match(/MSIE ([0-9]{1,}[\.0-9]{0,})/),
     msie = !!msVersion,
     ie6 = msie && parseFloat(msVersion[1]) < 7,
+    isMobile = navigator.userAgent.match(/iPad|iPhone|Android|IEMobile|BlackBerry/i),
 
     // Public methods exposed to $.fn.dropkick()
     methods = {},
@@ -33,19 +34,19 @@
       'tab'   : 9,
       'zero'  : 48,
       'z'     : 90,
-      'last': 221  //support extend charsets such as Danish, Ukrainian etc.
+      'last'  : 221  //support extend charsets such as Danish, Ukrainian etc.
     },
 
     // HTML template for the dropdowns
     dropdownTemplate = [
       '<div class="dk_container" id="dk_container_{{ id }}" tabindex="{{ tabindex }}">',
-      '   <a class="dk_toggle">',
-      '   <span class="dk_label">{{ label }}</span>',
-      ' </a>',
-      ' <div class="dk_options">',
-      '   <ul class="dk_options_inner">',
-      '   </ul>',
-      ' </div>',
+      '<a class="dk_toggle">',
+      '<span class="dk_label">{{ label }}</span>',
+      '</a>',
+      '<div class="dk_options">',
+      '<ul class="dk_options_inner">',
+      '</ul>',
+      '</div>',
       '</div>'
     ].join(''),
 
@@ -54,10 +55,11 @@
 
     // Some nice default values
     defaults = {
-      startSpeed : 400,  // I reccomend a low value (lowest is probably 100) to stop a "fade in" effect.
-      theme  : false,
-      change : false,
-      syncReverse: true
+      startSpeed    : 400,  // I reccomend a low value (lowest is probably 100) to stop a "fade in" effect.
+      theme         : false,
+      changes       : false,
+      syncReverse   : true,
+      nativeMobile  : true
     },
 
     // Make sure that only one dropdown is open the document
@@ -120,26 +122,20 @@
 
     // Open a dropdown
     openDropdown = function($dk,e) {
-      var
-        data = $dk.data('dropkick'),
-        hasSpace = enoughSpace($dk) // Avoids duplication of call to _enoughSpace
-      ; 
+      var hasSpace = enoughSpace($dk); // Avoids duplication of call to _enoughSpace
+
       $dk.find('.dk_options').css({
         top : hasSpace ? $dk.find('.dk_toggle').outerHeight() - 1 : '',
         bottom : hasSpace ? '' : $dk.find('.dk_toggle').outerHeight() - 1
       });
-      $dk.toggleClass('dk_open');
-
+      $opened = $dk.toggleClass('dk_open');
       setScrollPos($dk,$dk.find('.dk_option_current'),e); // IE8+ needs to set scrollTop only after the dropdow is opened
-      
-      $opened = $dk;
     },
 
     // Set the currently selected option
     setCurrent = function($current, $dk, e) {
       $dk.find('.dk_option_current').removeClass('dk_option_current');
       $current.addClass('dk_option_current');
-
       setScrollPos($dk, $current, e);
     },
 
@@ -253,33 +249,29 @@
     build = function (tpl, view) {
       var
         // Template for the dropdown
-        template  = tpl,
+        template  = tpl.replace('{{ id }}', view.id).replace('{{ label }}', view.label).replace('{{ tabindex }}', view.tabindex),
         // Holder of the dropdowns options
         options   = [],
         $dk,
         i,
         l,
         $option,
-        current,
-        disabled,
         oTemplate
       ;
-
-      template = template.replace('{{ id }}', view.id);
-      template = template.replace('{{ label }}', view.label);
-      template = template.replace('{{ tabindex }}', view.tabindex);
 
       if (view.options && view.options.length) {
         for (i = 0, l = view.options.length; i < l; i++) {
           $option   = $(view.options[i]);
-          current   = 'dk_option_current';
-          disabled  = ' disabled';
-          oTemplate = optionTemplate;
 
-          oTemplate = oTemplate.replace('{{ value }}', $option.val());
-          oTemplate = oTemplate.replace('{{ current }}', (notBlank($option.val()) === view.value) ? current : '');
-          oTemplate = oTemplate.replace('{{ disabled }}', ($option.attr('disabled') !== undefined) ? disabled : '');
-          oTemplate = oTemplate.replace('{{ text }}', $option.text());
+          (i === 0 && $option.attr('selected') !== undefined && $option.attr('disabled') !== undefined)
+          ?
+          oTemplate = null
+          : 
+          oTemplate = optionTemplate.replace('{{ value }}', $option.val())
+                                    .replace('{{ current }}', (notBlank($option.val()) === view.value) ? 'dk_option_current' : '')
+                                    .replace('{{ disabled }}', ($option.attr('disabled') !== undefined) ? 'disabled' : '')
+                                    .replace('{{ text }}', $option.text())
+          ;
 
           options[options.length] = oTemplate;
         }
@@ -327,14 +319,11 @@
         // The completed dk_container element
         $dk = false,
 
-        theme
+        theme,
+
+        // The form relative to the select
+        $form
       ;
-      
-      //If its mobile show normal selects
-      if (navigator.userAgent.match(/iPad|iPhone|Android|IEMobile|BlackBerry/i)) {
-        $('.dk_fouc select').css('top', '0');
-        return false;
-      }
 
       // Dont do anything if we've already setup dropkick on this element
       if (data.id) {
@@ -359,7 +348,7 @@
       });
 
       // Hide the <select> list and place our new one in front of it
-      $select.before($dk);
+      $select.before($dk).appendTo($dk);
 
       // Update the reference to $dk
       $dk = $('div[id="dk_container_' + id + '"]').fadeIn(settings.startSpeed);
@@ -375,7 +364,7 @@
       // Save the dropkick data onto the <select> element
       $select.data('dropkick', data);
 
-      //Adds original select classs to dk_container 
+      //Adds original select class to dk_container 
       $dk.addClass($select.attr('class')); 
 
       // Do the same for the dropdown, but add a few helpers
@@ -391,17 +380,30 @@
         $focused = null;
       });
 
+      //If isMobile, triggers native selects while still mantains the styled dropkick
+      if (isMobile && data.settings.nativeMobile) {
+        $dk.addClass('dk_mobile');
+      }
+
       // Sync to change events on the original <select> if requested
       if (data.settings.syncReverse) {
-        $select.bind('change', function (e) {
-          var value = $select.val(),
-              option = $('a[data-dk-dropdown-value="'+value+'"]', $dk),
-              label = option.text();
-          // updateFields($dkopt, $dk, true, e); // Triggers a resumed updateFilds function
+        $select.on('change', function (e) {
+          var
+            value = $select.val(),
+            option = $('a[data-dk-dropdown-value="'+value+'"]', $dk),
+            label = option.text()
+          ;
+
           $dk.find('.dk_label').text(label);
           data.settings.change && data.settings.change.call($select, value, label);
           setCurrent(option.parent(), $dk, e);
         });
+      }
+
+      // Listen to a reset event to the form on the <select>
+      if ($select.attr('form') || $select.closest('form').length) {
+        $form = $select.attr('form') ? $('#'+$select.attr('form').replace(' ',', #')) : $select.closest('form');
+        $form.on('reset',function(){ $select.dropkick('reset') });
       }
 
       // [Issue #126] Validation do not fires in <select> is not (':visible')
@@ -415,69 +417,60 @@
   methods.theme = function (newTheme) {
     var
       $select   = $(this),
-      list      = $select.data('dropkick'),
-      $dk       = list.$dk,
-      oldtheme  = 'dk_theme_' + list.theme
+      data      = $select.data('dropkick'),
+      $dk       = data.$dk,
+      oldtheme  = 'dk_theme_' + data.theme
     ;
 
     $dk.removeClass(oldtheme).addClass('dk_theme_' + newTheme);
-
-    list.theme = newTheme;
+    data.theme = newTheme;
   };
 
-  // Reset all <selects and dropdowns in our lists array
+  // Reset respective <select> and dropdown
   methods.reset = function () {
-    var
-      i,
-      l,
-      listData,
-      $dk,
-      $current
-    ;
-    for (i = 0, l = lists.length; i < l; i++) {
-      listData  = lists[i].data('dropkick');
-      $dk       = listData.$dk;
-      $current  = $dk.find('li').first();
+    return this.each(function () {
+      var
+        data      = $(this).data('dropkick'),
+        $dk       = data.$dk,
+        $current  = $('a[data-dk-dropdown-value="'+data.value+'"]', $dk)
+      ;
 
-      $dk.find('.dk_label').text(listData.label);
-      $dk.find('.dk_options_inner').animate({ scrollTop: 0 }, 0);
-
-      setCurrent($current, $dk, e);
-      updateFields($current, $dk, true);
-    }
-  };
-
-  // Reload / rebuild, in case of dynamic updates etc.
-  // Credits to Jeremy (http://stackoverflow.com/users/1380047/jeremy-p)
-  methods.reload = function () {
-    var 
-      $select = $(this),
-      data = $select.data('dropkick')
-    ;
-    $select.removeData("dropkick");
-    $("#dk_container_"+ data.id).remove();
-    $select.dropkick(data.settings);
+      !data.$original.eq(0).prop('selected') && data.$original.eq(0).prop('selected',true);
+      $dk.find('.dk_label').text(data.label);
+      setCurrent($current.parent(), $dk);
+    });
   };
 
   methods.setValue = function (value) {
     var
       $dk = $(this).data('dropkick').$dk,
-      $option = $dk.find('.dk_options a[data-dk-dropdown-value="' + value + '"]')
+      $option = $('.dk_options a[data-dk-dropdown-value="' + value + '"]',$dk)
     ;
-    updateFields($option, $dk);
-    setCurrent($option.parent(), $dk);
+
+    if ($option.length) {
+      updateFields($option, $dk);
+      setCurrent($option.parent(), $dk);
+    } else {
+      console.warn('There is no option with this value in the <select>');
+    }
   };
 
+  // Reload / rebuild, in case of dynamic updates etc.
+  // Credits to Jeremy (http://stackoverflow.com/users/1380047/jeremy-p)
   // Regenerating dk wrapper to update it's content
   // http://stackoverflow.com/a/13280151
   methods.refresh = function(){
     return this.each(function () {
       var
         $select   = $(this),
-        data      = $select.data('dropkick');
+        data      = $select.data('dropkick'),
+        $dk       = data.$dk
+      ;
 
-      $select.removeData("dropkick");
-      $("#dk_container_"+ data.id).remove();
+      data.settings.startSpeed = 0;
+
+      $select.removeData("dropkick").insertAfter($dk);
+      $dk.remove();
       $select.dropkick(data.settings);
     });
   };
@@ -509,7 +502,6 @@
         closeDropdown($dk);
       }
 
-      e.preventDefault();
       return false;
     });
 
@@ -532,10 +524,10 @@
     
     // Globally handle a click outside of the dropdown list by closing it.
     $(document).on('click', null, function (e) {
-      if ($opened && $(e.target).closest(".dk_container").length == 0 ) {
+      if ($opened && $(e.target).closest(".dk_container").length === 0 ) {
         closeDropdown($opened); // Improves performance by minimizing DOM Traversal Operations
       } else if ($(e.target).is(".dk_toggle, .dk_label")) {
-        var $dk  = $(e.target).parents('.dk_container').first();
+        var $dk = $(e.target).parents('.dk_container').first();
 
         if ($dk.hasClass('dk_open')) {
           closeDropdown($dk);
@@ -544,18 +536,12 @@
           openDropdown($dk,e);
         } // Avoids duplication of call to _openDropdown
 
-        if (window.ontouchstart !== undefined) {
-          $dk.addClass('dk_touch');
-          $dk.find('.dk_options_inner').addClass('scrollable vertical');
-        }
-
         return false;
       }
     });
 
-    // [BEGIN] Prevents window scroll when scrolling  through dk_options, simulating native behaviour
-    var startY, //
-        wheelSupport =  'onwheel' in window ? 'wheel' : // Modern browsers support "wheel"
+    // Prevents window scroll when scrolling  through dk_options, simulating native behaviour
+    var wheelSupport =  'onwheel' in window ? 'wheel' : // Modern browsers support "wheel"
                         'onmousewheel' in document ? 'mousewheel' : // Webkit and IE support at least "mousewheel"
                         "MouseScrollEvent" in window ? 'DOMMouseScroll MozMousePixelScroll' : // legacy non-standard event for older Firefox
                         false // lacks support
