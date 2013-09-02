@@ -415,8 +415,7 @@
   // Allows dynamic theme changes
   methods.theme = function (newTheme) {
     var
-      $select   = $(this),
-      data      = $select.data('dropkick'),
+      data      = $(this).data('dropkick'),
       $dk       = data.$dk,
       oldtheme  = 'dk_theme_' + data.theme
     ;
@@ -461,8 +460,8 @@
   methods.refresh = function(){
     return this.each(function () {
       var
-        $select   = $(this),
-        data      = $select.data('dropkick'),
+        data      = $(this).data('dropkick'),
+        $select   = data.$select,
         $dk       = data.$dk
       ;
 
