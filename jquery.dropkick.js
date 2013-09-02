@@ -1,11 +1,11 @@
-/**
+/*
  * DropKick 1.3
  *
  * Highly customizable <select> lists
  * https://github.com/robdel12/DropKick
  *
- * 2011 Jamie Lottering <http://github.com/JamieLottering>
- *                      <http://twitter.com/JamieLottering>
+ * Created by: Jamie Lottering <http://github.com/JamieLottering> <http://twitter.com/JamieLottering>
+ * 
  *
 */
 
