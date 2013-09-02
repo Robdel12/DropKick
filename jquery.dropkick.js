@@ -1,5 +1,5 @@
 /**
- * DropKick 1.2
+ * DropKick 1.3
  *
  * Highly customizable <select> lists
  * https://github.com/robdel12/DropKick
@@ -12,7 +12,7 @@
 (function ($, window, document) {
   'use strict';
 
-  var 
+  var
     msVersion = navigator.userAgent.match(/MSIE ([0-9]{1,}[\.0-9]{0,})/),
     msie = !!msVersion,
     ie6 = msie && parseFloat(msVersion[1]) < 7,
@@ -70,7 +70,7 @@
 
     // private
     // Update the <select> value, and the dropdown label
-    updateFields = function(option, $dk, reset, e) {
+    updateFields = function(option, $dk, reset) {
       var value, label, data, $select;
 
       value = option.attr('data-dk-dropdown-value');
@@ -88,7 +88,7 @@
         data.settings.change.call($select, value, label);
       }
     },
-   
+
     // Close a dropdown
     closeDropdown = function($dk) {
       $dk.removeClass('dk_open');
@@ -106,7 +106,7 @@
       // [Acemir] If no space above, default is opens down. If has space on top, check if will need open it to up
       return !(optionsHeight < spaceAbove) ? true : (optionsHeight < spaceBelow);
     },
-    
+
     setScrollPos = function($dk, anchor, e) {
       var
         wrapper = $dk.find('.dk_options_inner'),
@@ -263,10 +263,9 @@
         for (i = 0, l = view.options.length; i < l; i++) {
           $option   = $(view.options[i]);
 
-          (i === 0 && $option.attr('selected') !== undefined && $option.attr('disabled') !== undefined)
-          ?
+          (i === 0 && $option.attr('selected') !== undefined && $option.attr('disabled') !== undefined)?
           oTemplate = null
-          : 
+          :
           oTemplate = optionTemplate.replace('{{ value }}', $option.val())
                                     .replace('{{ current }}', (notBlank($option.val()) === view.value) ? 'dk_option_current' : '')
                                     .replace('{{ disabled }}', ($option.attr('disabled') !== undefined) ? 'disabled' : '')
@@ -365,7 +364,7 @@
       $select.data('dropkick', data);
 
       //Adds original select class to dk_container 
-      $dk.addClass($select.attr('class')); 
+      $dk.addClass($select.attr('class'));
 
       // Do the same for the dropdown, but add a few helpers
       $dk.data('dropkick', data);
@@ -490,7 +489,7 @@
   $(function () {
 
     // Handle click events on individual dropdown options
-    $(document).on((msie ? 'mousedown' : 'click'), '.dk_options a', function (e) {
+    $(document).on((msie ? 'mousedown' : 'click'), '.dk_options a', function () {
       var
         $option = $(this),
         $dk     = $option.parents('.dk_container').first()
@@ -521,7 +520,7 @@
         handleKeyBoardNav(e, $dk);
       }
     });
-    
+
     // Globally handle a click outside of the dropdown list by closing it.
     $(document).on('click', null, function (e) {
       if ($opened && $(e.target).closest(".dk_container").length === 0 ) {
@@ -545,7 +544,7 @@
                         'onmousewheel' in document ? 'mousewheel' : // Webkit and IE support at least "mousewheel"
                         "MouseScrollEvent" in window ? 'DOMMouseScroll MozMousePixelScroll' : // legacy non-standard event for older Firefox
                         false // lacks support
-    ; 
+    ;
 
     wheelSupport && $(document).on(wheelSupport, '.dk_options_inner', function(event) {
         var delta = event.originalEvent.wheelDelta || -event.originalEvent.deltaY || -event.originalEvent.detail; // Gets scroll ammount
