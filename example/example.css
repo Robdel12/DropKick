@@ -99,7 +99,7 @@ ul {
 
 .example {
   background-color: #f9f4ea;
-  background-color: rgba(255, 255, 255, .5);
+  
   border-bottom: 1px solid #ccc;
   margin-bottom: 20px;
   padding: 18px;
@@ -162,8 +162,13 @@ h1 span {
   background: -ms-linear-gradient(top, #ffffff 0%,#f1f1f1 50%,#e1e1e1 51%,#f6f6f6 100%); /* IE10+ */
   /*filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f6f6f6',GradientType=0 );*/ /* IE6-9 */ /* Avoid filter! It breaks IE<8 */
   background: linear-gradient(to bottom, #ffffff 0%,#f1f1f1 50%,#e1e1e1 51%,#f6f6f6 100%); /* W3C */
-  background-color: #f1f1f1 \9; /* IE < 8 */
 }
+  .dk_theme_orange .dk_toggle {
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff',endColorstr='#e1e1e1',GradientType=0)\9; /* IE < 8 */
+  }
+  .dk_theme_orange .dk_label {
+    display: block\9; /* IE < 8 */
+  }
   .dk_theme_orange .dk_options a:hover,
   .dk_theme_orange .dk_option_current a {
     background-color: #E15A01;
@@ -192,14 +197,22 @@ h1 span {
   background: -ms-linear-gradient(top, #aebcbf 0%,#6e7774 50%,#0a0e0a 51%,#0a0809 100%); /* IE10+ */
   /*filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#aebcbf', endColorstr='#0a0809',GradientType=0 );*/ /* IE6-9 */ /* Avoid filter! It breaks IE<8 */
   background: linear-gradient(to bottom, #aebcbf 0%,#6e7774 50%,#0a0e0a 51%,#0a0809 100%); /* W3C */
-  background-color: #6e7774 \9; /* Old browsers */
 }
+  .dk_theme_black .dk_toggle {
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#aebcbf',endColorstr='#0a0809',GradientType=0)\9; /* IE < 8 */
+  }
+  .dk_theme_black .dk_label {
+    display: block\9; /* IE < 8 */
+  }
   .dk_theme_black .dk_toggle,
   .dk_theme_black.dk_open .dk_toggle {
     background-color: transparent;
     color: #fff;
     text-shadow: none;
   }
+    .dk_theme_black .dk_toggle:after {
+      border-top-color: #fff;
+    }
   .dk_theme_black .dk_options a {
     background-color: #333;
     color: #fff;
@@ -211,3 +224,11 @@ h1 span {
       color: #fff;
       text-shadow: #604A42 0 1px 0;
     }
+
+  /* Cancel Filter for IE9, that supports svg background */
+  @media all and (min-width:0) {
+    .dk_theme_orange .dk_toggle,
+    .dk_theme_black .dk_toggle {
+      filter: none \0/;
+    }
+  }
