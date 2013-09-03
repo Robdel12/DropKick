@@ -40,38 +40,22 @@ Please see examples.html or [the DropKick homepage](http://robdel12.github.com/D
 
 Compatibility:
 -
-DropKick was tested on Opera 10+, Google Chrome 10+, FireFox 5+, Safari 5+, and Internet Explorer 7 - 8. IE6 is not supported and will simply continue using your plain dropdowns instead.
-Whats new in 1.2?
+DropKick was tested on Opera 10+, Google Chrome 10+, FireFox 5+, Safari 5+, and Internet Explorer 7+. IE6 is not supported and will simply continue using your plain dropdowns instead.
+
+Whats new in 1.3?
 -
-Changed thanks to [acemir](https://github.com/acemir)
-* Fixed weird problems in IE and improves performance by minimizing DOM Traversing operations [Issues: #134, #109, #54, #11]
-* Fixed IE7 covering by other DropKick containers [Issues: #35]
-* Suggests a change to fit common validation scripts [Issues: #126]
-* Fixed 'setValue' method
-* Fixed throwing error ('Maximum call stack size exceeded') when syncReverse = true.
-* Prevents window scroll when scrolling through dk_options, simulating native <select> behaviour.
-* Prevents IE back to top when an option is clicked and the user opens the dropdown again
+Changes thanks to [acemir](https://github.com/acemir)!
+* ADDITION : DK now reverts to the orginal selects on mobile while still maintaining styled ".dk_toogle"
+* ADDITION : Ability to force dropkick normal mobile through setting {nativeMobile : false }
+* IMPROVES : performance through chaining some operations
+* IMPROVES : reset method
+* FIX : setValue method now assesses the existence of the option in the before applying
+* CLEAN : reload/refresh duplicated methods, now is just refresh 
+* CLEAN : things unused and redundant
+* Fixes the theme and refresh methods to work both if or dk_container are called
+* Bring back filter gradients for themes in IE < 8
 
-#### Other changes:
-
-* File name now doesn't show DK version. This is so pull requests are easier to go through even when we release new versions.
-* dk_container now has the same classes applied to as the original select had
-* DK now reverts to the orginal selects on mobile
-* Minified version supplied
-* SCSS theme supplied
-
-What was new in 1.1?
--
-* [Disabled feature added](https://github.com/Robdel12/DropKick/pull/133)
-* [Selects drop up now when there isn't enough space below](https://github.com/Robdel12/DropKick/pull/135)
-* [Trigger changes on orignal selects](https://github.com/Robdel12/DropKick/pull/22)
-* [Keypress navigation works](https://github.com/Robdel12/DropKick/pull/67)
-* [Fix for touching scrollbar in IE8/9, and losing the dropdown.](https://github.com/Robdel12/DropKick/pull/31)
-* [Remove unused variables, small cleanup](https://github.com/Robdel12/DropKick/pull/23)
-* [Added SCSS Theme](https://github.com/Robdel12/DropKick/pull/55)
-* [Added native iOS support without Scrollability.js](https://github.com/Robdel12/DropKick/pull/123)
-* [2 selects now can have the same name](https://github.com/Robdel12/DropKick/pull/93)
-* [JSLinted the code](https://github.com/Robdel12/DropKick/commit/9698ac29c50ad537b41e743aac121cb7b8e1216c)
+[What changed in previous versions?](https://github.com/Robdel12/DropKick/wiki/Previous-version-changes)
 
 Found a bug? 
 -
