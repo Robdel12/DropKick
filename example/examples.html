@@ -25,11 +25,7 @@
         }
       });
 
-      $('.existing_event').dropkick(/*{
-        change: function () {
-          $(this).change(); // This is just duplicating the event, let's remove
-        }
-      }*/);
+      $('.existing_event').dropkick();
 
       $('.custom_theme').dropkick({
         theme: 'black',
@@ -161,6 +157,21 @@
         </fieldset>
         <div class="gist-wrap"><script src="https://gist.github.com/1062688.js?file=custom_theme.css"></script></div>
         <div class="gist-wrap"><script src="https://gist.github.com/1062688.js?file=dropkick_example_theme.js"></script></div>
+      </div>
+
+      <div class="example">
+        <h2>Label behaviour</h2>
+        <fieldset>
+          <form action="#" method="post" accept-charset="utf-8" class="example_form">
+            <label for="test">I'm a &lt;label&gt; tag (click me!):</label>
+            <select id="test" name="test" class="default" tabindex="6">
+              <option selected disabled>I'm the placeholder</option>
+              <option value="1">I'm the first option \0/</option>
+              <option value="2" >I'm the second one ;-P</option>
+              <option value="3">I'm the third :-(</option>
+            </select>
+          </form>
+        </fieldset>
       </div>
     </div>
   </div>
