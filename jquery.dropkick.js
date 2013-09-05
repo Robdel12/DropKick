@@ -463,11 +463,17 @@
         data          = $(this).data('dropkick'),
         $select       = data.$select,
         $dk           = data.$dk,
+        $current,
         $dkopts
       ;
+      // Update data options      
       data.options  = $select.find('option');
+      // Rebuild options list. filter options inner and replace
       $dkopts = build(dropdownTemplate, data).find('.dk_options_inner');
       $dk.find('.dk_options_inner').replaceWith($dkopts);
+      // Re setCurrent option after refresh options list
+      $current = $('a[data-dk-dropdown-value="'+$select.val()+'"]', $dk);
+      setCurrent($current.parent(), $dk);
     });
   };
 
