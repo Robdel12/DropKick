@@ -214,7 +214,7 @@
       if (code >= keyMap.zero && code <= keyMap.z) {
         //update data
         now = new Date().getTime();
-        if (data.finder === null) {
+        if (data.finder === null || data.finder === undefined) {
           data.finder = letter.toUpperCase();
           data.timer = now;
 
