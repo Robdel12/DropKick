@@ -1,5 +1,5 @@
 /*
- * DropKick 1.3
+ * DropKick 1.3.1
  *
  * Highly customizable <select> lists
  * https://github.com/robdel12/DropKick
@@ -272,7 +272,7 @@
           oTemplate = optionTemplate.replace('{{ value }}', $option.val())
                                     .replace('{{ current }}', (notBlank($option.val()) === view.value) ? 'dk_option_current' : '')
                                     .replace('{{ disabled }}', ($option.attr('disabled') !== undefined) ? 'disabled' : '')
-                                    .replace('{{ text }}', $option.text())
+                                    .replace('{{ text }}', $option.html())
           ;
 
           options[options.length] = oTemplate;
