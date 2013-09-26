@@ -543,8 +543,8 @@
         } // Avoids duplication of call to _openDropdown
 
         return false;
-      } else if ($eTarget.attr('for')) {
-        $eTarget.parent().find('#dk_container_'+$eTarget.attr('for')).trigger('focus.dropkick');
+      } else if ($eTarget.attr('for') && !!$('#dk_container_'+$eTarget.attr('for'))[0] ) {
+        $('#dk_container_'+$eTarget.attr('for')).trigger('focus.dropkick');
       }
     });
 
