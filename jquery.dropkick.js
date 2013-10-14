@@ -1,11 +1,11 @@
 /*
- * DropKick 1.3.1
+ * DropKick 1.3.2
  *
  * Highly customizable <select> lists
  * https://github.com/robdel12/DropKick
  *
  * Created by: Jamie Lottering <http://github.com/JamieLottering> <http://twitter.com/JamieLottering>
- * 
+ *
  *
 */
 
@@ -269,7 +269,7 @@
           oTemplate = optionTemplate.replace('{{ value }}', $option.val())
                                     .replace('{{ current }}', (notBlank($option.val()) === view.value) ? 'dk_option_current' : '')
                                     .replace('{{ disabled }}', ($option.attr('disabled') !== undefined) ? 'disabled' : '')
-                                    .replace('{{ text }}', $option.html())
+                                    .replace('{{ text }}', $option.html().trim())
           ;
 
           options[options.length] = oTemplate;
@@ -363,7 +363,7 @@
       // Save the dropkick data onto the <select> element
       $select.data('dropkick', data);
 
-      //Adds original select class to dk_container 
+      //Adds original select class to dk_container
       $dk.addClass($select.attr('class'));
 
       // Do the same for the dropdown, but add a few helpers
