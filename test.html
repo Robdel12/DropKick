@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Test</title>
+  <script src="dropkick.js"></script>
+  <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+  <link rel="stylesheet" href="dropkick.css">
+</head>
+<body>
+  
+  <select name="" id="sel" class="sel-class">
+    <option value="1">Lorem.</option>
+    <option value="2">Autem!</option>
+    <optgroup>
+      <option value="3">Aperiam.</option>
+      <option value="4">Odio.</option>
+    </optgroup>
+    <option value="5">Iste.</option>
+    <option value="6">Dolor.</option>
+    <option value="7">Quaerat.</option>
+    <option value="8">Tenetur.</option>
+    <option value="9">Illum!</option>
+    <option value="10">Veniam.</option>
+    <option value="11">Earum.</option>
+    <option value="12">Laborum.</option>
+    <option value="13">Dignissimos!</option>
+    <option value="14">Dolorem.</option>
+    <option value="15">Debitis!</option>
+  </select>
+
+  <script>
+
+    jQuery.fn.extend({
+      Dropkick: function ( opts ) {
+        return $( this ).each(function() {
+          new Dropkick( this, opts );
+        });
+      }
+    });
+
+    $(function() {
+      $( "#sel" ).Dropkick({
+        initialize: function() {
+          $( "#sel" ).hide();
+        }
+      });
+    });
+    
+  </script>
+
+</body>
+</html>
