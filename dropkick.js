@@ -1,3 +1,11 @@
+/*
+ * DropKick 2.0.0
+ *
+ * Highly customizable <select> lists
+ * https://github.com/robdel12/DropKick
+ *
+*/
+
 // Enable some stuff for IE 8
 (function(){Array.prototype.indexOf||(Array.prototype.indexOf=function(a,b){var c,e,d=b?b:0;if(!this)throw new TypeError;if(e=this.length,0===e||d>=e)return-1;for(0>d&&(d=e-Math.abs(d)),c=d;e>c;c++)if(this[c]===a)return c;return-1});if(Event.prototype.preventDefault||(Event.prototype.preventDefault=function(){this.returnValue=!1}),Event.prototype.stopPropagation||(Event.prototype.stopPropagation=function(){this.cancelBubble=!0}),!Element.prototype.addEventListener){var a=[],b=function(b,c){var d=this,e=function(a){a.target=a.srcElement,a.currentTarget=d,c.handleEvent?c.handleEvent(a):c.call(d,a)};if("DOMContentLoaded"==b){var f=function(a){"complete"==document.readyState&&e(a)};if(document.attachEvent("onreadystatechange",f),a.push({object:this,type:b,listener:c,wrapper:f}),"complete"==document.readyState){var g=new Event;g.srcElement=window,f(g)}}else this.attachEvent("on"+b,e),a.push({object:this,type:b,listener:c,wrapper:e})},c=function(b,c){for(var d=0;d<a.length;){var e=a[d];if(e.object==this&&e.type==b&&e.listener==c){"DOMContentLoaded"==b?this.detachEvent("onreadystatechange",e.wrapper):this.detachEvent("on"+b,e.wrapper);break}++d}};Element.prototype.addEventListener=b,Element.prototype.removeEventListener=c,HTMLDocument&&(HTMLDocument.prototype.addEventListener=b,HTMLDocument.prototype.removeEventListener=c),Window&&(Window.prototype.addEventListener=b,Window.prototype.removeEventListener=c)}})();
 
@@ -97,7 +105,7 @@ var
 
     removeClass: function( elem, classname ) {
       var reg = new RegExp( "(^|\\s+)" + classname + "(\\s+|$)" );
-      elem.className = elem.className.replace( reg, " " );
+      elem && ( elem.className = elem.className.replace( reg, " " ) );
     },
 
     toggleClass: function( elem, classname ) {
@@ -185,15 +193,36 @@ var
       }
 
       return selected;
+    },
+
+    position: function( elem, relative ) {
+      var pos = { x: 0, y: 0 };
+
+      relative = relative || document.body;
+
+      while ( elem !== relative ) {
+        pos.x += elem.offsetLeft;
+        pos.y += elem.offsetTop;
+        elem = elem.parentNode;
+      }
+
+      return pos;
+    },
+
+    closest: function( child, parent ) {
+      while ( child ) {
+        if ( child === parent ) {
+          return child;
+        }
+        child = child.parentNode;
+      }
+      return false;
     }
   };
 
 
 // Extends the DK objects's Prototype
 Dropkick.prototype = {
-
-  // An object for any data to be stored
-  data: {},
 
   // Emulate some of HTMLSelectElement's methods
 
@@ -239,11 +268,12 @@ Dropkick.prototype = {
 
   // Initializes the DK Object
   init: function( sel, opts ) {
-    var i, direction, dk,
+    var i, direction,
       self = this;
 
     // Set some data on the DK Object
-    this.data.dk = dk = Dropkick.build( sel );
+    this.data = {};
+    this.data.dk = Dropkick.build( sel );
     this.data.select = sel;
     this.data.settings = utils.extend( {}, defaults, opts );
 
@@ -257,41 +287,6 @@ Dropkick.prototype = {
     this.selectedIndex = sel.selectedIndex;
     this.selectedOptions = utils.getSelected( this.options );
 
-    if ( !this.multiple ) {
-      this.close = function() {
-        self.isOpen = false;
-
-        for ( i = 0; i < self.options.length; i++ ) {
-          utils.removeClass( self.options[ i ], "dk-option-highlight" );
-        }
-
-        utils.removeClass( dk.lastChild, "dk-select-options-highlight" );
-        utils.removeClass( dk, "dk-select-open" + direction );
-
-        document.removeEventListener( "click", self.close );
-      };
-
-      this.open = function() {
-        var dropHeight, above, below,
-          dk = self.data.dk,
-          dkOptsList = dk.lastChild,
-          dkBottom = dk.offsetTop + dk.offsetHeight;
-
-        dkOptsList.style.display = "block";
-        dropHeight = dkOptsList.offsetHeight;
-        dkOptsList.style.display = "";
-
-        below = window.innerHeight - dkBottom + window.scrollY;
-        above = dk.offsetTop- window.scrollY > dropHeight;
-        below = below > dropHeight;
-        direction = above && !below ? "-up" : "-down";
-
-        self.isOpen = true;
-        utils.addClass( dk, "dk-select-open" + direction );
-        document.addEventListener( "click", self.close );
-      };
-    }
-
     // Insert the DK element before the original select
     sel.parentNode.insertBefore( this.data.dk, sel );
 
@@ -300,11 +295,28 @@ Dropkick.prototype = {
     this.data.dk.addEventListener( "keydown", this );
     this.data.dk.addEventListener( "keypress", this );
 
-    for ( i = 0; i < this.options.length; i++ ) {
-      if ( !this.multiple ) {
+    if ( this.form ) {
+      this.form.addEventListener( "reset", function() {
+        self.reset();
+      });
+    }
+
+    if ( !this.multiple ) {
+      for ( i = 0; i < this.options.length; i++ ) {
         this.options[ i ].addEventListener( "mouseover", this );
       }
     }
+
+    // I feel like this could be done better.
+    document.addEventListener( "click", function( event ) {
+      var target = event.target;
+      if ( target.htmlFor === self.data.select.id ) {
+        self.data.dk.focus();
+      }
+      if ( !utils.closest( target, self.data.dk ) ) {
+        self.close();
+      }
+    });
 
     // Add the DK Object to the cache
     dkCache.push( this );
@@ -313,6 +325,47 @@ Dropkick.prototype = {
     this.data.settings.initialize( this );
 
     return this;
+  },
+
+  close: function() {
+    var dk = this.data.dk;
+
+    if ( this.multiple ) {
+      return false;
+    }
+
+    for ( i = 0; i < this.options.length; i++ ) {
+      utils.removeClass( this.options[ i ], "dk-option-highlight" );
+    }
+
+    utils.removeClass( dk.lastChild, "dk-select-options-highlight" );
+    utils.removeClass( dk, "dk-select-open-(up|down)" );
+    this.isOpen = false;
+  },
+
+  open: function() {
+    var dropHeight, above, below,
+      dk = this.data.dk,
+      dkOptsList = dk.lastChild,
+      dkTop = utils.position( dk ).y - window.scrollY,
+      dkBottom = window.innerHeight - ( dkTop + dk.offsetHeight );
+
+    if ( this.multiple ) {
+      return false;
+    }
+
+    dkOptsList.style.display = "block";
+    dropHeight = dkOptsList.offsetHeight;
+    dkOptsList.style.display = "";
+
+    above = dkTop > dropHeight;
+    below = dkBottom > dropHeight;
+    direction = above && !below ? "-up" : "-down";
+
+    this.isOpen = true;
+    utils.addClass( dk, "dk-select-open" + direction );
+    this._scrollTo( this.options.length - 1 );
+    this._scrollTo( this.selectedIndex );
   },
 
   select: function( elem ) {
@@ -366,20 +419,22 @@ Dropkick.prototype = {
     return false;
   },
 
-  reset: function() {
+  reset: function( clear ) {
     var i,
       select = this.data.select;
+
+    this.selectedOptions.length = 0;
 
     for ( i = 0; i < select.options.length; i++ ) {
       select.options[ i ].selected = false;
       utils.removeClass( this.options[ i ], "dk-option-selected" );
+      if ( !clear && select.options[ i ].defaultSelected ) {
+        this.select( i );
+      }
     }
 
-    this.selectedOptions.length = 0;
-
-    if ( select.selectedIndex > -1 ) {
-      this.selectedOptions.push( this.options[0] );
-      this.select( select.selectedIndex );
+    if ( !this.selectedOptions.length ) {
+      this.select( 0 );
     }
   },
 
@@ -399,9 +454,12 @@ Dropkick.prototype = {
   _delegate: function( event ) {
     var target = event.target;
 
-    if ( !this.isOpen && !this.multiple ) {
-      event.stopPropagation();
-      this.open();
+    if ( utils.hasClass( target, "dk-option-disabled" ) ) {
+      return false;
+    }
+
+    if ( !this.multiple ) {
+      this[ this.isOpen ? "close" : "open" ]();
     }
 
     if ( utils.hasClass( target, "dk-option" ) ) {
@@ -443,8 +501,18 @@ Dropkick.prototype = {
       event.preventDefault();
       lastSelected = selected[ selected.length - 1 ];
       i = options.indexOf( lastSelected ) + i;
-      this.reset();
-      this.select( i );
+
+      if ( i > options.length - 1 ) {
+        i = options.length - 1;
+      } else if ( i < 0 ) {
+        i = 0;
+      }
+      
+      if ( !this.data.select.options[ i ].disabled ) {
+        this.reset( true );
+        this.select( i );
+        this._scrollTo( i );
+      }
       break;
     case keys.tab:
     case keys.enter:
@@ -454,8 +522,8 @@ Dropkick.prototype = {
         }
       }
     case keys.esc:
-      event.preventDefault();
       if ( this.isOpen ) {
+        event.preventDefault();
         this.close();
       }
       break;
@@ -488,9 +556,37 @@ Dropkick.prototype = {
     this.data.searchString += keyChar;
     result = this.search( this.data.searchString );
 
+
     if ( result ) {
-      this.reset();
-      this.select( result );
+      if ( !utils.hasClass( result, "dk-option-disabled" ) ) {
+        this.reset( true );
+        this.select( result );
+        this._scrollTo( result );
+      }
+    }
+  },
+
+  _scrollTo: function( option ) {
+    var optPos, optTop, optBottom,
+      dkOpts = this.data.dk.lastChild;
+
+    if ( !this.isOpen && !this.multiple ) {
+      return false;
+    }
+
+    if ( typeof option === "number" ) {
+      option = this.item( option );
+    }
+
+    optPos = utils.position( option, dkOpts ).y;
+    optTop = optPos - dkOpts.scrollTop;
+    optBottom = optTop + option.offsetHeight;
+
+    if ( optBottom > dkOpts.offsetHeight ) {
+      optPos += option.offsetHeight;
+      dkOpts.scrollTop = optPos - dkOpts.offsetHeight;
+    } else if ( optTop < 0 ) {
+      dkOpts.scrollTop = optPos;
     }
   }
 };
