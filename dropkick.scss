@@ -1,5 +1,6 @@
+// Mixins with weird names to avoid overwrites
 
-@mixin prefixer($property, $value, $prefixes) {
+@mixin dk-pre($property, $value, $prefixes) {
   @each $prefix in $prefixes {
     @if $prefix != spec {
       -#{prefix}-#{$property}: $value;
@@ -10,12 +11,12 @@
   }
 }
 
-@mixin box-sizing($box) {
-  @include prefixer(box-sizing, $box, webkit moz spec);
+@mixin dk-bxsz($box) {
+  @include dk-pre(box-sizing, $box, webkit moz spec);
 }
 
-@mixin text-overflow($text) {
-  @include prefixer(text-overflow, $text, o spec);
+@mixin dk-txtflow($text) {
+  @include dk-pre(text-overflow, $text, o spec);
 }
 
 $dk-color-aux: #3297fd !default;
@@ -32,7 +33,7 @@ $dk-disabled-text-color: #BBBBBB !default;
 .dk-select-multi *,
 .dk-select-multi *:before,
 .dk-select-multi *:after { 
-  @include box-sizing(border-box);
+  @include dk-bxsz(border-box);
 }
 
 .dk-select,
@@ -54,7 +55,7 @@ $dk-disabled-text-color: #BBBBBB !default;
   border: 1px solid $dk-border-color;
   border-radius: $dk-border-radius;
   padding: 0 1.5em 0 0.5em;
-  @include text-overflow(ellipsis);
+  @include dk-txtflow(ellipsis);
   &:before,
   &:after {
     content: '';
