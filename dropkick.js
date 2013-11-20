@@ -11,6 +11,8 @@
 
 (function( window, document, undefined ) {
 
+window.isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test( navigator.userAgent );
+
 var
 
   // Cache of DK Objects
@@ -19,6 +21,10 @@ var
   // The Dropkick Object
   Dropkick = function( sel, opts ) {
     var i;
+
+    if ( window.isMobile && !opts.mobile ) {
+      return false;
+    }
 
     if ( this === window ) {
       return new Dropkick( sel, opts );
@@ -35,6 +41,7 @@ var
       return this.init( sel, opts );
     }
   },
+
 
   noop = function() {},
 
@@ -393,7 +400,7 @@ Dropkick.prototype = {
       } else {
         utils.removeClass( this.selectedOptions[0], "dk-option-selected" );
         utils.addClass( elem, "dk-option-selected" );
-        this.data.dk.firstChild.innerText = option.text;
+        this.data.dk.firstChild.innerHTML = option.text;
         this.selectedOptions[0] = elem;
         option.selected = true;
       }
