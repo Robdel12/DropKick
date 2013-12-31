@@ -123,11 +123,12 @@
     // Open a dropdown
     openDropdown = function($dk,e) {
       var hasSpace = enoughSpace($dk); // Avoids duplication of call to _enoughSpace
-
-      $dk.find('.dk_options').css({
-        top : hasSpace ? $dk.find('.dk_toggle').outerHeight() - 1 : '',
-        bottom : hasSpace ? '' : $dk.find('.dk_toggle').outerHeight() - 1
-      });
+      if (hasSpace) {
+        $dk.find('.dk_options').addClass('dk_open_bottom').removeClass('dk_open_top');
+      }
+      else {
+        $dk.find('.dk_options').addClass('dk_open_top').removeClass('dk_open_bottom');
+      }
       $opened = $dk.toggleClass('dk_open');
       setScrollPos($dk,$dk.find('.dk_option_current'),e); // IE8+ needs to set scrollTop only after the dropdow is opened
     },
