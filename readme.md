@@ -42,23 +42,28 @@ Compatibility:
 -
 DropKick was tested on Opera 10+, Google Chrome 10+, FireFox 5+, Safari 5+, and Internet Explorer 7+. IE6 is not supported and will simply continue using your plain dropdowns instead.
 
-Whats new in 1.3?
+Whats new in 1.4?
 -
-Changes thanks to [acemir](https://github.com/acemir)!
-* ADDITION : DK now reverts to the orginal selects on mobile while still maintaining styled ".dk_toogle"
-* ADDITION : Ability to force dropkick normal mobile through setting {nativeMobile : false }
-* IMPROVES : performance through chaining some operations
-* IMPROVES : reset method
-* FIX : setValue method now assesses the existence of the option in the before applying
-* CLEAN : reload/refresh duplicated methods, now is just refresh 
-* CLEAN : things unused and redundant
-* Fixes the theme and refresh methods to work both if or dk_container are called
-* Bring back filter gradients for themes in IE < 8
+* CSS clean up
+* [Added support for using css classes for option list positioning](https://github.com/Robdel12/DropKick/pull/168)
+* [Add autoWidth default](https://github.com/Robdel12/DropKick/pull/166)
+* [Type-to-change bug fix for WebKit.](https://github.com/Robdel12/DropKick/pull/150)
+
+#### Changes thanks to [acemir](https://github.com/acemir)!
+* 'refresh' method now updates only '.dk_options_inner', instead of destroy and rebuild the whole dropkick instance
+* Clicking a label now focus the respective select dropkick
+* Abillity to set a placeholder that is hidden from the options by setting 'disabled selected' to the first select option
+* Corrects border-radius when the dropkick opens on top by adding '.dk_open_top' class to container
+* This version of DropKick was tested and confirmed that works with jQuery 1.7+
 
 [What changed in previous versions?](https://github.com/Robdel12/DropKick/wiki/Previous-version-changes)
 
-Found a bug? 
+Contributing
 -
+### Making a Pull Request
+Please make all future pull requests against the develop branch. Thanks! :D
+
+### Found a bug? 
 Please [let us know](https://github.com/robdel12/DropKick/issues).
 
 What next: 
@@ -66,7 +71,7 @@ What next:
 ### Version 2.0
 Version 2.0 is going to be a compleate rewrite of the plugin. Suggestions are welcome for features :)
 
-Got an idea for improving DropKick? Or maybe a bug fix? Please feel free to fork a copy and submit a pull request! We've merged in over 30 pull requests in the past month. We're no stranger to it
+Got an idea for improving DropKick? Or maybe a bug fix? Please feel free to fork a copy and submit a pull request! We've merged in over 30 pull requests in the past month. We're no stranger to it.
 
 Maintained by:
 -
@@ -74,6 +79,5 @@ Maintained by:
 
 [Wil Wilsman](http://twitter.com/wwilsman)
 
-Created by:
--
-[Jamie Lottering](http://twitter.com/jamielottering), default theme designed by [Addison Kowalski](http://twitter.com/addisonkowalski)
+### Created by:
+[Jamie Lottering](http://twitter.com/jamielottering)
