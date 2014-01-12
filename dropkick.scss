@@ -87,6 +87,20 @@
   }
 }
 
+/* Applied whenever the dropdown is open at the top */
+.dk_open_top {
+  .dk_toggle {
+    border-radius: 0 0 5px 5px;
+    -moz-border-radius: 0 0 5px 5px;
+    -webkit-border-radius: 0 0 5px 5px;
+  }
+  .dk_options, .dk_options_inner {
+    border-radius: 5px 5px 0 0;
+    -moz-border-radius: 5px 5px 0 0;
+    -webkit-border-radius: 5px 5px 0 0;
+  }
+}
+
 /* The outer container of the options */
 .dk_options {
   background: #fefefe; /* Removes transparent background on iOS5+ scroll */
