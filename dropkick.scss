@@ -56,7 +56,7 @@
     border-top: 5px solid #4B4B4B;
   }
 }
-/* Applied when the dropdown is focused */
+// Applied when the dropdown is focused
 .dk_focus{
   .dk_toggle {
     border-color: #40b5e2;
@@ -66,15 +66,13 @@
   }
 }
 
-/* Applied whenever the dropdown is open */
+// Applied whenever the dropdown is open
 .dk_open {
   box-shadow: 0 0 5px #40b5e2;
   -moz-box-shadow: 0 0 5px #40b5e2;
   -webkit-box-shadow: 0 0 5px #40b5e2;
-  /**
-   * Help: Dropdown menu is covered by something
-   * Try setting this value higher
-   */
+  //* Help: Dropdown menu is covered by something
+  //* Try setting this value higher
   z-index: 10;
   .dk_toggle {
     background-color: #ececec;
@@ -87,7 +85,7 @@
   }
 }
 
-/* Applied whenever the dropdown is open at the top */
+// Applied whenever the dropdown is open at the top
 .dk_open_top {
   .dk_toggle {
     border-radius: 0 0 5px 5px;
@@ -101,9 +99,9 @@
   }
 }
 
-/* The outer container of the options */
+//* The outer container of the options
 .dk_options {
-  background: #fefefe; /* Removes transparent background on iOS5+ scroll */
+  background: #fefefe; // Removes transparent background on iOS5+ scroll
   box-shadow: rgba(0, 0, 0, .2) 0 2px 8px;
   -moz-box-shadow: rgba(0, 0, 0, .2) 0 2px 8px;
   -webkit-box-shadow: rgba(0, 0, 0, .2) 0 2px 8px;
@@ -140,7 +138,7 @@
     }
   }
 }
-/* Inner container for options, this is what makes the scrollbar possible. */
+// Inner container for options, this is what makes the scrollbar possible.
 .dk_options_inner {
   max-height: 250px;
   border: 1px solid #8c8c8e;
@@ -153,9 +151,9 @@
   -webkit-border-radius: 0 0 5px 5px;
 }
 
-/******  End Theme ******/
+//******  End Theme ******
 
-/***** Critical to the continued enjoyment of working dropdowns ******/
+//***** Critical to the continued enjoyment of working dropdowns ******
 
 .dk_container {
   display: none;
@@ -201,14 +199,14 @@
 }
 
 
-/* Hides only dropkick <select> instances */
+// Hides only dropkick <select> instances
 .dk_container select {
   position: absolute;
   top: -99999em;
   visibility: hidden;
 }
 
-/*  nativeMobile override */
+//  nativeMobile override 
 .dk_mobile {
   position: relative;
   select {
@@ -224,4 +222,4 @@
   }
 }
 
-/***** End Critical to the continued enjoyment of working dropdowns ******/
+//***** End Critical to the continued enjoyment of working dropdowns ******

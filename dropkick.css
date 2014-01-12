@@ -46,22 +46,16 @@
     border-right: 5px solid transparent;
     border-top: 5px solid #4B4B4B; }
 
-/* Applied when the dropdown is focused */
 .dk_focus .dk_toggle {
   border-color: #40b5e2;
   box-shadow: 0 0 5px #40b5e2;
   -moz-box-shadow: 0 0 5px #40b5e2;
   -webkit-box-shadow: 0 0 5px #40b5e2; }
 
-/* Applied whenever the dropdown is open */
 .dk_open {
   box-shadow: 0 0 5px #40b5e2;
   -moz-box-shadow: 0 0 5px #40b5e2;
   -webkit-box-shadow: 0 0 5px #40b5e2;
-  /**
-   * Help: Dropdown menu is covered by something
-   * Try setting this value higher
-   */
   z-index: 10; }
   .dk_open .dk_toggle {
     background-color: #ececec;
@@ -72,7 +66,6 @@
     -moz-border-radius: 5px 5px 0 0;
     -webkit-border-radius: 5px 5px 0 0; }
 
-/* Applied whenever the dropdown is open at the top */
 .dk_open_top .dk_toggle {
   border-radius: 0 0 5px 5px;
   -moz-border-radius: 0 0 5px 5px;
@@ -82,10 +75,8 @@
   -moz-border-radius: 5px 5px 0 0;
   -webkit-border-radius: 5px 5px 0 0; }
 
-/* The outer container of the options */
 .dk_options {
   background: #fefefe;
-  /* Removes transparent background on iOS5+ scroll */
   box-shadow: rgba(0, 0, 0, 0.2) 0 2px 8px;
   -moz-box-shadow: rgba(0, 0, 0, 0.2) 0 2px 8px;
   -webkit-box-shadow: rgba(0, 0, 0, 0.2) 0 2px 8px;
@@ -116,7 +107,6 @@
       border-bottom-color: #999;
       text-shadow: none; }
 
-/* Inner container for options, this is what makes the scrollbar possible. */
 .dk_options_inner {
   max-height: 250px;
   border: 1px solid #8c8c8e;
@@ -128,8 +118,6 @@
   -moz-border-radius: 0 0 5px 5px;
   -webkit-border-radius: 0 0 5px 5px; }
 
-/******  End Theme ******/
-/***** Critical to the continued enjoyment of working dropdowns ******/
 .dk_container {
   display: none;
   float: left; }
@@ -164,13 +152,11 @@
   position: relative;
   -webkit-overflow-scrolling: touch; }
 
-/* Hides only dropkick <select> instances */
 .dk_container select {
   position: absolute;
   top: -99999em;
   visibility: hidden; }
 
-/*  nativeMobile override */
 .dk_mobile {
   position: relative; }
   .dk_mobile select {
@@ -184,5 +170,3 @@
     appearance: none;
     -moz-appearance: none;
     -webkit-appearance: none; }
-
-/***** End Critical to the continued enjoyment of working dropdowns ******/

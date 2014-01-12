@@ -1,5 +1,5 @@
 /*
- * DropKick 1.3.3
+ * DropKick 1.4
  *
  * Highly customizable <select> lists
  * https://github.com/robdel12/DropKick
@@ -301,7 +301,7 @@
     settings = $.extend({}, defaults, settings);
     dropdownTemplate = settings.dropdownTemplate ? settings.dropdownTemplate : dropdownTemplate;
     optionTemplate = settings.optionTemplate ? settings.optionTemplate : optionTemplate;
-    
+
     return this.each(function () {
       var
         // The current <select> element
