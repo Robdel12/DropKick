@@ -59,7 +59,8 @@
       theme         : false,
       changes       : false,
       syncReverse   : true,
-      nativeMobile  : true
+      nativeMobile  : true,
+      autoWidth     : true
     },
 
     // Make sure that only one dropdown is open the document
@@ -343,9 +344,11 @@
       $dk = build(dropdownTemplate, data);
 
       // Make the dropdown fixed width if desired
-      $dk.find('.dk_toggle').css({
-        'width' : width + 'px'
-      });
+     if (data.settings.autoWidth) {
+        $dk.find('.dk_toggle').css({
+          'width' : width + 'px'
+        });
+      }
 
       // Hide the <select> list and place our new one in front of it
       $select.before($dk).appendTo($dk);
