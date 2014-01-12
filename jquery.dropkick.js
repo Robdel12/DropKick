@@ -1,5 +1,5 @@
 /*
- * DropKick 1.3.3
+ * DropKick 1.4
  *
  * Highly customizable <select> lists
  * https://github.com/robdel12/DropKick
@@ -39,19 +39,17 @@
 
     // HTML template for the dropdowns
     dropdownTemplate = [
-      '<div class="dk_container" id="dk_container_{{ id }}" tabindex="{{ tabindex }}">',
-      '<a class="dk_toggle">',
-      '<span class="dk_label">{{ label }}</span>',
-      '</a>',
+      '<div class="dk_container" id="dk_container_{{ id }}" tabindex="{{ tabindex }}" aria-hidden="true">',
+      '<a class="dk_toggle dk_label">{{ label }}</a>',
       '<div class="dk_options">',
-      '<ul class="dk_options_inner">',
+      '<ul class="dk_options_inner" role="main" aria-hidden="true">',
       '</ul>',
       '</div>',
       '</div>'
     ].join(''),
 
     // HTML template for dropdown options
-    optionTemplate = '<li class="{{ current }} {{ disabled }}"><a data-dk-dropdown-value="{{ value }}">{{ text }}</a></li>',
+    optionTemplate = '<li><a data-dk-dropdown-value="{{ value }}">{{ text }}</a></li>',
 
     // Some nice default values
     defaults = {
@@ -59,7 +57,8 @@
       theme         : false,
       changes       : false,
       syncReverse   : true,
-      nativeMobile  : true
+      nativeMobile  : true,
+      autoWidth     : true
     },
 
     // Make sure that only one dropdown is open the document
@@ -91,7 +90,7 @@
 
     // Close a dropdown
     closeDropdown = function($dk) {
-      $dk.removeClass('dk_open');
+      $dk.removeClass('dk_open dk_open_top');
       $opened = null;
     },
 
@@ -122,13 +121,20 @@
 
     // Open a dropdown
     openDropdown = function($dk,e) {
+
       var hasSpace = enoughSpace($dk); // Avoids duplication of call to _enoughSpace
+      $opened = $dk.toggleClass('dk_open');
+
+      var
+          hasSpace  = enoughSpace($dk), // Avoids duplication of call to _enoughSpace
+          openClasses = hasSpace ? 'dk_open' : 'dk_open_top dk_open'
+      ;
 
       $dk.find('.dk_options').css({
         top : hasSpace ? $dk.find('.dk_toggle').outerHeight() - 1 : '',
         bottom : hasSpace ? '' : $dk.find('.dk_toggle').outerHeight() - 1
       });
-      $opened = $dk.toggleClass('dk_open');
+      $opened = $dk.addClass(openClasses);
       setScrollPos($dk,$dk.find('.dk_option_current'),e); // IE8+ needs to set scrollTop only after the dropdow is opened
     },
 
@@ -174,7 +180,7 @@
 
       case keyMap.tab:
         if(open){
-          updateFields(current.find('a'), $dk);
+          current.length && updateFields(current.find('a'), $dk);
           closeDropdown($dk);
         }
         break;
@@ -214,7 +220,7 @@
       if (code >= keyMap.zero && code <= keyMap.z) {
         //update data
         now = new Date().getTime();
-        if (data.finder === null) {
+        if (data.finder === null || data.finder === undefined) {
           data.finder = letter.toUpperCase();
           data.timer = now;
 
@@ -291,6 +297,8 @@
   // Called by using $('foo').dropkick();
   methods.init = function (settings) {
     settings = $.extend({}, defaults, settings);
+    dropdownTemplate = settings.dropdownTemplate ? settings.dropdownTemplate : dropdownTemplate;
+    optionTemplate = settings.optionTemplate ? settings.optionTemplate : optionTemplate;
 
     return this.each(function () {
       var
@@ -342,9 +350,11 @@
       $dk = build(dropdownTemplate, data);
 
       // Make the dropdown fixed width if desired
-      $dk.find('.dk_toggle').css({
-        'width' : width + 'px'
-      });
+     if (data.settings.autoWidth) {
+        $dk.find('.dk_toggle').css({
+          'width' : width + 'px'
+        });
+      }
 
       // Hide the <select> list and place our new one in front of it
       $select.before($dk).appendTo($dk);
@@ -372,9 +382,9 @@
       lists[lists.length] = $select;
 
       // Focus events
-      $dk.bind('focus.dropkick', function () {
+      $dk.on('focus.dropkick', function () {
         $focused = $dk.addClass('dk_focus');
-      }).bind('blur.dropkick', function () {
+      }).on('blur.dropkick', function () {
         $dk.removeClass('dk_focus');
         $focused = null;
       });
@@ -400,10 +410,8 @@
       }
 
       // Listen to a reset event to the form on the <select>
-      if ($select.attr('form') || $select.closest('form').length) {
-        $form = $select.attr('form') ? $('#'+$select.attr('form').replace(' ',', #')) : $select.closest('form');
-        $form.on('reset',function(){ $select.dropkick('reset') });
-      }
+      $form = $select.attr('form') ? $('#'+$select.attr('form').replace(' ',', #')) : $select.closest('form');
+      $form.length && $form.on('reset',function(){ $select.dropkick('reset') });
 
       // [Issue #126] Validation do not fires in <select> is not (':visible')
       // setTimeout(function () {
@@ -430,27 +438,26 @@
       var
         data      = $(this).data('dropkick'),
         $dk       = data.$dk,
-        $current  = $('a[data-dk-dropdown-value="'+data.value+'"]', $dk)
+        $original  = $('a[data-dk-dropdown-value="'+data.$original.attr('value')+'"]', $dk)
       ;
 
-      !data.$original.eq(0).prop('selected') && data.$original.eq(0).prop('selected',true);
+      data.$original.prop('selected',true);
       $dk.find('.dk_label').text(data.label);
-      setCurrent($current.parent(), $dk);
+      setCurrent($original.parent(), $dk);
     });
   };
 
   methods.setValue = function (value) {
-    var
-      $dk = $(this).data('dropkick').$dk,
-      $option = $('.dk_options a[data-dk-dropdown-value="' + value + '"]',$dk)
-    ;
+    return this.each(function () {
+      var
+        $dk = $(this).data('dropkick').$dk,
+        $option = $('.dk_options a[data-dk-dropdown-value="' + value + '"]',$dk)
+      ;
 
-    if ($option.length) {
-      updateFields($option, $dk);
-      setCurrent($option.parent(), $dk);
-    } else {
-      console.warn('There is no option with this value in the <select>');
-    }
+      $option.length
+      ? updateFields($option, $dk) | setCurrent($option.parent(), $dk)
+      : console.warn('There is no option with this value in '+$dk.selector);
+    });
   };
 
   // Reload / rebuild, in case of dynamic updates etc.
@@ -460,16 +467,20 @@
   methods.refresh = function(){
     return this.each(function () {
       var
-        data      = $(this).data('dropkick'),
-        $select   = data.$select,
-        $dk       = data.$dk
+        data          = $(this).data('dropkick'),
+        $select       = data.$select,
+        $dk           = data.$dk,
+        $current,
+        $dkopts
       ;
-
-      data.settings.startSpeed = 0;
-
-      $select.removeData("dropkick").insertAfter($dk);
-      $dk.remove();
-      $select.dropkick(data.settings);
+      // Update data options      
+      data.options  = $select.find('option');
+      // Rebuild options list. filter options inner and replace
+      $dkopts = build(dropdownTemplate, data).find('.dk_options_inner');
+      $dk.find('.dk_options_inner').replaceWith($dkopts);
+      // Re setCurrent option after refresh options list
+      $current = $('a[data-dk-dropdown-value="'+$select.val()+'"]', $dk);
+      setCurrent($current.parent(), $dk);
     });
   };
 
@@ -504,13 +515,13 @@
     });
 
     // Setup keyboard nav
-    $(document).bind('keydown.dk_nav', function (e) {
-      var $dk = null;
+    $(document).on('keydown.dk_nav', function (e) {
+      var $dk;
 
       // If we have an open dropdown, key events should get sent to that one
       if ($opened) {
         $dk = $opened;
-      } else if ($focused && !$opened) {
+      } else if ($focused) {
         // But if we have no open dropdowns, use the focused dropdown instead
         $dk = $focused;
       }
@@ -522,10 +533,14 @@
 
     // Globally handle a click outside of the dropdown list by closing it.
     $(document).on('click', null, function (e) {
-      if ($opened && $(e.target).closest(".dk_container").length === 0 ) {
+      var
+        $eTarget = $(e.target),
+        $dk
+      ;
+      if ($opened && $eTarget.closest(".dk_container").length === 0 ) {
         closeDropdown($opened); // Improves performance by minimizing DOM Traversal Operations
-      } else if ($(e.target).is(".dk_toggle, .dk_label")) {
-        var $dk = $(e.target).parents('.dk_container').first();
+      } else if ($eTarget.is(".dk_toggle, .dk_label")) {
+        $dk = $eTarget.parents('.dk_container').first();
 
         if ($dk.hasClass('dk_open')) {
           closeDropdown($dk);
@@ -535,6 +550,8 @@
         } // Avoids duplication of call to _openDropdown
 
         return false;
+      } else if ($eTarget.attr('for') && !!$('#dk_container_'+$eTarget.attr('for'))[0] ) {
+        $('#dk_container_'+$eTarget.attr('for')).trigger('focus.dropkick');
       }
     });
 

@@ -108,6 +108,13 @@ ul {
     font-size: 12px!important;
   }
 
+  .example label {
+    display: inline-block;
+    float: left;
+    margin-right: 10px;
+    line-height: 2.25em;
+  }
+
 
 fieldset {
   border: none;
