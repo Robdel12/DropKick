@@ -299,7 +299,9 @@
   // Called by using $('foo').dropkick();
   methods.init = function (settings) {
     settings = $.extend({}, defaults, settings);
-
+    dropdownTemplate = settings.dropdownTemplate ? settings.dropdownTemplate : dropdownTemplate;
+    optionTemplate = settings.optionTemplate ? settings.optionTemplate : optionTemplate;
+    
     return this.each(function () {
       var
         // The current <select> element
