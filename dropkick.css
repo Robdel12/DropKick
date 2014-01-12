@@ -35,7 +35,7 @@
   -o-transition: border-color .5s;
   transition: border-color .5s;
   position: relative; }
-  .dk_toggle:hover {
+  .dk_toggle:hover, .dk_toggle:focus {
     border-color: #8c8c8c; }
   .dk_toggle:after {
     position: absolute;
@@ -88,7 +88,7 @@
     border-bottom: 1px solid #999;
     font-weight: bold;
     padding: 8px 10px; }
-  .dk_options a:hover,
+  .dk_options a:hover, .dk_options:focus,
   .dk_options .dk_option_current a {
     background-color: #0084c7;
     border-bottom-color: #004c72;
@@ -101,7 +101,8 @@
     cursor: default; }
     .dk_options .disabled a {
       color: #aaa; }
-    .dk_options .disabled:hover, .dk_options .disabled:hover a {
+    .dk_options .disabled:hover, .dk_options .disabled:hover a
+    .dk_options .disabled:focus, .dk_options .disabled:focus a {
       cursor: default;
       background-color: #fff;
       border-bottom-color: #999;

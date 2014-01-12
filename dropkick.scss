@@ -43,7 +43,7 @@
   -o-transition: border-color .5s;
   transition: border-color .5s;
   position: relative;
-  &:hover {
+  &:hover, &:focus {
     border-color: #8c8c8c;
   }
   &:after{
@@ -114,7 +114,7 @@
     font-weight: bold;
     padding: 8px 10px;
   }
-  a:hover,
+  a:hover, &:focus,
   .dk_option_current a {
     background-color: #0084c7;
     border-bottom-color: #004c72;
@@ -130,7 +130,8 @@
     a {
       color: #aaa;
     }
-    &:hover, &:hover a {
+    &:hover, &:hover a
+    &:focus, &:focus a {
       cursor: default;
       background-color: #fff;
       border-bottom-color: #999;
