@@ -4,6 +4,6 @@
   "main": "jquery.dropkick-min.js",
   "description": "A jQuery plugin for creating beautiful, graceful, and painless custom dropdowns.",
   "dependencies": {
-    "<jQuery>": "<1.10.2>"
+    "jquery": "~1.10.2"
   }
 }
