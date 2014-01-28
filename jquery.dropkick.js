@@ -96,6 +96,15 @@
 
     // Report whether there is enough space in the window to drop down.
     enoughSpace = function($dk)  {
+      var data  = $dk.data('dropkick');
+      if (data.fixedMove == 'up') {
+        return false;
+      }
+
+      if (data.fixedMove == 'down') {
+        return true;
+      }
+      
       var
         $dk_toggle = $dk.find('.dk_toggle'),
         optionsHeight = $dk.find('.dk_options').outerHeight(),
@@ -329,7 +338,10 @@
         theme,
 
         // The form relative to the select
-        $form
+        $form,
+		
+        // The movement can be fixed to always 'up' or always 'down'
+        fixedMove = settings.fixedMove
       ;
 
       // Dont do anything if we've already setup dropkick on this element
@@ -345,6 +357,7 @@
       data.value     = notBlank($select.val()) || notBlank($original.attr('value'));
       data.label     = $original.text();
       data.options   = $options;
+      data.fixedMove = fixedMove;
 
       // Build the dropdown HTML
       $dk = build(dropdownTemplate, data);
