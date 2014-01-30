@@ -50,6 +50,7 @@
 
     // HTML template for dropdown options
     optionTemplate = '<li><a data-dk-dropdown-value="{{ value }}">{{ text }}</a></li>',
+    optgroupTemplate = '<li class="dk-optgroup"><span>{{ text }}</span></li>',
 
     // Some nice default values
     defaults = {
@@ -262,23 +263,28 @@
         i,
         l,
         $option,
-        oTemplate
+        oTemplate,
+        ogTemplate
       ;
 
       if (view.options && view.options.length) {
         for (i = 0, l = view.options.length; i < l; i++) {
           $option   = $(view.options[i]);
+          if ($option.is('option')) {
+            (i === 0 && $option.attr('selected') !== undefined && $option.attr('disabled') !== undefined)?
+            oTemplate = null
+            :
+            oTemplate = optionTemplate.replace('{{ value }}', $option.val())
+                                      .replace('{{ current }}', (notBlank($option.val()) === view.value) ? 'dk_option_current' : '')
+                                      .replace('{{ disabled }}', ($option.attr('disabled') !== undefined) ? 'disabled' : '')
+                                      .replace('{{ text }}', $.trim($option.html()))
+            ;
 
-          (i === 0 && $option.attr('selected') !== undefined && $option.attr('disabled') !== undefined)?
-          oTemplate = null
-          :
-          oTemplate = optionTemplate.replace('{{ value }}', $option.val())
-                                    .replace('{{ current }}', (notBlank($option.val()) === view.value) ? 'dk_option_current' : '')
-                                    .replace('{{ disabled }}', ($option.attr('disabled') !== undefined) ? 'disabled' : '')
-                                    .replace('{{ text }}', $.trim($option.html()))
-          ;
-
-          options[options.length] = oTemplate;
+            options[options.length] = oTemplate;
+          } else if ($option.is('optgroup')) {
+            ogTemplate = optgroupTemplate.replace('{{ text }}', $option.attr('label'));
+            options[options.length] = ogTemplate;
+          }
         }
       }
 
@@ -299,6 +305,7 @@
     settings = $.extend({}, defaults, settings);
     dropdownTemplate = settings.dropdownTemplate ? settings.dropdownTemplate : dropdownTemplate;
     optionTemplate = settings.optionTemplate ? settings.optionTemplate : optionTemplate;
+    optgroupTemplate = settings.optgroupTemplate ? settings.optgroupTemplate : optgroupTemplate;
 
     return this.each(function () {
       var
@@ -309,7 +316,7 @@
         $original = $select.find(':selected').first(),
 
         // Save all of the <option> elements
-        $options = $select.find('option'),
+        $options = $select.find('option, optgroup'),
 
         // We store lots of great stuff using jQuery data
         data = $select.data('dropkick') || {},
@@ -473,7 +480,7 @@
         $current,
         $dkopts
       ;
-      // Update data options      
+      // Update data options
       data.options  = $select.find('option');
       // Rebuild options list. filter options inner and replace
       $dkopts = build(dropdownTemplate, data).find('.dk_options_inner');
