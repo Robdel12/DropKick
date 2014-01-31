@@ -295,13 +295,14 @@
     }
   ;
 
-  // Help prevent flashes of unstyled content
-  if (!ie6) {
-    document.documentElement.className = document.documentElement.className + ' dk_fouc';
-  }
-
   // Called by using $('foo').dropkick();
   methods.init = function (settings) {
+
+    // Help prevent flashes of unstyled content
+    if (!ie6) {
+      document.documentElement.className = document.documentElement.className + ' dk_fouc';
+    }
+
     settings = $.extend({}, defaults, settings);
     dropdownTemplate = settings.dropdownTemplate ? settings.dropdownTemplate : dropdownTemplate;
     optionTemplate = settings.optionTemplate ? settings.optionTemplate : optionTemplate;
