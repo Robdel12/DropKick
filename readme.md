@@ -20,7 +20,7 @@ Features:
    While opened, pressing up or down will navigate through the options, and pressing enter will select the currently highlighted option.
 
 * *Dynamic Selects:*
- Use `$(object).dropkick('refresh')` method to update dropkick if the `<select>` content has changed dinamically
+ Use `$(object).dropkick('refresh')` method to update dropkick if the `<select>` content has changed dynamically
 
 * *Theming:* 
   DropKick was made to be easily theme-able and supports dynamic theme changing.
@@ -52,7 +52,7 @@ Whats new in 1.4?
 #### Changes thanks to [acemir](https://github.com/acemir)!
 * 'refresh' method now updates only '.dk_options_inner', instead of destroy and rebuild the whole dropkick instance
 * Clicking a label now focus the respective select dropkick
-* Abillity to set a placeholder that is hidden from the options by setting 'disabled selected' to the first select option
+* Ability to set a placeholder that is hidden from the options by setting 'disabled selected' to the first select option
 * Corrects border-radius when the dropkick opens on top by adding '.dk_open_top' class to container
 * This version of DropKick was tested and confirmed that works with jQuery 1.7+
 
