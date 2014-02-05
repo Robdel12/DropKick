@@ -78,7 +78,7 @@ var
     ].join(""),
 
     // The optgroup template; An HTML string containing any sub-options is passed
-    optGroup: [
+    optgroup: [
       '<li class="dk-optgroup">',
         '<ul class="dk-optgroup-options">',
           '<%=( options )%>',
