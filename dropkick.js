@@ -22,19 +22,20 @@ var
   Dropkick = function( sel, opts ) {
     var i;
 
+    // Prevent DK on mobile
     if ( window.isMobile && !opts.mobile ) {
       return false;
     }
 
+    // Safety if `Dropkick` is called without `new`
     if ( this === window ) {
       return new Dropkick( sel, opts );
     }
 
-    for ( i = 0; i < dkCache.length; i++ ) {
-      if ( dkCache[ i ].data.select == sel ) {
-        utils.extend( dkCache[ i ].data.settings, opts );
-        return dkCache[ i ];
-      }
+    // Check if select has already been DK'd and return the DK Object
+    if ( i = sel.getAttribute( "data-dkCacheId" ) ) {
+      _.extend( dkCache[ i ].data.settings, opts );
+      return dkCache[ i ];
     }
 
     if ( sel.nodeName === "SELECT" ) {
@@ -47,21 +48,24 @@ var
 
   // DK default options
   defaults = {
+
+    // Called once after the DK element is inserted into the DOM
     initialize: noop,
-    change: noop
+
+    // Called every time the select changes value
+    change: noop,
   },
 
-  // Default Templates
+  // The templates
   tmpl = {
 
-    // The select template
-    // The original select element is passed
+    // The select template; The original select element is passed
     select: [
       '<div class="dk-select',
       '<%=( select.multiple ? "-multi" : "" )%> ',
       '<%=( select.className )%>" ',
       '<%=( select.id ? "id=\'dk-" + select.id + "\'" : "" )%> ',
-      'tabindex="0">',
+      'tabindex="<%=( select.tabindex || 0 )%>">',
         '<% if ( !select.multiple ) { %>',
           '<div class="dk-selected">',
             '<%= select.options[ select.selectedIndex ].text %>',
@@ -73,9 +77,8 @@ var
       '</div>'
     ].join(""),
 
-    // The optgroup template
-    // An HTML string containing any sub-options is passed
-    optgroup: [
+    // The optgroup template; An HTML string containing any sub-options is passed
+    optGroup: [
       '<li class="dk-optgroup">',
         '<ul class="dk-optgroup-options">',
           '<%=( options )%>',
@@ -83,8 +86,7 @@ var
       '</li>'
     ].join(""),
 
-    // The option template
-    // The original option element is passed
+    // The option template; The original option element is passed
     option: [
       '<li class="dk-option ',
       '<%=( option.className )%>',
@@ -97,7 +99,7 @@ var
   },
 
   // Common Utilities
-  utils = {
+  _ = {
 
     hasClass: function( elem, classname ) {
       var reg = new RegExp( "(^|\\s+)" + classname + "(\\s+|$)" ); 
@@ -105,7 +107,7 @@ var
     },
 
     addClass: function( elem, classname ) {
-      if( !utils.hasClass( elem, classname ) ) { 
+      if( !_.hasClass( elem, classname ) ) { 
         elem.className += " " + classname; 
       }
     },
@@ -116,8 +118,8 @@ var
     },
 
     toggleClass: function( elem, classname ) {
-      var fn = utils.hasClass( elem, classname ) ? "remove" : "add";
-      utils[ fn + "Class" ]( elem, classname );
+      var fn = _.hasClass( elem, classname ) ? "remove" : "add";
+      _[ fn + "Class" ]( elem, classname );
     },
 
     // jQuery-like extend
@@ -131,7 +133,7 @@ var
           if ( options.hasOwnProperty( p ) ) {
             try {
               if ( options[ p ].constructor == Object ) {
-                target[ p ] = utils.extend( target[ p ], options[ p ] );
+                target[ p ] = _.extend( target[ p ], options[ p ] );
               } else {
                 target[ p ] = options[ p ];
               }
@@ -167,41 +169,7 @@ var
       return tmp.lastChild;
     },
 
-    // Finds all DK options in the DK element
-    findOptions: function( elems ) {
-      var el, i,
-        options = [];
-
-      for ( i = 0; i < elems.length; i++ ) {
-        el = elems[ i ];
-        if ( utils.hasClass( el, "dk-option" ) ) {
-          options.push( el );
-        } 
-        if ( el.children.length ) {
-          options = options.concat( 
-            utils.findOptions( el.children ) 
-          );
-        }
-      }
-
-      return options;
-    },
-
-    // Finds any selected options out of the passed DK options
-    getSelected: function( dkOptions ) {
-      var opt, i,
-        selected = [];
-
-      for ( i = 0; i < dkOptions.length; i++ ) {
-        opt = dkOptions[ i ];
-        if ( utils.hasClass( opt, "dk-option-selected" ) ) {
-          selected.push( opt );
-        }
-      }
-
-      return selected;
-    },
-
+    // Returns the x and y offset of an element
     position: function( elem, relative ) {
       var pos = { x: 0, y: 0 };
 
@@ -216,9 +184,10 @@ var
       return pos;
     },
 
-    closest: function( child, parent ) {
+    // Returns the closest ancestor element of the child or false if not found
+    closest: function( child, ancestor ) {
       while ( child ) {
-        if ( child === parent ) {
+        if ( child === ancestor ) {
           return child;
         }
         child = child.parentNode;
@@ -233,17 +202,22 @@ Dropkick.prototype = {
 
   // Emulate some of HTMLSelectElement's methods
 
+  /**
+   * Adds an element to the select
+   * @param {Node}         elem   HTMLOptionElement
+   * @param {Node/Integer} before HTMLOptionElement/Index of Element
+   */
   add: function( elem, before ) {
     var dkHTML, dkElem;
 
     if ( elem.nodeName === "OPTION" ) {
-      dkHTML = utils.tmpl( tmpl.option, { option: elem });
-      dkElem = utils.parseHTML( dkHTML );
+      dkHTML = _.tmpl( tmpl.option, { option: elem });
+      dkElem = _.parseHTML( dkHTML );
 
       this.data.select.add( elem, before );
 
       if ( typeof before === "number" ) {
-        before = this.options[ before ];
+        before = this.item( before );
       } 
 
       if ( this.options.indexOf( before ) > -1 ) {
@@ -260,39 +234,53 @@ Dropkick.prototype = {
     }
   },
 
+  /**
+   * Selects an option in the lists at the desired index
+   * (negative numbers select from the end)
+   * @param  {Integer} index Index of element (positive or negative)
+   * @return {Node}          The DK option from the list, or null if not found
+   */
   item: function( index ) {
     index = index < 0 ? this.options.length + index : index;
     return this.options[ index ] || null;
   },
 
+  /**
+   * Removes and element at the given index
+   * @param  {Integer} index Index of element (positive or negative)
+   */
   remove: function( index ) {
-    var dkOption = this.options[ index ];
+    var dkOption = this.item( index );
     dkOption.parentNode.removeChild( dkOption );
     this.options.splice( index, 1 );
     this.data.select.remove( index );
     this.select( this.data.select.selectedIndex );
   },
 
-  // Initializes the DK Object
+  /**
+   * Initializes the DK Object
+   * @param  {Node}   sel  [description]
+   * @param  {Object} opts Options to override defaults
+   * @return {Object}      The DK Object
+   */
   init: function( sel, opts ) {
-    var i, direction,
-      self = this;
+    var i;
 
     // Set some data on the DK Object
     this.data = {};
     this.data.dk = Dropkick.build( sel );
     this.data.select = sel;
-    this.data.settings = utils.extend( {}, defaults, opts );
+    this.data.settings = _.extend( {}, defaults, opts );
 
     // Emulate some of HTMLSelectElement's properties
     this.value = sel.value;
     this.disabled = sel.disabled;
     this.form = sel.form;
     this.length = sel.length;
-    this.options = utils.findOptions( this.data.dk.children );
+    this.options = Dropkick.findOptions( this.data.dk.children );
     this.multiple = sel.multiple;
     this.selectedIndex = sel.selectedIndex;
-    this.selectedOptions = utils.getSelected( this.options );
+    this.selectedOptions = Dropkick.getSelected( this.options );
 
     // Insert the DK element before the original select
     sel.parentNode.insertBefore( this.data.dk, sel );
@@ -303,9 +291,7 @@ Dropkick.prototype = {
     this.data.dk.addEventListener( "keypress", this );
 
     if ( this.form ) {
-      this.form.addEventListener( "reset", function() {
-        self.reset();
-      });
+      this.form.addEventListener( "reset", this );
     }
 
     if ( !this.multiple ) {
@@ -314,26 +300,24 @@ Dropkick.prototype = {
       }
     }
 
-    // I feel like this could be done better.
-    document.addEventListener( "click", function( event ) {
-      var target = event.target;
-      if ( target.htmlFor === self.data.select.id ) {
-        self.data.dk.focus();
-      }
-      if ( !utils.closest( target, self.data.dk ) ) {
-        self.close();
-      }
-    });
+    if ( dkCache.length == 0 ) {
+      document.addEventListener( "click", Dropkick.onDocClick );
+    }
 
     // Add the DK Object to the cache
+    this.cacheID = dkCache.length;
+    sel.setAttribute( "data-dkCacheId", this.cacheID );
     dkCache.push( this );
 
-    // Call the optional initialize funciton
+    // Call the optional initialize function
     this.data.settings.initialize( this );
 
     return this;
   },
 
+  /**
+   * Closes the DK dropdown
+   */
   close: function() {
     var dk = this.data.dk;
 
@@ -342,19 +326,22 @@ Dropkick.prototype = {
     }
 
     for ( i = 0; i < this.options.length; i++ ) {
-      utils.removeClass( this.options[ i ], "dk-option-highlight" );
+      _.removeClass( this.options[ i ], "dk-option-highlight" );
     }
 
-    utils.removeClass( dk.lastChild, "dk-select-options-highlight" );
-    utils.removeClass( dk, "dk-select-open-(up|down)" );
+    _.removeClass( dk.lastChild, "dk-select-options-highlight" );
+    _.removeClass( dk, "dk-select-open-(up|down)" );
     this.isOpen = false;
   },
 
+  /**
+   * Opens the DK dropdown
+   */
   open: function() {
     var dropHeight, above, below,
       dk = this.data.dk,
       dkOptsList = dk.lastChild,
-      dkTop = utils.position( dk ).y - window.scrollY,
+      dkTop = _.position( dk ).y - window.scrollY,
       dkBottom = window.innerHeight - ( dkTop + dk.offsetHeight );
 
     if ( this.multiple ) {
@@ -370,12 +357,19 @@ Dropkick.prototype = {
     direction = above && !below ? "-up" : "-down";
 
     this.isOpen = true;
-    utils.addClass( dk, "dk-select-open" + direction );
+    _.addClass( dk, "dk-select-open" + direction );
     this._scrollTo( this.options.length - 1 );
     this._scrollTo( this.selectedIndex );
   },
 
-  select: function( elem ) {
+
+  /**
+   * Selects an option from the list
+   * @param  {Node/Integer} elem     The element or index to select
+   * @param  {Boolean}      disabled INTERNAL Selects disabled options
+   * @return {Node}                  The selected element
+   */
+  select: function( elem, /* internal */ disabled ) {
     var index, option,
       select = this.data.select;
 
@@ -383,23 +377,27 @@ Dropkick.prototype = {
       elem = this.item( elem );
     }
 
-    if ( utils.hasClass( elem, "dk-option" ) ) {
+    if ( !disabled && _.hasClass( elem, "dk-option-disabled" ) ) {
+      return;
+    }
+
+    if ( _.hasClass( elem, "dk-option" ) ) {
       index = this.options.indexOf( elem );
       option = select.options[ index ];
 
       if ( this.multiple ) {
-        utils.toggleClass( elem, "dk-option-selected" );
+        _.toggleClass( elem, "dk-option-selected" );
         option.selected = !option.selected;
 
-        if ( utils.hasClass( elem, "dk-option-selected" ) ) {
+        if ( _.hasClass( elem, "dk-option-selected" ) ) {
           this.selectedOptions.push( elem );
         } else {
           index = this.selectedOptions.indexOf( elem );
           this.selectedOptions.splice( index, 1 );
         }
       } else {
-        utils.removeClass( this.selectedOptions[0], "dk-option-selected" );
-        utils.addClass( elem, "dk-option-selected" );
+        _.removeClass( this.selectedOptions[0], "dk-option-selected" );
+        _.addClass( elem, "dk-option-selected" );
         this.data.dk.firstChild.innerHTML = option.text;
         this.selectedOptions[0] = elem;
         option.selected = true;
@@ -408,9 +406,16 @@ Dropkick.prototype = {
       this.selectedIndex = select.selectedIndex;
       this.value = select.value;
       this.data.settings.change( this );
+
+      return elem;
     }
   },
 
+  /**
+   * Finds the first occurence given a string
+   * @param  {String} string The string to search for
+   * @return {Node/Boolean}  The found element or False if not found
+   */
   search: function( string ) {
     var i,
       reg = new RegExp( "^" + string, "i" ),
@@ -426,6 +431,10 @@ Dropkick.prototype = {
     return false;
   },
 
+  /**
+   * Resets the DK and select element
+   * @param  {Boolean} clear Defaults to first option if True
+   */
   reset: function( clear ) {
     var i,
       select = this.data.select;
@@ -434,34 +443,54 @@ Dropkick.prototype = {
 
     for ( i = 0; i < select.options.length; i++ ) {
       select.options[ i ].selected = false;
-      utils.removeClass( this.options[ i ], "dk-option-selected" );
+      _.removeClass( this.options[ i ], "dk-option-selected" );
       if ( !clear && select.options[ i ].defaultSelected ) {
-        this.select( i );
+        this.select( i, true );
       }
     }
 
     if ( !this.selectedOptions.length ) {
-      this.select( 0 );
+      this.select( 0, true );
     }
   },
+
+  /**
+   * Rebuilds the DK Object 
+   * (use if HTMLSelectElement has changed)
+   */
+  refresh: function() {
+    dkCache.splice( this.cacheID, 1 );
+    this.data.dk.parentNode.removeChild( this.data.dk );
+    this.init( this.data.select, {});
+  },
+
+
+  // Private Methods
 
   handleEvent: function( event ) {
     switch ( event.type ) {
     case "click":
-      return this._delegate( event );
+      this._delegate( event );
+      break;
     case "keydown":
-      return this._keyHandler( event );
+      this._keyHandler( event );
+      break;
     case "keypress":
-      return this._searchOptions( event );
+      this._searchOptions( event );
+      break;
     case "mouseover":
-      return this._highlight( event.target );
+      this._highlight( event );
+      break;
+    case "reset":
+      this.reset();
+      break;
     }
   },
 
   _delegate: function( event ) {
     var target = event.target;
 
-    if ( utils.hasClass( target, "dk-option-disabled" ) ) {
+    if ( _.hasClass( target, "dk-option-disabled" ) ) {
       return false;
     }
 
@@ -469,21 +498,21 @@ Dropkick.prototype = {
       this[ this.isOpen ? "close" : "open" ]();
     }
 
-    if ( utils.hasClass( target, "dk-option" ) ) {
+    if ( _.hasClass( target, "dk-option" ) ) {
       this.select( target );
     }
   },
 
-  _highlight: function( option ) {
-    var i; 
+  _highlight: function( event ) {
+    var i, option = event.target; 
 
     if ( !this.multiple ) {
       for ( i = 0; i < this.options.length; i++ ) {
-        utils.removeClass( this.options[ i ], "dk-option-highlight" );
+        _.removeClass( this.options[ i ], "dk-option-highlight" );
       }
 
-      utils.addClass( this.data.dk.lastChild, "dk-select-options-highlight" );
-      utils.addClass( option, "dk-option-highlight" );
+      _.addClass( this.data.dk.lastChild, "dk-select-options-highlight" );
+      _.addClass( option, "dk-option-highlight" );
     }
   },
 
@@ -524,7 +553,7 @@ Dropkick.prototype = {
     case keys.tab:
     case keys.enter:
       for ( i = 0; i < options.length; i++ ) {
-        if ( utils.hasClass( options[ i ], "dk-option-highlight" ) ) {
+        if ( _.hasClass( options[ i ], "dk-option-highlight" ) ) {
           this.select( i );
         }
       }
@@ -565,7 +594,7 @@ Dropkick.prototype = {
 
 
     if ( result ) {
-      if ( !utils.hasClass( result, "dk-option-disabled" ) ) {
+      if ( !_.hasClass( result, "dk-option-disabled" ) ) {
         this.reset( true );
         this.select( result );
         this._scrollTo( result );
@@ -585,7 +614,7 @@ Dropkick.prototype = {
       option = this.item( option );
     }
 
-    optPos = utils.position( option, dkOpts ).y;
+    optPos = _.position( option, dkOpts ).y;
     optTop = optPos - dkOpts.scrollTop;
     optBottom = optTop + option.offsetHeight;
 
@@ -598,7 +627,13 @@ Dropkick.prototype = {
   }
 };
 
-// A static method that builds a DK element from the passed select
+// Static Methods
+
+/**
+ * Builds a DK element from the passed select
+ * @param  {Node} select The HTMLSelectElement
+ * @return {Node}        The New DK dropdown element
+ */
 Dropkick.build = function( select ) {
   var dkHTML, dkSelect,
 
@@ -609,9 +644,9 @@ Dropkick.build = function( select ) {
       for ( i = 0; i < children.length; i++ ) {
         child = children[ i ];
         if ( child.nodeName === "OPTION" ) {
-          inner += utils.tmpl( tmpl.option, { option: child });
+          inner += _.tmpl( tmpl.option, { option: child });
         } else if ( child.nodeName === "OPTGROUP" ) {
-          inner += utils.tmpl( tmpl.optgroup, {
+          inner += _.tmpl( tmpl.optgroup, {
             options: buildInner( child.children )
           });
         }
@@ -622,17 +657,78 @@ Dropkick.build = function( select ) {
   
   if ( select.nodeName === "SELECT" ) {
 
-    dkHTML = utils.tmpl( tmpl.select, {
+    dkHTML = _.tmpl( tmpl.select, {
       select: select,
       options: buildInner( select.children )
     });
 
-    dkSelect = utils.parseHTML( dkHTML );
+    dkSelect = _.parseHTML( dkHTML );
 
     return dkSelect;
   }
 };
 
+/**
+ * Finds all DK options in the DK element
+ * @param  {NodeList} elems Elements to sort through
+ * @return {Array}          Array of DK option elements
+ */
+Dropkick.findOptions = function( elems ) {
+  var el, i,
+    options = [];
+
+  for ( i = 0; i < elems.length; i++ ) {
+    el = elems[ i ];
+    if ( _.hasClass( el, "dk-option" ) ) {
+      options.push( el );
+    } 
+    if ( el.children.length ) {
+      options = options.concat( 
+        Dropkick.findOptions( el.children ) 
+      );
+    }
+  }
+
+  return options;
+};
+
+/**
+ * Finds any selected options out of the passed DK options
+ * @param  {Array} dkOptions Array of DK option elements
+ * @return {Array}           Array of selected DK option elements
+ */
+Dropkick.getSelected = function( dkOptions ) {
+  var opt, i,
+    selected = [];
+
+  for ( i = 0; i < dkOptions.length; i++ ) {
+    opt = dkOptions[ i ];
+    if ( _.hasClass( opt, "dk-option-selected" ) ) {
+      selected.push( opt );
+    }
+  }
+
+  return selected;
+};
+
+/**
+ * Focus DK Element when corresponding label is clicked; close all other DK's
+ */
+Dropkick.onDocClick = function( event ) {
+  var target, i;
+  
+  if ( target = document.getElementById( event.target.htmlFor ) ) {
+    target.getAttribute( "data-dkCacheId" ) && Dropkick( target ).data.dk.focus();  
+  }
+
+  for ( i = 0; i < dkCache.length; i++ ) {
+    if ( !_.closest( event.target, dkCache[ i ].data.dk ) ) {
+      dkCache[ i ].close();
+    }
+  }
+};
+
+// Expose Dropkick Globally
 window.Dropkick = Dropkick;
 
 })( window, document );

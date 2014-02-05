@@ -10,14 +10,8 @@ As you can see from `test.html` using any library is a breeze!
 
 ## Stuff to do
 
-- Create documentation of all of the cool new features.
-- Add thourough comments in `Dropdown.js`.
-- Tie up some loose ends in the code.
-- Tackle a couple of known bugs.
-    - Selected & Disabled attributes on an option within a multi-select causes some issues.
-    - `dk.select( index )` can select disabled options.
-- Find more bugs.
-- Review everything and make sure code is written well.
+- Document of all of the cool new features.
+- Create more elaborate tests in `test.html`.
 
 
 # Suggestions or Bugs?
