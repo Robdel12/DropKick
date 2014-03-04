@@ -1,9 +1,9 @@
 {
   "name": "Robdel12/DropKick",
   "version": "1.4.0",
-  "main": "jquery.dropkick-min.js",
+  "main": "jquery.dropkick.js",
   "description": "A jQuery plugin for creating beautiful, graceful, and painless custom dropdowns.",
   "dependencies": {
-    "jquery": ">=1.10.2"
+    "jquery": ">=1.7"
   }
 }
