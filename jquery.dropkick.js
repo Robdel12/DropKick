@@ -121,10 +121,6 @@
 
     // Open a dropdown
     openDropdown = function($dk,e) {
-
-      var hasSpace = enoughSpace($dk); // Avoids duplication of call to _enoughSpace
-      $opened = $dk.toggleClass('dk_open');
-
       var
           hasSpace  = enoughSpace($dk), // Avoids duplication of call to _enoughSpace
           openClasses = hasSpace ? 'dk_open' : 'dk_open_top dk_open'
