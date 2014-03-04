@@ -96,6 +96,9 @@
 
     // Report whether there is enough space in the window to drop down.
     enoughSpace = function($dk)  {
+      if ($dk.data('dropkick').settings.fixedMove) {
+        return $dk.data('dropkick').settings.fixedMove == 'up' ? false : true;
+      }
       var
         $dk_toggle = $dk.find('.dk_toggle'),
         optionsHeight = $dk.find('.dk_options').outerHeight(),
