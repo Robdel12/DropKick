@@ -114,6 +114,11 @@
     margin-bottom: 0;
     padding-bottom: 0; }
 
+.dk-optgroup-label {
+  padding: 0 0.5em 0.25em;
+  font-weight: bold;
+  width: 100%; }
+
 .dk-optgroup-options {
   list-style: none;
   padding-left: 0; }

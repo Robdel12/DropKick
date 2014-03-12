@@ -80,6 +80,11 @@ var
     // The optgroup template; An HTML string containing any sub-options is passed
     optgroup: [
       '<li class="dk-optgroup">',
+        '<% if ( label !== undefined ) { %>',
+          '<div class="dk-optgroup-label">',
+            '<%=( label )%>',
+          '</div>',
+        '<% } %>',
         '<ul class="dk-optgroup-options">',
           '<%=( options )%>',
         '</ul>',
@@ -647,6 +652,7 @@ Dropkick.build = function( select ) {
           inner += _.tmpl( tmpl.option, { option: child });
         } else if ( child.nodeName === "OPTGROUP" ) {
           inner += _.tmpl( tmpl.optgroup, {
+            label: child.label,
             options: buildInner( child.children )
           });
         }
