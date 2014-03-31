@@ -1,5 +1,5 @@
 /*
- * DropKick 1.4
+ * DropKick 1.4-dev
  *
  * Highly customizable <select> lists
  * https://github.com/robdel12/DropKick
@@ -49,7 +49,7 @@
     ].join(''),
 
     // HTML template for dropdown options
-    optionTemplate = '<li><a data-dk-dropdown-value="{{ value }}">{{ text }}</a></li>',
+    optionTemplate = '<li class="{{ current }}{{ disabled }}"><a data-dk-dropdown-value="{{ value }}">{{ text }}</a></li>',
 
     // Some nice default values
     defaults = {
@@ -70,18 +70,18 @@
     // private
     // Update the <select> value, and the dropdown label
     updateFields = function(option, $dk, reset) {
-      var value, label, data, $select;
-
-      value = option.attr('data-dk-dropdown-value');
-      label = option.text();
-      data  = $dk.data('dropkick');
-
-      $select = data.$select;
-      $select.val(value).trigger('change'); // Added to let it act like a normal select [Acemir >> In fact, I suggest that this must always be true]
-
-      $dk.find('.dk_label').text(label);
+      var 
+        value = option.attr('data-dk-dropdown-value'),
+        label = option.text(),
+        data  = $dk.data('dropkick'),
+        $select = data.$select
+      ;
 
       reset = reset || false;
+
+      $dk.find('.dk_label').text(label);
+      
+      !reset ? $select.val(value).trigger('change') : $select.val(value); // Let it act like a normal select when needed
 
       if (data.settings.change && !reset && !data.settings.syncReverse) {
         data.settings.change.call($select, value, label);
@@ -96,6 +96,9 @@
 
     // Report whether there is enough space in the window to drop down.
     enoughSpace = function($dk)  {
+      if ($dk.data('dropkick').settings.fixedMove) {
+        return $dk.data('dropkick').settings.fixedMove == 'up' ? false : true;
+      }
       var
         $dk_toggle = $dk.find('.dk_toggle'),
         optionsHeight = $dk.find('.dk_options').outerHeight(),
@@ -121,10 +124,6 @@
 
     // Open a dropdown
     openDropdown = function($dk,e) {
-
-      var hasSpace = enoughSpace($dk); // Avoids duplication of call to _enoughSpace
-      $opened = $dk.toggleClass('dk_open');
-
       var
           hasSpace  = enoughSpace($dk), // Avoids duplication of call to _enoughSpace
           openClasses = hasSpace ? 'dk_open' : 'dk_open_top dk_open'
@@ -360,7 +359,9 @@
       $select.before($dk).appendTo($dk);
 
       // Update the reference to $dk
-      $dk = $('div[id="dk_container_' + id + '"]').fadeIn(settings.startSpeed);
+      // $dk = $('div[id="dk_container_' + id + '"]').fadeIn(settings.startSpeed);
+      // To permite cloning methods, will no more need to update the reference to $dk
+      $dk.fadeIn(settings.startSpeed);
 
       // Save the current theme
       theme = settings.theme || 'default';
@@ -404,8 +405,8 @@
           ;
 
           $dk.find('.dk_label').text(label);
-          data.settings.change && data.settings.change.call($select, value, label);
           setCurrent(option.parent(), $dk, e);
+          data.settings.change && data.settings.change.call($select, value, label);
         });
       }
 
@@ -433,7 +434,7 @@
   };
 
   // Reset respective <select> and dropdown
-  methods.reset = function () {
+  methods.reset = function (change) {
     return this.each(function () {
       var
         data      = $(this).data('dropkick'),
@@ -442,8 +443,8 @@
       ;
 
       data.$original.prop('selected',true);
-      $dk.find('.dk_label').text(data.label);
       setCurrent($original.parent(), $dk);
+      updateFields($original,$dk,!change);
     });
   };
 
@@ -464,7 +465,7 @@
   // Credits to Jeremy (http://stackoverflow.com/users/1380047/jeremy-p)
   // Regenerating dk wrapper to update it's content
   // http://stackoverflow.com/a/13280151
-  methods.refresh = function(){
+  methods.refresh = function(change){
     return this.each(function () {
       var
         data          = $(this).data('dropkick'),
@@ -478,10 +479,59 @@
       // Rebuild options list. filter options inner and replace
       $dkopts = build(dropdownTemplate, data).find('.dk_options_inner');
       $dk.find('.dk_options_inner').replaceWith($dkopts);
+      // [Acemir] Check if the original selected option still exists in the DOM, if not, set a new original according to the new options
+      if (!data.$original.parent().length) {
+        data.$original = $select.find(':selected').first();
+        data.label = data.$original.text();
+      }
       // Re setCurrent option after refresh options list
       $current = $('a[data-dk-dropdown-value="'+$select.val()+'"]', $dk);
       setCurrent($current.parent(), $dk);
+      updateFields($current,$dk,!change);
     });
+  };
+
+  methods.destroy = function() {
+    return this.each(function(){
+      var
+        data          = $(this).data('dropkick')
+      ;
+
+      data.$dk.before(function(){
+        return data.$select.removeData('dropkick');
+      }).remove();
+    });
+  };
+
+  methods.clone = function(init,newid,newnm) {
+    var toReturn = [];
+
+    $.each(this,function(i){
+      var
+        data          = $(this).data('dropkick'),
+        settings      = data.settings,
+        $clone        = data.$select.clone()
+      ;
+
+      if (settings.autoWidth) {
+        settings.width = data.$dk.find('.dk_label').width();
+      }
+
+      newid && $clone.attr({id:newid}); // If provided, set a new 'id' attribute
+      newnm && $clone.attr({name:newnm}); // If provided, set a new 'name' attribute
+
+      $clone.removeData('dropkick');
+
+      if (init == false) {
+        toReturn[i] = $clone[0];
+      } else {
+        $clone.dropkick(settings);
+        toReturn[i] = $clone.data('dropkick').$dk[0];
+      }
+      
+    });
+
+    return $(toReturn);
   };
 
   // Expose the plugin
@@ -502,12 +552,15 @@
     $(document).on((msie ? 'mousedown' : 'click'), '.dk_options a', function () {
       var
         $option = $(this),
+        $value = $option.parent(),
         $dk     = $option.parents('.dk_container').first()
       ;
 
-      if(!$option.parent().hasClass('disabled')){
-        updateFields($option, $dk);
-        setCurrent($option.parent(), $dk); // IE8+, iOS4 and some Android [4.0] Browsers back to scrollTop 0 when an option is clicked and the dropdown is opened again
+      if(!$value.hasClass('disabled')){
+        if (!$value.hasClass('dk_option_current')) { // Also check if this isn't the selected option
+          updateFields($option, $dk);
+          setCurrent($option.parent(), $dk); // IE8+, iOS4 and some Android [4.0] Browsers back to scrollTop 0 when an option is clicked and the dropdown is opened again          
+        }
         closeDropdown($dk);
       }
 
