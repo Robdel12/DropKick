@@ -49,7 +49,7 @@
     ].join(''),
 
     // HTML template for dropdown options
-    optionTemplate = '<li><a data-dk-dropdown-value="{{ value }}">{{ text }}</a></li>',
+    optionTemplate = '<li><a data-dk-dropdown-value="{{ value }}" {{ disabled }}>{{ text }}</a></li>',
 
     // Some nice default values
     defaults = {
