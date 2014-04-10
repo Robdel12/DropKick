@@ -49,7 +49,7 @@
     ].join(''),
 
     // HTML template for dropdown options
-    optionTemplate = '<li><a data-dk-dropdown-value="{{ value }}">{{ text }}</a></li>',
+    optionTemplate = '<li title="{{ title }}"><a data-dk-dropdown-value="{{ value }}">{{ text }}</a></li>',
 
     // Some nice default values
     defaults = {
@@ -273,6 +273,7 @@
           oTemplate = null
           :
           oTemplate = optionTemplate.replace('{{ value }}', $option.val())
+                                    .replace('{{ title }}', $option.attr("title") || '')
                                     .replace('{{ current }}', (notBlank($option.val()) === view.value) ? 'dk_option_current' : '')
                                     .replace('{{ disabled }}', ($option.attr('disabled') !== undefined) ? 'disabled' : '')
                                     .replace('{{ text }}', $.trim($option.html()))
