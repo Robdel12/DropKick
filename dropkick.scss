@@ -197,6 +197,11 @@
   a, a:link, a:visited{
     display: block;
   }
+  .dk_optgroup {
+    > span {
+    
+    }
+  }
 }
 
 .dk_options_inner {

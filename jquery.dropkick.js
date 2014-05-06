@@ -50,6 +50,8 @@
 
     // HTML template for dropdown options
     optionTemplate = '<li class="{{ current }}{{ disabled }}"><a data-dk-dropdown-value="{{ value }}">{{ text }}</a></li>',
+    optgroupTemplate = '<li class="dk_optgroup{{ disabled }}"><span>{{ text }}</span>',
+
 
     // Some nice default values
     defaults = {
@@ -79,7 +81,7 @@
 
       reset = reset || false;
 
-      $dk.find('.dk_label').text(label);
+      $dk.find('.dk_label').text(!!label?label:'&nbsp;');
       
       !reset ? $select.val(value).trigger('change') : $select.val(value); // Let it act like a normal select when needed
 
@@ -117,6 +119,10 @@
         maxHeight = wrapper.height() + wrapper.scrollTop() - anchor.outerHeight()
       ;
 
+      if (anchor.closest('.dk_optgroup',wrapper).length) {
+        height = height + anchor.closest('.dk_optgroup',wrapper).prevAll('li').outerHeight() * anchor.closest('.dk_optgroup',wrapper).prevAll('li').length;
+      }
+
       if ( (e && e.type === 'keydown') || (height < minHeight || height > maxHeight) ) {
         wrapper.scrollTop(height); // A more direct approach
       }
@@ -153,8 +159,8 @@
         open     = $dk.hasClass('dk_open'),
         lis      = options.find('li:not(.disabled)'),
         current  = $dk.find('.dk_option_current'),
-        first    = lis.first(),
-        last     = lis.last(),
+        first    = lis.first().hasClass('dk_optgroup') ? lis.first().find('li:not(.disabled)').first() : lis.first(),
+        last     = lis.last().hasClass('dk_optgroup') ? lis.last().find('li:not(.disabled)').last() : lis.last(),
         next,
         prev,
         now,
@@ -185,8 +191,12 @@
         break;
 
       case keyMap.up:
-        prev = current.prevAll('li:not(.disabled)').first();
         if (open) {
+          prev = current.prevAll('li:not(.disabled)').first();
+          if (prev.hasClass('dk_optgroup')) prev = prev.find('li:not(.disabled)').last();
+          if (!prev.length && current.closest('.dk_optgroup').length) {
+            prev = current.closest('.dk_optgroup').prevAll('li:not(.disabled)').first().hasClass('dk_optgroup') ? current.closest('.dk_optgroup').prevAll('li:not(.disabled)').first().find('li:not(.disabled)').last() : current.closest('.dk_optgroup').prevAll('li:not(.disabled)').first();
+          }
           if (prev.length) {
             setCurrent(prev, $dk, e);
           } else {
@@ -201,6 +211,10 @@
       case keyMap.down:
         if (open) {
           next = current.nextAll('li:not(.disabled)').first();
+          if (next.hasClass('dk_optgroup')) next = next.find('li:not(.disabled)').first();
+          if (!next.length && current.closest('.dk_optgroup').length) {
+            next = current.closest('.dk_optgroup').nextAll('li:not(.disabled)').first().hasClass('dk_optgroup') ? current.closest('.dk_optgroup').nextAll('li:not(.disabled)').first().find('li:not(.disabled)').first() : current.closest('.dk_optgroup').nextAll('li:not(.disabled)').first();
+          }
           if (next.length) {
             setCurrent(next, $dk, e);
           } else {
@@ -236,7 +250,7 @@
         list = lis.find('a');
         for(i = 0, l = list.length; i < l; i++){
           $a = $(list[i]);
-          if ($a.html().toUpperCase().indexOf(data.finder) === 0) {
+          if ($a.html().toUpperCase().indexOf(data.finder) === 0 && !$a.closest('.dk_optgroup',options).hasClass('disabled')) {
             updateFields($a, $dk);
             setCurrent($a.parent(), $dk, e);
             break;
@@ -254,6 +268,13 @@
     build = function (tpl, view) {
       var
         // Template for the dropdown
+        buildOption = function($el) {
+          return optionTemplate.replace('{{ value }}', $el.val())
+                              .replace('{{ current }}', (notBlank($el.val()) === view.value) ? 'dk_option_current' : '')
+                              .replace('{{ disabled }}', ($el.attr('disabled') !== undefined) ? 'disabled' : '')
+                              .replace('{{ text }}', !!$.trim($el.html()) ? $.trim($el.html()) : '&nbsp;' )
+          ;
+        },
         template  = tpl.replace('{{ id }}', view.id).replace('{{ label }}', view.label).replace('{{ tabindex }}', view.tabindex),
         // Holder of the dropdowns options
         options   = [],
@@ -267,15 +288,22 @@
       if (view.options && view.options.length) {
         for (i = 0, l = view.options.length; i < l; i++) {
           $option   = $(view.options[i]);
-
-          (i === 0 && $option.attr('selected') !== undefined && $option.attr('disabled') !== undefined)?
-          oTemplate = null
-          :
-          oTemplate = optionTemplate.replace('{{ value }}', $option.val())
-                                    .replace('{{ current }}', (notBlank($option.val()) === view.value) ? 'dk_option_current' : '')
-                                    .replace('{{ disabled }}', ($option.attr('disabled') !== undefined) ? 'disabled' : '')
-                                    .replace('{{ text }}', $.trim($option.html()))
-          ;
+          
+          if ($option.is('option')) {
+            oTemplate = (i === 0 && $option.attr('selected') !== undefined && $option.attr('disabled') !== undefined) ? null : buildOption($option);
+          } else if ($option.is('optgroup')) {
+            oTemplate = optgroupTemplate.replace('{{ text }}', $option.attr('label') || '---').replace('{{ disabled }}', ($option.attr('disabled') !== undefined) ? ' disabled' : '');
+            if ($(view.options[i]).children().length) {
+              oTemplate += '<ul>';
+              for (var j = 0, m = $(view.options[i]).children().length; j < m; j++ ) {
+                var $optoption = $(view.options[i]).children().eq(j);
+                oTemplate += buildOption($optoption);
+              }
+              oTemplate += '</ul>';
+            }
+            oTemplate += '</li>'
+            
+          }
 
           options[options.length] = oTemplate;
         }
@@ -308,7 +336,7 @@
         $original = $select.find(':selected').first(),
 
         // Save all of the <option> elements
-        $options = $select.find('option'),
+        $options = $select.children(),
 
         // We store lots of great stuff using jQuery data
         data = $select.data('dropkick') || {},
@@ -345,7 +373,7 @@
       data.$original = $original;
       data.$select   = $select;
       data.value     = notBlank($select.val()) || notBlank($original.attr('value'));
-      data.label     = $original.text();
+      data.label     = !!$original.text()?$original.text():'&nbsp;';
       data.options   = $options;
 
       // Build the dropdown HTML
@@ -414,7 +442,7 @@
             label = option.text()
           ;
 
-          $dk.find('.dk_label').text(label);
+          $dk.find('.dk_label').text(!!label?label:'&nbsp;');
           setCurrent(option.parent(), $dk, e);
           data.settings.change && data.settings.change.call($select, value, label);
         });
@@ -485,7 +513,7 @@
         $dkopts
       ;
       // Update data options      
-      data.options  = $select.find('option');
+      data.options  = $select.children();
       // Rebuild options list. filter options inner and replace
       $dkopts = build(dropdownTemplate, data).find('.dk_options_inner');
       $dk.find('.dk_options_inner').replaceWith($dkopts);
@@ -556,6 +584,7 @@
         $select.removeAttr('disabled');
         $dk.removeAttr('disabled').attr({tabindex:data.tabindex});
       } else {
+        $dk.hasClass('dk_open') && closeDropdown($dk);
         $select.attr({disabled:'disabled'});
         $dk.attr({disabled:'disabled',tabindex:-1});
       }
@@ -584,7 +613,7 @@
         $dk     = $option.parents('.dk_container').first()
       ;
 
-      if(!$value.hasClass('disabled')){
+      if(!$value.hasClass('disabled') && !$value.closest('.dk_optgroup',$dk).hasClass('disabled')){
         if (!$value.hasClass('dk_option_current')) { // Also check if this isn't the selected option
           updateFields($option, $dk);
           setCurrent($option.parent(), $dk); // IE8+, iOS4 and some Android [4.0] Browsers back to scrollTop 0 when an option is clicked and the dropdown is opened again          
