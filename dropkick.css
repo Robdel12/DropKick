@@ -18,9 +18,13 @@
   -webkit-border-radius: 5px; }
   .dk_container:focus {
     outline: 0; }
+  .dk_container[disabled] {
+    opacity:.4; }
   .dk_container a {
     cursor: pointer;
     text-decoration: none; }
+  .dk_container[disabled] a {
+    cursor: not-allowed; }
 
 .dk_toggle {
   border: 1px solid #ccc;
@@ -101,7 +105,7 @@
     cursor: default; }
     .dk_options .disabled a {
       color: #aaa; }
-    .dk_options .disabled:hover, .dk_options .disabled:hover a
+    .dk_options .disabled:hover, .dk_options .disabled:hover a,
     .dk_options .disabled:focus, .dk_options .disabled:focus a {
       cursor: default;
       background-color: #fff;
@@ -155,7 +159,7 @@
 
 .dk_container select {
   position: absolute;
-  top: -99999em;
+  /*top: -99999em;*/ /* IE was sending window to top on label click */
   visibility: hidden; }
 
 .dk_mobile {

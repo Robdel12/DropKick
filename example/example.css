@@ -104,6 +104,9 @@ ul {
   margin-bottom: 20px;
   padding: 18px;
 }
+  .example .gist-wrap {
+    clear: both;
+  }
   .example .gist-data {
     font-size: 12px!important;
   }

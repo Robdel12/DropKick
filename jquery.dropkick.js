@@ -1,5 +1,5 @@
 /*
- * DropKick 1.4-dev
+ * DropKick 1.5-dev
  *
  * Highly customizable <select> lists
  * https://github.com/robdel12/DropKick
@@ -151,7 +151,7 @@
         letter   = String.fromCharCode(code),
         options  = $dk.find('.dk_options'),
         open     = $dk.hasClass('dk_open'),
-        lis      = options.find('li'),
+        lis      = options.find('li:not(.disabled)'),
         current  = $dk.find('.dk_option_current'),
         first    = lis.first(),
         last     = lis.last(),
@@ -185,7 +185,7 @@
         break;
 
       case keyMap.up:
-        prev = current.prev('li');
+        prev = current.prevAll('li:not(.disabled)').first();
         if (open) {
           if (prev.length) {
             setCurrent(prev, $dk, e);
@@ -200,7 +200,7 @@
 
       case keyMap.down:
         if (open) {
-          next = current.next('li').first();
+          next = current.nextAll('li:not(.disabled)').first();
           if (next.length) {
             setCurrent(next, $dk, e);
           } else {
@@ -322,6 +322,9 @@
         // Check if we have a tabindex set or not set to 0
         tabindex  = $select.attr('tabindex') || '0',
 
+        // Check if the select is disabled at the moment
+        disabled = !!$select.attr('disabled'),
+
         // The completed dk_container element
         $dk = false,
 
@@ -355,6 +358,13 @@
         });
       }
 
+      if (disabled) {
+        $dk.attr({
+          disabled:'disabled',
+          tabindex:-1
+        });
+      }
+
       // Hide the <select> list and place our new one in front of it
       $select.before($dk).appendTo($dk);
 
@@ -384,7 +394,7 @@
 
       // Focus events
       $dk.on('focus.dropkick', function () {
-        $focused = $dk.addClass('dk_focus');
+        $focused = !$dk.attr('disabled') ? $dk.addClass('dk_focus') : null;
       }).on('blur.dropkick', function () {
         $dk.removeClass('dk_focus');
         $focused = null;
@@ -522,6 +532,7 @@
 
       $clone.removeData('dropkick');
 
+      // If explicitly false, return only the cloned <select> element, else retrun a built clone
       if (init == false) {
         toReturn[i] = $clone[0];
       } else {
@@ -530,8 +541,25 @@
       }
       
     });
+  };
 
-    return $(toReturn);
+  methods.disable = function(bool) {
+    return this.each(function(){
+      var
+        data          = $(this).data('dropkick'),
+        $select       = data.$select,
+        $dk           = data.$dk
+      ;
+
+      // If explicitly false, enable instead
+      if (bool == false) {
+        $select.removeAttr('disabled');
+        $dk.removeAttr('disabled').attr({tabindex:data.tabindex});
+      } else {
+        $select.attr({disabled:'disabled'});
+        $dk.attr({disabled:'disabled',tabindex:-1});
+      }
+    });
   };
 
   // Expose the plugin
@@ -585,7 +613,7 @@
     });
 
     // Globally handle a click outside of the dropdown list by closing it.
-    $(document).on('click', null, function (e) {
+    $(document).on('click', null, function(e) {
       var
         $eTarget = $(e.target),
         $dk
@@ -599,7 +627,7 @@
           closeDropdown($dk);
         } else {
           $opened && closeDropdown($opened);
-          openDropdown($dk,e);
+          !$dk.attr('disabled') && openDropdown($dk,e);
         } // Avoids duplication of call to _openDropdown
 
         return false;

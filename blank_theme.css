@@ -20,6 +20,8 @@
   float: left; }
   .dk_container a {
     outline: 0; }
+  .dk_container[disabled] a {
+    cursor: not-allowed; }
 
 .dk_toggle {
   display: -moz-inline-stack;
@@ -51,7 +53,6 @@
 
 .dk_container select {
   position: absolute;
-  top: -99999em;
   visibility: hidden; }
 
 .dk_mobile {
