@@ -42,19 +42,10 @@ Compatibility:
 -
 DropKick was tested on Opera 10+, Google Chrome 10+, FireFox 5+, Safari 5+, and Internet Explorer 7+. IE6 is not supported and will simply continue using your plain dropdowns instead.
 
-Whats new in 1.4?
+Whats new in 1.5?
 -
-* CSS clean up
-* [Added support for using css classes for option list positioning](https://github.com/Robdel12/DropKick/pull/168)
-* [Add autoWidth default](https://github.com/Robdel12/DropKick/pull/166)
-* [Type-to-change bug fix for WebKit.](https://github.com/Robdel12/DropKick/pull/150)
-
-#### Changes thanks to [acemir](https://github.com/acemir)!
-* 'refresh' method now updates only '.dk_options_inner', instead of destroy and rebuild the whole dropkick instance
-* Clicking a label now focus the respective select dropkick
-* Ability to set a placeholder that is hidden from the options by setting 'disabled selected' to the first select option
-* Corrects border-radius when the dropkick opens on top by adding '.dk_open_top' class to container
-* This version of DropKick was tested and confirmed that works with jQuery 1.7+
+* Added "optgroup" support
+* Improved "disabled" suport
 
 [What changed in previous versions?](https://github.com/Robdel12/DropKick/wiki/Previous-version-changes)
 
