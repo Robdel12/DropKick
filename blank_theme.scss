@@ -15,6 +15,10 @@
   a {
     
   }
+
+  &[disabled] a {
+  
+  }
   
   /* Toggle */
   .dk_toggle {
@@ -107,7 +111,7 @@
 // Hides only dropkick <select> instances
 .dk_container select {
   position: absolute;
-  top: -99999em;
+  // top: -99999em;
   visibility: hidden;
 }
 

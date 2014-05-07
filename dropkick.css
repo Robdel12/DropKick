@@ -18,9 +18,13 @@
   -webkit-border-radius: 5px; }
   .dk_container:focus {
     outline: 0; }
+  .dk_container[disabled] {
+    opacity:.4; }
   .dk_container a {
     cursor: pointer;
     text-decoration: none; }
+  .dk_container[disabled] a {
+    cursor: not-allowed; }
 
 .dk_toggle {
   border: 1px solid #ccc;
@@ -99,14 +103,31 @@
     border-bottom: none; }
   .dk_options .disabled {
     cursor: default; }
-    .dk_options .disabled a {
+    .dk_options .disabled a,
+    .dk_options .dk_optgroup.disabled > span {
       color: #aaa; }
-    .dk_options .disabled:hover, .dk_options .disabled:hover a
-    .dk_options .disabled:focus, .dk_options .disabled:focus a {
+    .dk_options .disabled:hover a,
+    .dk_options .disabled:focus a {
       cursor: default;
       background-color: #fff;
       border-bottom-color: #999;
       text-shadow: none; }
+  .dk_options .dk_optgroup {
+    padding-left: 5px;
+    background: #ddd;
+  }
+    .dk_options .dk_optgroup > span {
+      display: block;
+      padding: 5px 10px 5px 5px;
+      font-style: italic;
+      color: #444;
+      background: #ddd;
+      border-bottom: ;
+    }
+    .dk_options .dk_optgroup.disabled,
+    .dk_options .dk_optgroup.disabled > span {
+      background: #eee;
+    }
 
 .dk_options_inner {
   max-height: 250px;
@@ -155,7 +176,7 @@
 
 .dk_container select {
   position: absolute;
-  top: -99999em;
+  /*top: -99999em;*/ /* IE was sending window to top on label click */
   visibility: hidden; }
 
 .dk_mobile {
