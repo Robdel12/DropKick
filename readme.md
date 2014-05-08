@@ -46,6 +46,7 @@ Whats new in 1.5?
 -
 * Added "optgroup" support
 * Improved "disabled" suport
+* Provides 'clone' and 'destroy' useful methods
 
 [What changed in previous versions?](https://github.com/Robdel12/DropKick/wiki/Previous-version-changes)
 

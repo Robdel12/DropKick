@@ -176,7 +176,6 @@
 
 .dk_container select {
   position: absolute;
-  /*top: -99999em;*/ /* IE was sending window to top on label click */
   visibility: hidden; }
 
 .dk_mobile {
