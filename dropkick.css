@@ -224,7 +224,7 @@
     position: relative;
     display: block;
     width: 110%;
-    max-height: 32px;
+    height: 32px;
     padding: 7px 45px 7px 10px;
     border: 0;
     font-family: 'Helvetica', Arial, sans-serif;
@@ -244,7 +244,7 @@
     -webkit-appearance: none; }
     .dk_wrap select:focus {
       text-shadow: none; }
-    .dk_wrap::-ms-expando {
+    .dk_wrap select::-ms-expand {
       display: none;
     }
 
