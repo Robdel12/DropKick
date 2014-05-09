@@ -210,7 +210,7 @@
   -moz-transition: border-color .5s;
   -o-transition: border-color .5s;
   transition: border-color .5s; }
-  .dk_wrap:before {
+  .dk_wrap:after {
     position: absolute;
     display: block;
     top: 45%;
@@ -218,11 +218,13 @@
     content: '';
     border-left: 5px solid transparent;
     border-right: 5px solid transparent;
-    border-top: 5px solid #4B4B4B; }
+    border-top: 5px solid #4B4B4B;
+    pointer-events:none; }
   .dk_wrap select {
     position: relative;
     display: block;
     width: 110%;
+    max-height: 32px;
     padding: 7px 45px 7px 10px;
     border: 0;
     font-family: 'Helvetica', Arial, sans-serif;
@@ -231,7 +233,7 @@
     line-height: 18px;
     color: #333;
     text-shadow: #fff 1px 1px 0;
-    background: transparent;
+    background: none;
     background: rgba(255,255,255,0);
     cursor: pointer;
     overflow: visible;
@@ -242,6 +244,9 @@
     -webkit-appearance: none; }
     .dk_wrap select:focus {
       text-shadow: none; }
+    .dk_wrap::-ms-expando {
+      display: none;
+    }
 
   /* Only Firefox Hack */
   @-moz-document url-prefix() { 
