@@ -17,6 +17,11 @@
     msie = !!msVersion,
     ie6 = msie && parseFloat(msVersion[1]) < 7,
     isMobile = navigator.userAgent.match(/iPad|iPhone|Android|IEMobile|BlackBerry/i),
+    triggSupport = msie ? 'mousedown' : 'click',
+    wheelSupport =  'onwheel' in window ? 'wheel' : // Modern browsers support "wheel"
+                    'onmousewheel' in document ? 'mousewheel' : // Webkit and IE support at least "mousewheel"
+                    "MouseScrollEvent" in window && 'DOMMouseScroll MozMousePixelScroll' // legacy non-standard event for older Firefox
+    ,
 
     // Public methods exposed to $.fn.dropkick()
     methods = {},
@@ -79,15 +84,11 @@
         $select = data.$select
       ;
 
-      reset = reset || false;
-
       $dk.find('.dk_label').text(!!label?label:'&nbsp;');
       
       !reset ? $select.val(value).trigger('change') : $select.val(value); // Let it act like a normal select when needed
 
-      if (data.settings.change && !reset && !data.settings.syncReverse) {
-        data.settings.change.call($select, value, label);
-      }
+      data.settings.change && !reset && !data.settings.syncReverse && data.settings.change.call($select, value, label);
     },
 
     // Close a dropdown
@@ -114,25 +115,19 @@
     setScrollPos = function($dk, anchor, e) {
       var
         wrapper = $dk.find('.dk_options_inner'),
-        height = anchor.prevAll('li').outerHeight() * anchor.prevAll('li').length,
+        height = anchor.prevAll('li').outerHeight() * anchor.prevAll('li').length + (anchor.closest('.dk_optgroup',wrapper).length && anchor.closest('.dk_optgroup',wrapper).prevAll('li').outerHeight() * anchor.closest('.dk_optgroup',wrapper).prevAll('li').length),
         minHeight = wrapper.scrollTop(),
         maxHeight = wrapper.height() + wrapper.scrollTop() - anchor.outerHeight()
       ;
 
-      if (anchor.closest('.dk_optgroup',wrapper).length) {
-        height = height + anchor.closest('.dk_optgroup',wrapper).prevAll('li').outerHeight() * anchor.closest('.dk_optgroup',wrapper).prevAll('li').length;
-      }
-
-      if ( (e && e.type === 'keydown') || (height < minHeight || height > maxHeight) ) {
-        wrapper.scrollTop(height); // A more direct approach
-      }
+      ((e && e.type === 'keydown')||(height < minHeight || height > maxHeight)) && wrapper.scrollTop(height); // A more direct approach
     },
 
     // Open a dropdown
     openDropdown = function($dk,e) {
       var
           hasSpace  = enoughSpace($dk), // Avoids duplication of call to _enoughSpace
-          openClasses = hasSpace ? 'dk_open' : 'dk_open_top dk_open'
+          openClasses =  'dk_open'+(hasSpace?'':' dk_open_top')
       ;
 
       $dk.find('.dk_options').css({
@@ -159,6 +154,7 @@
         open     = $dk.hasClass('dk_open'),
         lis      = options.find('li:not(.disabled)'),
         current  = $dk.find('.dk_option_current'),
+        parent   = current.closest('.dk_optgroup',options),
         first    = lis.first().hasClass('dk_optgroup') ? lis.first().find('li:not(.disabled)').first() : lis.first(),
         last     = lis.last().hasClass('dk_optgroup') ? lis.last().find('li:not(.disabled)').last() : lis.last(),
         next,
@@ -194,14 +190,8 @@
         if (open) {
           prev = current.prevAll('li:not(.disabled)').first();
           if (prev.hasClass('dk_optgroup')) prev = prev.find('li:not(.disabled)').last();
-          if (!prev.length && current.closest('.dk_optgroup').length) {
-            prev = current.closest('.dk_optgroup').prevAll('li:not(.disabled)').first().hasClass('dk_optgroup') ? current.closest('.dk_optgroup').prevAll('li:not(.disabled)').first().find('li:not(.disabled)').last() : current.closest('.dk_optgroup').prevAll('li:not(.disabled)').first();
-          }
-          if (prev.length) {
-            setCurrent(prev, $dk, e);
-          } else {
-            setCurrent(last, $dk, e);
-          }
+          if (!prev.length && parent.length) prev = parent.prevAll('li:not(.disabled)').first().hasClass('dk_optgroup') ? parent.prevAll('li:not(.disabled)').first().find('li:not(.disabled)').last() : parent.prevAll('li:not(.disabled)').first();
+          setCurrent(prev.length?prev:last, $dk, e);
         } else {
           openDropdown($dk,e);
         }
@@ -212,14 +202,8 @@
         if (open) {
           next = current.nextAll('li:not(.disabled)').first();
           if (next.hasClass('dk_optgroup')) next = next.find('li:not(.disabled)').first();
-          if (!next.length && current.closest('.dk_optgroup').length) {
-            next = current.closest('.dk_optgroup').nextAll('li:not(.disabled)').first().hasClass('dk_optgroup') ? current.closest('.dk_optgroup').nextAll('li:not(.disabled)').first().find('li:not(.disabled)').first() : current.closest('.dk_optgroup').nextAll('li:not(.disabled)').first();
-          }
-          if (next.length) {
-            setCurrent(next, $dk, e);
-          } else {
-            setCurrent(first, $dk, e);
-          }
+          if (!next.length && parent.length) next = parent.nextAll('li:not(.disabled)').first().hasClass('dk_optgroup') ? parent.nextAll('li:not(.disabled)').first().find('li:not(.disabled)').first() : parent.nextAll('li:not(.disabled)').first();
+          setCurrent(next.length?next:first, $dk, e);
         } else {
           openDropdown($dk,e);
         }
@@ -344,8 +328,11 @@
         // This gets applied to the 'dk_container' element
         id = $select.attr('id') || $select.attr('name'),
 
+        // Let's check if we have a fake styleing purpodes block wrapper
+        $wrap = $select.parent('.dk_wrap'),
+
         // This gets updated to be equal to the longest <option> element
-        width  = settings.width || $select.outerWidth(),
+        width  = settings.width || $wrap.length ? $wrap.width() - ($select.innerWidth() - $select.width()) : $select.outerWidth(),
 
         // Check if we have a tabindex set or not set to 0
         tabindex  = $select.attr('tabindex') || '0',
@@ -375,36 +362,27 @@
       data.value     = notBlank($select.val()) || notBlank($original.attr('value'));
       data.label     = !!$original.text()?$original.text():'&nbsp;';
       data.options   = $options;
+      data.theme     = settings.theme || 'default';
 
       // Build the dropdown HTML
       $dk = build(dropdownTemplate, data);
 
       // Make the dropdown fixed width if desired
-     if (data.settings.autoWidth) {
-        $dk.find('.dk_toggle').css({
-          'width' : width + 'px'
-        });
-      }
+     data.settings.autoWidth && $dk.find('.dk_toggle').css({ 'width' : width + 'px' });
 
-      if (disabled) {
-        $dk.attr({
-          disabled:'disabled',
-          tabindex:-1
-        });
-      }
+     disabled && $dk.attr({disabled:'disabled',tabindex:-1});
 
       // Hide the <select> list and place our new one in front of it
-      $select.before($dk).appendTo($dk);
-
-      // Update the reference to $dk
       // $dk = $('div[id="dk_container_' + id + '"]').fadeIn(settings.startSpeed);
       // To permite cloning methods, will no more need to update the reference to $dk
-      $dk.fadeIn(settings.startSpeed);
+      $select.before($dk).appendTo($dk.addClass('dk_theme_' + theme));
 
-      // Save the current theme
-      theme = settings.theme || 'default';
-      $dk.addClass('dk_theme_' + theme);
-      data.theme = theme;
+      if ($wrap.length) {
+        $wrap.removeClass('dk_wrap');
+        $dk.show();
+      } else {
+        $dk.fadeIn(settings.startSpeed)
+      }
 
       // Save the updated $dk reference into our data object
       data.$dk = $dk;
@@ -421,17 +399,13 @@
       lists[lists.length] = $select;
 
       // Focus events
-      $dk.on('focus.dropkick', function () {
-        $focused = !$dk.attr('disabled') ? $dk.addClass('dk_focus') : null;
-      }).on('blur.dropkick', function () {
-        $dk.removeClass('dk_focus');
-        $focused = null;
+      $dk.on({
+        'focus.dropkick': function() { $focused = !$dk.attr('disabled') && $dk.addClass('dk_focus'); },
+        'blur.dropkick': function() { $dk.removeClass('dk_focus'); $focused = null; }
       });
 
       //If isMobile, triggers native selects while still mantains the styled dropkick
-      if (isMobile && data.settings.nativeMobile) {
-        $dk.addClass('dk_mobile');
-      }
+      isMobile && data.settings.nativeMobile && $dk.addClass('dk_mobile');
 
       // Sync to change events on the original <select> if requested
       if (data.settings.syncReverse) {
@@ -467,8 +441,8 @@
       oldtheme  = 'dk_theme_' + data.theme
     ;
 
+    data.theme = newTheme || data.theme;
     $dk.removeClass(oldtheme).addClass('dk_theme_' + newTheme);
-    data.theme = newTheme;
   };
 
   // Reset respective <select> and dropdown
@@ -493,9 +467,7 @@
         $option = $('.dk_options a[data-dk-dropdown-value="' + value + '"]',$dk)
       ;
 
-      $option.length
-      ? updateFields($option, $dk) | setCurrent($option.parent(), $dk)
-      : console.warn('There is no option with this value in '+$dk.selector);
+      $option.length && updateFields($option, $dk) | setCurrent($option.parent(), $dk);
     });
   };
 
@@ -605,11 +577,11 @@
 
   $(function () {
 
-    // Handle click events on individual dropdown options
-    $(document).on((msie ? 'mousedown' : 'click'), '.dk_options a', function () {
+    $(document)
+    .on(triggSupport,'.dk_options a', function() { // Handle click events on individual dropdown options
       var
         $option = $(this),
-        $value = $option.parent(),
+        $value  = $option.parent(),
         $dk     = $option.parents('.dk_container').first()
       ;
 
@@ -622,61 +594,42 @@
       }
 
       return false;
-    });
+    })
+    .on(wheelSupport,'.dk_options_inner',function(e) {
+      var delta = e.originalEvent.wheelDelta || -e.originalEvent.deltaY || -e.originalEvent.detail; // Gets scroll ammount
+      if (msie) { this.scrollTop -= Math.round(delta/10); return false; } // Normalize IE behaviour
+      return (delta > 0 && this.scrollTop <= 0 ) || (delta < 0 && this.scrollTop >= this.scrollHeight - this.offsetHeight ) ? false : true; // Finally cancels page scroll when nedded
+    })
+    .on(
+      {
+        'keydown.dk_nav': function(e) { // Setup keyboard nav
+          var $dk = $opened || $focused;
+          $dk && handleKeyBoardNav(e, $dk);
+        },
+        'click': function(e) {
+          var
+            $eTarget = $(e.target),
+            $dk
+          ;
+          if ($opened && $eTarget.closest(".dk_container").length === 0 ) {
+            closeDropdown($opened); // Improves performance by minimizing DOM Traversal Operations
+          } else if ($eTarget.is(".dk_toggle, .dk_label")) {
+            $dk = $eTarget.parents('.dk_container').first();
 
-    // Setup keyboard nav
-    $(document).on('keydown.dk_nav', function (e) {
-      var $dk;
+            if ($dk.hasClass('dk_open')) {
+              closeDropdown($dk);
+            } else {
+              $opened && closeDropdown($opened);
+              !$dk.attr('disabled') && openDropdown($dk,e);
+            } // Avoids duplication of call to _openDropdown
 
-      // If we have an open dropdown, key events should get sent to that one
-      if ($opened) {
-        $dk = $opened;
-      } else if ($focused) {
-        // But if we have no open dropdowns, use the focused dropdown instead
-        $dk = $focused;
+            return false;
+          } else if ($eTarget.attr('for') && !!$('#dk_container_'+$eTarget.attr('for'))[0] ) {
+            $('#dk_container_'+$eTarget.attr('for')).trigger('focus.dropkick');
+          }
+        }
       }
-
-      if ($dk) {
-        handleKeyBoardNav(e, $dk);
-      }
-    });
-
-    // Globally handle a click outside of the dropdown list by closing it.
-    $(document).on('click', null, function(e) {
-      var
-        $eTarget = $(e.target),
-        $dk
-      ;
-      if ($opened && $eTarget.closest(".dk_container").length === 0 ) {
-        closeDropdown($opened); // Improves performance by minimizing DOM Traversal Operations
-      } else if ($eTarget.is(".dk_toggle, .dk_label")) {
-        $dk = $eTarget.parents('.dk_container').first();
-
-        if ($dk.hasClass('dk_open')) {
-          closeDropdown($dk);
-        } else {
-          $opened && closeDropdown($opened);
-          !$dk.attr('disabled') && openDropdown($dk,e);
-        } // Avoids duplication of call to _openDropdown
-
-        return false;
-      } else if ($eTarget.attr('for') && !!$('#dk_container_'+$eTarget.attr('for'))[0] ) {
-        $('#dk_container_'+$eTarget.attr('for')).trigger('focus.dropkick');
-      }
-    });
-
-    // Prevents window scroll when scrolling  through dk_options, simulating native behaviour
-    var wheelSupport =  'onwheel' in window ? 'wheel' : // Modern browsers support "wheel"
-                        'onmousewheel' in document ? 'mousewheel' : // Webkit and IE support at least "mousewheel"
-                        "MouseScrollEvent" in window ? 'DOMMouseScroll MozMousePixelScroll' : // legacy non-standard event for older Firefox
-                        false // lacks support
-    ;
-
-    wheelSupport && $(document).on(wheelSupport, '.dk_options_inner', function(event) {
-        var delta = event.originalEvent.wheelDelta || -event.originalEvent.deltaY || -event.originalEvent.detail; // Gets scroll ammount
-        if (msie) { this.scrollTop -= Math.round(delta/10); return false; } // Normalize IE behaviour
-        return (delta > 0 && this.scrollTop <= 0 ) || (delta < 0 && this.scrollTop >= this.scrollHeight - this.offsetHeight ) ? false : true; // Finally cancels page scroll when nedded
-    });
+    );
   });
 
 }(jQuery, window, document));

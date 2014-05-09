@@ -9,8 +9,8 @@
   <link rel="stylesheet" href="../dropkick.css" type="text/css">
   <link href='http://fonts.googleapis.com/css?family=Carter+One&v1' rel='stylesheet' type='text/css'>
   
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js" type="text/javascript" charset="utf-8"></script>
-  <script src="../jquery.dropkick-min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+  <script src="../jquery.dropkick.js"></script>
   <script type="text/javascript" charset="utf-8">
     $(function () {
       $('.default').dropkick();
@@ -72,6 +72,51 @@
   </div>
   <div class="content">
     <form action="#" method="post" accept-charset="utf-8" class="examples part">
+      <fieldset class="example">
+        <h2>FOUC Solution Comparision:</h2>
+        <div class="fields">
+          <span class="dk_wrap">
+            <select name="country-wrap" class="nojs">
+              <option value="">Try Me!</option>
+              <option value="AU">Australia</option>
+              <option value="CA">Canada</option>
+              <option value="DE">Germany</option>
+              <option value="JP">Japan</option>
+              <option value="GB">United Kingdom</option>
+              <option value="US">United States</option>
+            </select>            
+          </span>
+          <span class="dk_wrap">
+            <select name="country-nofake" class="default">
+              <option value="">Try Me!</option>
+              <option value="AU">Australia</option>
+              <option value="CA">Canada</option>
+              <option value="DE">Germany</option>
+              <option value="JP">Japan</option>
+              <option value="GB">United Kingdom</option>
+              <option value="US">United States</option>
+            </select>
+          </span>
+          <select name="country-nofake" class="default">
+            <option value="">Try Me!</option>
+            <option value="AU">Australia</option>
+            <option value="CA">Canada</option>
+            <option value="DE">Germany</option>
+            <option value="JP">Japan</option>
+            <option value="GB">United Kingdom</option>
+            <option value="US">United States</option>
+          </select>
+        </div>
+        <div class="gist-wrap">
+          <ul>
+            <li>The 1st select is wrapped with '.dk_wrap' but WITHOUT dropkick applied.</li>
+            <li>The 2nd select starts wrapped with .dk_wrap' and then dropkick is APPLIED.</li>
+            <li>The 3rd select doen NOT starts wrapped, but dropkick is APPLIED.</li>
+            <li>Reload the page to see the FOUC (Flash of Unstyled Content) again.</li>
+          </ul>
+        </div>
+      </fieldset>
+
       <fieldset class="example">
         <h2>Default Options</h2>
         <div class="fields">
@@ -246,6 +291,8 @@
           </select>
         </div>
       </fieldset>
+
+
 
     </form>
   </div>
