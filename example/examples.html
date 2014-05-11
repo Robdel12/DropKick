@@ -10,9 +10,25 @@
   <link href='http://fonts.googleapis.com/css?family=Carter+One&v1' rel='stylesheet' type='text/css'>
   
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js" type="text/javascript" charset="utf-8"></script>
-  <script src="../jquery.dropkick-min.js"></script>
+  <script src="../jquery.dropkick.js"></script>
   <script type="text/javascript" charset="utf-8">
-    $(function() {
+    $.fn.clicktoggle = function(a, b) {
+        return this.each(function() {
+            var clicked = false;
+            $(this).click(function() {
+                if (clicked) {
+                    clicked = false;
+                    return b.apply(this, arguments);
+                }
+                clicked = true;
+                return a.apply(this, arguments);
+            });
+        });
+    };
+
+    document.createElement("gist");
+
+    $.fn.ready(function() {
       $('.default').dropkick();
 
       $('.black').dropkick({
@@ -36,20 +52,6 @@
 
       $('.dk_container').first().focus();
 
-      $.fn.clicktoggle = function(a, b) {
-          return this.each(function() {
-              var clicked = false;
-              $(this).click(function() {
-                  if (clicked) {
-                      clicked = false;
-                      return b.apply(this, arguments);
-                  }
-                  clicked = true;
-                  return a.apply(this, arguments);
-              });
-          });
-      };
-
       $('#enable_sample').clicktoggle(
         function() {
           $('[name="country-disabled"]').dropkick('disable',false);
@@ -62,6 +64,10 @@
       );
     });
   </script>
+  <style>
+    gist{display: inline;} gist a{text-decoration: none;}
+    .gist{color:#000}.gist .render-container .render-viewer-error,.gist .render-container .render-viewer-fatal,.gist .render-container .octospinner{display:none}.gist .gist-render iframe{width:100%}.gist pre{font:inherit;line-height:inherit;white-space:pre}.gist .gist-file{border:1px solid #ddd;border-bottom:1px solid #ccc;border-radius:3px;font-family:Consolas, "Liberation Mono", Courier, monospace;margin-bottom:1em}.gist .gist-file.gist-render{border:none}.gist .gist-file .gist-meta{font:12px "Helvetica Neue", Helvetica, arial, freesans, clean, sans-serif;text-shadow:1px 1px rgba(255,255,255,0.8);overflow:hidden;color:#999;padding:10px;background-color:#e8e8e8;background-image:-webkit-gradient(linear, left top, left bottom, from(#fafafa), to(#e8e8e8));background-image:-webkit-linear-gradient(#fafafa, #e8e8e8);background-image:linear-gradient(#fafafa, #e8e8e8);background-repeat:repeat-x}.gist .gist-file .gist-meta a{font-weight:bold;color:#666;text-decoration:none}.gist .gist-file .gist-data{overflow:auto;word-wrap:normal;background-color:#f8f8ff;border-bottom:1px solid #ddd;font-size:100%}.gist .gist-file.scroll .gist-data{position:absolute;top:0px;right:0px;bottom:30px;left:0px;overflow:scroll}.gist .gist-file.scroll .gist-meta{position:absolute;bottom:0px;right:0px;left:0px}.gist .gist-file .gist-data .line-data{padding:.5em !important}.gist .gist-file .gist-data .line-pre{font-family:Consolas, "Liberation Mono", Courier, monospace;background:transparent !important;border:none !important;margin:0 !important;padding:0 !important}.gist .gist-file .gist-data .gist-highlight{background:transparent !important}.gist .gist-file .gist-data .line-numbers{background-color:#ececec;color:#aaa;border-right:1px solid #ddd;text-align:right;padding:.5em}.gist .gist-file .gist-data .line-numbers .line-number{clear:right;display:block}.gist-syntax{background:#ffffff}.gist-syntax .c{color:#999988;font-style:italic}.gist-syntax .err{color:#a61717;background-color:#e3d2d2}.gist-syntax .k{color:#000000;font-weight:bold}.gist-syntax .o{color:#000000;font-weight:bold}.gist-syntax .cm{color:#999988;font-style:italic}.gist-syntax .cp{color:#999999;font-weight:bold}.gist-syntax .c1{color:#999988;font-style:italic}.gist-syntax .cs{color:#999999;font-weight:bold;font-style:italic}.gist-syntax .gd{color:#000000;background-color:#fdd}.gist-syntax .gd .x{color:#000000;background-color:#faa}.gist-syntax .ge{color:#000000;font-style:italic}.gist-syntax .gr{color:#a00}.gist-syntax .gh{color:#999}.gist-syntax .gi{color:#000000;background-color:#dfd}.gist-syntax .gi .x{color:#000000;background-color:#afa}.gist-syntax .go{color:#888}.gist-syntax .gp{color:#555}.gist-syntax .gs{font-weight:bold}.gist-syntax .gu{color:#aaa}.gist-syntax .gt{color:#a00}.gist-syntax .kc{color:#000000;font-weight:bold}.gist-syntax .kd{color:#000000;font-weight:bold}.gist-syntax .kp{color:#000000;font-weight:bold}.gist-syntax .kr{color:#000000;font-weight:bold}.gist-syntax .kt{color:#445588;font-weight:bold}.gist-syntax .m{color:#099}.gist-syntax .s{color:#d14}.gist-syntax .na{color:teal}.gist-syntax .nb{color:#0086b3}.gist-syntax .nc{color:#445588;font-weight:bold}.gist-syntax .no{color:teal}.gist-syntax .ni{color:purple}.gist-syntax .ne{color:#990000;font-weight:bold}.gist-syntax .nf{color:#990000;font-weight:bold}.gist-syntax .nn{color:#555}.gist-syntax .nt{color:navy}.gist-syntax .nv{color:teal}.gist-syntax .ow{color:#000000;font-weight:bold}.gist-syntax .w{color:#bbb}.gist-syntax .mf{color:#099}.gist-syntax .mh{color:#099}.gist-syntax .mi{color:#099}.gist-syntax .mo{color:#099}.gist-syntax .sb{color:#d14}.gist-syntax .sc{color:#d14}.gist-syntax .sd{color:#d14}.gist-syntax .s2{color:#d14}.gist-syntax .se{color:#d14}.gist-syntax .sh{color:#d14}.gist-syntax .si{color:#d14}.gist-syntax .sx{color:#d14}.gist-syntax .sr{color:#009926}.gist-syntax .s1{color:#d14}.gist-syntax .ss{color:#990073}.gist-syntax .bp{color:#999}.gist-syntax .vc{color:teal}.gist-syntax .vg{color:teal}.gist-syntax .vi{color:teal}.gist-syntax .il{color:#099}
+  </style>
 </head>
 
 <body>
@@ -193,7 +199,9 @@
             <option value="US">United States</option>
           </select>
         </div>
-        <div class="gist-wrap"><script src="https://gist.github.com/1062688.js?file=dropkick_example_default.js"></script></div>
+        <div class="gist-wrap">
+          <gist data-id="1062688" data-file="dropkick_example_default.js"><a href="https://gist.github.com/1062688.js?file=dropkick_example_default.js">View JS</a></gist>
+        </div>
       </fieldset>
 
       <fieldset class="example">
@@ -206,7 +214,9 @@
             <option value="#604A42">Brown</option>
           </select>
         </div>
-        <div class="gist-wrap"><script src="https://gist.github.com/1062688.js?file=dropkick_example_callback.js"></script></div>
+        <div class="gist-wrap">
+          <gist data-id="1062688" data-file="dropkick_example_callback.js"><a href="https://gist.github.com/1062688.js?file=dropkick_example_callback.js">View JS</a></gist>
+        </div>
       </fieldset>
 
       <fieldset class="example">
@@ -219,8 +229,10 @@
             <option value="orange">Light Gloss</option>
           </select>
         </div>
-        <div class="gist-wrap"><script src="https://gist.github.com/1062688.js?file=custom_theme.css"></script></div>
-        <div class="gist-wrap"><script src="https://gist.github.com/1062688.js?file=dropkick_example_theme.js"></script></div>
+        <div class="gist-wrap">
+          <gist data-id="1062688" data-file="custom_theme.css"><a href="https://gist.github.com/1062688.js?file=custom_theme.css">View CSS</a></gist>
+          <gist data-id="1062688" data-file="dropkick_example_theme.js"><a href="https://gist.github.com/1062688.js?file=dropkick_example_theme.js">View JS</a></gist>
+        </div>
       </fieldset>
 
       <fieldset class="example">
@@ -291,10 +303,11 @@
           </select>
         </div>
       </fieldset>
-
-
-
     </form>
   </div>
+  <script>
+  //Async load gists
+    (function(){function e(e,t,i,a){window["embed_gist_"+i]=function(e){var t=document.createElement("div");t.innerHTML=e.div,a.parentNode.replaceChild(t.firstChild,a)};var n="https://gist.github.com/"+e+".json?callback=embed_gist_"+i;t&&(n+="&file="+t);var d=document.createElement("script");d.type="text/javascript",d.src=n,document.head.appendChild(d)}var t=document.getElementsByTagName("gist");if(t.length){var i=document.createElement("link");i.rel="stylesheet",i.href="https://gist.github.com/stylesheets/gist/embed.css",document.head.appendChild(i)}for(var a=0;a<t.length;a++){var n=t[a].getAttribute("data-id"),d=t[a].getAttribute("data-file");n&&e(n,d,a,t[a])}})();
+  </script>
 </body>
 </html>
