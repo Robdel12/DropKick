@@ -301,7 +301,7 @@
               }
               oTemplate += '</ul>';
             }
-            oTemplate += '</li>'
+            oTemplate += '</li>';
             
           }
 
@@ -450,7 +450,7 @@
 
       // Listen to a reset event to the form on the <select>
       $form = $select.attr('form') ? $('#'+$select.attr('form').replace(' ',', #')) : $select.closest('form');
-      $form.length && $form.on('reset',function(){ $select.dropkick('reset') });
+      $form.length && $form.on('reset',function(){ $select.dropkick('reset'); });
 
       // [Issue #126] Validation do not fires in <select> is not (':visible')
       // setTimeout(function () {
@@ -561,7 +561,7 @@
       $clone.removeData('dropkick');
 
       // If explicitly false, return only the cloned <select> element, else retrun a built clone
-      if (init == false) {
+      if (init === false) {
         toReturn[i] = $clone[0];
       } else {
         $clone.dropkick(settings);
@@ -580,7 +580,7 @@
       ;
 
       // If explicitly false, enable instead
-      if (bool == false) {
+      if (bool === false) {
         $select.removeAttr('disabled');
         $dk.removeAttr('disabled').attr({tabindex:data.tabindex});
       } else {
