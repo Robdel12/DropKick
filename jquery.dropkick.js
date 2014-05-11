@@ -21,55 +21,59 @@
     wheelSupport =  'onwheel' in window ? 'wheel' : // Modern browsers support "wheel"
                     'onmousewheel' in document ? 'mousewheel' : // Webkit and IE support at least "mousewheel"
                     "MouseScrollEvent" in window && 'DOMMouseScroll MozMousePixelScroll', // legacy non-standard event for older Firefox
-    initOnce = function(){ // Attach general events to the DOM only one time, on the first dropkick call
-      $(document).on(triggSupport,'.dk_options a', function() { // Handle click events on individual dropdown options
-        var
-          $option = $(this),
-          $value  = $option.parent(),
-          $dk     = $option.parents('.dk_container').first()
-        ;
+    initOnce = {
+      fired: false,
+      fire: function(){ // Attach general events to the DOM only one time, on the first dropkick call
+        $(document).on(triggSupport,'.dk_options a', function() { // Handle click events on individual dropdown options
+          var
+            $option = $(this),
+            $value  = $option.parent(),
+            $dk     = $option.parents('.dk_container').first()
+          ;
 
-        if(!$value.hasClass('disabled') && !$value.closest('.dk_optgroup',$dk).hasClass('disabled')){
-          if (!$value.hasClass('dk_option_current')) { // Also check if this isn't the selected option
-            updateFields($option, $dk);
-            setCurrent($option.parent(), $dk); // IE8+, iOS4 and some Android [4.0] Browsers back to scrollTop 0 when an option is clicked and the dropdown is opened again          
-          }
-          closeDropdown($dk);
-        }
-
-        return false;
-      }).on(wheelSupport,'.dk_options_inner',function(e) {
-        var delta = e.originalEvent.wheelDelta || -e.originalEvent.deltaY || -e.originalEvent.detail; // Gets scroll ammount
-        if (msie) { this.scrollTop -= Math.round(delta/10); return false; } // Normalize IE behaviour
-        return (delta > 0 && this.scrollTop <= 0 ) || (delta < 0 && this.scrollTop >= this.scrollHeight - this.offsetHeight ) ? false : true; // Finally cancels page scroll when nedded
-      }).on({
-          'keydown.dk_nav': function(e) { // Setup keyboard nav
-            var $dk = $opened || $focused;
-            $dk && handleKeyBoardNav(e, $dk);
-          },
-          'click': function(e) {
-            var
-              $eTarget = $(e.target),
-              $dk
-            ;
-            if ($opened && $eTarget.closest(".dk_container").length === 0 ) {
-              closeDropdown($opened); // Improves performance by minimizing DOM Traversal Operations
-            } else if ($eTarget.is(".dk_toggle, .dk_label")) {
-              $dk = $eTarget.parents('.dk_container').first();
-
-              if ($dk.hasClass('dk_open')) {
-                closeDropdown($dk);
-              } else {
-                $opened && closeDropdown($opened);
-                !$dk.attr('disabled') && openDropdown($dk,e);
-              } // Avoids duplication of call to _openDropdown
-
-              return false;
-            } else if ($eTarget.attr('for') && !!$('#dk_container_'+$eTarget.attr('for'))[0] ) {
-              $('#dk_container_'+$eTarget.attr('for')).trigger('focus.dropkick');
+          if(!$value.hasClass('disabled') && !$value.closest('.dk_optgroup',$dk).hasClass('disabled')){
+            if (!$value.hasClass('dk_option_current')) { // Also check if this isn't the selected option
+              updateFields($option, $dk);
+              setCurrent($option.parent(), $dk); // IE8+, iOS4 and some Android [4.0] Browsers back to scrollTop 0 when an option is clicked and the dropdown is opened again          
             }
+            closeDropdown($dk);
           }
-      });
+
+          return false;
+        }).on(wheelSupport,'.dk_options_inner',function(e) {
+          var delta = e.originalEvent.wheelDelta || -e.originalEvent.deltaY || -e.originalEvent.detail; // Gets scroll ammount
+          if (msie) { this.scrollTop -= Math.round(delta/10); return false; } // Normalize IE behaviour
+          return (delta > 0 && this.scrollTop <= 0 ) || (delta < 0 && this.scrollTop >= this.scrollHeight - this.offsetHeight ) ? false : true; // Finally cancels page scroll when nedded
+        }).on({
+            'keydown.dk_nav': function(e) { // Setup keyboard nav
+              var $dk = $opened || $focused;
+              $dk && handleKeyBoardNav(e, $dk);
+            },
+            'click': function(e) {
+              var
+                $eTarget = $(e.target),
+                $dk
+              ;
+              if ($opened && $eTarget.closest(".dk_container").length === 0 ) {
+                closeDropdown($opened); // Improves performance by minimizing DOM Traversal Operations
+              } else if ($eTarget.is(".dk_toggle, .dk_label")) {
+                $dk = $eTarget.parents('.dk_container').first();
+
+                if ($dk.hasClass('dk_open')) {
+                  closeDropdown($dk);
+                } else {
+                  $opened && closeDropdown($opened);
+                  !$dk.attr('disabled') && openDropdown($dk,e);
+                } // Avoids duplication of call to _openDropdown
+
+                return false;
+              } else if ($eTarget.attr('for') && !!$('#dk_container_'+$eTarget.attr('for'))[0] ) {
+                $('#dk_container_'+$eTarget.attr('for')).trigger('focus.dropkick');
+              }
+            }
+        });
+        this.fired = true;
+      }
     },
 
     // Public methods exposed to $.fn.dropkick()
@@ -350,9 +354,9 @@
   ;
 
   // Help prevent flashes of unstyled content
-  if (!ie6) {
-    document.documentElement.className = document.documentElement.className + ' dk_fouc';
-  }
+  // if (!ie6) {
+  //   document.documentElement.className = document.documentElement.className + ' dk_fouc';
+  // }
 
   // Called by using $('foo').dropkick();
   methods.init = function (settings) {
@@ -360,7 +364,7 @@
     dropdownTemplate = settings.dropdownTemplate ? settings.dropdownTemplate : dropdownTemplate;
     optionTemplate = settings.optionTemplate ? settings.optionTemplate : optionTemplate;
 
-    initOnce(); initOnce = function(){};
+    !initOnce.fired && initOnce.fire();
 
     return this.each(function () {
       var
