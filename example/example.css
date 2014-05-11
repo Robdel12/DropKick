@@ -106,9 +106,8 @@ ul {
 }
   .example .gist-wrap {
     clear: both;
-  }
-  .example .gist-data {
-    font-size: 12px!important;
+    font-family: Consolas, 'Liberation Mono', Courier, monospace;
+    font-size: 12px;
   }
 
   .example label {
