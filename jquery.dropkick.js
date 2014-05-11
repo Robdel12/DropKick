@@ -350,9 +350,9 @@
   ;
 
   // Help prevent flashes of unstyled content
-  if (!ie6) {
-    document.documentElement.className = document.documentElement.className + ' dk_fouc';
-  }
+  // if (!ie6) {
+  //   document.documentElement.className = document.documentElement.className + ' dk_fouc';
+  // }
 
   // Called by using $('foo').dropkick();
   methods.init = function (settings) {

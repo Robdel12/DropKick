@@ -224,8 +224,8 @@
     position: relative;
     display: block;
     width: 110%;
-    height: 32px;
-    padding: 6px 49px 8px 6px;
+    min-height: 32px;
+    padding: 6px 49px 6px 6px;
     border: 0;
     font-family: 'Helvetica', Arial, sans-serif;
     font-size: 12px;
@@ -241,7 +241,7 @@
     border-radius: 0;
     box-shadow: none;
     appearance: none;
-    -moz-appearance: none
+    -moz-appearance: none;
     -webkit-appearance: none; }
     .dk_wrap select:focus {
       text-shadow: none; }
@@ -251,19 +251,13 @@
 
   /* Firefox only */
   @-moz-document url-prefix() { 
-    .dk_wrap select {
-       padding: 7px 49px 7px 6px;
-    }
+    .dk_wrap select { padding: 7px 49px 5px 6px; }
   }
 
   /* IE 10 + IE 11 only */
   @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
-    .dk_wrap select {
-      padding: 7px 47px 7px 8px;
-    }
+    .dk_wrap select { padding: 6px 47px 6px 8px; }
   }
 
-  /* Opera 12 only
-  _:-o-prefocus, body:last-child .dk_wrap select {
-     padding: 7px 45px 7px 10px; 
-  }
+  /* Opera 12 only */
+  _:-o-prefocus, body:last-child .dk_wrap select { padding: 7px 45px 5px 10px; }
