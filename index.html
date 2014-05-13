@@ -308,6 +308,13 @@
   <script>
   //Async load gists
     (function(){function e(e,t,i,a){window["embed_gist_"+i]=function(e){var t=document.createElement("div");t.innerHTML=e.div,a.parentNode.replaceChild(t.firstChild,a)};var n="https://gist.github.com/"+e+".json?callback=embed_gist_"+i;t&&(n+="&file="+t);var d=document.createElement("script");d.type="text/javascript",d.src=n,document.head.appendChild(d)}var t=document.getElementsByTagName("gist");if(t.length){var i=document.createElement("link");i.rel="stylesheet",i.href="https://gist.github.com/stylesheets/gist/embed.css",document.head.appendChild(i)}for(var a=0;a<t.length;a++){var n=t[a].getAttribute("data-id"),d=t[a].getAttribute("data-file");n&&e(n,d,a,t[a])}})();
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    
+    ga('create', 'UA-42326845-1', 'robdel12.github.io');
+    ga('send', 'pageview');
   </script>
 </body>
 </html>
