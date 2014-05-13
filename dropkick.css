@@ -18,9 +18,13 @@
   -webkit-border-radius: 5px; }
   .dk_container:focus {
     outline: 0; }
+  .dk_container[disabled] {
+    opacity:.4; }
   .dk_container a {
     cursor: pointer;
     text-decoration: none; }
+  .dk_container[disabled] a {
+    cursor: not-allowed; }
 
 .dk_toggle {
   border: 1px solid #ccc;
@@ -99,14 +103,31 @@
     border-bottom: none; }
   .dk_options .disabled {
     cursor: default; }
-    .dk_options .disabled a {
+    .dk_options .disabled a,
+    .dk_options .dk_optgroup.disabled > span {
       color: #aaa; }
-    .dk_options .disabled:hover, .dk_options .disabled:hover a
-    .dk_options .disabled:focus, .dk_options .disabled:focus a {
+    .dk_options .disabled:hover a,
+    .dk_options .disabled:focus a {
       cursor: default;
       background-color: #fff;
       border-bottom-color: #999;
       text-shadow: none; }
+  .dk_options .dk_optgroup {
+    padding-left: 5px;
+    background: #ddd;
+  }
+    .dk_options .dk_optgroup > span {
+      display: block;
+      padding: 5px 10px 5px 5px;
+      font-style: italic;
+      color: #444;
+      background: #ddd;
+      border-bottom: ;
+    }
+    .dk_options .dk_optgroup.disabled,
+    .dk_options .dk_optgroup.disabled > span {
+      background: #eee;
+    }
 
 .dk_options_inner {
   max-height: 250px;
@@ -155,7 +176,6 @@
 
 .dk_container select {
   position: absolute;
-  top: -99999em;
   visibility: hidden; }
 
 .dk_mobile {
@@ -171,3 +191,73 @@
     appearance: none;
     -moz-appearance: none;
     -webkit-appearance: none; }
+
+/* Here we reflect some of the styles from .dk_container to achieve the same visual also when without javascript */
+.dk_wrap {
+  position: relative;
+  display: inline-block;
+  min-width: 173px;
+  float: left;
+  margin-right: 10px;
+  margin-bottom: 18px;
+  background-color: #f5f5f5;
+  overflow: hidden;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -webkit-transition: border-color .5s;
+  -moz-transition: border-color .5s;
+  -o-transition: border-color .5s;
+  transition: border-color .5s; }
+  .dk_wrap:after {
+    position: absolute;
+    display: block;
+    top: 45%;
+    right: 10px;
+    content: '';
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid #4B4B4B;
+    pointer-events:none; }
+  .dk_wrap select {
+    position: relative;
+    display: block;
+    width: 110%;
+    min-height: 32px;
+    padding: 6px 49px 6px 6px;
+    border: 0;
+    font-family: 'Helvetica', Arial, sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 18px;
+    color: #333;
+    text-indent: 0.01px;
+    text-overflow: ''; 
+    text-shadow: #fff 1px 1px 0;
+    background: transparent;
+    background: rgba(255,255,255,0);
+    cursor: pointer;
+    border-radius: 0;
+    box-shadow: none;
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none; }
+    .dk_wrap select:focus {
+      text-shadow: none; }
+    .dk_wrap select::-ms-expand {
+      display: none;
+    }
+
+  /* Firefox only */
+  @-moz-document url-prefix() { 
+    .dk_wrap select { padding: 7px 49px 5px 6px; }
+  }
+
+  /* IE 10 + IE 11 only */
+  @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+    .dk_wrap select { padding: 6px 47px 6px 8px; }
+  }
+
+  /* Opera 12 only */
+  _:-o-prefocus, body:last-child .dk_wrap select { padding: 7px 45px 5px 10px; }

@@ -23,9 +23,15 @@
   &:focus {
     outline: 0;
   }
+  &[disabled] {
+    opacity:.4;
+  }
   a {
     cursor: pointer;
     text-decoration: none;
+  }
+  &[disabled] a {
+    cursor: not-allowed;
   }
 }
 
@@ -130,7 +136,7 @@
     a {
       color: #aaa;
     }
-    &:hover, &:hover a
+    &:hover, &:hover a,
     &:focus, &:focus a {
       cursor: default;
       background-color: #fff;
@@ -191,6 +197,11 @@
   a, a:link, a:visited{
     display: block;
   }
+  .dk_optgroup {
+    > span {
+    
+    }
+  }
 }
 
 .dk_options_inner {
@@ -203,7 +214,6 @@
 // Hides only dropkick <select> instances
 .dk_container select {
   position: absolute;
-  top: -99999em;
   visibility: hidden;
 }
 

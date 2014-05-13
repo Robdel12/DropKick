@@ -11,6 +11,7 @@ body {
   font-family: 'Helvetica', Arial, sans-serif;
   font-size: 100%;
   line-height: 1.5;
+  overflow-y: scroll;
 }
 
 .group:before,
@@ -104,8 +105,10 @@ ul {
   margin-bottom: 20px;
   padding: 18px;
 }
-  .example .gist-data {
-    font-size: 12px!important;
+  .example .gist-wrap {
+    clear: both;
+    font-family: Consolas, 'Liberation Mono', Courier, monospace;
+    font-size: 12px;
   }
 
   .example label {
@@ -113,6 +116,14 @@ ul {
     float: left;
     margin-right: 10px;
     line-height: 2.25em;
+  }
+
+  .example button {
+    border: 1px solid #ccc;
+    color: #333;
+    padding: 7px 10px;
+    text-shadow: #fff 1px 1px 0;
+    border-radius: 5px;
   }
 
 
