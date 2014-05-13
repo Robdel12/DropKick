@@ -29,7 +29,7 @@ Features:
 
 How to use:
 -
-* Make sure you have jQuery 1.10 or later running
+* Make sure you have jQuery 1.7.1 or later running
 * Add all the DK files to their proper spots (CSS files can be added to your main CSS file if you like)
 * Set a `class` or `id` on the select(s)
 * Call `$('#select').dropkick();`
@@ -52,8 +52,11 @@ Whats new in 1.5?
 
 Contributing
 -
-### Making a Pull Request
-Please make all future pull requests against the develop branch. Thanks! :D
+- Fork the repo
+- Install Gulp ([here's a great guide for that!](http://travismaynard.com/writing/getting-started-with-gulp))
+- Make the PR against the develop branch. NOT master. And make sure your min.js version is recomplied too.
+You don't have to alter the version number either. That'll be done after we create the next version branch and merge it into master.
+
 
 ### Found a bug? 
 Please [let us know](https://github.com/robdel12/DropKick/issues).
