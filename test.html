@@ -3,16 +3,60 @@
 <head>
   <meta charset="UTF-8">
   <title>Test</title>
-  <script src="dropkick.js"></script>
+  <script src="ie8-polyfill.js"></script>
   <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
   <link rel="stylesheet" href="dropkick.css">
 </head>
 <body>
+
+  <style>
+
+  .hidden-option {
+    display: none; }
+
+  /* Search Field Styles */
+
+  .dk-select-open-up .dk-select-options {
+    margin-bottom: 2em; }
+  .dk-select-open-down .dk-select-options {
+    margin-top: 2em; }
+
+  .dk-search {
+    width: 100%;
+    height: 2em;
+    display: none;
+    padding: 0.25em;
+    position: absolute;
+    border-width: 0 1px;
+    border-style: solid;
+    border-color: #3297fd; }
+
+  .dk-select-open-up .dk-search,
+  .dk-select-open-down .dk-search {
+    display: block; }
+  .dk-select-open-up .dk-search {
+    bottom: 100%; }
+  .dk-select-open-down .dk-search {
+    top: 100%; }
+
+  .dk-search-input {
+    width: 100%;
+    height: 100%;
+    border: none;
+    font: inherit;
+    display: block;
+    padding: 0 0.25em; }
+    .dk-search-input:focus {
+      outline: none; }
+
+  .dk-search-fuzzy-highlight {
+    background-color: rgba(0,0,0,0.1); }
+
+  </style>
   
   <label for="state">State:&nbsp;</label>
-
   <select id="state">
-    <option disabled selected>Choose One</option>
+    <option disabled selected class="hidden-option">Choose One</option>
     <option value="AL">Alabama</option>
     <option value="AK">Alaska</option>
     <option value="AZ">Arizona</option>
@@ -66,26 +110,53 @@
     <option value="WY">Wyoming</option>
   </select>
 
-  <script>
+  <script src="dropkick.js"></script>
+  <script src="dropkick.jquery.js"></script>
 
-    jQuery.fn.extend({
-      dropkick: function ( opts ) {
-        return $( this ).each(function() {
-          new Dropkick( this, opts );
+  <script>
+  $(function() {
+
+    $( "select" ).dropkick({
+      initialize: function() {
+        var $input,
+          dk = this;
+
+        $( '.dk-selected', dk.data.elem ).after([
+          '<div class="dk-search">',
+            '<input type="text" class="dk-search-input" placeholder="Search">',
+          '</div>',
+        ].join(""));
+
+        $input = $( ".dk-search-input", dk.data.elem );
+        
+        $input.on( "click", function ( event ) {
+          event.stopPropagation();
+
+        }).on( "keypress keyup", function ( event ) {
+          var found = dk.search( this.value, 2 );
+        
+          event.stopPropagation();
+        
+          $( '.dk-option', dk.data.elem ).remove();
+          $( found ).appendTo( dk.data.elem.lastChild );
+
+          found.length && dk.selectOne( found[0] );
         });
+
+        $( dk.data.select ).hide();
+      },
+
+      open: function() {
+        $( '.dk-search-input', this.data.elem ).focus();
+      },
+
+      close: function() {
+        $( '.dk-search-input', this.data.elem ).val("");
+        this.refresh();
       }
     });
-
-    $(function() {
-
-      $( "select" ).dropkick({
-        initialize: function( dk ) {
-          $( dk.data.select ).hide();
-        }
-      });
-      
-    });
     
+  });
   </script>
 
 </body>

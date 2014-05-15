@@ -6,9 +6,6 @@
  *
 */
 
-// Enable some stuff for IE 8
-(function(){Array.prototype.indexOf||(Array.prototype.indexOf=function(a,b){var c,e,d=b?b:0;if(!this)throw new TypeError;if(e=this.length,0===e||d>=e)return-1;for(0>d&&(d=e-Math.abs(d)),c=d;e>c;c++)if(this[c]===a)return c;return-1});if(Event.prototype.preventDefault||(Event.prototype.preventDefault=function(){this.returnValue=!1}),Event.prototype.stopPropagation||(Event.prototype.stopPropagation=function(){this.cancelBubble=!0}),!Element.prototype.addEventListener){var a=[],b=function(b,c){var d=this,e=function(a){a.target=a.srcElement,a.currentTarget=d,c.handleEvent?c.handleEvent(a):c.call(d,a)};if("DOMContentLoaded"==b){var f=function(a){"complete"==document.readyState&&e(a)};if(document.attachEvent("onreadystatechange",f),a.push({object:this,type:b,listener:c,wrapper:f}),"complete"==document.readyState){var g=new Event;g.srcElement=window,f(g)}}else this.attachEvent("on"+b,e),a.push({object:this,type:b,listener:c,wrapper:e})},c=function(b,c){for(var d=0;d<a.length;){var e=a[d];if(e.object==this&&e.type==b&&e.listener==c){"DOMContentLoaded"==b?this.detachEvent("onreadystatechange",e.wrapper):this.detachEvent("on"+b,e.wrapper);break}++d}};Element.prototype.addEventListener=b,Element.prototype.removeEventListener=c,HTMLDocument&&(HTMLDocument.prototype.addEventListener=b,HTMLDocument.prototype.removeEventListener=c),Window&&(Window.prototype.addEventListener=b,Window.prototype.removeEventListener=c)}})();
-
 (function( window, document, undefined ) {
 
 window.isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test( navigator.userAgent );
@@ -33,7 +30,7 @@ var
     }
 
     // Check if select has already been DK'd and return the DK Object
-    if ( i = sel.getAttribute( "data-dkCacheId" ) ) {
+    if ( i = sel.getAttribute( "data-dkcacheid" ) ) {
       _.extend( dkCache[ i ].data.settings, opts );
       return dkCache[ i ];
     }
@@ -54,53 +51,61 @@ var
 
     // Called every time the select changes value
     change: noop,
-  },
 
-  // The templates
-  tmpl = {
+    // Called every time the DK element is opened
+    open: noop,
 
-    // The select template; The original select element is passed
-    select: [
-      '<div class="dk-select',
-      '<%=( select.multiple ? "-multi" : "" )%> ',
-      '<%=( select.className )%>" ',
-      '<%=( select.id ? "id=\'dk-" + select.id + "\'" : "" )%> ',
-      'tabindex="<%=( select.tabindex || 0 )%>">',
-        '<% if ( !select.multiple ) { %>',
-          '<div class="dk-selected">',
-            '<%= select.options[ select.selectedIndex ].text %>',
-          '</div>',
-        '<% } %>',
-        '<ul class="dk-select-options">',
-          '<%=( options )%>',
-        '</ul>',
-      '</div>'
-    ].join(""),
+    // Called every time the DK element is closed
+    close: noop,
 
-    // The optgroup template; An HTML string containing any sub-options is passed
-    optgroup: [
-      '<li class="dk-optgroup">',
-        '<% if ( label !== undefined ) { %>',
-          '<div class="dk-optgroup-label">',
-            '<%=( label )%>',
-          '</div>',
-        '<% } %>',
-        '<ul class="dk-optgroup-options">',
-          '<%=( options )%>',
-        '</ul>',
-      '</li>'
-    ].join(""),
+    // The default templates
+    tmpl: {
 
-    // The option template; The original option element is passed
-    option: [
-      '<li class="dk-option ',
-      '<%=( option.className )%>',
-      '<%=( option.selected ? " dk-option-selected" : "")%>',
-      '<%=( option.disabled ? " dk-option-disabled" : "")%>" ',
-      'data-value="<%=( option.value )%>">',
-        '<%=( option.text )%>',
-      '</li>'
-    ].join("")
+      // The select template; The original select element and 
+      // an HTML string containing the options is passed
+      select: [
+        '<div class="dk-select',
+        '<%=( select.multiple ? "-multi" : "" )%> ',
+        '<%=( select.className )%>" ',
+        '<%=( select.id ? "id=\'dk-" + select.id + "\'" : "" )%> ',
+        'tabindex="<%=( select.tabindex || 0 )%>">',
+          '<% if ( !select.multiple ) { %>',
+            '<div class="dk-selected">',
+              '<%= select.options[ select.selectedIndex ].text %>',
+            '</div>',
+          '<% } %>',
+          '<ul class="dk-select-options">',
+            '<%=( options )%>',
+          '</ul>',
+        '</div>'
+      ].join(""),
+
+      // The optgroup template; An HTML string containing any
+      // sub-options is passed
+      optgroup: [
+        '<li class="dk-optgroup">',
+          '<% if ( label !== undefined ) { %>',
+            '<div class="dk-optgroup-label">',
+              '<%=( label )%>',
+            '</div>',
+          '<% } %>',
+          '<ul class="dk-optgroup-options">',
+            '<%=( options )%>',
+          '</ul>',
+        '</li>'
+      ].join(""),
+
+      // The option template; The original option element is passed
+      option: [
+        '<li class="dk-option ',
+        '<%=( option.className )%>',
+        '<%=( option.selected ? " dk-option-selected" : "")%>',
+        '<%=( option.disabled ? " dk-option-disabled" : "")%>" ',
+        'data-value="<%=( option.value )%>">',
+          '<%=( option.text )%>',
+        '</li>'
+      ].join("")
+    }
   },
 
   // Common Utilities
@@ -216,7 +221,7 @@ Dropkick.prototype = {
     var dkHTML, dkElem;
 
     if ( elem.nodeName === "OPTION" ) {
-      dkHTML = _.tmpl( tmpl.option, { option: elem });
+      dkHTML = _.tmpl( this.data.settings.tmpl.option, { option: elem });
       dkElem = _.parseHTML( dkHTML );
 
       this.data.select.add( elem, before );
@@ -228,7 +233,7 @@ Dropkick.prototype = {
       if ( this.options.indexOf( before ) > -1 ) {
         before.parentNode.insertBefore( dkElem, before );
       } else {
-        this.data.dk.lastChild.appendChild( dkElem );
+        this.data.elem.lastChild.appendChild( dkElem );
       }
 
       if ( elem.selected ) {
@@ -273,27 +278,27 @@ Dropkick.prototype = {
 
     // Set some data on the DK Object
     this.data = {};
-    this.data.dk = Dropkick.build( sel );
     this.data.select = sel;
     this.data.settings = _.extend( {}, defaults, opts );
+    this.data.elem = Dropkick.build( sel, this.data.settings.tmpl );
 
     // Emulate some of HTMLSelectElement's properties
     this.value = sel.value;
     this.disabled = sel.disabled;
     this.form = sel.form;
     this.length = sel.length;
-    this.options = Dropkick.findOptions( this.data.dk.children );
+    this.options = Dropkick.findOptions( this.data.elem.children );
     this.multiple = sel.multiple;
     this.selectedIndex = sel.selectedIndex;
     this.selectedOptions = Dropkick.getSelected( this.options );
 
     // Insert the DK element before the original select
-    sel.parentNode.insertBefore( this.data.dk, sel );
+    sel.parentNode.insertBefore( this.data.elem, sel );
 
     // Bind events
-    this.data.dk.addEventListener( "click", this );
-    this.data.dk.addEventListener( "keydown", this );
-    this.data.dk.addEventListener( "keypress", this );
+    this.data.elem.addEventListener( "click", this );
+    this.data.elem.addEventListener( "keydown", this );
+    this.data.elem.addEventListener( "keypress", this );
 
     if ( this.form ) {
       this.form.addEventListener( "reset", this );
@@ -310,12 +315,12 @@ Dropkick.prototype = {
     }
 
     // Add the DK Object to the cache
-    this.cacheID = dkCache.length;
-    sel.setAttribute( "data-dkCacheId", this.cacheID );
+    this.data.cacheID = dkCache.length;
+    sel.setAttribute( "data-dkCacheId", this.data.cacheID );
     dkCache.push( this );
 
     // Call the optional initialize function
-    this.data.settings.initialize( this );
+    this.data.settings.initialize.call( this );
 
     return this;
   },
@@ -324,7 +329,7 @@ Dropkick.prototype = {
    * Closes the DK dropdown
    */
   close: function() {
-    var dk = this.data.dk;
+    var dk = this.data.elem;
 
     if ( this.multiple ) {
       return false;
@@ -337,6 +342,8 @@ Dropkick.prototype = {
     _.removeClass( dk.lastChild, "dk-select-options-highlight" );
     _.removeClass( dk, "dk-select-open-(up|down)" );
     this.isOpen = false;
+
+    this.data.settings.close.call( this );
   },
 
   /**
@@ -344,7 +351,7 @@ Dropkick.prototype = {
    */
   open: function() {
     var dropHeight, above, below,
-      dk = this.data.dk,
+      dk = this.data.elem,
       dkOptsList = dk.lastChild,
       dkTop = _.position( dk ).y - window.scrollY,
       dkBottom = window.innerHeight - ( dkTop + dk.offsetHeight );
@@ -365,6 +372,8 @@ Dropkick.prototype = {
     _.addClass( dk, "dk-select-open" + direction );
     this._scrollTo( this.options.length - 1 );
     this._scrollTo( this.selectedIndex );
+
+    this.data.settings.open.call( this );
   },
 
 
@@ -374,7 +383,7 @@ Dropkick.prototype = {
    * @param  {Boolean}      disabled INTERNAL Selects disabled options
    * @return {Node}                  The selected element
    */
-  select: function( elem, /* internal */ disabled ) {
+  select: function( elem, disabled ) {
     var index, option,
       select = this.data.select;
 
@@ -403,7 +412,7 @@ Dropkick.prototype = {
       } else {
         _.removeClass( this.selectedOptions[0], "dk-option-selected" );
         _.addClass( elem, "dk-option-selected" );
-        this.data.dk.firstChild.innerHTML = option.text;
+        this.data.elem.firstChild.innerHTML = option.text;
         this.selectedOptions[0] = elem;
         option.selected = true;
       }
@@ -417,23 +426,72 @@ Dropkick.prototype = {
   },
 
   /**
-   * Finds the first occurence given a string
-   * @param  {String} string The string to search for
-   * @return {Node/Boolean}  The found element or False if not found
+   * Selects a single option from the list
+   * @param  {Node/Integer} elem     The element or index to select
+   * @param  {Boolean}      disabled INTERNAL Selects disabled options
+   * @return {Node}                  The selected element
    */
-  search: function( string ) {
-    var i,
-      reg = new RegExp( "^" + string, "i" ),
-      options = this.data.select.options;
+  selectOne: function( elem, disabled ) {
+    this.reset( true );
+    this._scrollTo( elem );
+    return this.select( elem, disabled );
+  },
+
+  /**
+   * Finds all options who's text matches a pattern (strict, partial, or fuzzy)
+   * @param  {String} string  The string to search for
+   * @param  {Integer} mode   0 - Strict; 1 - Partial; 2 - Fuzzy
+   * @return {Array/Boolean}  An Array of matched element or False if not found
+   */
+  search: function( pattern, mode ) {
+    var i, tokens, str, tIndex, sIndex, cScore, tScore, reg,
+      options = this.data.select.options,
+      matches = [];
+
+    if ( !pattern ) return this.options;
 
     for ( i = 0; i < options.length; i++ ) {
-      if ( reg.test( options[ i ].text )
-          && i !== this.selectedIndex ) {
-        return this.options[ i ];
+      str = options[ i ].text.toLowerCase();
+
+      // Fuzzy
+      if ( mode >= 2 ) {
+        tokens = pattern.toLowerCase().split("");
+        tIndex = sIndex = cScore = tScore = 0;
+
+        while ( sIndex < str.length ) {
+          if ( str[ sIndex ] === tokens[ tIndex ] ) {
+            cScore += 1 + cScore;
+            tIndex++;
+          } else {
+            cScore = 0;
+          }
+
+          tScore += cScore;
+          sIndex++;
+        }
+
+        if ( tIndex == tokens.length ) {
+          matches.push({ e: this.options[ i ], s: tScore, i: i });
+        }
+
+      // Partial or Strict (Default)
+      } else {
+        reg = new RegExp( ( mode ? "" : "^" ) + pattern, "i" );
+        reg.test( str ) && matches.push( this.options[ i ] );
       }
     }
 
-    return false;
+    // Sort fuzzy results
+    if ( mode >= 2 ) {
+      matches = matches.sort( function ( a, b ) {
+        return ( b.s - a.s ) || a.i - b.i;
+      }).reduce( function ( p, o ) {
+        p[ p.length ] = o.e;
+        return p;
+      }, [] );
+    }
+
+    return matches;
   },
 
   /**
@@ -464,9 +522,9 @@ Dropkick.prototype = {
    * (use if HTMLSelectElement has changed)
    */
   refresh: function() {
-    dkCache.splice( this.cacheID, 1 );
-    this.data.dk.parentNode.removeChild( this.data.dk );
-    this.init( this.data.select, {});
+    dkCache.splice( this.data.cacheID, 1 );
+    this.data.elem.parentNode.removeChild( this.data.elem );
+    this.init( this.data.select, this.data.settings );
   },
 
 
@@ -516,7 +574,7 @@ Dropkick.prototype = {
         _.removeClass( this.options[ i ], "dk-option-highlight" );
       }
 
-      _.addClass( this.data.dk.lastChild, "dk-select-options-highlight" );
+      _.addClass( this.data.elem.lastChild, "dk-select-options-highlight" );
       _.addClass( option, "dk-option-highlight" );
     }
   },
@@ -568,13 +626,11 @@ Dropkick.prototype = {
         this.close();
       }
       break;
-    case keys.space:
-      break;
     }
   },
 
   _searchOptions: function( event ) {
-    var result,
+    var results,
       self = this,
       keyChar = String.fromCharCode( event.keyCode ),
 
@@ -595,21 +651,19 @@ Dropkick.prototype = {
     waitToReset();
 
     this.data.searchString += keyChar;
-    result = this.search( this.data.searchString );
+    results = this.search( this.data.searchString );
 
 
-    if ( result ) {
-      if ( !_.hasClass( result, "dk-option-disabled" ) ) {
-        this.reset( true );
-        this.select( result );
-        this._scrollTo( result );
+    if ( results.length ) {
+      if ( !_.hasClass( results[0], "dk-option-disabled" ) ) {
+        this.selectOne( results[0] );
       }
     }
   },
 
   _scrollTo: function( option ) {
     var optPos, optTop, optBottom,
-      dkOpts = this.data.dk.lastChild;
+      dkOpts = this.data.elem.lastChild;
 
     if ( !this.isOpen && !this.multiple ) {
       return false;
@@ -639,7 +693,7 @@ Dropkick.prototype = {
  * @param  {Node} select The HTMLSelectElement
  * @return {Node}        The New DK dropdown element
  */
-Dropkick.build = function( select ) {
+Dropkick.build = function( select, tmpl ) {
   var dkHTML, dkSelect,
 
     buildInner = function( children ) {
@@ -724,15 +778,17 @@ Dropkick.onDocClick = function( event ) {
   var target, i;
   
   if ( target = document.getElementById( event.target.htmlFor ) ) {
-    target.getAttribute( "data-dkCacheId" ) && Dropkick( target ).data.dk.focus();  
+    target.getAttribute( "data-dkcacheid" ) !== null
+      && new Dropkick( target ).data.elem.focus(); 
   }
 
   for ( i = 0; i < dkCache.length; i++ ) {
-    if ( !_.closest( event.target, dkCache[ i ].data.dk ) ) {
+    if ( !_.closest( event.target, dkCache[ i ].data.elem ) ) {
       dkCache[ i ].close();
     }
   }
 };
+
 
 // Expose Dropkick Globally
 window.Dropkick = Dropkick;
