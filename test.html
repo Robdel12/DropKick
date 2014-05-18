@@ -133,7 +133,7 @@
           event.stopPropagation();
 
         }).on( "keypress keyup", function ( event ) {
-          var found = dk.search( this.value, 2 );
+          var found = dk.search( this.value, dk.data.settings.search );
         
           event.stopPropagation();
         
@@ -152,7 +152,8 @@
 
       close: function() {
         $( '.dk-search-input', this.data.elem ).val("");
-        this.refresh();
+        $( '.dk-option', this.data.elem ).remove();
+        $( this.options ).appendTo( this.data.elem.lastChild );
       }
     });
     
