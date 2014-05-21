@@ -53,7 +53,7 @@
     background-color: rgba(0,0,0,0.1); }
 
   </style>
-  
+
   <label for="state">State:&nbsp;</label>
   <select id="state">
     <option disabled selected class="hidden-option">Choose One</option>
@@ -128,15 +128,16 @@
         ].join(""));
 
         $input = $( ".dk-search-input", dk.data.elem );
-        
+
         $input.on( "click", function ( event ) {
           event.stopPropagation();
 
         }).on( "keypress keyup", function ( event ) {
-          var found = dk.search( this.value );
-        
+
+          var found = dk.search( this.value, dk.data.settings.search );
+
           event.stopPropagation();
-        
+
           $( '.dk-option', dk.data.elem ).remove();
           $( found ).appendTo( dk.data.elem.lastChild );
 
@@ -152,10 +153,11 @@
 
       close: function() {
         $( '.dk-search-input', this.data.elem ).val("");
-        this.refresh();
+        $( '.dk-option', this.data.elem ).remove();
+        $( this.options ).appendTo( this.data.elem.lastChild );
       }
     });
-    
+
   });
   </script>
 
