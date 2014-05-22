@@ -10,7 +10,7 @@ var rename = require('gulp-rename');
 
 // Lint Task
 gulp.task('lint', function() {
-    return gulp.src('*.js')
+    return gulp.src('jquery.dropkick.js')
         .pipe(jshint())
         .pipe(jshint.reporter('default'));
 });
@@ -32,7 +32,7 @@ gulp.task('scripts', function() {
 
 // Watch Files For Changes
 gulp.task('watch', function() {
-    gulp.watch('*.js', ['scripts']);
+    gulp.watch('*.js', ['lint', 'scripts']);
     gulp.watch('*.scss', ['sass']);
 });
 

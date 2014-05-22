@@ -1,5 +1,5 @@
 /*
- * DropKick 1.5
+ * DropKick 1.5.1
  *
  * Highly customizable <select> lists
  * https://github.com/robdel12/DropKick
@@ -436,7 +436,7 @@
         $wrap.removeClass('dk_wrap');
         $dk.show();
       } else {
-        $dk.fadeIn(settings.startSpeed)
+        $dk.fadeIn(settings.startSpeed);
       }
 
       // Save the updated $dk reference into our data object
