@@ -107,7 +107,7 @@
     ].join(''),
 
     // HTML template for dropdown options
-    optionTemplate = '<li class="{{ current }}{{ disabled }}"><a data-dk-dropdown-value="{{ value }}">{{ text }}</a></li>',
+    optionTemplate = '<li class="{{ current }} {{ disabled }}"><a data-dk-dropdown-value="{{ value }}">{{ text }}</a></li>',
     optgroupTemplate = '<li class="dk_optgroup{{ disabled }}"><span>{{ text }}</span>',
 
 
