@@ -25,16 +25,14 @@ gulp.task('sass', function() {
 // Concatenate & Minify JS
 gulp.task('scripts', function() {
     return gulp.src('*.js')
-        .pipe(concat('all.js'))
-        .pipe(gulp.dest('dist'))
-        .pipe(rename('all.min.js'))
+        .pipe(rename('jquery.dropkick-min.js'))
         .pipe(uglify())
-        .pipe(gulp.dest('dist'));
+        .pipe(gulp.dest(''));
 });
 
 // Watch Files For Changes
 gulp.task('watch', function() {
-    gulp.watch('*.js', ['lint', 'scripts']);
+    gulp.watch('*.js', ['scripts']);
     gulp.watch('*.scss', ['sass']);
 });
 
