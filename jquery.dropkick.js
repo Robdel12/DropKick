@@ -131,13 +131,14 @@
     // Update the <select> value, and the dropdown label
     updateFields = function(option, $dk, reset) {
       var
-        value = option.attr('data-dk-dropdown-value'),
-        label = option.text(),
         data  = $dk.data('dropkick'),
-        $select = data.$select
+        $select = data.$select,
+        $option = option.length ? option : data.$original,
+        value = $option.attr('data-dk-dropdown-value') || option.attr('value'),
+        label = $option.text()
       ;
 
-      $dk.find('.dk_label').text(!!label?label:'&nbsp;');
+      $dk.find('.dk_label').html(!!label?label:'&nbsp;');
 
       !reset ? $select.val(value).trigger('change') : $select.val(value); // Let it act like a normal select when needed
 
@@ -306,10 +307,15 @@
       var
         // Template for the dropdown
         buildOption = function($el) {
-          return optionTemplate.replace('{{ value }}', $el.val())
-                              .replace('{{ current }}', (notBlank($el.val()) === view.value) ? 'dk_option_current' : '')
-                              .replace('{{ disabled }}', ($el.attr('disabled') !== undefined) ? 'disabled' : '')
-                              .replace('{{ text }}', !!$.trim($el.html()) ? $.trim($el.html()) : '&nbsp;' )
+          var
+            value = $el.val(),
+            html = $el.html(),
+            disabled = $el.attr('disabled') !== undefined
+          ;
+          return optionTemplate.replace('{{ value }}', value)
+                              .replace('{{ current }}', (notBlank(value) === view.value && !disabled) ? 'dk_option_current' : '')
+                              .replace('{{ disabled }}', (disabled) ? 'disabled' : '')
+                              .replace('{{ text }}', !!$.trim(html) ? $.trim(html) : '&nbsp;' )
           ;
         },
         template  = tpl.replace('{{ id }}', view.id).replace('{{ label }}', view.label).replace('{{ tabindex }}', view.tabindex),
@@ -398,8 +404,6 @@
         // The completed dk_container element
         $dk = false,
 
-        theme,
-
         // The form relative to the select
         $form
       ;
@@ -471,7 +475,7 @@
             label = option.text()
           ;
 
-          $dk.find('.dk_label').text(!!label?label:'&nbsp;');
+          $dk.find('.dk_label').html(!!label?label:'&nbsp;');
           setCurrent(option.parent(), $dk, e);
           data.settings.change && data.settings.change.call($select, value, label);
         });
