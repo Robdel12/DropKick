@@ -66,13 +66,13 @@ var
   _ = {
 
     hasClass: function( elem, classname ) {
-      var reg = new RegExp( "(^|\\s+)" + classname + "(\\s+|$)" ); 
+      var reg = new RegExp( "(^|\\s+)" + classname + "(\\s+|$)" );
       return reg.test( elem.className );
     },
 
     addClass: function( elem, classname ) {
-      if( !_.hasClass( elem, classname ) ) { 
-        elem.className += " " + classname; 
+      if( !_.hasClass( elem, classname ) ) {
+        elem.className += " " + classname;
       }
     },
 
@@ -182,7 +182,7 @@ Dropkick.prototype = {
 
       if ( typeof before === "number" ) {
         before = this.item( before );
-      } 
+      }
 
       if ( this.options.indexOf( before ) > -1 ) {
         before.parentNode.insertBefore( option, before );
@@ -312,7 +312,7 @@ Dropkick.prototype = {
       dkTop = _.position( dk ).y - window.scrollY,
       dkBottom = window.innerHeight - ( dkTop + dk.offsetHeight );
 
-    if ( this.isOpen || this.multiple ) return false;
+    if ( this.isOpen || this.multiple || this.disabled ) return false;
 
     dkOptsList.style.display = "block";
     dropHeight = dkOptsList.offsetHeight;
@@ -474,7 +474,7 @@ Dropkick.prototype = {
   },
 
   /**
-   * Rebuilds the DK Object 
+   * Rebuilds the DK Object
    * (use if HTMLSelectElement has changed)
    */
   refresh: function() {
@@ -523,7 +523,7 @@ Dropkick.prototype = {
   },
 
   _highlight: function( event ) {
-    var i, option = event.target; 
+    var i, option = event.target;
 
     if ( !this.multiple ) {
       for ( i = 0; i < this.options.length; i++ ) {
@@ -549,6 +549,8 @@ Dropkick.prototype = {
         down: 40
       };
 
+    if ( this.disabled ) return false;
+
     switch ( event.keyCode ) {
     case keys.up:
       i = -1;
@@ -562,7 +564,7 @@ Dropkick.prototype = {
       } else if ( i < 0 ) {
         i = 0;
       }
-      
+
       if ( !this.data.select.options[ i ].disabled ) {
         this.reset( true );
         this.select( i );
@@ -595,10 +597,12 @@ Dropkick.prototype = {
           clearTimeout( self.data.searchTimeout );
         }
 
-        self.data.searchTimeout = setTimeout(function() { 
-          self.data.searchString = ""; 
+        self.data.searchTimeout = setTimeout(function() {
+          self.data.searchString = "";
         }, 1000 );
       };
+
+    if ( this.disabled ) return false;
 
     if ( this.data.searchString === undefined ) {
       this.data.searchString = "";
@@ -687,7 +691,7 @@ Dropkick.build = function( sel ) {
       case "OPTGROUP":
         optgroup = _.create( "li", { "class": "dk-optgroup" });
 
-        if ( node.label ) {      
+        if ( node.label ) {
           optgroup.appendChild( _.create( "div", {
             "class": "dk-optgroup-label",
             "innerHTML": node.label
@@ -696,7 +700,7 @@ Dropkick.build = function( sel ) {
 
         optgroupList = _.create( "ul", { "class": "dk-optgroup-options" });
 
-        for ( i = node.children.length; i--; children.unshift( node.children[ i ] ) )
+        for ( i = node.children.length; i--; children.unshift( node.children[ i ] ) );
         children.forEach( addOption, optgroupList );
 
         this.appendChild( optgroup ).appendChild( optgroupList );
@@ -733,13 +737,13 @@ Dropkick.build = function( sel ) {
  */
 Dropkick.onDocClick = function( event ) {
   var t, tId, i;
-  
+
   if ( t = document.getElementById( event.target.htmlFor ) ) {
     if ( ( tId = t.getAttribute( "data-dkcacheid" ) ) !== null ) {
-      dkCache[ tId ].data.elem.focus(); 
+      dkCache[ tId ].data.elem.focus();
     }
   }
-  
+
   for ( i = 0; i < dkCache.length; i++ ) {
     if ( !_.closest( event.target, dkCache[ i ].data.elem ) ) {
       dkCache[ i ].close();

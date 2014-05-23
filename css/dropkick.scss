@@ -23,7 +23,7 @@ $dk-color-aux: #3297fd !default;
 $dk-border-color: #CCCCCC !default;
 $dk-border-color-aux: #3297fd !default;
 $dk-border-radius: 0.4em !default;
-$dk-disabled-text-color: #BBBBBB !default;
+$dk-disabled-color: #BBBBBB !default;
 
 .dk-select,
 .dk-select *,
@@ -32,7 +32,7 @@ $dk-disabled-text-color: #BBBBBB !default;
 .dk-select-multi,
 .dk-select-multi *,
 .dk-select-multi *:before,
-.dk-select-multi *:after { 
+.dk-select-multi *:after {
   @include dk-bxsz(border-box);
 }
 
@@ -79,7 +79,7 @@ $dk-disabled-text-color: #BBBBBB !default;
 }
 
 .dk-selected-disabled {
-  color: $dk-disabled-text-color;
+  color: $dk-disabled-color;
 }
 
 .dk-select .dk-select-options {
@@ -137,7 +137,7 @@ $dk-disabled-text-color: #BBBBBB !default;
 }
 
 .dk-select-options .dk-option-disabled {
-  color: $dk-disabled-text-color;
+  color: $dk-disabled-color;
   background-color: transparent;
 }
 
@@ -151,6 +151,11 @@ $dk-disabled-text-color: #BBBBBB !default;
   }
   + .dk-optgroup {
     border-top-width: 0;
+    margin-top: 0;
+  }
+  &:nth-child(2) {
+    padding-top: 0;
+    border-top: none;
     margin-top: 0;
   }
   &:last-child {
@@ -169,6 +174,9 @@ $dk-disabled-text-color: #BBBBBB !default;
 .dk-optgroup-options {
   list-style: none;
   padding-left: 0;
+  li{
+    padding-left: 1.2em;
+  }
 }
 
 .dk-select-open-up .dk-selected {
@@ -201,24 +209,30 @@ $dk-disabled-text-color: #BBBBBB !default;
   border-color: $dk-border-color-aux;
 }
 
-.dk-select:hover, 
+.dk-select:hover,
 .dk-select:focus,
-.dk-select-multi:hover, 
+.dk-select-multi:hover,
 .dk-select-multi:focus {
   outline: none;
 }
 
-.dk-select:hover .dk-selected, 
+.dk-select:hover .dk-selected,
 .dk-select:focus .dk-selected {
   border-color: $dk-border-color-aux;
 }
 
-.dk-select:hover .dk-selected:before, 
+.dk-select:hover .dk-selected:before,
 .dk-select:focus .dk-selected:before {
   border-top-color: $dk-border-color-aux;
 }
 
-.dk-select:hover .dk-selected:after, 
+.dk-select:hover .dk-selected:after,
 .dk-select:focus .dk-selected:after {
   border-left-color: $dk-border-color-aux;
+}
+
+.dk-select-disabled {
+  opacity: 0.6;
+  color: $dk-disabled-color;
+  cursor: not-allowed;
 }
