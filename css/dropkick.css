@@ -176,3 +176,6 @@
   opacity: 0.6;
   color: #bbbbbb;
   cursor: not-allowed; }
+
+select[data-dkcacheid] {
+  display: none; }

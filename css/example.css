@@ -1,9 +1,6 @@
 .hidden-option {
   display: none; }
 
-select {
-  display: none; }
-
 /* Search Field Styles */
 #dk-search_select .dk-select-options {
   margin-bottom: 2em; }

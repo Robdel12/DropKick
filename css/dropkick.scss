@@ -236,3 +236,8 @@ $dk-disabled-color: #BBBBBB !default;
   color: $dk-disabled-color;
   cursor: not-allowed;
 }
+
+// Hide the original select based on the data attr applied
+select[data-dkcacheid]{
+  display: none;
+}
