@@ -224,7 +224,6 @@
       initialize: function() {
         var $input,
           dk = this;
-
         $( '.dk-selected', dk.data.elem ).after([
           '<div class="dk-search">',
             '<input type="text" class="dk-search-input" placeholder="Search">',
@@ -243,12 +242,16 @@
           event.stopPropagation();
 
           $( '.dk-option', dk.data.elem ).remove();
-          $( found ).appendTo( dk.data.elem.lastChild );
+
+          if ( found.length ) {
+            $( found ).appendTo( dk.data.elem.lastChild );
+            dk.selectOne( found[0] );
+          } else {
+            $( "<li></li>" ).addClass( "dk-option dk-option-disabled" ).text( "Not Found" ).appendTo( dk.data.elem.lastChild );
+          }
 
           found.length && dk.selectOne( found[0] );
         });
-
-        $( dk.data.select ).hide();
       },
 
       open: function() {
@@ -256,7 +259,7 @@
       },
 
       close: function() {
-        $( '.dk-search-input', this.data.elem ).val("");
+        $( '.dk-search-input', this.data.elem ).val("").blur();
         $( '.dk-option', this.data.elem ).remove();
         $( this.options ).appendTo( this.data.elem.lastChild );
       }
