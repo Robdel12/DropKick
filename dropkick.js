@@ -112,18 +112,16 @@ var
     },
 
     // Returns the x and y offset of an element
-    position: function( elem, relative ) {
-      var pos = { x: 0, y: 0 };
+    offset: function( elem, relative ) {
+      var box = { top: 0, left: 0 };
 
-      relative = relative || document.body;
+      box = elem.getBoundingClientRect() || box;
+      relative = relative || document.documentElement;
 
-      while ( elem !== relative ) {
-        pos.x += elem.offsetLeft;
-        pos.y += elem.offsetTop;
-        elem = elem.parentNode;
-      }
-
-      return pos;
+      return {
+        top: box.top + window.pageYOffset - relative.clientTop,
+        left: box.left + window.pageXOffset - relative.clientLeft
+      };
     },
 
     // Returns the closest ancestor element of the child or false if not found
@@ -309,7 +307,7 @@ Dropkick.prototype = {
     var dropHeight, above, below,
       dk = this.data.elem,
       dkOptsList = dk.lastChild,
-      dkTop = _.position( dk ).y - window.scrollY,
+      dkTop = _.offset( dk ).top - window.scrollY,
       dkBottom = window.innerHeight - ( dkTop + dk.offsetHeight );
 
     if ( this.isOpen || this.multiple ) return false;
@@ -317,6 +315,8 @@ Dropkick.prototype = {
     dkOptsList.style.display = "block";
     dropHeight = dkOptsList.offsetHeight;
     dkOptsList.style.display = "";
+
+    console.log( _.offset( dk ).top );
 
     above = dkTop > dropHeight;
     below = dkBottom > dropHeight;
@@ -334,7 +334,7 @@ Dropkick.prototype = {
   /**
    * Selects an option from the list
    * @param  {Node/Integer} elem     The element or index to select
-   * @param  {Boolean}      disabled INTERNAL Selects disabled options
+   * @param  {Boolean}      disabled Selects disabled options
    * @return {Node}                  The selected element
    */
   select: function( elem, disabled ) {
@@ -385,8 +385,9 @@ Dropkick.prototype = {
    */
   selectOne: function( elem, disabled ) {
     this.reset( true );
-    this._scrollTo( elem );
+    this.multiple && this.select( 0 );
     return this.select( elem, disabled );
+    this._scrollTo( elem );
   },
 
   /**
@@ -632,7 +633,7 @@ Dropkick.prototype = {
       option = this.item( option );
     }
 
-    optPos = _.position( option, dkOpts ).y;
+    optPos = _.offset( option, dkOpts ).top;
     optTop = optPos - dkOpts.scrollTop;
     optBottom = optTop + option.offsetHeight;
 
