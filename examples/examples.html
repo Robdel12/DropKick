@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Dropkick 2.0 Examples</title>
+  <title>Dropkick.js</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <script src="../ie8-polyfill.js"></script>
   <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
   <link rel="stylesheet" href="../css/dropkick.css">
@@ -14,7 +15,6 @@
     <h1>DropKick.js</h1>
     <div class="example-container">
       <h2>Regular Select</h2>
-      <label for="normal_select">State:&nbsp;</label>
       <select id="normal_select">
         <option disabled selected class="hidden-option">Choose One</option>
         <option value="AL">Alabama</option>
@@ -72,7 +72,6 @@
     </div>
     <div class="example-container">
       <h2>Search Enabled</h2>
-      <label for="search_select">State:&nbsp;</label>
       <select id="search_select">
         <option disabled selected class="hidden-option">Choose One</option>
         <option value="AL">Alabama</option>
@@ -130,7 +129,6 @@
     </div>
     <div class="example-container">
       <h2>Disabled Select</h2>
-      <label for="disabled">State:&nbsp;</label>
       <select id="disabled" disabled>
         <option disabled selected class="hidden-option">Choose One</option>
         <option value="AL">Alabama</option>
@@ -188,31 +186,76 @@
     </div>
     <div class="example-container">
       <h2>Opt Group</h2>
-      <label for="opt_group">Mustangs:&nbsp;</label>
       <select id="opt_group">
         <option disabled selected class="hidden-option">Choose One</option>
-        <optgroup label="Cobras">
-          <option value="termi">Terminator</option>
-          <option value="gt500">GT500</option>
-          <option value="supersnake">Super Snake</option>
+        <optgroup label="Group 1">
+          <option>Option 1.1</option>
         </optgroup>
-        <optgroup label="Cobras">
-          <option value="termi">Terminator</option>
-          <option value="gt500">GT500</option>
-          <option value="supersnake">Super Snake</option>
+        <optgroup label="Group 2">
+          <option>Option 2.1</option>
+          <option>Option 2.2</option>
+          </optgroup>
+        <optgroup label="Group 3" disabled>
+          <option>Option 3.1</option>
+          <option>Option 3.2</option>
+          <option>Option 3.3</option>
         </optgroup>
       </select>
     </div>
     <div class="example-container">
-      <h2>Muli select</h2>
-      <label for="multiple">Mustangs:&nbsp;</label>
+      <h2>Muli-select</h2>
       <select multiple id="multiple">
-        <option value="termi">Terminator</option>
-        <option value="gt500">GT500</option>
-        <option value="supersnake">Super Snake</option>
-        <option value="termi">Terminator</option>
-        <option value="gt500">GT500</option>
-        <option value="supersnake">Super Snake</option>
+        <option value="AL">Alabama</option>
+        <option value="AK">Alaska</option>
+        <option value="AZ">Arizona</option>
+        <option value="AR">Arkansas</option>
+        <option value="CA">California</option>
+        <option value="CO">Colorado</option>
+        <option value="CT">Connecticut</option>
+        <option value="DE">Delaware</option>
+        <option value="DC">District Of Columbia</option>
+        <option value="FL">Florida</option>
+        <option value="GA">Georgia</option>
+        <option value="HI">Hawaii</option>
+        <option value="ID">Idaho</option>
+        <option value="IL">Illinois</option>
+        <option value="IN">Indiana</option>
+        <option value="IA">Iowa</option>
+        <option value="KS">Kansas</option>
+        <option value="KY">Kentucky</option>
+        <option value="LA">Louisiana</option>
+        <option value="ME">Maine</option>
+        <option value="MD">Maryland</option>
+        <option value="MA">Massachusetts</option>
+        <option value="MI">Michigan</option>
+        <option value="MN">Minnesota</option>
+        <option value="MS">Mississippi</option>
+        <option value="MO">Missouri</option>
+        <option value="MT">Montana</option>
+        <option value="NE">Nebraska</option>
+        <option value="NV">Nevada</option>
+        <option value="NH">New Hampshire</option>
+        <option value="NJ">New Jersey</option>
+        <option value="NM">New Mexico</option>
+        <option value="NY">New York</option>
+        <option value="NC">North Carolina</option>
+        <option value="ND">North Dakota</option>
+        <option value="OH">Ohio</option>
+        <option value="OK">Oklahoma</option>
+        <option value="OR">Oregon</option>
+        <option value="PA">Pennsylvania</option>
+        <option value="RI">Rhode Island</option>
+        <option value="SC">South Carolina</option>
+        <option value="SD">South Dakota</option>
+        <option value="TN">Tennessee</option>
+        <option value="TX">Texas</option>
+        <option value="UT">Utah</option>
+        <option value="VT">Vermont</option>
+        <option value="VA">Virginia</option>
+        <option value="WA">Washington</option>
+        <option value="WV">West Virginia</option>
+        <option value="WI">Wisconsin</option>
+        <option value="WY">Wyoming</option>
       </select>
     </div>
 

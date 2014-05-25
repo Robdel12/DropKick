@@ -86,7 +86,7 @@ table {
   background-color: rgba(0, 0, 0, 0.1); }
 
 body {
-  background-color: #F1F1F1; }
+  background-color: #FAFAFA; }
 
 .container {
   max-width: 1140px;
@@ -118,7 +118,8 @@ body {
     margin: 20px auto 20px auto;
     border-top: 1px solid #ddd;
     border-bottom: 1px solid #999999; }
-  .example-container .dk-select {
+  .example-container .dk-select,
+  .example-container .dk-select-multi {
     text-align: left; }
 
 .hidden-option {

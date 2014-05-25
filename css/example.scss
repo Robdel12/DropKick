@@ -17,7 +17,7 @@ $open_sans: 'Open Sans', sans-serif;
 //*---------------------------------------*
 
 body{
-  background-color: #F1F1F1;
+  background-color: #FAFAFA;
 }
 
 .container{
@@ -57,7 +57,8 @@ body{
     border-top: 1px solid #ddd;
     border-bottom: 1px solid #999999;
   }
-  .dk-select {
+  .dk-select,
+  .dk-select-multi {
     text-align: left;
   }
   // .gist-container {
