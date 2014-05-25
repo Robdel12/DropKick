@@ -312,7 +312,7 @@ Dropkick.prototype = {
       dkTop = _.position( dk ).y - window.scrollY,
       dkBottom = window.innerHeight - ( dkTop + dk.offsetHeight );
 
-    if ( this.isOpen || this.multiple || this.disabled ) return false;
+    if ( this.isOpen || this.multiple ) return false;
 
     dkOptsList.style.display = "block";
     dropHeight = dkOptsList.offsetHeight;
@@ -488,6 +488,8 @@ Dropkick.prototype = {
   // Private Methods
 
   handleEvent: function( event ) {
+    if ( this.disabled ) return;
+
     switch ( event.type ) {
     case "click":
       this._delegate( event );
@@ -550,8 +552,6 @@ Dropkick.prototype = {
         down: 40
       };
 
-    if ( this.disabled ) return false;
-
     switch ( event.keyCode ) {
     case keys.up:
       i = -1;
@@ -602,9 +602,7 @@ Dropkick.prototype = {
           self.data.searchString = "";
         }, 1000 );
       };
-
-    if ( this.disabled ) return false;
-
+      
     if ( this.data.searchString === undefined ) {
       this.data.searchString = "";
     }
