@@ -41,6 +41,6 @@ Search for bugs ruthelessly and call any vermin to our attention!
   - Mobile
     - ~~iOS safari (try to get 6+)~~
     - ~~Chrome iOS~~
-    - Chrome Android (-Wil)
-    - Android browser (-Wil)
-    - Windows phone
+    - ~~Chrome Android (-Wil)~~
+    - Android browser (Anyone?)
+    - Windows phone (-Robert)
