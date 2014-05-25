@@ -602,7 +602,7 @@ Dropkick.prototype = {
           self.data.searchString = "";
         }, 1000 );
       };
-      
+
     if ( this.data.searchString === undefined ) {
       this.data.searchString = "";
     }
@@ -745,7 +745,7 @@ Dropkick.onDocClick = function( event ) {
 
   for ( i = 0; i < dkCache.length; i++ ) {
     if ( !_.closest( event.target, dkCache[ i ].data.elem ) ) {
-      dkCache[ i ].close();
+      dkCache[ i ].disabled || dkCache[ i ].close();
     }
   }
 };
