@@ -316,8 +316,6 @@ Dropkick.prototype = {
     dropHeight = dkOptsList.offsetHeight;
     dkOptsList.style.display = "";
 
-    console.log( _.offset( dk ).top );
-
     above = dkTop > dropHeight;
     below = dkBottom > dropHeight;
     direction = above && !below ? "-up" : "-down";
@@ -385,7 +383,6 @@ Dropkick.prototype = {
    */
   selectOne: function( elem, disabled ) {
     this.reset( true );
-    this.multiple && this.select( 0 );
     return this.select( elem, disabled );
     this._scrollTo( elem );
   },
@@ -470,7 +467,7 @@ Dropkick.prototype = {
       }
     }
 
-    if ( !this.selectedOptions.length ) {
+    if ( !this.selectedOptions.length && !this.multiple ) {
       this.select( 0, true );
     }
   },
