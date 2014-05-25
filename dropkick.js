@@ -406,6 +406,8 @@ Dropkick.prototype = {
     mode = mode.toLowerCase() || "strict";
     mode = mode == "fuzzy" ? 2 : mode == "partial" ? 1 : 0;
 
+    reg = new RegExp( ( mode ? "" : "^" ) + pattern, "i" );
+
     for ( i = 0; i < options.length; i++ ) {
       str = options[ i ].text.toLowerCase();
 
@@ -432,7 +434,6 @@ Dropkick.prototype = {
 
       // Partial or Strict (Default)
       } else {
-        reg = new RegExp( ( mode ? "" : "^" ) + pattern, "i" );
         reg.test( str ) && matches.push( this.options[ i ] );
       }
     }
@@ -590,7 +591,7 @@ Dropkick.prototype = {
   _searchOptions: function( event ) {
     var results,
       self = this,
-      keyChar = String.fromCharCode( event.keyCode ),
+      keyChar = String.fromCharCode( event.keyCode || event.which ),
 
       waitToReset = function() {
         if ( self.data.searchTimeout ) {
