@@ -33,8 +33,7 @@ Search for bugs ruthelessly and call any vermin to our attention!
     - 9
     - 10
     - ~~11~~
-  - FF (29.0.1)
-    - Broken search on focus
+  - ~~FF (29.0.1)~~
   - ~~Chrome~~
   - ~~Safari (6.0.5 & 7.0.3)~~
   - ~~Opera (21.0)~~
