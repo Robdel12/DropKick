@@ -27,14 +27,20 @@ Search for bugs ruthelessly and call any vermin to our attention!
 - Create tests/dk examples file (-Robert)
 - Docs (-Wil)
 - Browser test (-Robert)
-  - IE 7-current (for the fuck of it!)
-  - FF
-  - Chrome
-  - Safari
-  - Opera
+  - IE
+    - 7 (for the fuck of it!)
+    - 8
+    - 9
+    - 10
+    - ~~11~~
+  - FF (29.0.1)
+    - Broken search on focus
+  - ~~Chrome~~
+  - ~~Safari (6.0.5 & 7.0.3)~~
+  - ~~Opera (21.0)~~
   - Mobile
-    - iOS safari (try to get 6+)
-    - Chrome iOS
+    - ~~iOS safari (try to get 6+)~~
+    - ~~Chrome iOS~~
     - Chrome Android (-Wil)
     - Android browser (-Wil)
-    - Windows phone.
+    - Windows phone

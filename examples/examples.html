@@ -219,8 +219,11 @@
   <script>
   $(function() {
 
-    $( "#normal_select, #disabled, #opt_group, #multiple" ).dropkick();
+    $( "#normal_select, #disabled, #opt_group, #multiple" ).dropkick({
+      mobile: true
+    });
     $( "#search_select" ).dropkick({
+      mobile: true,
       initialize: function() {
         var $input,
           dk = this;
