@@ -115,9 +115,14 @@ body{
 }
 
 @media screen and (max-width: 800px) {
+  .container{
+    h1{
+      font-size: 2.9em;
+    }
+  }
   .half{
     display: block;
-    width: 90%;
+    width: 100%;
     margin: 10px auto 10px auto;
   }
 }
