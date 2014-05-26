@@ -176,6 +176,12 @@
   opacity: 0.6;
   color: #bbbbbb;
   cursor: not-allowed; }
+  .dk-select-disabled .dk-selected:hover, .dk-select-disabled .dk-selected:focus {
+    border-color: inherit; }
+    .dk-select-disabled .dk-selected:hover:before, .dk-select-disabled .dk-selected:focus:before {
+      border-top-color: inherit; }
+    .dk-select-disabled .dk-selected:hover:after, .dk-select-disabled .dk-selected:focus:after {
+      border-left-color: inherit; }
 
 select[data-dkcacheid] {
   display: none; }

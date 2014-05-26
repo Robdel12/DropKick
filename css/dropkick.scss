@@ -235,6 +235,17 @@ $dk-disabled-color: #BBBBBB !default;
   opacity: 0.6;
   color: $dk-disabled-color;
   cursor: not-allowed;
+  .dk-selected{
+    &:hover, &:focus {
+      border-color: inherit;
+      &:before{
+        border-top-color: inherit;
+      }
+      &:after{
+        border-left-color: inherit;
+      }
+    }
+  }
 }
 
 // Hide the original select based on the data attr applied
