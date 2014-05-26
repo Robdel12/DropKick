@@ -111,17 +111,28 @@ var
       return target;
     },
 
-    // Returns the x and y offset of an element
-    offset: function( elem, relative ) {
-      var box = { top: 0, left: 0 };
-
-      box = elem.getBoundingClientRect() || box;
-      relative = relative || document.documentElement;
+    // Returns the top and left offset of an element
+    offset: function( elem ) {
+      var box = elem.getBoundingClientRect() || { top: 0, left: 0 },
+        docElem = document.documentElement;
 
       return {
-        top: box.top + window.pageYOffset - relative.clientTop,
-        left: box.left + window.pageXOffset - relative.clientLeft
+        top: box.top + window.pageYOffset - docElem.clientTop,
+        left: box.left + window.pageXOffset - docElem.clientLeft
       };
+    },
+
+    // Returns the top and left position of an element relative to an ancestor
+    position: function( elem, relative ) {
+      var pos = { top: 0, left: 0 };
+
+      while ( elem !== relative ) {
+        pos.top += elem.offsetTop;
+        pos.left += elem.offsetLeft;
+        elem = elem.parentNode;
+      }
+
+      return pos;
     },
 
     // Returns the closest ancestor element of the child or false if not found
@@ -383,8 +394,8 @@ Dropkick.prototype = {
    */
   selectOne: function( elem, disabled ) {
     this.reset( true );
-    return this.select( elem, disabled );
     this._scrollTo( elem );
+    return this.select( elem, disabled );
   },
 
   /**
@@ -630,7 +641,7 @@ Dropkick.prototype = {
       option = this.item( option );
     }
 
-    optPos = _.offset( option, dkOpts ).top;
+    optPos = _.position( option, dkOpts ).top;
     optTop = optPos - dkOpts.scrollTop;
     optBottom = optTop + option.offsetHeight;
 
