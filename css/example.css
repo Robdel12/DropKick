@@ -86,7 +86,8 @@ table {
   background-color: rgba(0, 0, 0, 0.1); }
 
 body {
-  background-color: #FAFAFA; }
+  background-color: #FAFAFA;
+  padding: 40px 0; }
 
 .container {
   max-width: 1140px;
@@ -95,32 +96,62 @@ body {
     font-size: 3.5em;
     font-weight: 700;
     font-family: "Open Sans", sans-serif;
-    margin: 40px 0;
+    margin: 0 0 40px 0;
     text-align: center; }
 
-.example-container {
-  background-color: #ddd;
-  padding: 15px;
+.half {
   width: 46%;
   display: inline-block;
-  vertical-align: middle;
+  vertical-align: top; }
+
+.example-container, .gist-container {
+  background-color: #ddd;
+  padding: 15px;
   margin: 10px 10px 10px 0;
   border-radius: 6px;
   text-align: center; }
-  .example-container h2 {
+  .example-container h2, .gist-container h2 {
     font-size: 1.2em;
     margin: 0 0 0.5em 0;
     font-family: "Open Sans", sans-serif;
     font-weight: 700; }
-  .example-container hr {
+  .example-container hr, .gist-container hr {
     width: 90%;
     margin: 0 auto;
     margin: 20px auto 20px auto;
     border-top: 1px solid #ddd;
     border-bottom: 1px solid #999999; }
-  .example-container .dk-select,
-  .example-container .dk-select-multi {
+  .example-container .dk-select, .gist-container .dk-select,
+  .example-container .dk-select-multi,
+  .gist-container .dk-select-multi {
     text-align: left; }
+
+.gist-container {
+  text-align: left;
+  font-size: 0.8em !important; }
+  .gist-container h3 {
+    font-size: 1.2em;
+    font-weight: 700;
+    font-family: "Open Sans", sans-serif;
+    text-align: center;
+    margin-bottom: 10px; }
+  .gist-container .gist-meta {
+    font-size: 10px !important;
+    padding: 7px !important; }
+  .gist-container .gist-wrapper {
+    margin-bottom: 0 !important;
+    max-height: 160px;
+    overflow: hidden; }
+  .gist-container .btn {
+    display: none;
+    padding: 4px;
+    border-radius: 6px;
+    background-color: #7C7C7C;
+    font-family: "Open Sans", sans-serif;
+    font-size: 12px;
+    margin-top: 10px;
+    text-decoration: none;
+    color: white; }
 
 .hidden-option {
   display: none; }

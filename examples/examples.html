@@ -13,7 +13,7 @@
 <body>
   <div class="container">
     <h1>DropKick.js</h1>
-    <div class="example-container">
+    <div class="example-container half">
       <h2>Regular Select</h2>
       <select id="normal_select">
         <option disabled selected class="hidden-option">Choose One</option>
@@ -70,7 +70,13 @@
         <option value="WY">Wyoming</option>
       </select>
     </div>
-    <div class="example-container">
+    <div class="half gist-container">
+      <div class="gist-wrapper">
+        <script src="https://gist.github.com/Robdel12/cf44df11ea55892393a3.js"></script>
+      </div>
+      <a href="#" class="btn">Show Full Code</a>
+    </div>
+    <div class="example-container half">
       <h2>Search Enabled</h2>
       <select id="search_select">
         <option disabled selected class="hidden-option">Choose One</option>
@@ -127,7 +133,13 @@
         <option value="WY">Wyoming</option>
       </select>
     </div>
-    <div class="example-container">
+    <div class="half gist-container">
+      <div class="gist-wrapper">
+        <script src="https://gist.github.com/Robdel12/024ad9845aaa7bf07775.js"></script>
+      </div>
+      <a href="#" class="btn">Show Full Code</a>
+    </div>
+    <div class="example-container half">
       <h2>Disabled Select</h2>
       <select id="disabled" disabled>
         <option disabled selected class="hidden-option">Choose One</option>
@@ -184,7 +196,16 @@
         <option value="WY">Wyoming</option>
       </select>
     </div>
-    <div class="example-container">
+    <div class="half gist-container">
+      <h3>JavaScript:</h3>
+      <div class="gist-wrapper">
+        <script src="https://gist.github.com/Robdel12/4b45b0ae35fd2db11711.js"></script>
+        <h3>Markup:</h3>
+        <script src="https://gist.github.com/Robdel12/f23e47fb9b7423fa01df.js"></script>
+      </div>
+      <a href="#" class="btn">Show Full Code</a>
+    </div>
+    <div class="example-container half">
       <h2>Opt Group</h2>
       <select id="opt_group">
         <option disabled selected class="hidden-option">Choose One</option>
@@ -202,7 +223,7 @@
         </optgroup>
       </select>
     </div>
-    <div class="example-container">
+    <div class="example-container half">
       <h2>Muli-select</h2>
       <select multiple id="multiple">
         <option value="AL">Alabama</option>
@@ -313,6 +334,23 @@
           $( this.options ).appendTo( this.data.elem.lastChild );
         }
       });
+
+      var gists = document.getElementsByClassName("gist-container"),
+          btns = document.getElementsByClassName("btn"),
+          i = 0;
+
+      for( ; i < gists.length; i++){
+        if(gists[i].offsetHeight > 160){
+          btns[i].style.display = "inline-block";
+
+          btns[i].onclick = function(){
+            console.log(this.parentNode.getElementsByClassName("gist-wrapper")[0])
+            this.parentNode.getElementsByClassName("gist-wrapper")[0].style.maxHeight = "100%";
+            this.parentNode.getElementsByClassName("gist-wrapper")[0].style.overflow = "visible";
+            return false;
+          }
+        }
+      }
 
     });
     </script>

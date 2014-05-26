@@ -18,6 +18,7 @@ $open_sans: 'Open Sans', sans-serif;
 
 body{
   background-color: #FAFAFA;
+  padding: 40px 0;
 }
 
 .container{
@@ -29,18 +30,21 @@ body{
       weight: 700;
       family: $open_sans;
     }
-    margin: 40px 0;
+    margin: 0 0 40px 0;
     text-align: center;
 
   }
 }
 
+.half {
+  width: 46%;
+  display: inline-block;
+  vertical-align: top;
+}
+
 .example-container {
   background-color: #ddd;
   padding: 15px;
-  width: 46%;
-  display: inline-block;
-  vertical-align: middle;
   margin: 10px 10px 10px 0;
   border-radius: 6px;
   text-align: center;
@@ -61,17 +65,43 @@ body{
   .dk-select-multi {
     text-align: left;
   }
-  // .gist-container {
-  //   text-align: left;
-  //   font-size: 0.8em !important;
-  //   .gist-meta{
-  //     font-size: 10px !important;
-  //     padding: 7px !important;
-  //   }
-  //   .gist-file{
-  //     margin-bottom: 0;
-  //   }
-  // }
+}
+
+.gist-container {
+  @extend .example-container;
+  text-align: left;
+  font-size: 0.8em !important;
+  h3{
+    font: {
+      size: 1.2em;
+      weight: 700;
+      family: $open_sans;
+    }
+    text-align: center;
+    margin-bottom: 10px;
+  }
+  .gist-meta{
+    font-size: 10px !important;
+    padding: 7px !important;
+  }
+  .gist-wrapper{
+    margin-bottom: 0 !important;
+    max-height: 160px;
+    overflow: hidden;
+  }
+  .btn{
+    display: none;
+    padding: 4px;
+    border-radius: 6px;
+    background-color: #7C7C7C;
+    font: {
+      family: $open_sans;
+      size: 12px
+    }
+    margin-top: 10px;
+    text-decoration: none;
+    color: white;
+  }
 }
 
 .hidden-option {
