@@ -141,6 +141,8 @@ body {
     font-family: "Open Sans", sans-serif;
     text-align: center;
     margin-bottom: 10px; }
+  .gist-container .gist {
+    -webkit-text-size-adjust: none !important; }
   .gist-container .gist-meta {
     font-size: 10px !important;
     padding: 7px !important; }

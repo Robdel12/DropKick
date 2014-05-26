@@ -86,6 +86,9 @@ body{
     text-align: center;
     margin-bottom: 10px;
   }
+  .gist{
+    -webkit-text-size-adjust: none !important;
+  }
   .gist-meta{
     font-size: 10px !important;
     padding: 7px !important;
