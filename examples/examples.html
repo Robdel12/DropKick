@@ -359,10 +359,19 @@
           btns[i].style.display = "inline-block";
 
           btns[i].onclick = function(){
-            console.log(this.parentNode.getElementsByClassName("gist-wrapper")[0])
-            this.parentNode.getElementsByClassName("gist-wrapper")[0].style.maxHeight = "100%";
-            this.parentNode.getElementsByClassName("gist-wrapper")[0].style.overflow = "visible";
-            return false;
+            var gistWrapper = this.parentNode.getElementsByClassName("gist-wrapper")[0];
+
+            if(gistWrapper.style.maxHeight == "100%"){
+              gistWrapper.style.maxHeight = "";
+              gistWrapper.style.overflow = "";
+              this.innerHTML = "Show Full Code";
+              return false;
+            } else {
+              gistWrapper.style.maxHeight = "100%";
+              gistWrapper.style.overflow = "visible";
+              this.innerHTML = "Hide Code";
+              return false;
+            }
           }
         }
       }

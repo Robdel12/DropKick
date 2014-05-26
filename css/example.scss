@@ -18,7 +18,12 @@ $open_sans: 'Open Sans', sans-serif;
 
 body{
   background-color: #FAFAFA;
-  padding: 40px 0;
+  padding: 40px 20px;
+}
+*, *:before, *:after{
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 .container{
@@ -37,15 +42,16 @@ body{
 }
 
 .half {
-  width: 46%;
+  width: 45%;
   display: inline-block;
   vertical-align: top;
+  white-space: nowrap;
+  margin: 10px 1% 10px 0;
 }
 
 .example-container {
   background-color: #ddd;
   padding: 15px;
-  margin: 10px 10px 10px 0;
   border-radius: 6px;
   text-align: center;
   h2 {
@@ -106,4 +112,12 @@ body{
 
 .hidden-option {
   display: none;
+}
+
+@media screen and (max-width: 800px) {
+  .half{
+    display: block;
+    width: 90%;
+    margin: 10px auto 10px auto;
+  }
 }
