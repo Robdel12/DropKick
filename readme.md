@@ -5,27 +5,17 @@ Version 2.0
 
 Creating a new DK is done with `new Dropkick( HTMLSelectElement )`.
 
+## Using the jQuery plugin
+
 As you can see from *dropkick.jquery.js* using any library is a breeze!
 
-
-## Stuff to do
-
-- Document of all of the cool new features.
-- Create more elaborate tests in *test.html*.
-- Bug fixing.
-
-
-# Suggestions or Bugs?
-
-If you have suggestions please edit this readme or comment on it saying what
-you'd like to see!
-
-Search for bugs ruthelessly and call any vermin to our attention!
+1. Import `dropkick.jquery.js` on the page along with `dropkick.js`
+2. Do ya thang! `$(".something").dropkick()`
 
 ## TODO:
 
 - Create tests/dk examples file (-Robert)
-- Docs (-Wil)
+- Document of all of the cool new features. (-Wil)
 - Browser test (-Robert)
   - IE
     - 7 (for the fuck of it!)
@@ -43,3 +33,8 @@ Search for bugs ruthelessly and call any vermin to our attention!
     - ~~Chrome Android (-Wil)~~
     - Android browser (Anyone?)
     - Windows phone (-Robert)
+
+
+# Suggestions or Bugs?
+
+Search for bugs ruthelessly and call any vermin to our attention!
