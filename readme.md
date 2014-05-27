@@ -18,11 +18,11 @@ As you can see from *dropkick.jquery.js* using any library is a breeze!
 - Document of all of the cool new features. (-Wil)
 - Fix accessibility issues (-Robert & anyone that can offer input)
 - Browser test (-Robert)
-  - IE
-    - 7 (for the fuck of it!)
-    - 8
-    - 9
-    - 10
+  - ~~IE~~
+    - ~~7 (for the fuck of it!)~~ (Doesn't work. Falls back to normal selects)
+    - ~~8~~
+    - ~~9~~
+    - ~~10~~
     - ~~11~~
   - ~~FF (29.0.1)~~
   - ~~Chrome~~
