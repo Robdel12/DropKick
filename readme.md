@@ -34,6 +34,8 @@ As you can see from *dropkick.jquery.js* using any library is a breeze!
     - ~~Chrome Android (-Wil)~~
     - Android browser (Anyone?)
     - Windows phone (-Robert)
+      - ~~8.0~~
+      - 8.1
 
 
 # Suggestions or Bugs?
