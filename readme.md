@@ -16,6 +16,7 @@ As you can see from *dropkick.jquery.js* using any library is a breeze!
 
 - Create tests/dk examples file (-Robert)
 - Document of all of the cool new features. (-Wil)
+- Fix accessibility issues (-Robert & anyone that can offer input)
 - Browser test (-Robert)
   - IE
     - 7 (for the fuck of it!)
