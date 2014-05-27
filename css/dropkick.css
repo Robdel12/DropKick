@@ -192,7 +192,7 @@
     -moz-appearance: none;
     -webkit-appearance: none; }
 
-/* Here we reflect some of the styles from .dk_container to achieve the same visual also when without javascript */
+/* Here we reflect some of the styles from .dk_container to achieve the same visual also when without javascript */
 .dk_wrap {
   position: relative;
   display: inline-block;
@@ -249,7 +249,7 @@
       display: none;
     }
 
-  /* Firefox only */
+  /* Firefox only */
   @-moz-document url-prefix() { 
     .dk_wrap select { padding: 7px 49px 5px 6px; }
   }

@@ -20,8 +20,6 @@
   float: left; }
   .dk_container a {
     outline: 0; }
-  .dk_container[disabled] a {
-    cursor: not-allowed; }
 
 .dk_toggle {
   display: -moz-inline-stack;

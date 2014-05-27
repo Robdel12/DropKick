@@ -1,5 +1,5 @@
 /*
- * DropKick 1.5
+ * DropKick 1.5.1
  *
  * Highly customizable <select> lists
  * https://github.com/robdel12/DropKick
@@ -34,7 +34,7 @@
           if(!$value.hasClass('disabled') && !$value.closest('.dk_optgroup',$dk).hasClass('disabled')){
             if (!$value.hasClass('dk_option_current')) { // Also check if this isn't the selected option
               updateFields($option, $dk);
-              setCurrent($option.parent(), $dk); // IE8+, iOS4 and some Android [4.0] Browsers back to scrollTop 0 when an option is clicked and the dropdown is opened again          
+              setCurrent($option.parent(), $dk); // IE8+, iOS4 and some Android [4.0] Browsers back to scrollTop 0 when an option is clicked and the dropdown is opened again
             }
             closeDropdown($dk);
           }
@@ -130,15 +130,16 @@
     // private
     // Update the <select> value, and the dropdown label
     updateFields = function(option, $dk, reset) {
-      var 
-        value = option.attr('data-dk-dropdown-value'),
-        label = option.text(),
+      var
         data  = $dk.data('dropkick'),
-        $select = data.$select
+        $select = data.$select,
+        $option = option.length ? option : data.$original,
+        value = $option.attr('data-dk-dropdown-value') || option.attr('value'),
+        label = $option.text()
       ;
 
-      $dk.find('.dk_label').text(!!label?label:'&nbsp;');
-      
+      $dk.find('.dk_label').html(!!label?label:'&nbsp;');
+
       !reset ? $select.val(value).trigger('change') : $select.val(value); // Let it act like a normal select when needed
 
       data.settings.change && !reset && !data.settings.syncReverse && data.settings.change.call($select, value, label);
@@ -306,10 +307,15 @@
       var
         // Template for the dropdown
         buildOption = function($el) {
-          return optionTemplate.replace('{{ value }}', $el.val())
-                              .replace('{{ current }}', (notBlank($el.val()) === view.value) ? 'dk_option_current' : '')
-                              .replace('{{ disabled }}', ($el.attr('disabled') !== undefined) ? 'disabled' : '')
-                              .replace('{{ text }}', !!$.trim($el.html()) ? $.trim($el.html()) : '&nbsp;' )
+          var
+            value = $el.val(),
+            html = $el.html(),
+            disabled = $el.attr('disabled') !== undefined
+          ;
+          return optionTemplate.replace('{{ value }}', value)
+                              .replace('{{ current }}', (notBlank(value) === view.value && !disabled) ? 'dk_option_current' : '')
+                              .replace('{{ disabled }}', (disabled) ? 'disabled' : '')
+                              .replace('{{ text }}', !!$.trim(html) ? $.trim(html) : '&nbsp;' )
           ;
         },
         template  = tpl.replace('{{ id }}', view.id).replace('{{ label }}', view.label).replace('{{ tabindex }}', view.tabindex),
@@ -325,7 +331,7 @@
       if (view.options && view.options.length) {
         for (i = 0, l = view.options.length; i < l; i++) {
           $option   = $(view.options[i]);
-          
+
           if ($option.is('option')) {
             oTemplate = (i === 0 && $option.attr('selected') !== undefined && $option.attr('disabled') !== undefined) ? null : buildOption($option);
           } else if ($option.is('optgroup')) {
@@ -339,7 +345,7 @@
               oTemplate += '</ul>';
             }
             oTemplate += '</li>';
-            
+
           }
 
           options[options.length] = oTemplate;
@@ -398,8 +404,6 @@
         // The completed dk_container element
         $dk = false,
 
-        theme,
-
         // The form relative to the select
         $form
       ;
@@ -430,13 +434,13 @@
       // Hide the <select> list and place our new one in front of it
       // $dk = $('div[id="dk_container_' + id + '"]').fadeIn(settings.startSpeed);
       // To permite cloning methods, will no more need to update the reference to $dk
-      $select.before($dk).appendTo($dk.addClass('dk_theme_' + theme));
+      $select.before($dk).appendTo($dk.addClass('dk_theme_' + data.theme));
 
       if ($wrap.length) {
         $wrap.removeClass('dk_wrap');
         $dk.show();
       } else {
-        $dk.fadeIn(settings.startSpeed)
+        $dk.fadeIn(settings.startSpeed);
       }
 
       // Save the updated $dk reference into our data object
@@ -471,7 +475,7 @@
             label = option.text()
           ;
 
-          $dk.find('.dk_label').text(!!label?label:'&nbsp;');
+          $dk.find('.dk_label').html(!!label?label:'&nbsp;');
           setCurrent(option.parent(), $dk, e);
           data.settings.change && data.settings.change.call($select, value, label);
         });
@@ -539,7 +543,7 @@
         $current,
         $dkopts
       ;
-      // Update data options      
+      // Update data options
       data.options  = $select.children();
       // Rebuild options list. filter options inner and replace
       $dkopts = build(dropdownTemplate, data).find('.dk_options_inner');
@@ -594,7 +598,7 @@
         $clone.dropkick(settings);
         toReturn[i] = $clone.data('dropkick').$dk[0];
       }
-      
+
     });
   };
 

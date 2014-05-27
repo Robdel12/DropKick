@@ -6,7 +6,7 @@
 
   <title>Robdel12/DropKick @ GitHub</title>
   <link rel="stylesheet" href="example.css" type="text/css">
-  <link rel="stylesheet" href="../dropkick.css" type="text/css">
+  <link rel="stylesheet" href="../css/dropkick.css" type="text/css">
   <link href='http://fonts.googleapis.com/css?family=Carter+One&v1' rel='stylesheet' type='text/css'>
   
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js" type="text/javascript" charset="utf-8"></script>
@@ -278,13 +278,22 @@
             <option value="GB">United Kingdom</option>
             <option value="US" disabled>United States</option>
           </select>
+          <select name="country-optall-disabled" class="default" tabindex="8">
+            <option value="" disabled>All options disabled</option>
+            <option value="AU" disabled>Australia</option>
+            <option value="CA" disabled>Canada</option>
+            <option value="DE" disabled>Germany</option>
+            <option value="JP" disabled>Japan</option>
+            <option value="GB" disabled>United Kingdom</option>
+            <option value="US" disabled>United States</option>
+          </select>
         </div>
       </fieldset>
 
       <fieldset class="example">
         <h2>With &lt;optgroup&gt;</h2>
         <div class="fields">
-          <select name="country-opt-disabled" class="default" tabindex="8">
+          <select name="country-optgroup-disabled" class="default" tabindex="8">
             <option value="" selected disabled>Try optgroup support!</option>
             <optgroup label="America">
               <option value="CA">Canada</option>

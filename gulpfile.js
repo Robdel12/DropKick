@@ -10,7 +10,7 @@ var rename = require('gulp-rename');
 
 // Lint Task
 gulp.task('lint', function() {
-    return gulp.src('*.js')
+    return gulp.src('jquery.dropkick.js')
         .pipe(jshint())
         .pipe(jshint.reporter('default'));
 });
@@ -25,11 +25,9 @@ gulp.task('sass', function() {
 // Concatenate & Minify JS
 gulp.task('scripts', function() {
     return gulp.src('*.js')
-        .pipe(concat('all.js'))
-        .pipe(gulp.dest('dist'))
-        .pipe(rename('all.min.js'))
+        .pipe(rename('jquery.dropkick-min.js'))
         .pipe(uglify())
-        .pipe(gulp.dest('dist'));
+        .pipe(gulp.dest(''));
 });
 
 // Watch Files For Changes
