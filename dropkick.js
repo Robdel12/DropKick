@@ -306,6 +306,7 @@ Dropkick.prototype = {
 
     _.removeClass( dk.lastChild, "dk-select-options-highlight" );
     _.removeClass( dk, "dk-select-open-(up|down)" );
+    dk.setAttribute("aria-expanded", "false");
     this.isOpen = false;
 
     this.data.settings.close.call( this );
@@ -324,6 +325,7 @@ Dropkick.prototype = {
     if ( this.isOpen || this.multiple ) return false;
 
     dkOptsList.style.display = "block";
+    dk.setAttribute("aria-expanded", "true");
     dropHeight = dkOptsList.offsetHeight;
     dkOptsList.style.display = "";
 
@@ -371,8 +373,10 @@ Dropkick.prototype = {
           this.selectedOptions.splice( index, 1 );
         }
       } else {
+        // this.selectedOptions[0].setAttribute("aria-selected", "false");
         _.removeClass( this.selectedOptions[0], "dk-option-selected" );
         _.addClass( elem, "dk-option-selected" );
+        elem.setAttribute("aria-selected", "true");
         this.data.elem.firstChild.innerHTML = option.text;
         this.selectedOptions[0] = elem;
         option.selected = true;
@@ -581,6 +585,16 @@ Dropkick.prototype = {
         this._scrollTo( i );
       }
       break;
+    case keys.space:
+      event.preventDefault();
+
+      if ( this.isOpen ){
+        this.close();
+      } else {
+        this.open();
+      }
+
+      break;
     case keys.tab:
     case keys.enter:
       for ( i = 0; i < options.length; i++ ) {
@@ -680,7 +694,11 @@ Dropkick.build = function( sel ) {
         option = _.create( "li", {
           "class": "dk-option",
           "data-value": node.value,
-          "innerHTML": node.text
+          "innerHTML": node.text,
+          "role": "option",
+          "aria-selected": "false",
+          "id":  sel.id + "_" + node.value,
+          "tabindex": "-1"
         });
 
         _.addClass( option, node.className );
@@ -706,7 +724,15 @@ Dropkick.build = function( sel ) {
           }));
         }
 
-        optgroupList = _.create( "ul", { "class": "dk-optgroup-options" });
+        optgroupList = _.create( "ul", {
+          "class": "dk-optgroup-options",
+          "aria-hidden": "false",
+          "aria-labelledby": "dk_" + sel.id,
+          "role": "listbox",
+          "tabindex": "0",
+          "aria-activedescendant": "dk_" + sel.id,
+          "aria-disabled": "false"
+        });
 
         for ( i = node.children.length; i--; children.unshift( node.children[ i ] ) );
         children.forEach( addOption, optgroupList );
@@ -718,10 +744,25 @@ Dropkick.build = function( sel ) {
 
   ret.elem = _.create( "div", {
     "class": "dk-select" + ( sel.multiple ? "-multi" : "" ),
-    "tabindex": sel.tabindex || 0
+    "tabindex": sel.tabindex || 0,
+    "role": "combobox",
+    "aria-expanded": "false",
+    "aria-autocomplete": "both",
+    "aria-owns": "dk_" + sel.id,
+    "aria-labelledby": "dk_" + sel.id,
+    "aria-activedescendant": "#TODO: Current **active** li ID(updated live)",
+    "aria-haspopup": "true"
   });
 
-  optList = _.create( "ul", { "class": "dk-select-options" });
+  optList = _.create( "ul", {
+    "class": "dk-select-options",
+    "id": "dk_" + sel.id,
+    "aria-hidden": "false",
+    "aria-labelledby": "#TODO: Current **selected** li ID (updated when clicked and DK closes)",
+    "role": "listbox",
+    "tabindex": "0",
+    "aria-disabled": "false"
+  });
 
   sel.disabled && _.addClass( ret.elem, "dk-select-disabled" );
   sel.id && ( ret.elem.id = "dk-" + sel.id );
