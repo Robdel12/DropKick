@@ -595,7 +595,7 @@ Dropkick.prototype = {
       }
 
       break;
-    case keys.tab:
+    // case keys.tab:
     case keys.enter:
       for ( i = 0; i < options.length; i++ ) {
         if ( _.hasClass( options[ i ], "dk-option-highlight" ) ) {
@@ -698,7 +698,7 @@ Dropkick.build = function( sel ) {
           "role": "option",
           "aria-selected": "false",
           "id":  sel.id + "_" + node.value,
-          "tabindex": "-1"
+          "tabindex": "0"
         });
 
         _.addClass( option, node.className );
@@ -750,7 +750,6 @@ Dropkick.build = function( sel ) {
     "aria-autocomplete": "both",
     "aria-owns": "dk_" + sel.id,
     "aria-labelledby": "dk_" + sel.id,
-    "aria-activedescendant": "#TODO: Current **active** li ID(updated live)",
     "aria-haspopup": "true"
   });
 
@@ -758,7 +757,6 @@ Dropkick.build = function( sel ) {
     "class": "dk-select-options",
     "id": "dk_" + sel.id,
     "aria-hidden": "false",
-    "aria-labelledby": "#TODO: Current **selected** li ID (updated when clicked and DK closes)",
     "role": "listbox",
     "tabindex": "0",
     "aria-disabled": "false"
