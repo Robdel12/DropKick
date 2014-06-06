@@ -86,29 +86,13 @@ var
       _[ fn + "Class" ]( elem, classname );
     },
 
-    // jQuery-like extend
-    extend: function() {
-      var p, options, i,
-        target = arguments[ 0 ];
+    // Shallow object extend
+    extend: function(obj) {
+      Array.prototype.slice.call(arguments, 1).forEach(function(source) {
+        if (source) for (var prop in source) obj[prop] = source[prop];
+      });
 
-      for ( i = 1; i < arguments.length; i++ ) {
-        options = arguments[ i ];
-        for ( p in options ) {
-          if ( options.hasOwnProperty( p ) ) {
-            try {
-              if ( options[ p ].constructor == Object ) {
-                target[ p ] = _.extend( target[ p ], options[ p ] );
-              } else {
-                target[ p ] = options[ p ];
-              }
-            } catch( e ) {
-              target[ p ] = options[ p ];
-            }
-          }
-        }
-      }
-
-      return target;
+      return obj;
     },
 
     // Returns the top and left offset of an element
@@ -406,7 +390,7 @@ Dropkick.prototype = {
    * Finds all options who's text matches a pattern (strict, partial, or fuzzy)
    * @param  {String} string  The string to search for
    * @param  {Integer} mode   How to search; "strict", "partial", or "fuzzy"
-   * @return {Array/Boolean}  An Array of matched element or False if not found
+   * @return {Array/Boolean}  An Array of matched elements
    */
   search: function( pattern, mode ) {
     var i, tokens, str, tIndex, sIndex, cScore, tScore, reg,
