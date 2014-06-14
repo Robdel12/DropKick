@@ -98,6 +98,14 @@ Documentation
 
   Removes the option (from both the select and Dropkick) at the given index.
 
+- dk.**disable**( *elem*, *disabled* )
+
+  - `elem` - *node/integer* The Dropkick option or Index of an option
+  - `disabled` - *boolean* The value of disabled (default is `true`)
+
+  Disables or enables an option; if only a boolean is passed (or nothing),
+  then the entire Dropkick will be disabled or enabled.
+
 - dk.**reset**( *clear* )
 
   - `clear` - *boolean*

@@ -325,6 +325,49 @@ Dropkick.prototype = {
     this.data.settings.open.call( this );
   },
 
+  /**
+   * Disables or enables an option or the entire Dropkick
+   * @param  {Node/Integer} elem     The element or index to disable
+   * @param  {Boolean}      disabled Value of disabled
+   */
+  disable: function( elem, disabled ) {
+    var disabledClass = "dk-option-disabled";
+
+    if ( arguments.length < 2 && typeof elem === "boolean" ) {
+      disabled = elem;
+      elem = this.data.elem;
+      disabledClass = "dk-select-disabled";
+      this.disabled = disabled ? true : false;
+    }
+
+    if ( disabled == undefined ) {
+      disabled = true;
+    }
+
+    if ( typeof elem === "number" ) {
+      elem = this.item( elem );
+    }
+
+    _[ disabled ? "addClass" : "removeClass" ]( elem, disabledClass );
+  },
+
+  /**
+   * Enables an option or the entire Dropkick if no argument is passed
+   * @param  {Node/Integer} elem The element or index to enable
+   */
+  enable: function( elem ) {
+    if ( elem == undefined ) {
+      this.disabled = false;
+      _.removeClass( this.data.elem, "dk-select-disabled" );
+      return;
+    }
+
+    if ( typeof elem === "number" ) {
+      elem = this.item( elem );
+    }
+
+    _.removeClass( elem, "dk-option-disabled" );
+  },
 
   /**
    * Selects an option from the list
