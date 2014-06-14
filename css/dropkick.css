@@ -154,23 +154,20 @@
   display: block;
   border-color: #3297fd; }
 
-.dk-select:hover,
-.dk-select:focus,
 .dk-select-multi:hover,
 .dk-select-multi:focus {
   outline: none; }
 
-.dk-select:hover .dk-selected,
-.dk-select:focus .dk-selected {
+.dk-selected:hover,
+.dk-selected:focus {
+  outline: none;
   border-color: #3297fd; }
-
-.dk-select:hover .dk-selected:before,
-.dk-select:focus .dk-selected:before {
-  border-top-color: #3297fd; }
-
-.dk-select:hover .dk-selected:after,
-.dk-select:focus .dk-selected:after {
-  border-left-color: #3297fd; }
+  .dk-selected:hover:before,
+  .dk-selected:focus:before {
+    border-top-color: #3297fd; }
+  .dk-selected:hover:after,
+  .dk-selected:focus:after {
+    border-left-color: #3297fd; }
 
 .dk-select-disabled {
   opacity: 0.6;

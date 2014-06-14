@@ -209,26 +209,21 @@ $dk-disabled-color: #BBBBBB !default;
   border-color: $dk-border-color-aux;
 }
 
-.dk-select:hover,
-.dk-select:focus,
 .dk-select-multi:hover,
 .dk-select-multi:focus {
   outline: none;
 }
 
-.dk-select:hover .dk-selected,
-.dk-select:focus .dk-selected {
+.dk-selected:hover,
+.dk-selected:focus {
+  outline: none;
   border-color: $dk-border-color-aux;
-}
-
-.dk-select:hover .dk-selected:before,
-.dk-select:focus .dk-selected:before {
-  border-top-color: $dk-border-color-aux;
-}
-
-.dk-select:hover .dk-selected:after,
-.dk-select:focus .dk-selected:after {
-  border-left-color: $dk-border-color-aux;
+  &:before {
+    border-top-color: $dk-border-color-aux;
+  }
+  &:after {
+    border-left-color: $dk-border-color-aux;
+  }
 }
 
 .dk-select-disabled {
@@ -248,7 +243,6 @@ $dk-disabled-color: #BBBBBB !default;
   }
 }
 
-// Hide the original select based on the data attr applied
 select[data-dkcacheid]{
   display: none;
 }
