@@ -1,17 +1,5 @@
-Version 2.0
+DropKick.js (2.0 RC1)
 ===========
-
-## Stripped dependancies
-
-Creating a new DK is done with `new Dropkick( HTMLSelectElement )`.
-
-## Using the jQuery plugin
-
-As you can see from *dropkick.jquery.js* using any library is a breeze!
-
-1. Import `dropkick.jquery.js` on the page after `dropkick.js`
-2. Do ya thang! `$(".something").dropkick()`
-
 
 Documentation
 =============
@@ -19,6 +7,13 @@ Documentation
 ## Basic Usage
 
 `new Dropkick( HTMLSelectELement, Options )`
+
+## Using the jQuery plugin
+
+As you can see from *dropkick.jquery.js* using any library is a breeze!
+
+1. Import `dropkick.jquery.js` on the page after `dropkick.js`
+2. Do ya thang! `$(".something").dropkick()`
 
 ### Options
 
@@ -187,9 +182,12 @@ be utilized under typical circumstances.
 TODO:
 =====
 
-- Create tests/dk examples file (-Robert)
+- Add tests using Mocha (-Robert)
+- Add Gulp for asset handling
+  - Make sure to gitignore npm files.
+- ~~Create dk examples file (-Robert)~~
 - ~~Document of all of the cool new features. (-Wil)~~
-- Fix accessibility issues (-Robert & anyone that can offer input)
+- ~~Fix accessibility issues (-Robert & anyone that can offer input)~~
 - Browser test (-Robert)
   - ~~IE~~
     - ~~7 (for the fuck of it!)~~ (Doesn't work. Falls back to normal selects)
