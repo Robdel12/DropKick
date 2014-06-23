@@ -343,11 +343,11 @@ Dropkick.prototype = {
   disable: function( elem, disabled ) {
     var disabledClass = "dk-option-disabled";
 
-    if ( arguments.length < 2 || typeof elem === "boolean" ) {
-      disabled = elem || true;
+    if ( arguments.length == 0 || typeof elem === "boolean" ) {
+      disabled = elem === undefined ? true : false;
       elem = this.data.elem;
       disabledClass = "dk-select-disabled";
-      this.disabled = disabled ? true : false;
+      this.disabled = disabled;
     }
 
     if ( disabled == undefined ) {
