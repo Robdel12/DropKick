@@ -67,11 +67,11 @@ var
 
     hasClass: function( elem, classname ) {
       var reg = new RegExp( "(^|\\s+)" + classname + "(\\s+|$)" );
-      return reg.test( elem.className );
+      return elem && reg.test( elem.className );
     },
 
     addClass: function( elem, classname ) {
-      if( !_.hasClass( elem, classname ) ) {
+      if( elem && !_.hasClass( elem, classname ) ) {
         elem.className += " " + classname;
       }
     },
@@ -333,7 +333,7 @@ Dropkick.prototype = {
   disable: function( elem, disabled ) {
     var disabledClass = "dk-option-disabled";
 
-    if ( arguments.length < 2 && typeof elem === "boolean" ) {
+    if ( arguments.length < 2 || typeof elem === "boolean" ) {
       disabled = elem;
       elem = this.data.elem;
       disabledClass = "dk-select-disabled";
@@ -349,24 +349,6 @@ Dropkick.prototype = {
     }
 
     _[ disabled ? "addClass" : "removeClass" ]( elem, disabledClass );
-  },
-
-  /**
-   * Enables an option or the entire Dropkick if no argument is passed
-   * @param  {Node/Integer} elem The element or index to enable
-   */
-  enable: function( elem ) {
-    if ( elem == undefined ) {
-      this.disabled = false;
-      _.removeClass( this.data.elem, "dk-select-disabled" );
-      return;
-    }
-
-    if ( typeof elem === "number" ) {
-      elem = this.item( elem );
-    }
-
-    _.removeClass( elem, "dk-option-disabled" );
   },
 
   /**
@@ -451,7 +433,7 @@ Dropkick.prototype = {
     if ( !pattern ) return this.options;
 
     // Fix Mode
-    mode = mode.toLowerCase() || "strict";
+    mode = mode ? mode.toLowerCase() : "strict";
     mode = mode == "fuzzy" ? 2 : mode == "partial" ? 1 : 0;
 
     reg = new RegExp( ( mode ? "" : "^" ) + pattern, "i" );
