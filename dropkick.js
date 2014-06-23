@@ -160,16 +160,24 @@ Dropkick.prototype = {
    * @param {Node/Integer} before HTMLOptionElement/Index of Element
    */
   add: function( elem, before ) {
-    var option;
+    var option, i;
 
     if ( elem.nodeName === "OPTION" ) {
       option = _.create( "li", {
+        "class": "dk-option",
         "data-value": elem.value,
-        "class": elem.className,
-        "innerHTML": elem.text
+        "innerHTML": elem.text,
+        "role": "option",
+        "aria-selected": "false",
+        "id": "dk" + dkCache.length + "-" + ( elem.id || elem.value.replace( " ", "-" ) )
       });
 
-      elem.disabled && _.addClass( option, "dk-option-disabled" );
+      _.addClass( option, elem.className );
+
+      if ( elem.disabled ) {
+        _.addClass( option, "dk-option-disabled" );
+        option.setAttribute( "aria-disabled", "true" );
+      }
 
       this.data.select.add( elem, before );
 
@@ -183,12 +191,14 @@ Dropkick.prototype = {
         this.data.elem.lastChild.appendChild( option );
       }
 
-      if ( elem.selected ) {
-        _.addClass( option, "dk-option-selected" );
-        this.selectedOptions.push( option );
-      }
+      option.addEventListener( "mouseover", this );
 
-      this.options.push( option );
+      i = this.options.indexOf( before );
+      this.options.splice( i, 0, option );
+
+      if ( elem.selected ) {
+        this.select( i );
+      }
     }
   },
 
