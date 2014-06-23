@@ -1,12 +1,10 @@
-jQuery.fn.dropkick = function ( opts ) {
+jQuery.fn.dropkick = function () {
+  var args = Array.prototype.slice.call( arguments );
   return $( this ).each(function() {
-    var dk;
-
-    if ( !opts || typeof opts === 'object' ) {
-      new Dropkick( this, opts || {} );
-    } else if ( typeof opts === 'string' ) {
-      dk = new Dropkick( this );
-      dk[ opts ].apply( dk, Array.prototype.slice.call( arguments, 1 ) );
+    if ( !args[0] || typeof args[0] === 'object' ) {
+      new Dropkick( this, args[0] || {} );
+    } else if ( typeof args[0] === 'string' ) {
+      Dropkick.prototype[ args[0] ].apply( new Dropkick( this ), args.slice( 1 ) );
     }
   });
 };
