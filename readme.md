@@ -10,7 +10,7 @@ Documentation
 
 or
 
-`new Dropkick( ID, Options );
+`new Dropkick( ID, Options );`
 
 ## Using the jQuery plugin
 

@@ -44,7 +44,6 @@ var
     }
   },
 
-
   noop = function() {},
 
   // DK default options
@@ -92,8 +91,8 @@ var
 
     // Shallow object extend
     extend: function(obj) {
-      Array.prototype.slice.call(arguments, 1).forEach(function(source) {
-        if (source) for (var prop in source) obj[prop] = source[prop];
+      Array.prototype.slice.call( arguments, 1 ).forEach( function( source ) {
+        if ( source ) for ( var prop in source ) obj[ prop ] = source[ prop ];
       });
 
       return obj;
@@ -179,7 +178,7 @@ Dropkick.prototype = {
         "innerHTML": elem.text,
         "role": "option",
         "aria-selected": "false",
-        "id": "dk" + dkCache.length + "-" + ( elem.id || elem.value.replace( " ", "-" ) )
+        "id": "dk" + this.data.cacheID + "-" + ( elem.id || elem.value.replace( " ", "-" ) )
       });
 
       _.addClass( option, elem.className );
