@@ -164,7 +164,13 @@ Dropkick.prototype = {
    * @param {Node/Integer} before HTMLOptionElement/Index of Element
    */
   add: function( elem, before ) {
-    var option, i;
+    var text, option, i;
+
+    if ( typeof elem === "string" ) {
+      text = elem;
+      elem = document.createElement("option");
+      elem.text = text;
+    }
 
     if ( elem.nodeName === "OPTION" ) {
       option = _.create( "li", {
