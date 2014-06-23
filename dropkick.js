@@ -29,6 +29,10 @@ var
       return new Dropkick( sel, opts );
     }
 
+    if ( typeof sel === "string" && sel[0] === "#" ) {
+      sel = document.getElementById( sel.substr( 1 ) );
+    }
+
     // Check if select has already been DK'd and return the DK Object
     if ( i = sel.getAttribute( "data-dkcacheid" ) ) {
       _.extend( dkCache[ i ].data.settings, opts );
