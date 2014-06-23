@@ -8,6 +8,10 @@ Documentation
 
 `new Dropkick( HTMLSelectELement, Options )`
 
+or
+
+`new Dropkick( ID, Options );
+
 ## Using the jQuery plugin
 
 As you can see from *dropkick.jquery.js* using any library is a breeze!
@@ -71,7 +75,7 @@ As you can see from *dropkick.jquery.js* using any library is a breeze!
 
 - dk.**add**( *elem*, *before* )
 
-  - `elem` - *Node* The HTMLOptionElement to be inserted
+  - `elem` - *Node/String* The HTMLOptionElement or a string to be inserted
   - `before` - *Node/Integer* HTMLOptionElement/Index `elem` is to be
     inserted before
 
