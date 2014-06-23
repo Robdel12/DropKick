@@ -334,7 +334,7 @@ Dropkick.prototype = {
     var disabledClass = "dk-option-disabled";
 
     if ( arguments.length < 2 || typeof elem === "boolean" ) {
-      disabled = elem;
+      disabled = elem || true;
       elem = this.data.elem;
       disabledClass = "dk-select-disabled";
       this.disabled = disabled ? true : false;
