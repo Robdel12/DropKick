@@ -211,6 +211,9 @@
         parent   = current.closest('.dk_optgroup',options),
         first    = lis.first().hasClass('dk_optgroup') ? lis.first().find('li:not(.disabled)').first() : lis.first(),
         last     = lis.last().hasClass('dk_optgroup') ? lis.last().find('li:not(.disabled)').last() : lis.last(),
+        relevantElements = [],
+        uniqueChars,
+        currentIndex,
         next,
         prev,
         now,
@@ -286,14 +289,46 @@
         }
         //find and switch to the appropriate option
         list = lis.find('a');
+
+        // get the unique characters for the input, "AAAAA" -> ["A"], "AFRICA" -> ["A", "F", "R", "I", "C"]
+        uniqueChars = $.unique(data.finder.split(''));
+
         for(i = 0, l = list.length; i < l; i++){
           $a = $(list[i]);
-          if ($a.html().toUpperCase().indexOf(data.finder) === 0 && !$a.closest('.dk_optgroup',options).hasClass('disabled')) {
+          // get all option elements that starts with the unique character, eg. "Afghanistan", "Albania", etc. for ['A']
+          // if there's more than 1 unique char, then ignore because user is actually searching by typing the options.
+          if(uniqueChars.length === 1 && $a.text()[0].toUpperCase() === uniqueChars[0]){
+            relevantElements.push(list[i]);
+          }
+
+          if ($a.html().toUpperCase().indexOf(data.finder) === 0 && !$a.closest('.dk_optgroup',options).hasClass('disabled') && data.finder.length > 1) {
             updateFields($a, $dk);
             setCurrent($a.parent(), $dk, e);
             break;
           }
         }
+
+        // do the hotkey lookup only if there are relevantElements AND there's only 1 unique char
+        // OR if there's only 1 character on the data.finder
+        if ((data.finder.length > 1 && relevantElements.length > 1 && uniqueChars.length === 1) || data.finder.length === 1) {
+          currentIndex = $.inArray(current.find('a')[0], relevantElements);
+
+          // the new current element should be one of the relevantElements that's not currently selected
+          // AND it's index is bigger than the currently selected element
+          // example, if currently selected is "Australia", only "Austria" & "Azerbaijan" can be the new selected element
+          // unless, the currently selected element is the last member of the relevantElements, in this case would be "Azerbaijan".
+          $a = $(relevantElements).filter(function(index, el){
+            return el !== current[0] && index > currentIndex;
+          });
+
+          // if currently selected element is the last elem of relevantElements, we should select the first element as the new element
+          // which is "Australia", so it goes in a loop so to speak.
+          $a = $a.length === 0 ? $(relevantElements[0]) : $a
+
+          updateFields($a, $dk);
+          setCurrent($a.parent(), $dk, e);
+        }
+
         $dk.data('dropkick', data);
       }
     },
