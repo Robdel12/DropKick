@@ -1,5 +1,12 @@
 # gulp-uglify changelog
 
+## 0.3.1
+
+- Fixed homepage URL in npm metadata
+- Removes UglifyJS-inserted sourceMappingURL comment [Fixes #39]
+- Don’t pass input source map to UglifyJS if there are no mappings
+- Added installation instructions
+
 ## 0.3.0
 
 - Removed support for old style source maps

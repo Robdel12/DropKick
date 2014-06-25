@@ -4,10 +4,11 @@ var test = require('tape'),
 		gulpUglify = require('../'),
 		uglifyjs = require('uglify-js'),
 		inlineSourceMap = require('inline-source-map');
-	
+
 var testContentsInput = '"use strict"; (function(console, first, second) { console.log(first + second) }(5, 10))';
 var testContentsExpected = uglifyjs.minify(testContentsInput, {fromString: true}).code;
 var testSourceMap = inlineSourceMap().addGeneratedMappings('test1.js', testContentsInput, {line:0, column:0}).addSourceContent('test1.js', testContentsInput).toJSON();
+var emptySourceMap = inlineSourceMap().addSourceContent('test2.js', testContentsInput).toJSON();
 
 var testFile1 = new Vinyl({
 	cwd: "/home/terin/broken-promises/",
@@ -17,7 +18,15 @@ var testFile1 = new Vinyl({
 });
 testFile1.sourceMap = testSourceMap;
 
-test('should minify files', function(t) {
+var testFile2 = new Vinyl({
+	cwd: "/home/terin/broken-promises/",
+	base: "/home/terin/broken-promises/test",
+	path: "/home/terin/broken-promises/test/test2.js",
+	contents: new Buffer(testContentsInput)
+});
+testFile2.sourceMap = emptySourceMap;
+
+function testWithFile(t, file) {
 	t.plan(13);
 
 	var stream = gulpUglify();
@@ -41,5 +50,13 @@ test('should minify files', function(t) {
 		t.ok(newFile.sourceMap.mappings, 'source map has mappings');
 	});
 
-	stream.write(testFile1);
+	stream.write(file);
+}
+
+test('should minify files', function(t) {
+	testWithFile(t, testFile1);
+});
+
+test('should generate a valid source map with an empty input source map', function(t) {
+	testWithFile(t, testFile2);
 });

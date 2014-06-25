@@ -132,6 +132,19 @@ gulp.task('lint', function() {
     .pipe(myReporter);
 });
 ```
+## Extract
+
+Tells JSHint to extract JavaScript from HTML files before linting (see [JSHint CLI flags](http://www.jshint.com/docs/cli/)). Keep in mind that it doesn't override the file's content after extraction. This is your tool of choice to lint web components!
+
+```javascript
+gulp.task('lintHTML', function() {
+  return gulp.src('./src/*.html')
+    // if flag is not defined default value is 'auto'
+    .pipe(jshint.extract('auto|always|never'))
+    .pipe(jshint())
+    .pipe(jshint.reporter('default'));
+});
+```
 
 ## LICENSE
 

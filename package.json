@@ -22,8 +22,8 @@
     "gulp": "~3.6.2",
     "gulp-rename": "~1.2.0",
     "gulp-concat": "~2.2.0",
-    "gulp-uglify": "~0.3.0",
-    "gulp-jshint": "~1.5.5",
-    "gulp-sass": "~0.7.1"
+    "gulp-uglify": "~0.3.1",
+    "gulp-jshint": "~1.6.3",
+    "gulp-sass": "~0.7.2"
   }
 }
