@@ -1,4 +1,7 @@
-DropKick
+# Version 2.0
+We're extrememly close to releasing Version 2.0 to master. Please check out the release tags to grab a Release Candidate version of 2.0 and test it out! [DropKick.js 2.0 Branch](https://github.com/Robdel12/DropKick/tree/version-2.0)
+
+DropKick 1.5.x
 =
 Creating custom dropdowns is usually a tedious process that requires a ton of extra setup time. Oftentimes lacking conveniences that native dropdowns have such as keyboard navigation. DropKick removes the tedium and lets you focus on making s@#t look good.
 
@@ -60,13 +63,6 @@ You don't have to alter the version number either. That'll be done after we crea
 
 ### Found a bug? 
 Please [let us know](https://github.com/robdel12/DropKick/issues).
-
-What next: 
--
-### Version 2.0
-Version 2.0 is going to be a compleate rewrite of the plugin. Suggestions are welcome for features :)
-
-Got an idea for improving DropKick? Or maybe a bug fix? Please feel free to fork a copy and submit a pull request! We've merged in over 30 pull requests in the past month. We're no stranger to it.
 
 Maintained by:
 -
