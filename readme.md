@@ -1,4 +1,4 @@
-DropKick.js (2.0 RC1)
+DropKick.js (2.0 RC2)
 ===========
 
 Documentation
@@ -22,31 +22,31 @@ As you can see from *dropkick.jquery.js* using any library is a breeze!
 ### Options
 
 - **initialize**: *function*
-  
-  Called when the Dropkick object is initialized.  
+
+  Called when the Dropkick object is initialized.
   The value of `this` is the Dropkick object itself.
 
 - **change**: *function*
 
   Called whenever the value of the Dropkick select changes (by user action or
-  through the API).  
+  through the API).
   The value of `this` is the Dropkick object itself.
 
 - **open**: *function*
 
-  Called whenever the Dropkick select is opened.  
+  Called whenever the Dropkick select is opened.
   The value of `this` is the Dropkick object itself.
 
 - **close**: *function*
 
-  Called whenever the Dropkick select is closed.  
+  Called whenever the Dropkick select is closed.
   The value of `this` is the Dropkick object itself.
 
 - **search**: *string*
 
   - `"strict"` - The search string matches exactly from the begining of the
     option's text value (case insensitive).
-  - `"partial"` - The search string matches part of the option's text value 
+  - `"partial"` - The search string matches part of the option's text value
     (case insensitive).
   - `"fuzzy"` - The search string matches the characters in the given order (not
     exclusively). The strongest match is selected first. (case insensitive).
@@ -55,12 +55,12 @@ As you can see from *dropkick.jquery.js* using any library is a breeze!
 
 - **mobile**: *boolean*
 
-  If `true`, it will render the Dropkick element for mobile devices also.  
+  If `true`, it will render the Dropkick element for mobile devices also.
   Defaults to `false`.
 
 ### Properties
 
-- dk.**data** - *object* 
+- dk.**data** - *object*
   - **elem** - *node* The Dropkick element
   - **select** - *node* The origianl select element
   - **settings** - *object* The options (defaults and passed)
@@ -174,7 +174,7 @@ be utilized under typical circumstances.
 
   - `"strict"` - The search string matches exactly from the begining of the
     option's text value (case insensitive).
-  - `"partial"` - The search string matches part of the option's text value 
+  - `"partial"` - The search string matches part of the option's text value
     (case insensitive).
   - `"fuzzy"` - The search string matches the characters in the given order (not
     exclusively). The strongest match is selected first. (case insensitive).
