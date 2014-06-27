@@ -1,4 +1,4 @@
-DropKick.js (2.0 RC2)
+DropKick.js (2.0 RC2) [![Build Status](https://travis-ci.org/Robdel12/DropKick.svg?branch=version-2.0)](https://travis-ci.org/Robdel12/DropKick)
 ===========
 
 Documentation
