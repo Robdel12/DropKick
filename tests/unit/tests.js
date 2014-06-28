@@ -22,11 +22,13 @@ QUnit.test( "Dropkick closes", 1, function( assert ) {
   assert.equal(dk.isOpen, false);
 });
 
-QUnit.test( "Dropkick selects an option", 2, function( assert ) {
+QUnit.test( "Dropkick selects an option", 4, function( assert ) {
   var dk = new Dropkick("#normal_select");
 
   assert.equal(dk.select(4), dk.item(4));
   assert.equal(dk.item(4).classList.contains("dk-option-selected"), true);
+  assert.equal(dk.select(4), dk.selectedOptions[0]);
+  assert.equal(dk.selectedIndex, 4);
 });
 
 QUnit.test( "Dropkick searches Alabama and returns Alabama", 1, function( assert ) {
@@ -73,6 +75,7 @@ QUnit.test( "Disable the one option in the select", 1, function( assert ) {
 QUnit.test( "Update the length properly", 1, function( assert ) {
   var dk = new Dropkick("#normal_select");
   while(dk.length > 49) dk.remove(1);
+
   assert.equal(dk.length, 49);
 });
 
