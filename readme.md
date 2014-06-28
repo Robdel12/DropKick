@@ -186,9 +186,9 @@ be utilized under typical circumstances.
 TODO:
 =====
 
-- Add tests using Mocha (-Robert)
-- Add Gulp for asset handling
-  - Make sure to gitignore npm files.
+- Add tests using qunit (-Robert)
+- ~~Add Gulp for asset handling~~
+  - ~~Make sure to gitignore npm files.~~
 - ~~Create dk examples file (-Robert)~~
 - ~~Document of all of the cool new features. (-Wil)~~
 - ~~Fix accessibility issues (-Robert & anyone that can offer input)~~
