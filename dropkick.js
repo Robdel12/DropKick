@@ -182,6 +182,7 @@ Dropkick.prototype = {
       });
 
       _.addClass( option, elem.className );
+      this.length += 1;
 
       if ( elem.disabled ) {
         _.addClass( option, "dk-option-disabled" );
@@ -232,6 +233,7 @@ Dropkick.prototype = {
     this.options.splice( index, 1 );
     this.data.select.remove( index );
     this.select( this.data.select.selectedIndex );
+    this.length -= 1;
   },
 
   /**
