@@ -560,7 +560,7 @@ Dropkick.prototype = {
   },
 
   _delegate: function( event ) {
-    var index, lastIndex,
+    var index, firstIndex, lastIndex,
       target = event.target;
 
     if ( _.hasClass( target, "dk-option-disabled" ) ) {
@@ -572,22 +572,27 @@ Dropkick.prototype = {
     }
 
     if ( _.hasClass( target, "dk-option" ) ) {
-      if ( event.shiftKey ) {
-        window.getSelection().collapseToStart();
+      window.getSelection().collapseToStart();
 
+      if ( event.shiftKey ) {
+        firstIndex = this.options.indexOf( this.selectedOptions[0] );
         lastIndex = this.options.indexOf( this.selectedOptions[ this.selectedOptions.length - 1 ] );
         index =  this.options.indexOf( target );
-        
+
+        if ( index > firstIndex && index < lastIndex ) index = firstIndex;
+        if ( index > lastIndex && lastIndex > firstIndex ) lastIndex = firstIndex;
+
+        this.reset( true );
+
         if ( lastIndex > index ) {
-          for ( ; index < lastIndex; index++ ) {
-            this.select( index );
-          }
+          while ( index < lastIndex + 1 ) this.select( index++ );
         } else {
-          for ( ; index > lastIndex; index-- ) {
-            this.select( index );
-          }
+          while ( index > lastIndex - 1 ) this.select( index-- );
         }
+      } else if ( event.ctrlKey || event.metaKey ) {
+        this.select( target );
       } else {
+        this.reset( true );
         this.select( target );
       }
     }
