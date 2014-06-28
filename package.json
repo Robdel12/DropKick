@@ -24,6 +24,11 @@
     "gulp-qunit": "~0.2.1",
     "gulp-util": "~2.2.14",
     "gulp": "~3.5.1",
-    "qunitjs": "~1.14.0"
+    "qunitjs": "~1.14.0",
+    "gulp-rename": "~1.2.0",
+    "gulp-concat": "~2.2.0",
+    "gulp-uglify": "~0.3.1",
+    "gulp-jshint": "~1.6.3",
+    "gulp-sass": "~0.7.2"
   }
 }

@@ -1,17 +1,9 @@
-.dk-select,
-.dk-select *,
-.dk-select *:before,
-.dk-select *:after,
-.dk-select-multi,
-.dk-select-multi *,
-.dk-select-multi *:before,
-.dk-select-multi *:after {
+.dk-select, .dk-select *, .dk-select *:before, .dk-select *:after, .dk-select-multi, .dk-select-multi *, .dk-select-multi *:before, .dk-select-multi *:after {
   -prefix-box-sizing: border-box;
   -prefix-box-sizing: border-box;
   box-sizing: border-box; }
 
-.dk-select,
-.dk-select-multi {
+.dk-select, .dk-select-multi {
   position: relative;
   display: inline-block;
   vertical-align: middle;
@@ -25,7 +17,7 @@
   overflow: hidden;
   position: relative;
   background-color: white;
-  border: 1px solid #cccccc;
+  border: 1px solid #CCCCCC;
   border-radius: 0.4em;
   padding: 0 1.5em 0 0.5em;
   -prefix-text-overflow: ellipsis;
@@ -39,16 +31,16 @@
     top: 50%;
     border: solid transparent;
     border-width: 0.25em 0.25em 0;
-    border-top-color: #cccccc;
+    border-top-color: #CCCCCC;
     margin: -0.125em 0.5em 0 0; }
   .dk-selected:after {
     top: 0;
     height: 100%;
-    border-left: 1px solid #cccccc;
+    border-left: 1px solid #CCCCCC;
     margin: 0 1.5em 0 0; }
 
 .dk-selected-disabled {
-  color: #bbbbbb; }
+  color: #BBBBBB; }
 
 .dk-select .dk-select-options {
   position: absolute;
@@ -72,7 +64,7 @@
   width: 100%;
   z-index: 100;
   background-color: white;
-  border: 1px solid #cccccc;
+  border: 1px solid #CCCCCC;
   border-radius: 0.4em;
   overflow-x: hidden;
   max-height: 10.5em;
@@ -96,11 +88,11 @@
   color: #fff; }
 
 .dk-select-options .dk-option-disabled {
-  color: #bbbbbb;
+  color: #BBBBBB;
   background-color: transparent; }
 
 .dk-optgroup {
-  border: solid #cccccc;
+  border: solid #CCCCCC;
   border-width: 1px 0;
   padding: 0.25em 0;
   margin-top: 0.25em; }
@@ -139,39 +131,31 @@
   border-bottom-right-radius: 0;
   border-color: #3297fd; }
 
-.dk-select-open-up .dk-selected:before,
-.dk-select-open-down .dk-selected:before {
+.dk-select-open-up .dk-selected:before, .dk-select-open-down .dk-selected:before {
   border-width: 0 0.25em 0.25em;
   border-bottom-color: #3297fd; }
 
-.dk-select-open-up .dk-selected:after,
-.dk-select-open-down .dk-selected:after {
+.dk-select-open-up .dk-selected:after, .dk-select-open-down .dk-selected:after {
   border-left-color: #3297fd; }
 
-.dk-select-open-up .dk-select-options,
-.dk-select-open-down .dk-select-options,
-.dk-select-multi:focus .dk-select-options {
+.dk-select-open-up .dk-select-options, .dk-select-open-down .dk-select-options, .dk-select-multi:focus .dk-select-options {
   display: block;
   border-color: #3297fd; }
 
-.dk-select-multi:hover,
-.dk-select-multi:focus {
+.dk-select-multi:hover, .dk-select-multi:focus {
   outline: none; }
 
-.dk-selected:hover,
-.dk-selected:focus {
+.dk-selected:hover, .dk-selected:focus {
   outline: none;
   border-color: #3297fd; }
-  .dk-selected:hover:before,
-  .dk-selected:focus:before {
+  .dk-selected:hover:before, .dk-selected:focus:before {
     border-top-color: #3297fd; }
-  .dk-selected:hover:after,
-  .dk-selected:focus:after {
+  .dk-selected:hover:after, .dk-selected:focus:after {
     border-left-color: #3297fd; }
 
 .dk-select-disabled {
   opacity: 0.6;
-  color: #bbbbbb;
+  color: #BBBBBB;
   cursor: not-allowed; }
   .dk-select-disabled .dk-selected:hover, .dk-select-disabled .dk-selected:focus {
     border-color: inherit; }
