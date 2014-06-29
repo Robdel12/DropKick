@@ -187,6 +187,10 @@ TODO:
 =====
 
 - Add tests using qunit (-Robert)
+- Update readme with contributing guide
+- Click and drag for multi select
+- Screen readers & Multi selects don't play nice
+- Update readme to explain DK a little more? Yea.. that.
 - ~~Add Gulp for asset handling~~
   - ~~Make sure to gitignore npm files.~~
 - ~~Create dk examples file (-Robert)~~
