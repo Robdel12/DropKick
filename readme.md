@@ -182,14 +182,35 @@ be utilized under typical circumstances.
   Returns an array of matched Dropkick options. ***Note**: will return an empty
   array if no match is found.*
 
+## Contributing to DropKick
 
-TODO:
+### Creating an issue
+- Give a description of the issue and what version of DK.
+- Tell us any other JS that might be running on the same page.
+- Please please give a JS bin or codepen example with the issue. It's the easiest way for us to figure out the issue.
+
+### Adding or editing code
+- Fork Dropkick
+- Run `npm install` to install all the dev dependancies
+- Make your changes
+  - You can chose to do the changes on either the `develop` branch or `master` branch of your fork
+- Write tests
+  - If you're adding a feature write a test for it
+  - If you're fixing a bug write a test for it.
+- Run `gulp` from your command line.
+  - The default runner will run the test suite, lint, and minify the JS.
+- If all tests pass you can create a pull request vs the `develop` branch. Tag any related github issue tickets in the PR.
+
+**If you fail to do any of these we probably will not accept your changes**
+
+
+TODO before going to master:
 =====
 
 - Add tests using qunit (-Robert)
-- Update readme with contributing guide
-- Click and drag for multi select
-- Screen readers & Multi selects don't play nice
+- Update readme with contributing guide (-Robert)
+- Click and drag for multi select (-Wil)
+- Screen readers & Multi selects don't play nice (-Robert)
 - Update readme to explain DK a little more? Yea.. that.
 - ~~Add Gulp for asset handling~~
   - ~~Make sure to gitignore npm files.~~
