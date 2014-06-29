@@ -187,13 +187,14 @@ be utilized under typical circumstances.
 ### Creating an issue
 - Give a description of the issue and what version of DK.
 - Tell us any other JS that might be running on the same page.
-- Please please give a JS bin or codepen example with the issue. It's the easiest way for us to figure out the issue.
+- Please please provide a JS bin or codepen example. It's the easiest way for us to figure out what's wrong.
 
 ### Adding or editing code
 - Fork Dropkick
 - Run `npm install` to install all the dev dependancies
 - Make your changes
   - You can chose to do the changes on either the `develop` branch or `master` branch of your fork
+  - Follow the same coding style that's written in dropkick.js. **Not doing this will result in a lot of comments on your pull request*
 - Write tests
   - If you're adding a feature write a test for it
   - If you're fixing a bug write a test for it.
@@ -208,7 +209,7 @@ TODO before going to master:
 =====
 
 - Add tests using qunit (-Robert)
-- Update readme with contributing guide (-Robert)
+- ~~Update readme with contributing guide (-Robert)~~
 - Click and drag for multi select (-Wil)
 - Screen readers & Multi selects don't play nice (-Robert)
 - Update readme to explain DK a little more? Yea.. that.
