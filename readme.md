@@ -182,7 +182,7 @@ be utilized under typical circumstances.
   Returns an array of matched Dropkick options. ***Note**: will return an empty
   array if no match is found.*
 
-## Contributing to DropKick
+## Contributing to DropKick.js
 
 ### Creating an issue
 - Give a description of the issue and what version of DK.
@@ -194,7 +194,7 @@ be utilized under typical circumstances.
 - Run `npm install` to install all the dev dependancies
 - Make your changes
   - You can chose to do the changes on either the `develop` branch or `master` branch of your fork
-  - Follow the same coding style that's written in dropkick.js. **Not doing this will result in a lot of comments on your pull request*
+  - Follow the same coding style that's written in dropkick.js. ** Not doing this will result in a lot of comments on your pull request*
 - Write tests
   - If you're adding a feature write a test for it
   - If you're fixing a bug write a test for it.
@@ -242,4 +242,4 @@ TODO before going to master:
 Suggestions or Bugs?
 ====================
 
-Search for bugs ruthelessly and call any vermin to our attention!
+Search for bugs ruthlessly and call any vermin to our attention!

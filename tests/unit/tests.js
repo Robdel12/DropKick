@@ -14,11 +14,12 @@ QUnit.test( "Dropkick opens", 1, function( assert ) {
   assert.equal(dk.isOpen, true);
 });
 
-QUnit.test( "Dropkick closes", 1, function( assert ) {
+QUnit.test( "Dropkick closes", 2, function( assert ) {
   var dk = new Dropkick("#normal_select");
   dk.open();
-  dk.close();
 
+  assert.notEqual(dk.isOpen, false);
+  dk.close();
   assert.equal(dk.isOpen, false);
 });
 
