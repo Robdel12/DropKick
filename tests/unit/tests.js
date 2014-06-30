@@ -47,7 +47,7 @@ QUnit.test( "Adds an option to the select", 1, function( assert ) {
 
 QUnit.test( "Remove an option from the select", 1, function( assert ) {
   var dk = new Dropkick("#normal_select");
-  dk.remove(2); //2 = Alabama
+  dk.remove(2); //2 = Alaska
 
   assert.notEqual(dk.item(2).innerHTML, "Alaska");
 });
