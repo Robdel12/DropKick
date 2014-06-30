@@ -34,7 +34,7 @@ var
     }
 
     // Check if select has already been DK'd and return the DK Object
-    if ( i = sel.getAttribute( "data-dkcacheid" ) ) {
+    if ( i == sel.getAttribute( "data-dkcacheid" ) ) {
       _.extend( dkCache[ i ].data.settings, opts );
       return dkCache[ i ];
     }
@@ -280,7 +280,7 @@ Dropkick.prototype = {
       }
     }
 
-    if ( dkCache.length == 0 ) {
+    if ( dkCache.length === 0 ) {
       document.addEventListener( "click", Dropkick.onDocClick );
     }
 
@@ -354,14 +354,14 @@ Dropkick.prototype = {
   disable: function( elem, disabled ) {
     var disabledClass = "dk-option-disabled";
 
-    if ( arguments.length == 0 || typeof elem === "boolean" ) {
+    if ( arguments.length === 0 || typeof elem === "boolean" ) {
       disabled = elem === undefined ? true : false;
       elem = this.data.elem;
       disabledClass = "dk-select-disabled";
       this.disabled = disabled;
     }
 
-    if ( disabled == undefined ) {
+    if ( disabled === undefined ) {
       disabled = true;
     }
 
@@ -630,6 +630,7 @@ Dropkick.prototype = {
     switch ( event.keyCode ) {
     case keys.up:
       i = -1;
+      break;
     case keys.down:
       event.preventDefault();
       lastSelected = selected[ selected.length - 1 ];
@@ -653,6 +654,7 @@ Dropkick.prototype = {
         this.open();
         break;
       }
+      break;
     case keys.tab:
     case keys.enter:
       for ( i = 0; i < options.length; i++ ) {
@@ -660,6 +662,7 @@ Dropkick.prototype = {
           this.select( i );
         }
       }
+      break;
     case keys.esc:
       if ( this.isOpen ) {
         event.preventDefault();
@@ -816,6 +819,7 @@ Dropkick.build = function( sel, idpre ) {
       "innerHTML": sel.options[ sel.selectedIndex ].text,
       "id": idpre + "-combobox",
       "aria-owns": optList.id,
+      "aria-live": "assertive",
       "role": "combobox"
     }));
   } else {
@@ -834,7 +838,7 @@ Dropkick.build = function( sel, idpre ) {
 Dropkick.onDocClick = function( event ) {
   var t, tId, i;
 
-  if ( t = document.getElementById( event.target.htmlFor ) ) {
+  if ( t == document.getElementById( event.target.htmlFor ) ) {
     if ( ( tId = t.getAttribute( "data-dkcacheid" ) ) !== null ) {
       dkCache[ tId ].data.elem.focus();
     }
