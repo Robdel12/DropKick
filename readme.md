@@ -1,23 +1,25 @@
 DropKick.js (2.0 RC2) [![Build Status](https://travis-ci.org/Robdel12/DropKick.svg?branch=version-2.0)](https://travis-ci.org/Robdel12/DropKick)
 ===========
 
-Documentation
-=============
+# Quick start
 
-## Basic Usage
+### Basic Usage
 
-`new Dropkick( HTMLSelectELement, Options )`
+- Download the files from the `production` folder
+- Insert the JS onto the page
+- Put the stylesheet where you would like
+- Add an ID or class to the select(s) you would like to DropKick
+- Call `new Dropkick( HTMLSelectELement, Options )` or `new Dropkick( ID, Options );` in your script
 
-or
+### Using the jQuery plugin
 
-`new Dropkick( ID, Options );`
-
-## Using the jQuery plugin
-
-As you can see from *dropkick.jquery.js* using any library is a breeze!
+As you can see from `dropkick.jquery.js` using any library is a breeze!
 
 1. Import `dropkick.jquery.js` on the page after `dropkick.js`
 2. Do ya thang! `$(".something").dropkick()`
+
+Documentation
+=============
 
 ### Options
 
@@ -212,7 +214,8 @@ TODO before going to master:
 - ~~Update readme with contributing guide (-Robert)~~
 - Click and drag for multi select (-Wil)
 - Screen readers & Multi selects don't play nice (-Robert)
-- Update readme to explain DK a little more? Yea.. that.
+- Update the default gulp runner to include everything.
+- ~~Update readme to explain DK a little more? Yea.. that.~~
 - ~~Add Gulp for asset handling~~
   - ~~Make sure to gitignore npm files.~~
 - ~~Create dk examples file (-Robert)~~

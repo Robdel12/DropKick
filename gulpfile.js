@@ -6,10 +6,7 @@ var gulp = require('gulp'),
     uglify = require('gulp-uglify'),
     rename = require('gulp-rename');
 
-gulp.task('default', function() {
-  return gulp.src('./tests/src/runner.html')
-    .pipe(qunit());
-});
+gulp.task('default', ['lint', 'sass', 'scripts', 'test']);
 
 // Lint Task
 gulp.task('lint', function() {
@@ -22,7 +19,8 @@ gulp.task('lint', function() {
 gulp.task('sass', function() {
   return gulp.src('css/*.scss')
     .pipe(sass())
-    .pipe(gulp.dest('css'));
+    .pipe(gulp.dest('css'))
+    .pipe(gulp.dest('production/css'));
 });
 
 // Concatenate & Minify JS
@@ -30,7 +28,7 @@ gulp.task('scripts', function() {
   return gulp.src('dropkick.js')
     .pipe(rename('dropkick.min.js'))
     .pipe(uglify())
-    .pipe(gulp.dest(''));
+    .pipe(gulp.dest('production/'));
 });
 
 // Watch Files For Changes

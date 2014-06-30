@@ -59,13 +59,6 @@ QUnit.test( "Disable the entire select", 1, function( assert ) {
   assert.equal(dk.disabled, true);
 });
 
-QUnit.test( "Disable the entire select", 1, function( assert ) {
-  var dk = new Dropkick("#normal_select");
-  dk.disable();
-
-  assert.equal(dk.disabled, true);
-});
-
 QUnit.test( "Disable the one option in the select", 1, function( assert ) {
   var dk = new Dropkick("#normal_select");
   dk.disable(2); //2 = Alabama
