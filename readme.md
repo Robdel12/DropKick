@@ -1,4 +1,4 @@
-DropKick.js (2.0 RC2) [![Build Status](https://travis-ci.org/Robdel12/DropKick.svg?branch=version-2.0)](https://travis-ci.org/Robdel12/DropKick)
+DropKick.js (2.0) [![Build Status](https://travis-ci.org/Robdel12/DropKick.svg?branch=version-2.0)](https://travis-ci.org/Robdel12/DropKick)
 ===========
 
 # Quick start
@@ -205,42 +205,6 @@ be utilized under typical circumstances.
 - If all tests pass you can create a pull request vs the `develop` branch. Tag any related github issue tickets in the PR.
 
 **If you fail to do any of these we probably will not accept your changes**
-
-
-TODO before going to master:
-=====
-
-- Add tests using qunit (-Robert)
-- ~~Update readme with contributing guide (-Robert)~~
-- Click and drag for multi select (-Wil)
-- Screen readers & Multi selects don't play nice (-Robert)
-- ~~Update the default gulp runner to include everything.~~
-- ~~Update readme to explain DK a little more? Yea.. that.~~
-- ~~Add Gulp for asset handling~~
-  - ~~Make sure to gitignore npm files.~~
-- ~~Create dk examples file (-Robert)~~
-- ~~Document of all of the cool new features. (-Wil)~~
-- ~~Fix accessibility issues (-Robert & anyone that can offer input)~~
-- Browser test (-Robert)
-  - ~~IE~~
-    - ~~7 (for the fuck of it!)~~ (Doesn't work. Falls back to normal selects)
-    - ~~8~~
-    - ~~9~~
-    - ~~10~~
-    - ~~11~~
-  - ~~FF (29.0.1)~~
-  - ~~Chrome~~
-  - ~~Safari (6.0.5 & 7.0.3)~~
-  - ~~Opera (21.0)~~
-  - Mobile
-    - ~~iOS safari (try to get 6+)~~
-    - ~~Chrome iOS~~
-    - ~~Chrome Android (-Wil)~~
-    - Android browser (Anyone?)
-    - Windows phone (-Robert)
-      - ~~8.0~~
-      - 8.1
-
 
 Suggestions or Bugs?
 ====================
