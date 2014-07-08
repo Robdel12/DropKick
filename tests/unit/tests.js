@@ -61,9 +61,25 @@ QUnit.test( "Disable the entire select", 1, function( assert ) {
 
 QUnit.test( "Disable the one option in the select", 1, function( assert ) {
   var dk = new Dropkick("#normal_select");
-  dk.disable(2); //2 = Alabama
+  dk.disable(2); //2 = Alaska
 
   assert.equal(dk.item(2).classList.contains("dk-option-disabled"), true);
+});
+
+QUnit.test( "Reset the selection", 2, function( assert ) {
+  var dk = new Dropkick("#normal_select");
+  dk.select(2); //2 = Alaska
+
+  assert.equal(dk.selectedIndex, 2); //Make sure we're really selected on the second index
+  dk.reset();
+  assert.equal(dk.selectedIndex, 0);
+});
+
+QUnit.test( "Dropkick returns the proper selected value", 1, function( assert ) {
+  var dk = new Dropkick("#normal_select");
+  dk.select(2); //2 = Alaska
+
+  assert.equal(dk.value, "AK"); //Make sure we're really selected on the second index
 });
 
 QUnit.test( "Update the length properly", 1, function( assert ) {
