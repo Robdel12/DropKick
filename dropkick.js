@@ -62,7 +62,7 @@ var
     close: noop,
 
     // Search method; "strict", "partial", or "fuzzy"
-    search: "strict",
+    search: "strict"
   },
 
   // Common Utilities
@@ -90,7 +90,7 @@ var
     },
 
     // Shallow object extend
-    extend: function(obj) {
+    extend: function( obj ) {
       Array.prototype.slice.call( arguments, 1 ).forEach( function( source ) {
         if ( source ) for ( var prop in source ) obj[ prop ] = source[ prop ];
       });
@@ -394,12 +394,13 @@ Dropkick.prototype = {
 
       if ( this.multiple ) {
         _.toggleClass( elem, "dk-option-selected" );
-        elem.setAttribute( "aria-selected", "true" );
         option.selected = !option.selected;
 
         if ( _.hasClass( elem, "dk-option-selected" ) ) {
+          elem.setAttribute( "aria-selected", "true" );
           this.selectedOptions.push( elem );
         } else {
+          elem.setAttribute( "aria-selected", "false" );
           index = this.selectedOptions.indexOf( elem );
           this.selectedOptions.splice( index, 1 );
         }
@@ -563,7 +564,7 @@ Dropkick.prototype = {
   },
 
   _delegate: function( event ) {
-    var index, firstIndex, lastIndex,
+    var selection, index, firstIndex, lastIndex,
       target = event.target;
 
     if ( _.hasClass( target, "dk-option-disabled" ) ) {
@@ -572,31 +573,33 @@ Dropkick.prototype = {
 
     if ( !this.multiple ) {
       this[ this.isOpen ? "close" : "open" ]();
-    }
+      if ( _.hasClass( target, "dk-option" ) ) this.select( target );
+    } else {
+      if ( _.hasClass( target, "dk-option" ) ) {
+        selection = window.getSelection();
+        if ( selection.type == "Range" ) selection.collapseToStart();
 
-    if ( _.hasClass( target, "dk-option" ) ) {
-      window.getSelection().collapseToStart();
+        if ( event.shiftKey ) {
+          firstIndex = this.options.indexOf( this.selectedOptions[0] );
+          lastIndex = this.options.indexOf( this.selectedOptions[ this.selectedOptions.length - 1 ] );
+          index =  this.options.indexOf( target );
 
-      if ( event.shiftKey ) {
-        firstIndex = this.options.indexOf( this.selectedOptions[0] );
-        lastIndex = this.options.indexOf( this.selectedOptions[ this.selectedOptions.length - 1 ] );
-        index =  this.options.indexOf( target );
+          if ( index > firstIndex && index < lastIndex ) index = firstIndex;
+          if ( index > lastIndex && lastIndex > firstIndex ) lastIndex = firstIndex;
 
-        if ( index > firstIndex && index < lastIndex ) index = firstIndex;
-        if ( index > lastIndex && lastIndex > firstIndex ) lastIndex = firstIndex;
+          this.reset( true );
 
-        this.reset( true );
-
-        if ( lastIndex > index ) {
-          while ( index < lastIndex + 1 ) this.select( index++ );
+          if ( lastIndex > index ) {
+            while ( index < lastIndex + 1 ) this.select( index++ );
+          } else {
+            while ( index > lastIndex - 1 ) this.select( index-- );
+          }
+        } else if ( event.ctrlKey || event.metaKey ) {
+          this.select( target );
         } else {
-          while ( index > lastIndex - 1 ) this.select( index-- );
+          this.reset( true );
+          this.select( target );
         }
-      } else if ( event.ctrlKey || event.metaKey ) {
-        this.select( target );
-      } else {
-        this.reset( true );
-        this.select( target );
       }
     }
   },
@@ -631,6 +634,7 @@ Dropkick.prototype = {
     switch ( event.keyCode ) {
     case keys.up:
       i = -1;
+      // deliberate fallthrough
     case keys.down:
       event.preventDefault();
       lastSelected = selected[ selected.length - 1 ];
@@ -654,7 +658,7 @@ Dropkick.prototype = {
         this.open();
         break;
       }
-      break;
+      // deliberate fallthrough
     case keys.tab:
     case keys.enter:
       for ( i = 0; i < options.length; i++ ) {
@@ -662,7 +666,7 @@ Dropkick.prototype = {
           this.select( i );
         }
       }
-      break;
+      // deliberate fallthrough
     case keys.esc:
       if ( this.isOpen ) {
         event.preventDefault();
@@ -767,10 +771,6 @@ Dropkick.build = function( sel, idpre ) {
           option.setAttribute( "aria-disabled", "true" );
         }
 
-        if ( sel.multiple ) {
-          option.setAttribute( "tabindex", "0" );
-        }
-
         if ( node.selected ) {
           _.addClass( option, "dk-option-selected" );
           option.setAttribute( "aria-selected", "true" );
@@ -802,16 +802,13 @@ Dropkick.build = function( sel, idpre ) {
     };
 
   ret.elem = _.create( "div", {
-    "class": "dk-select" + ( sel.multiple ? "-multi" : "" ),
-    "aria-owns": idpre + "-listbox",
+    "class": "dk-select" + ( sel.multiple ? "-multi" : "" )
   });
 
   optList = _.create( "ul", {
     "class": "dk-select-options",
     "id": idpre + "-listbox",
-    "role": "listbox",
-    "aria-expanded": "false",
-    "aria-multiselectable": "true"
+    "role": "listbox"
   });
 
   sel.disabled && _.addClass( ret.elem, "dk-select-disabled" );
@@ -824,12 +821,14 @@ Dropkick.build = function( sel, idpre ) {
       "tabindex": sel.tabindex || 0,
       "innerHTML": sel.options[ sel.selectedIndex ].text,
       "id": idpre + "-combobox",
-      "aria-owns": optList.id,
       "aria-live": "assertive",
+      "aria-owns": optList.id,
       "role": "combobox"
     }));
+    optList.setAttribute( "aria-expanded", "false" );
   } else {
     ret.elem.setAttribute( "tabindex", sel.getAttribute( "tabindex" ) || "0" );
+    optList.setAttribute( "aria-multiselectable", "true" );
   }
 
   for ( i = sel.children.length; i--; options.unshift( sel.children[ i ] ) );
