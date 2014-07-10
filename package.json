@@ -1,0 +1,34 @@
+{
+  "name": "DropKick",
+  "version": "2.0.0",
+  "author": {
+    "name": "Robert DeLuca",
+    "email": "robertdeluca19@gmail.com"
+  },
+  "repository": "robdel12/DropKick",
+  "bugs": {
+    "url": "http://github.com/robdel12/DropKick/issues"
+  },
+  "main": [
+    "dropkick.js",
+    "dropkick.css"
+  ],
+  "description": "A JavaScript plugin for creating beautiful, graceful, and painless custom dropdowns.",
+  "scripts": {
+    "test": "gulp"
+  },
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "devDependencies": {
+    "gulp-qunit": "~0.2.1",
+    "gulp-util": "~2.2.14",
+    "gulp": "~3.5.1",
+    "qunitjs": "~1.14.0",
+    "gulp-rename": "~1.2.0",
+    "gulp-concat": "~2.2.0",
+    "gulp-uglify": "~0.3.1",
+    "gulp-jshint": "~1.6.3",
+    "gulp-sass": "~0.7.2"
+  }
+}
