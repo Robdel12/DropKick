@@ -210,3 +210,8 @@ Suggestions or Bugs?
 ====================
 
 Search for bugs ruthlessly and call any vermin to our attention!
+
+
+## Authors
+[Wil Wilsman](http://wilwilsman.com) [@wilwilsman](http://twitter.com/wilwilsman)
+[Robert DeLuca](http://robert-deluca.com) [@robdel12](http://twitter.com/robdel12)
