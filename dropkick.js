@@ -424,7 +424,7 @@ Dropkick.prototype = {
 
       this.selectedIndex = select.selectedIndex;
       this.value = select.value;
-      this.data.settings.change( this );
+      this.data.settings.change.call( this );
 
       return elem;
     }
