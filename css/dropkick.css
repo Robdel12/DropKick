@@ -1,6 +1,6 @@
 .dk-select, .dk-select *, .dk-select *:before, .dk-select *:after, .dk-select-multi, .dk-select-multi *, .dk-select-multi *:before, .dk-select-multi *:after {
-  -prefix-box-sizing: border-box;
-  -prefix-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
   box-sizing: border-box; }
 
 .dk-select, .dk-select-multi {
@@ -20,7 +20,7 @@
   border: 1px solid #CCCCCC;
   border-radius: 0.4em;
   padding: 0 1.5em 0 0.5em;
-  -prefix-text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
   text-overflow: ellipsis; }
   .dk-selected:before, .dk-selected:after {
     content: '';
@@ -67,6 +67,7 @@
   border: 1px solid #CCCCCC;
   border-radius: 0.4em;
   overflow-x: hidden;
+  overflow-y: auto;
   max-height: 10.5em;
   list-style: none;
   padding: 0.25em 0;
