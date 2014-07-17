@@ -21,7 +21,7 @@
     "node": ">=0.10.0"
   },
   "devDependencies": {
-    "gulp-qunit": "~0.2.1",
+    "gulp-qunit": "~0.3.1",
     "gulp-util": "~2.2.14",
     "gulp": "~3.5.1",
     "qunitjs": "~1.14.0",
@@ -30,5 +30,8 @@
     "gulp-uglify": "~0.3.1",
     "gulp-jshint": "~1.6.3",
     "gulp-sass": "~0.7.2"
+  },
+  "dependencies": {
+    "gulp": "^3.8.6"
   }
 }

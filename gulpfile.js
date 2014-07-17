@@ -6,7 +6,7 @@ var gulp = require('gulp'),
     uglify = require('gulp-uglify'),
     rename = require('gulp-rename');
 
-gulp.task('default', ['sass', 'scripts', 'test', 'test_iframe']);
+gulp.task('default', ['sass', 'scripts', 'test']);
 
 // Lint Task
 gulp.task('lint', function() {
@@ -38,11 +38,7 @@ gulp.task('watch', function() {
 });
 
 gulp.task('test', function() {
-  return gulp.src('./tests/src/runner.html')
+  return gulp.src(['./tests/src/runner.html', './tests/src/iframe.html'])
     .pipe(qunit());
 });
 
-gulp.task('test_iframe', function() {
-  return gulp.src('./tests/src/iframe.html')
-    .pipe(qunit());
-});

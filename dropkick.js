@@ -282,8 +282,8 @@ Dropkick.prototype = {
 
     if ( dkCache.length == 0 ) {
       document.addEventListener( "click", Dropkick.onDocClick );
-	  if ( window.isIframe ){
-	    parent.document.addEventListener( "click", Dropkick.onDocClick );	
+      if ( window.isIframe ){
+        parent.document.addEventListener( "click", Dropkick.onDocClick );	
 	  }	 	  
     }
 
