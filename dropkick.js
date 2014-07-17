@@ -9,6 +9,7 @@
 (function( window, document, undefined ) {
 
 window.isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test( navigator.userAgent );
+window.isIframe = (window.parent != window.self && location.host === parent.location.host);
 
 var
 
@@ -282,6 +283,9 @@ Dropkick.prototype = {
 
     if ( dkCache.length == 0 ) {
       document.addEventListener( "click", Dropkick.onDocClick );
+	  if ( window.isIframe ){
+	    parent.document.addEventListener( "click", Dropkick.onDocClick );	
+	  }	  
     }
 
     // Add the DK Object to the cache
@@ -424,7 +428,7 @@ Dropkick.prototype = {
 
       this.selectedIndex = select.selectedIndex;
       this.value = select.value;
-      this.data.settings.change( this );
+      this.data.settings.change.call( this );
 
       return elem;
     }
