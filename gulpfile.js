@@ -38,6 +38,7 @@ gulp.task('watch', function() {
 });
 
 gulp.task('test', function() {
-  return gulp.src('./tests/src/runner.html')
+  return gulp.src(['./tests/src/runner.html', './tests/src/iframe.html'])
     .pipe(qunit());
 });
+
