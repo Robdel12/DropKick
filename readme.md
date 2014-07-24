@@ -1,4 +1,4 @@
-DropKick.js (2.0.1) [![Build Status](https://travis-ci.org/Robdel12/DropKick.svg?branch=version-2.0)](https://travis-ci.org/Robdel12/DropKick)
+DropKick.js (2.0.1) [![Build Status](https://travis-ci.org/Robdel12/DropKick.svg?branch=master)](https://travis-ci.org/Robdel12/DropKick)
 ===========
 
 # Quick start
