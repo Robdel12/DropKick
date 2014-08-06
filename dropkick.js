@@ -225,7 +225,7 @@ Dropkick.prototype = {
   },
 
   /**
-   * Removes and element at the given index
+   * Removes an element at the given index
    * @param  {Integer} index Index of element (positive or negative)
    */
   remove: function( index ) {
