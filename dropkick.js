@@ -382,16 +382,26 @@ Dropkick.prototype = {
 
   /**
    * Selects an option from the list
-   * @param  {Node/Integer} elem     The element or index to select
-   * @param  {Boolean}      disabled Selects disabled options
-   * @return {Node}                  The selected element
+   * @param  {Node/Integer/String} elem     The element, index, or value to select
+   * @param  {Boolean}             disabled Selects disabled options
+   * @return {Node}                         The selected element
    */
   select: function( elem, disabled ) {
-    var index, option, combobox,
+    var i, index, option, combobox,
       select = this.data.select;
 
     if ( typeof elem === "number" ) {
       elem = this.item( elem );
+    }
+
+    if ( typeof elem === "string" ) {
+      for ( i = 0; i < this.length; i++ ) {
+        if ( this.options[ i ].getAttribute( "data-value" ) == elem ) {
+          elem = this.options[ i ];          
+        } else {
+          return false;
+        }
+      }
     }
 
     if ( !disabled && _.hasClass( elem, "dk-option-disabled" ) ) return false;
