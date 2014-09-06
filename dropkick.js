@@ -14,7 +14,8 @@ window.isIframe = (window.parent != window.self && location.host === parent.loca
 var
 
   // Cache of DK Objects
-  dkCache = [],
+  dkCache = {},
+  dkIndex = 0,
 
   // The Dropkick Object
   Dropkick = function( sel, opts ) {
@@ -245,7 +246,7 @@ Dropkick.prototype = {
    */
   init: function( sel, opts ) {
     var i,
-      dk =  Dropkick.build( sel, "dk" + dkCache.length );
+      dk =  Dropkick.build( sel, "dk" + dkIndex );
 
     // Set some data on the DK Object
     this.data = {};
@@ -281,7 +282,7 @@ Dropkick.prototype = {
       }
     }
 
-    if ( dkCache.length === 0 ) {
+    if ( dkIndex === 0 ) {
       document.addEventListener( "click", Dropkick.onDocClick );
       if ( window.isIframe ){
         parent.document.addEventListener( "click", Dropkick.onDocClick );
@@ -289,12 +290,15 @@ Dropkick.prototype = {
     }
 
     // Add the DK Object to the cache
-    this.data.cacheID = dkCache.length;
+    this.data.cacheID = dkIndex;
     sel.setAttribute( "data-dkCacheId", this.data.cacheID );
-    dkCache.push( this );
+    dkCache[ this.data.cacheID ] = this;
 
     // Call the optional initialize function
     this.data.settings.initialize.call( this );
+
+    // Increment the index
+    dkIndex += 1;
 
     return this;
   },
@@ -537,11 +541,18 @@ Dropkick.prototype = {
    * (use if HTMLSelectElement has changed)
    */
   refresh: function() {
-    dkCache.splice( this.data.cacheID, 1 );
-    this.data.elem.parentNode.removeChild( this.data.elem );
-    this.init( this.data.select, this.data.settings );
+    this.dispose().init( this.data.select, this.data.settings );
   },
 
+  /**
+   * Removes the DK Object from the cache and the element from the DOM
+   */
+  dispose: function() {
+    delete dkCache[ this.data.cachID ];
+    this.data.elem.parentNode.removeChild( this.data.elem );
+    this.data.select.removeAttribute( "data-dkCacheId" );
+    return this;
+  },
 
   // Private Methods
 
@@ -853,7 +864,7 @@ Dropkick.onDocClick = function( event ) {
     }
   }
 
-  for ( i = 0; i < dkCache.length; i++ ) {
+  for ( i in dkCache ) {
     if ( !_.closest( event.target, dkCache[ i ].data.elem ) ) {
       dkCache[ i ].disabled || dkCache[ i ].close();
     }

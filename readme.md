@@ -120,6 +120,12 @@ Documentation
   Rebuilds the Dropkick and reinitalized the Dropkick object. *Only use if the
   original select element has changed.
 
+- dk.**dispose**()
+
+  Removes the Dropkick element from the DOM and the object from the cache.
+
+  Returns itself.
+
 ## Advanced
 
 These are categorized as "advanced" because we feel as these wouldn't normally
