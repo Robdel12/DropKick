@@ -1,6 +1,6 @@
 jQuery.fn.dropkick = function () {
   var args = Array.prototype.slice.call( arguments );
-  return $( this ).each(function() {
+  return jQuery( this ).each(function() {
     if ( !args[0] || typeof args[0] === 'object' ) {
       new Dropkick( this, args[0] || {} );
     } else if ( typeof args[0] === 'string' ) {
