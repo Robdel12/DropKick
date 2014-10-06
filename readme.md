@@ -72,6 +72,16 @@ Documentation
 
 - dk.**form** - *node* The form associated with the select
 
+- dk.**length** - *integer* The number of options in the select
+
+- dk.**options** - *array* An array of Dropkick options
+
+- dk.**multiple** - *boolean* If this select is a multiselect
+
+- dk.**selectedOptions** - *array* An array of selected Dropkick options
+
+- dk.**selectedIndex** - *integer* An index of the first selected option
+
 ### Methods
 
 - dk.**add**( *elem*, *before* )
@@ -119,24 +129,11 @@ Documentation
   Rebuilds the Dropkick and reinitalized the Dropkick object. *Only use if the
   original select element has changed.
 
-## Advanced
+- dk.**dispose**()
 
-These are categorized as "advanced" because we feel as these wouldn't normally
-be utilized under typical circumstances.
+  Removes the Dropkick element from the DOM and the object from the cache.
 
-### Properties
-
-- dk.**length** - *integer* The number of options in the select
-
-- dk.**options** - *array* An array of Dropkick options
-
-- dk.**multiple** - *boolean* If this select is a multiselect
-
-- dk.**selectedOptions** - *array* An array of selected Dropkick options
-
-- dk.**selectedIndex** - *integer* An index of the first selected option
-
-### Methods
+  Returns itself.
 
 - dk.**open**()
 
@@ -148,7 +145,8 @@ be utilized under typical circumstances.
 
 - dk.**select**( *elem*, *disabled* )
 
-  - `elem` - *node/integer* The Dropkick option or Index of an option to select
+  - `elem` - *node/integer/string* The Dropkick option, index of an option, or
+  value of an option to select
   - `disabled` - *boolean* Allow the selecting of disabled options
 
   Selects an option from the list.
