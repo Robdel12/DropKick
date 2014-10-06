@@ -226,7 +226,7 @@ Dropkick.prototype = {
   },
 
   /**
-   * Removes and element at the given index
+   * Removes an element at the given index
    * @param  {Integer} index Index of element (positive or negative)
    */
   remove: function( index ) {
@@ -442,7 +442,7 @@ Dropkick.prototype = {
 
       this.selectedIndex = select.selectedIndex;
       this.value = select.value;
-      this.data.settings.change( this );
+      this.data.settings.change.call( this );
 
       return elem;
     }

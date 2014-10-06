@@ -1,5 +1,4 @@
-DropKick.js (2.0) [![Build Status](https://travis-ci.org/Robdel12/DropKick.svg?branch=version-2.0)](https://travis-ci.org/Robdel12/DropKick)
-===========
+# DropKick.js [![Build Status](https://travis-ci.org/Robdel12/DropKick.svg?branch=master)](https://travis-ci.org/Robdel12/DropKick)
 
 # Quick start
 
@@ -208,3 +207,8 @@ Suggestions or Bugs?
 ====================
 
 Search for bugs ruthlessly and call any vermin to our attention!
+
+## Authors
+[Wil Wilsman](http://wilwilsman.com) [@wilwilsman](http://twitter.com/wilwilsman)
+
+[Robert DeLuca](http://robert-deluca.com) [@robdel12](http://twitter.com/robdel12)
