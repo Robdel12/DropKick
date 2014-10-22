@@ -815,7 +815,7 @@ Dropkick.build = function( sel, idpre ) {
         }
 
         optgroupList = _.create( "ul", {
-          "class": "dk-optgroup-options",
+          "class": "dk-optgroup-options"
         });
 
         for ( i = node.children.length; i--; children.unshift( node.children[ i ] ) );
