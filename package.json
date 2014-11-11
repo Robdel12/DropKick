@@ -1,6 +1,6 @@
 {
   "name": "DropKick",
-  "version": "2.0.0",
+  "version": "2.0.3",
   "author": {
     "name": "Robert DeLuca",
     "email": "robertdeluca19@gmail.com"
@@ -23,7 +23,7 @@
   "devDependencies": {
     "gulp-qunit": "~0.3.1",
     "gulp-util": "~2.2.14",
-    "gulp": "~3.5.1",
+    "gulp": "~3.8.6",
     "qunitjs": "~1.14.0",
     "gulp-rename": "~1.2.0",
     "gulp-concat": "~2.2.0",
