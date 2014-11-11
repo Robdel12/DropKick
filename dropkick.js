@@ -277,7 +277,7 @@ Dropkick.prototype = {
     }
 
     if ( !this.multiple ) {
-      for ( i = 0; i < this.options.length; i++ ) {
+      for ( var i = 0; i < this.options.length; i++ ) {
         this.options[ i ].addEventListener( "mouseover", this );
       }
     }
@@ -313,7 +313,7 @@ Dropkick.prototype = {
       return false;
     }
 
-    for ( i = 0; i < this.options.length; i++ ) {
+    for ( var i = 0; i < this.options.length; i++ ) {
       _.removeClass( this.options[ i ], "dk-option-highlight" );
     }
 
@@ -329,7 +329,7 @@ Dropkick.prototype = {
    * Opens the DK dropdown
    */
   open: function() {
-    var dropHeight, above, below,
+    var dropHeight, above, below, direction,
       dk = this.data.elem,
       dkOptsList = dk.lastChild,
       dkTop = _.offset( dk ).top - window.scrollY,
