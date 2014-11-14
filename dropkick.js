@@ -277,7 +277,7 @@ Dropkick.prototype = {
     }
 
     if ( !this.multiple ) {
-      for ( var i = 0; i < this.options.length; i++ ) {
+      for ( i = 0; i < this.options.length; i++ ) {
         this.options[ i ].addEventListener( "mouseover", this );
       }
     }
@@ -307,13 +307,14 @@ Dropkick.prototype = {
    * Closes the DK dropdown
    */
   close: function() {
-    var dk = this.data.elem;
+    var i,
+      dk = this.data.elem;
 
     if ( !this.isOpen || this.multiple ) {
       return false;
     }
 
-    for ( var i = 0; i < this.options.length; i++ ) {
+    for ( i = 0; i < this.options.length; i++ ) {
       _.removeClass( this.options[ i ], "dk-option-highlight" );
     }
 
@@ -397,7 +398,7 @@ Dropkick.prototype = {
     if ( typeof elem === "string" ) {
       for ( i = 0; i < this.length; i++ ) {
         if ( this.options[ i ].getAttribute( "data-value" ) == elem ) {
-          elem = this.options[ i ];          
+          elem = this.options[ i ];
         } else {
           return false;
         }
