@@ -523,6 +523,15 @@ Dropkick.prototype = {
 
     return matches;
   },
+  
+  /**
+   * Brings focus to the proper DK element
+   */
+  focus: function() {
+    if ( !this.disabled ) {
+      ( this.multiple ? this.data.elem : this.data.elem.children[0] ).focus();
+    }
+  },
 
   /**
    * Resets the DK and select element
@@ -870,14 +879,12 @@ Dropkick.build = function( sel, idpre ) {
 Dropkick.onDocClick = function( event ) {
   var t, tId, i;
 
-  if ( t = document.getElementById( event.target.htmlFor ) ) {
-    if ( ( tId = t.getAttribute( "data-dkcacheid" ) ) !== null ) {
-      dkCache[ tId ].data.elem.focus();
-    }
+  if ( ( tId = event.target.getAttribute( "data-dkcacheid" ) ) !== null ) {
+    dkCache[ tId ].focus();
   }
 
   for ( i in dkCache ) {
-    if ( !_.closest( event.target, dkCache[ i ].data.elem ) ) {
+    if ( !_.closest( event.target, dkCache[ i ].data.elem ) && i !== tId ) {
       dkCache[ i ].disabled || dkCache[ i ].close();
     }
   }
