@@ -394,13 +394,13 @@ Dropkick.prototype = {
       elem = this.item( elem );
     }
 
-    if (typeof elem === "string") {
-        for (i = 0; i < this.length; i++) {
-            if (this.options[i].getAttribute("data-value") == elem) {
-                elem = this.options[i];
+    if ( typeof elem === "string" ) {
+        for ( i = 0; i < this.length; i++ ) {
+            if ( this.options[ i ].getAttribute( "data-value" ) == elem ) {
+                elem = this.options[ i ];
             }
         }
-        if (typeof elem === "string") {
+        if ( typeof elem === "string" ) {
             return false;
         }
     }
