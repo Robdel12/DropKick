@@ -94,3 +94,10 @@ QUnit.test( "Checks if multi select is true", 1, function( assert ) {
 
   assert.equal(dk_multi.multiple, true);
 });
+
+QUnit.test( "Dropkick selects an item by option value.", 1, function( assert) {
+  var dk = new Dropkick("#normal_select");
+  dk.select("AL");
+       
+  assert.equal(dk.value, "AL");
+});
