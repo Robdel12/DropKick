@@ -400,6 +400,8 @@ Dropkick.prototype = {
                 elem = this.options[ i ];
             }
         }
+		
+		// Return if no options match
         if ( typeof elem === "string" ) {
             return false;
         }
