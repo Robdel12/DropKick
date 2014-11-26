@@ -1,3 +1,11 @@
+//Private tests functions
+_ = {
+  hasClass: function( elem, classname ) {
+    var reg = new RegExp( "(^|\\s+)" + classname + "(\\s+|$)" );
+    return elem && reg.test( elem.className );
+  }
+};
+
 QUnit.test( "Create a new Dropkick", 3, function( assert ) {
   var dk = new Dropkick("#normal_select"),
       currentDkCacheID = dk.data.cacheID;
@@ -27,7 +35,7 @@ QUnit.test( "Dropkick selects an option", 4, function( assert ) {
   var dk = new Dropkick("#normal_select");
 
   assert.equal(dk.select(4), dk.item(4));
-  assert.equal(dk.item(4).classList.contains("dk-option-selected"), true);
+  assert.equal(_.hasClass(dk.item(4), "dk-option-selected"), true);
   assert.equal(dk.select(4), dk.selectedOptions[0]);
   assert.equal(dk.selectedIndex, 4);
 });
@@ -63,7 +71,7 @@ QUnit.test( "Disable the one option in the select", 1, function( assert ) {
   var dk = new Dropkick("#normal_select");
   dk.disable(2); //2 = Alaska
 
-  assert.equal(dk.item(2).classList.contains("dk-option-disabled"), true);
+  assert.equal(_.hasClass(dk.item(2), "dk-option-disabled"), true);
 });
 
 QUnit.test( "Reset the selection", 2, function( assert ) {

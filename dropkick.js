@@ -1,5 +1,5 @@
 /*
- * DropKick 2.0.2
+ * DropKick 2.0.3
  *
  * Highly customizable <select> lists
  * https://github.com/robdel12/DropKick
@@ -150,7 +150,12 @@ var
       }
 
       return node;
+    },
+
+    fireEvent: function( obj, eventName ) {
+
     }
+
   };
 
 
@@ -397,7 +402,7 @@ Dropkick.prototype = {
     if ( typeof elem === "string" ) {
       for ( i = 0; i < this.length; i++ ) {
         if ( this.options[ i ].getAttribute( "data-value" ) == elem ) {
-          elem = this.options[ i ];          
+          elem = this.options[ i ];
         } else {
           return false;
         }
