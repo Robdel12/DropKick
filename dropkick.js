@@ -312,7 +312,8 @@ Dropkick.prototype = {
    * Closes the DK dropdown
    */
   close: function() {
-    var dk = this.data.elem;
+    var i,
+      dk = this.data.elem;
 
     if ( !this.isOpen || this.multiple ) {
       return false;
@@ -334,7 +335,7 @@ Dropkick.prototype = {
    * Opens the DK dropdown
    */
   open: function() {
-    var dropHeight, above, below,
+    var dropHeight, above, below, direction,
       dk = this.data.elem,
       dkOptsList = dk.lastChild,
       dkTop = _.offset( dk ).top - window.scrollY,
@@ -448,6 +449,7 @@ Dropkick.prototype = {
       this.selectedIndex = select.selectedIndex;
       this.value = select.value;
       this.data.settings.change.call( this );
+      this.data.select.dispatchEvent( new Event('change') );
 
       return elem;
     }
@@ -525,6 +527,15 @@ Dropkick.prototype = {
     }
 
     return matches;
+  },
+
+  /**
+   * Brings focus to the proper DK element
+   */
+  focus: function() {
+    if ( !this.disabled ) {
+      ( this.multiple ? this.data.elem : this.data.elem.children[0] ).focus();
+    }
   },
 
   /**
@@ -820,7 +831,7 @@ Dropkick.build = function( sel, idpre ) {
         }
 
         optgroupList = _.create( "ul", {
-          "class": "dk-optgroup-options",
+          "class": "dk-optgroup-options"
         });
 
         for ( i = node.children.length; i--; children.unshift( node.children[ i ] ) );
@@ -873,14 +884,12 @@ Dropkick.build = function( sel, idpre ) {
 Dropkick.onDocClick = function( event ) {
   var t, tId, i;
 
-  if ( t = document.getElementById( event.target.htmlFor ) ) {
-    if ( ( tId = t.getAttribute( "data-dkcacheid" ) ) !== null ) {
-      dkCache[ tId ].data.elem.focus();
-    }
+  if ( ( tId = event.target.getAttribute( "data-dkcacheid" ) ) !== null ) {
+    dkCache[ tId ].focus();
   }
 
   for ( i in dkCache ) {
-    if ( !_.closest( event.target, dkCache[ i ].data.elem ) ) {
+    if ( !_.closest( event.target, dkCache[ i ].data.elem ) && i !== tId ) {
       dkCache[ i ].disabled || dkCache[ i ].close();
     }
   }
