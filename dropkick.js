@@ -150,10 +150,6 @@ var
       }
 
       return node;
-    },
-
-    fireEvent: function( obj, eventName ) {
-
     }
 
   };
@@ -449,7 +445,7 @@ Dropkick.prototype = {
       this.selectedIndex = select.selectedIndex;
       this.value = select.value;
       this.data.settings.change.call( this );
-      this.data.select.dispatchEvent( new Event('change') );
+      this.data.select.dispatchEvent( new CustomEvent('change') );
 
       return elem;
     }
