@@ -4,7 +4,7 @@
 
 ### Basic Usage
 
-- Download the files from the `production` folder
+- Download the latest stable version from the releases/tags section
 - Insert the JS onto the page
 - Put the stylesheet where you would like
 - Add an ID or class to the select(s) you would like to DropKick
@@ -190,16 +190,15 @@ Documentation
 
 ### Adding or editing code
 - Fork Dropkick
-- Run `npm install` to install all the dev dependancies
+- Run `npm install` to install all the dev dependencies
 - Make your changes
-  - You can chose to do the changes on either the `develop` branch or `master` branch of your fork
   - Follow the same coding style that's written in dropkick.js. ** Not doing this will result in a lot of comments on your pull request*
 - Write tests
   - If you're adding a feature write a test for it
   - If you're fixing a bug write a test for it.
 - Run `gulp` from your command line.
   - The default runner will run the test suite, lint, and minify the JS.
-- If all tests pass you can create a pull request vs the `develop` branch. Tag any related github issue tickets in the PR.
+- If all tests pass you can create a pull request. Tag any related github issue tickets in the PR.
 
 **If you fail to do any of these we probably will not accept your changes**
 
