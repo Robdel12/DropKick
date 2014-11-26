@@ -395,13 +395,16 @@ Dropkick.prototype = {
     }
 
     if ( typeof elem === "string" ) {
-      for ( i = 0; i < this.length; i++ ) {
-        if ( this.options[ i ].getAttribute( "data-value" ) == elem ) {
-          elem = this.options[ i ];          
-        } else {
-          return false;
+        for ( i = 0; i < this.length; i++ ) {
+            if ( this.options[ i ].getAttribute( "data-value" ) == elem ) {
+                elem = this.options[ i ];
+            }
         }
-      }
+		
+		// Return if no options match
+        if ( typeof elem === "string" ) {
+            return false;
+        }
     }
 
     if ( !disabled && _.hasClass( elem, "dk-option-disabled" ) ) return false;
