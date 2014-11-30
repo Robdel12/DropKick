@@ -445,7 +445,7 @@ Dropkick.prototype = {
       this.selectedIndex = select.selectedIndex;
       this.value = select.value;
       this.data.settings.change.call( this );
-      this.data.select.dispatchEvent( new CustomEvent('change') );
+      this.data.select.dispatchEvent( new Event('change') );
 
       return elem;
     }
@@ -879,6 +879,10 @@ Dropkick.build = function( sel, idpre ) {
  */
 Dropkick.onDocClick = function( event ) {
   var t, tId, i;
+
+  if (event.target.nodeType !== 1) {
+    return false;
+  }
 
   if ( ( tId = event.target.getAttribute( "data-dkcacheid" ) ) !== null ) {
     dkCache[ tId ].focus();

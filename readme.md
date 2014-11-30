@@ -1,4 +1,4 @@
-# DropKick.js [![Build Status](https://travis-ci.org/Robdel12/DropKick.svg?branch=master)](https://travis-ci.org/Robdel12/DropKick)
+# DropKick.js
 
 # Quick start
 
@@ -198,7 +198,7 @@ Documentation
   - If you're fixing a bug write a test for it.
 - Run `gulp` from your command line.
   - The default runner will run the test suite, lint, and minify the JS.
-- If all tests pass you can create a pull request. Tag any related github issue tickets in the PR.
+- If all tests pass you can create a pull request. Tag any related github issue tickets in the PR. (Run the tests in browser. [There is a bug with PhantomJS](https://github.com/Robdel12/DropKick/issues/256))
 
 **If you fail to do any of these we probably will not accept your changes**
 

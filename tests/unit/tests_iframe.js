@@ -7,7 +7,7 @@ QUnit.test( "Dropkick closes from click event in parent document when running in
   assert.notEqual(dk.isOpen, false);
 
   evt.initMouseEvent("click", true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
-	parent.document.dispatchEvent(evt);
+  parent.document.dispatchEvent(evt);
 
   assert.equal(dk.isOpen, false);
 });
