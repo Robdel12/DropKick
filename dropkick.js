@@ -6,6 +6,9 @@
  *
 */
 
+// Enable indexOf, forEach, and EventListener methods for IE
+(function(){if(Array.prototype.indexOf||(Array.prototype.indexOf=function(a,b){var c,d,e=b?b:0;if(!this)throw new TypeError;if(d=this.length,0===d||e>=d)return-1;for(0>e&&(e=d-Math.abs(e)),c=e;d>c;c++)if(this[c]===a)return c;return-1}),Array.prototype.forEach||(Array.prototype.forEach=function(a){if(void 0===this||null===this)throw new TypeError;var b=Object(this),c=b.length>>>0;if("function"!=typeof a)throw new TypeError;for(var d=arguments.length>=2?arguments[1]:void 0,e=0;c>e;e++)e in b&&a.call(d,b[e],e,b)}),Event.prototype.preventDefault||(Event.prototype.preventDefault=function(){this.returnValue=!1}),Event.prototype.stopPropagation||(Event.prototype.stopPropagation=function(){this.cancelBubble=!0}),!Element.prototype.addEventListener){var a=[],b=function(b,c){var d=this,e=function(a){a.target=a.srcElement,a.currentTarget=d,c.handleEvent?c.handleEvent(a):c.call(d,a)};if("DOMContentLoaded"==b){var f=function(a){"complete"==document.readyState&&e(a)};if(document.attachEvent("onreadystatechange",f),a.push({object:this,type:b,listener:c,wrapper:f}),"complete"==document.readyState){var g=new Event;g.srcElement=window,f(g)}}else this.attachEvent("on"+b,e),a.push({object:this,type:b,listener:c,wrapper:e})},c=function(b,c){for(var d=0;d<a.length;){var e=a[d];if(e.object==this&&e.type==b&&e.listener==c){"DOMContentLoaded"==b?this.detachEvent("onreadystatechange",e.wrapper):this.detachEvent("on"+b,e.wrapper);break}++d}};Element.prototype.addEventListener=b,Element.prototype.removeEventListener=c,HTMLDocument&&(HTMLDocument.prototype.addEventListener=b,HTMLDocument.prototype.removeEventListener=c),Window&&(Window.prototype.addEventListener=b,Window.prototype.removeEventListener=c)}})();
+
 (function( window, document, undefined ) {
 
 window.isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test( navigator.userAgent );
@@ -451,7 +454,10 @@ Dropkick.prototype = {
 
       this.selectedIndex = select.selectedIndex;
       this.value = select.value;
-      this.data.select.dispatchEvent( new Event( "change" ) );
+
+      if ( !disabled ) {
+        this.data.select.dispatchEvent( new Event( "change" ) );
+      }
 
       return elem;
     }
@@ -704,6 +710,7 @@ Dropkick.prototype = {
       }
 
       if ( !this.data.select.options[ i ].disabled ) {
+        this.reset( true );
         this.select( i );
         this._scrollTo( i );
       }
@@ -919,5 +926,19 @@ Dropkick.onDocClick = function( event ) {
 
 // Expose Dropkick Globally
 window.Dropkick = Dropkick;
+
+// Add jQuery method
+if ( window.jQuery !== undefined ) {
+  window.jQuery.fn.dropkick = function () {
+    var args = Array.prototype.slice.call( arguments );
+    return window.jQuery( this ).each(function() {
+      if ( !args[0] || typeof args[0] === 'object' ) {
+        new Dropkick( this, args[0] || {} );
+      } else if ( typeof args[0] === 'string' ) {
+        Dropkick.prototype[ args[0] ].apply( new Dropkick( this ), args.slice( 1 ) );
+      }
+    });
+  };
+}
 
 })( window, document );
