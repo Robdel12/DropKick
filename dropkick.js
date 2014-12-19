@@ -750,7 +750,8 @@ Dropkick.prototype = {
     var optPos, optTop, optBottom,
       dkOpts = this.data.elem.lastChild;
 
-    if ( !this.isOpen && !this.multiple ) {
+    if ( option === -1 || ( typeof option !== "number" && !option ) ||
+        ( !this.isOpen && !this.multiple ) ) {
       return false;
     }
 
@@ -779,7 +780,7 @@ Dropkick.prototype = {
  * @return {Object}   An object containing the new DK element and it's options
  */
 Dropkick.build = function( sel, idpre ) {
-  var optList, i,
+  var selOpt, optList, i,
     options = [],
 
     ret = {
@@ -855,10 +856,11 @@ Dropkick.build = function( sel, idpre ) {
   _.addClass( ret.elem, sel.className );
 
   if ( !sel.multiple ) {
+    selOpt = sel.options[ sel.selectedIndex ];
     ret.elem.appendChild( _.create( "div", {
       "class": "dk-selected",
       "tabindex": sel.tabindex || 0,
-      "innerHTML": sel.options[ sel.selectedIndex ].text,
+      "innerHTML": selOpt ? selOpt.text : '&nbsp;',
       "id": idpre + "-combobox",
       "aria-live": "assertive",
       "aria-owns": optList.id,
