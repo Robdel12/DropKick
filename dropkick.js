@@ -290,6 +290,11 @@ Dropkick.prototype = {
       }
     }
 
+    if ( !this._changeListener ) {
+      sel.addEventListener( "change", this );
+      this._changeListener = true;
+    }
+
     // Add the DK Object to the cache
     this.data.cacheID = dkIndex;
     sel.setAttribute( "data-dkCacheId", this.data.cacheID );
@@ -446,8 +451,7 @@ Dropkick.prototype = {
 
       this.selectedIndex = select.selectedIndex;
       this.value = select.value;
-      this.data.settings.change.call( this );
-      this.data.select.dispatchEvent( new Event('change') );
+      this.data.select.dispatchEvent( new Event( "change" ) );
 
       return elem;
     }
@@ -598,6 +602,9 @@ Dropkick.prototype = {
       break;
     case "reset":
       this.reset();
+      break;
+    case "change":
+      this.data.settings.change.call( this );
       break;
     }
   },
