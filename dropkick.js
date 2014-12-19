@@ -364,14 +364,14 @@ Dropkick.prototype = {
   disable: function( elem, disabled ) {
     var disabledClass = "dk-option-disabled";
 
-    if ( arguments.length == 0 || typeof elem === "boolean" ) {
+    if ( arguments.length === 0 || typeof elem === "boolean" ) {
       disabled = elem === undefined ? true : false;
       elem = this.data.elem;
       disabledClass = "dk-select-disabled";
       this.disabled = disabled;
     }
 
-    if ( disabled == undefined ) {
+    if ( disabled === undefined ) {
       disabled = true;
     }
 
@@ -400,13 +400,15 @@ Dropkick.prototype = {
       for ( i = 0; i < this.length; i++ ) {
         if ( this.options[ i ].getAttribute( "data-value" ) == elem ) {
           elem = this.options[ i ];
-        } else {
-          return false;
         }
       }
     }
 
-    if ( !disabled && _.hasClass( elem, "dk-option-disabled" ) ) return false;
+    // No element or enabled option
+    if ( !elem || typeof elem === "string" ||
+         ( !disabled && _.hasClass( elem, "dk-option-disabled" ) ) ) {
+      return false;
+    }
 
     if ( _.hasClass( elem, "dk-option" ) ) {
       index = this.options.indexOf( elem );
