@@ -1,5 +1,5 @@
 /*
- * DropKick 2.0.3
+ * DropKick 2.1.0
  *
  * Highly customizable <select> lists
  * https://github.com/robdel12/DropKick
