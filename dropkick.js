@@ -664,7 +664,7 @@ Dropkick.prototype = {
   },
 
   _keyHandler: function( event ) {
-    var lastSelected,
+    var lastSelected, j,
       selected = this.selectedOptions,
       options = this.options,
       i = 1,
@@ -684,6 +684,17 @@ Dropkick.prototype = {
     case keys.down:
       event.preventDefault();
       lastSelected = selected[ selected.length - 1 ];
+
+      if ( _.hasClass( this.data.elem.lastChild, "dk-select-options-highlight" ) ) {
+        _.removeClass( this.data.elem.lastChild, "dk-select-options-highlight" );
+        for ( j = 0; j < options.length; j++ ) {
+          if ( _.hasClass( options[ j ], "dk-option-highlight" ) ) {
+            _.removeClass( options[ j ], "dk-option-highlight" );
+            lastSelected = options[ j ];
+          }
+        }
+      }
+
       i = options.indexOf( lastSelected ) + i;
 
       if ( i > options.length - 1 ) {
@@ -693,7 +704,6 @@ Dropkick.prototype = {
       }
 
       if ( !this.data.select.options[ i ].disabled ) {
-        this.reset( true );
         this.select( i );
         this._scrollTo( i );
       }
