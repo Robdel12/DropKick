@@ -6,7 +6,7 @@ var gulp = require('gulp'),
     uglify = require('gulp-uglify'),
     rename = require('gulp-rename');
 
-gulp.task('default', ['sass', 'scripts']);
+gulp.task('default', ['sass', 'test', 'scripts']);
 
 // Lint Task
 gulp.task('lint', function() {
