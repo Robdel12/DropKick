@@ -25,7 +25,7 @@ var
     var i;
 
     // Prevent DK on mobile
-    if ( window.isMobile && !opts.mobile ) {
+    if ( window.isMobile && opts &&!opts.mobile ) {
       return false;
     }
 
