@@ -102,3 +102,9 @@ QUnit.test( "Checks if multi select is true", 1, function( assert ) {
 
   assert.equal(dk_multi.multiple, true);
 });
+
+QUnit.test("Checks if is a default opts object", 1, function( assert ) {
+  var dk = new Dropkick("#normal_select");
+
+  assert.equal(0, Object.keys(dk.opts).length);
+});

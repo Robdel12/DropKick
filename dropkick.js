@@ -24,6 +24,9 @@ var
   Dropkick = function( sel, opts ) {
     var i;
 
+    // Make sure an options object exists
+    this.opts = opts = opts || {};
+
     // Prevent DK on mobile
     if ( window.isMobile && opts && !opts.mobile ) {
       return false;
