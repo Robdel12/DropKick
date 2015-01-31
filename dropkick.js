@@ -13,6 +13,7 @@
 
 window.isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test( navigator.userAgent );
 window.isIframe = (window.parent != window.self && location.host === parent.location.host);
+var isIE = navigator.appVersion.indexOf("MSIE")!=-1;
 
 var
 
@@ -108,10 +109,17 @@ var
       var box = elem.getBoundingClientRect() || { top: 0, left: 0 },
         docElem = document.documentElement;
 
-      return {
-        top: box.top + window.pageYOffset - docElem.clientTop,
-        left: box.left + window.pageXOffset - docElem.clientLeft
-      };
+      if ( isIE ) {
+        return {
+          top: box.top + docElem.scrollTop - docElem.clientTop,
+          left: box.left + docElem.scrollLeft - docElem.clientLeft
+        };
+      } else {
+        return {
+          top: box.top + window.pageYOffset - docElem.clientTop,
+          left: box.left + window.pageXOffset - docElem.clientLeft
+        };
+      }
     },
 
     // Returns the top and left position of an element relative to an ancestor
@@ -339,11 +347,17 @@ Dropkick.prototype = {
    * Opens the DK dropdown
    */
   open: function() {
-    var dropHeight, above, below, direction,
+    var dropHeight, above, below, direction, dkTop, dkBottom,
       dk = this.data.elem,
-      dkOptsList = dk.lastChild,
-      dkTop = _.offset( dk ).top - window.scrollY,
-      dkBottom = window.innerHeight - ( dkTop + dk.offsetHeight );
+      dkOptsList = dk.lastChild;
+
+    if ( isIE ) {
+      dkTop = _.offset( dk ).top - document.documentElement.scrollTop;
+    } else {
+      dkTop = _.offset( dk ).top - window.scrollY;
+    }
+
+    dkBottom = window.innerHeight - ( dkTop + dk.offsetHeight );
 
     if ( this.isOpen || this.multiple ) return false;
 
