@@ -17,10 +17,6 @@ var isIE = navigator.appVersion.indexOf("MSIE")!=-1;
 
 var
 
-  // Cache of DK Objects
-  dkCache = {},
-  dkIndex = 0,
-
   // The Dropkick Object
   Dropkick = function( sel, opts ) {
     var i;
@@ -41,8 +37,8 @@ var
 
     // Check if select has already been DK'd and return the DK Object
     if ( i = sel.getAttribute( "data-dkcacheid" ) ) {
-      _.extend( dkCache[ i ].data.settings, opts );
-      return dkCache[ i ];
+      _.extend( Dropkick.cache[ i ].data.settings, opts );
+      return Dropkick.cache[ i ];
     }
 
     if ( sel.nodeName === "SELECT" ) {
@@ -161,6 +157,11 @@ var
   };
 
 
+// Cache of DK Objects
+Dropkick.cache = {}
+Dropkick.uid = 0;
+
+
 // Extends the DK objects's Prototype
 Dropkick.prototype = {
 
@@ -253,7 +254,7 @@ Dropkick.prototype = {
    */
   init: function( sel, opts ) {
     var i,
-      dk =  Dropkick.build( sel, "dk" + dkIndex );
+      dk =  Dropkick.build( sel, "dk" + Dropkick.uid );
 
     // Set some data on the DK Object
     this.data = {};
@@ -289,7 +290,7 @@ Dropkick.prototype = {
       }
     }
 
-    if ( dkIndex === 0 ) {
+    if ( Dropkick.uid === 0 ) {
       document.addEventListener( "click", Dropkick.onDocClick );
       if ( window.isIframe ){
         parent.document.addEventListener( "click", Dropkick.onDocClick );
@@ -302,15 +303,15 @@ Dropkick.prototype = {
     }
 
     // Add the DK Object to the cache
-    this.data.cacheID = dkIndex;
+    this.data.cacheID = Dropkick.uid;
     sel.setAttribute( "data-dkCacheId", this.data.cacheID );
-    dkCache[ this.data.cacheID ] = this;
+    Dropkick.cache[ this.data.cacheID ] = this;
 
     // Call the optional initialize function
     this.data.settings.initialize.call( this );
 
     // Increment the index
-    dkIndex += 1;
+    Dropkick.uid += 1;
 
     return this;
   },
@@ -592,7 +593,7 @@ Dropkick.prototype = {
    * Removes the DK Object from the cache and the element from the DOM
    */
   dispose: function() {
-    delete dkCache[ this.data.cachID ];
+    delete Dropkick.cache[ this.data.cacheID ];
     this.data.elem.parentNode.removeChild( this.data.elem );
     this.data.select.removeAttribute( "data-dkCacheId" );
     return this;
@@ -923,12 +924,12 @@ Dropkick.onDocClick = function( event ) {
   }
 
   if ( ( tId = event.target.getAttribute( "data-dkcacheid" ) ) !== null ) {
-    dkCache[ tId ].focus();
+    Dropkick.cache[ tId ].focus();
   }
 
-  for ( i in dkCache ) {
-    if ( !_.closest( event.target, dkCache[ i ].data.elem ) && i !== tId ) {
-      dkCache[ i ].disabled || dkCache[ i ].close();
+  for ( i in Dropkick.cache ) {
+    if ( !_.closest( event.target, Dropkick.cache[ i ].data.elem ) && i !== tId ) {
+      Dropkick.cache[ i ].disabled || Dropkick.cache[ i ].close();
     }
   }
 };

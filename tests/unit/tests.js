@@ -102,3 +102,13 @@ QUnit.test( "Checks if multi select is true", 1, function( assert ) {
 
   assert.equal(dk_multi.multiple, true);
 });
+
+QUnit.test( "Dispose should remove dropkick from cache", 2, function( assert ) {
+  var dk = new Dropkick("#normal_select");
+
+  assert.ok(Dropkick.cache[dk.data.cacheID] === dk);
+
+  dk.dispose();
+
+  assert.ok(Dropkick.cache[dk.data.cacheID] === undefined);
+});
