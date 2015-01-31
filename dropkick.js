@@ -11,18 +11,20 @@
 
 (function( window, document, undefined ) {
 
-window.isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test( navigator.userAgent );
-window.isIframe = (window.parent != window.self && location.host === parent.location.host);
-var isIE = navigator.appVersion.indexOf("MSIE")!=-1;
 
 var
+
+  // Browser testing stuff
+  isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test( navigator.userAgent ),
+  isIframe = (window.parent != window.self && location.host === parent.location.host),
+  isIE = navigator.appVersion.indexOf("MSIE")!=-1,
 
   // The Dropkick Object
   Dropkick = function( sel, opts ) {
     var i;
 
     // Prevent DK on mobile
-    if ( window.isMobile && opts && !opts.mobile ) {
+    if ( isMobile && opts && !opts.mobile ) {
       return false;
     }
 
@@ -292,7 +294,7 @@ Dropkick.prototype = {
 
     if ( Dropkick.uid === 0 ) {
       document.addEventListener( "click", Dropkick.onDocClick );
-      if ( window.isIframe ){
+      if ( isIframe ){
         parent.document.addEventListener( "click", Dropkick.onDocClick );
       }
     }
