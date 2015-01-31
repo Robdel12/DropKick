@@ -25,7 +25,7 @@ var
     var i;
 
     // Prevent DK on mobile
-    if ( window.isMobile && !opts.mobile ) {
+    if ( window.isMobile && opts && !opts.mobile ) {
       return false;
     }
 
@@ -446,6 +446,7 @@ Dropkick.prototype = {
         elem.setAttribute( "aria-selected", "true" );
 
         combobox.setAttribute( "aria-activedescendant", elem.id );
+        combobox.className = "dk-selected " + option.className;
         combobox.innerHTML = option.text;
 
         this.selectedOptions[0] = elem;
@@ -820,7 +821,7 @@ Dropkick.build = function( sel, idpre ) {
       switch ( node.nodeName ) {
       case "OPTION":
         option = _.create( "li", {
-          "class": "dk-option",
+          "class": "dk-option ",
           "data-value": node.value,
           "innerHTML": node.text,
           "role": "option",
@@ -882,7 +883,7 @@ Dropkick.build = function( sel, idpre ) {
   if ( !sel.multiple ) {
     selOpt = sel.options[ sel.selectedIndex ];
     ret.elem.appendChild( _.create( "div", {
-      "class": "dk-selected",
+      "class": "dk-selected " + selOpt.className,
       "tabindex": sel.tabindex || 0,
       "innerHTML": selOpt ? selOpt.text : '&nbsp;',
       "id": idpre + "-combobox",
