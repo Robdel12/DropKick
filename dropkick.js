@@ -107,19 +107,14 @@ var
     // Returns the top and left offset of an element
     offset: function( elem ) {
       var box = elem.getBoundingClientRect() || { top: 0, left: 0 },
-        docElem = document.documentElement;
+        docElem = document.documentElement,
+        offsetTop = isIE ? docElem.scrollTop : window.pageYOffset,
+        offsetLeft = isIE ? docElem.scrollLeft : window.pageXOffset;
 
-      if ( isIE ) {
         return {
-          top: box.top + docElem.scrollTop - docElem.clientTop,
-          left: box.left + docElem.scrollLeft - docElem.clientLeft
+          top: box.top + offsetTop - docElem.clientTop,
+          left: box.left + offsetLeft - docElem.clientLeft
         };
-      } else {
-        return {
-          top: box.top + window.pageYOffset - docElem.clientTop,
-          left: box.left + window.pageXOffset - docElem.clientLeft
-        };
-      }
     },
 
     // Returns the top and left position of an element relative to an ancestor
