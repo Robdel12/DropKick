@@ -113,8 +113,12 @@ body{
   }
 }
 
-.hidden-option {
+.dk-option.hidden-option {
   display: none;
+}
+
+.dk-selected.hidden-option {
+  color: #AAAAAA;
 }
 
 @media screen and (max-width: 800px) {

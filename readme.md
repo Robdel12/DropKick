@@ -1,22 +1,28 @@
-DropKick.js (2.0) [![Build Status](https://travis-ci.org/Robdel12/DropKick.svg?branch=version-2.0)](https://travis-ci.org/Robdel12/DropKick)
-===========
+# DropKick.js [![Build Status](https://travis-ci.org/Robdel12/DropKick.svg?branch=master)](https://travis-ci.org/Robdel12/DropKick)
 
 # Quick start
 
 ### Basic Usage
 
-- Download the files from the `production` folder
+- Download the latest stable version from the releases / tags section
 - Insert the JS onto the page
 - Put the stylesheet where you would like
 - Add an ID or class to the select(s) you would like to DropKick
-- Call `new Dropkick( HTMLSelectELement, Options );` or `new Dropkick( ID, Options );` in your script
 
-### Using the jQuery plugin
+If you're using jQuery:
+- `$("#ID").dropkick( options );`
 
-As you can see from `dropkick.jquery.js` using any library is a breeze!
+Pure JS:
+- Call `new Dropkick( HTMLSelectELement, Options );` or `new Dropkick( "ID", Options );` in your script
 
-1. Import `dropkick.jquery.js` on the page after `dropkick.js`
-2. Do ya thang! `$(".something").dropkick()`
+**Note: As of DropKick 2.1 we automatically include the polyfills and jQuery plugin.**
+
+## Bower Install
+
+You can install DropKick.js using bower:
+
+`bower install dropkick --save-dev`
+
 
 Documentation
 =============
@@ -46,7 +52,7 @@ Documentation
 
 - **search**: *string*
 
-  - `"strict"` - The search string matches exactly from the begining of the
+  - `"strict"` - The search string matches exactly from the beginning of the
     option's text value (case insensitive).
   - `"partial"` - The search string matches part of the option's text value
     (case insensitive).
@@ -72,6 +78,16 @@ Documentation
 - dk.**disabled** - *boolean* Whether the form is currently disabled or not
 
 - dk.**form** - *node* The form associated with the select
+
+- dk.**length** - *integer* The number of options in the select
+
+- dk.**options** - *array* An array of Dropkick options
+
+- dk.**multiple** - *boolean* If this select is a multi-select
+
+- dk.**selectedOptions** - *array* An array of selected Dropkick options
+
+- dk.**selectedIndex** - *integer* An index of the first selected option
 
 ### Methods
 
@@ -113,31 +129,18 @@ Documentation
 
   Resets the Dropkick and select to it's original selected options; if `clear`
   is `true`, It will select the first option by default (or no options
-  for multiselects).
+  for multi-selects).
 
 - dk.**refresh**()
 
-  Rebuilds the Dropkick and reinitalized the Dropkick object. *Only use if the
+  Rebuilds the Dropkick and reinitialized the Dropkick object. *Only use if the
   original select element has changed.
 
-## Advanced
+- dk.**dispose**()
 
-These are categorized as "advanced" because we feel as these wouldn't normally
-be utilized under typical circumstances.
+  Removes the Dropkick element from the DOM and the object from the cache.
 
-### Properties
-
-- dk.**length** - *integer* The number of options in the select
-
-- dk.**options** - *array* An array of Dropkick options
-
-- dk.**multiple** - *boolean* If this select is a multiselect
-
-- dk.**selectedOptions** - *array* An array of selected Dropkick options
-
-- dk.**selectedIndex** - *integer* An index of the first selected option
-
-### Methods
+  Returns itself.
 
 - dk.**open**()
 
@@ -149,7 +152,8 @@ be utilized under typical circumstances.
 
 - dk.**select**( *elem*, *disabled* )
 
-  - `elem` - *node/integer* The Dropkick option or Index of an option to select
+  - `elem` - *node/integer/string* The Dropkick option, index of an option, or
+  value of an option to select
   - `disabled` - *boolean* Allow the selecting of disabled options
 
   Selects an option from the list.
@@ -162,7 +166,7 @@ be utilized under typical circumstances.
   - `disabled` - *boolean* Allow the selecting of disabled options
 
   Selects a single option from the list and scrolls to it (if the select is open
-  or on multiselects). Useful for selecting an option after a search by the user.
+  or on multi-selects). Useful for selecting an option after a search by the user.
 
   Returns the selected Dropkick option.
 
@@ -174,7 +178,7 @@ be utilized under typical circumstances.
 
   Finds all options whose text matches the given pattern based on the mode.
 
-  - `"strict"` - The search string matches exactly from the begining of the
+  - `"strict"` - The search string matches exactly from the beginning of the
     option's text value (case insensitive).
   - `"partial"` - The search string matches part of the option's text value
     (case insensitive).
@@ -193,16 +197,15 @@ be utilized under typical circumstances.
 
 ### Adding or editing code
 - Fork Dropkick
-- Run `npm install` to install all the dev dependancies
+- Run `npm install` to install all the dev dependencies
 - Make your changes
-  - You can chose to do the changes on either the `develop` branch or `master` branch of your fork
   - Follow the same coding style that's written in dropkick.js. ** Not doing this will result in a lot of comments on your pull request*
 - Write tests
   - If you're adding a feature write a test for it
   - If you're fixing a bug write a test for it.
 - Run `gulp` from your command line.
   - The default runner will run the test suite, lint, and minify the JS.
-- If all tests pass you can create a pull request vs the `develop` branch. Tag any related github issue tickets in the PR.
+- If all tests pass you can create a pull request. Tag any related github issue tickets in the PR.
 
 **If you fail to do any of these we probably will not accept your changes**
 
@@ -210,3 +213,8 @@ Suggestions or Bugs?
 ====================
 
 Search for bugs ruthlessly and call any vermin to our attention!
+
+## Authors
+[Wil Wilsman](http://wilwilsman.com) [@wilwilsman](http://twitter.com/wilwilsman)
+
+[Robert DeLuca](http://robert-deluca.com) [@robdel12](http://twitter.com/robdel12)
