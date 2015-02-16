@@ -82,6 +82,7 @@ $dk-disabled-color: #BBBBBB !default;
   position: absolute;
   display: none;
   left: 0;
+  right: 0;
 }
 
 .dk-select-open-up .dk-select-options {
@@ -101,7 +102,8 @@ $dk-disabled-color: #BBBBBB !default;
 }
 
 .dk-select-options {
-  width: 100%;
+  min-width: 100%;
+  width: auto;
   z-index: 100;
   background-color: white;
   border: 1px solid $dk-border-color;
