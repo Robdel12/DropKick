@@ -45,7 +45,8 @@
 .dk-select .dk-select-options {
   position: absolute;
   display: none;
-  left: 0; }
+  left: 0;
+  right: 0; }
 
 .dk-select-open-up .dk-select-options {
   border-radius: 0.4em 0.4em 0 0;
@@ -61,17 +62,18 @@
   max-height: 10em; }
 
 .dk-select-options {
-  width: 100%;
-  z-index: 100;
   background-color: white;
   border: 1px solid #CCCCCC;
   border-radius: 0.4em;
+  list-style: none;
+  margin: 0;
+  max-height: 10.5em;
+  min-width: 100%;
   overflow-x: hidden;
   overflow-y: auto;
-  max-height: 10.5em;
-  list-style: none;
   padding: 0.25em 0;
-  margin: 0; }
+  width: auto;
+  z-index: 100; }
 
 .dk-option-selected {
   background-color: #3297fd;

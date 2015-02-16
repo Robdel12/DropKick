@@ -82,6 +82,7 @@ $dk-disabled-color: #BBBBBB !default;
   position: absolute;
   display: none;
   left: 0;
+  right: 0;
 }
 
 .dk-select-open-up .dk-select-options {
@@ -101,17 +102,18 @@ $dk-disabled-color: #BBBBBB !default;
 }
 
 .dk-select-options {
-  width: 100%;
-  z-index: 100;
   background-color: white;
   border: 1px solid $dk-border-color;
   border-radius: $dk-border-radius;
+  list-style: none;
+  margin: 0;
+  max-height: 10.5em;
+  min-width: 100%;
   overflow-x: hidden;
   overflow-y: auto;
-  max-height: 10.5em;
-  list-style: none;
   padding: 0.25em 0;
-  margin: 0;
+  width: auto;
+  z-index: 100;
 }
 
 .dk-option-selected {
