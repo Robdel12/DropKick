@@ -18,6 +18,7 @@ var
   isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test( navigator.userAgent ),
   isIframe = (window.parent != window.self && location.host === parent.location.host),
   isIE = navigator.appVersion.indexOf("MSIE")!=-1,
+  isClicked = false,
 
   // The Dropkick Object
   Dropkick = function( sel, opts ) {
@@ -372,6 +373,8 @@ Dropkick.prototype = {
     dkOptsList.setAttribute( "aria-expanded", "true" );
     this._scrollTo( this.options.length - 1 );
     this._scrollTo( this.selectedIndex );
+
+    isClicked = true;
 
     this.data.settings.open.call( this );
   },
@@ -921,7 +924,9 @@ Dropkick.build = function( sel, idpre ) {
 Dropkick.onDocClick = function( event ) {
   var t, tId, i;
 
-  if (event.target.nodeType !== 1) {
+  if (event.target.nodeType !== 1 || isClicked) {
+    isClicked = false;
+
     return false;
   }
 

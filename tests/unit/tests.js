@@ -22,6 +22,19 @@ QUnit.test( "Dropkick opens", 1, function( assert ) {
   assert.equal(dk.isOpen, true);
 });
 
+QUnit.test( "Dropkick opens from external button", 1, function( assert ) {
+  var dk = new Dropkick("#normal_select");
+
+  $("#btn").on("click", function(){
+    console.log("Clicked");
+    dk.open();
+  });
+  $("#btn").trigger("click");
+
+  assert.equal(dk.isOpen, true);
+});
+
+
 QUnit.test( "Dropkick closes", 2, function( assert ) {
   var dk = new Dropkick("#normal_select");
   dk.open();
