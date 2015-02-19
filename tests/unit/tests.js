@@ -26,7 +26,6 @@ QUnit.test( "Dropkick opens from external button", 1, function( assert ) {
   var dk = new Dropkick("#normal_select");
 
   $("#btn").on("click", function(){
-    console.log("Clicked");
     dk.open();
   });
   $("#btn").trigger("click");
