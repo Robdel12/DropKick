@@ -15,6 +15,18 @@ QUnit.test( "Create a new Dropkick", 3, function( assert ) {
   assert.equal(dk.data.select.getAttribute("data-dkcacheid"), currentDkCacheID);
 });
 
+QUnit.test( "Dropkick should be cached", 2, function( assert ) {
+  var dk = new Dropkick("#normal_select"),
+    currentDkCacheID = dk.data.cacheID;
+
+  // uid is always one more than the last id
+  assert.equal(Dropkick.uid - 1, currentDkCacheID);
+
+  dk = new Dropkick("#normal_select");
+
+  assert.equal(Dropkick.uid - 1, currentDkCacheID);
+});
+
 QUnit.test( "Dropkick opens", 1, function( assert ) {
   var dk = new Dropkick("#normal_select", {
     open: function() {

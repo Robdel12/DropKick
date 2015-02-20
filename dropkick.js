@@ -33,7 +33,7 @@ var
     }
 
     // Check if select has already been DK'd and return the DK Object
-    for ( i = 0, l = Dropkick.cache.length; i < l; i++) {
+    for ( i = 0; i < Dropkick.uid; i++) {
       if ( Dropkick.cache[ i ].data.select === sel ) {
         _.extend( Dropkick.cache[ i ].data.settings, opts );
         return Dropkick.cache[ i ];
