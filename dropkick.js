@@ -22,12 +22,7 @@ var
 
   // The Dropkick Object
   Dropkick = function( sel, opts ) {
-    var i;
-
-    // Prevent DK on mobile
-    if ( isMobile && opts && !opts.mobile ) {
-      return false;
-    }
+    var i, l;
 
     // Safety if `Dropkick` is called without `new`
     if ( this === window ) {
@@ -39,9 +34,11 @@ var
     }
 
     // Check if select has already been DK'd and return the DK Object
-    if ( i = sel.getAttribute( "data-dkcacheid" ) ) {
-      _.extend( Dropkick.cache[ i ].data.settings, opts );
-      return Dropkick.cache[ i ];
+    for ( i = 0, l = Dropkick.cache.length; i < l; i++) {
+      if ( Dropkick.cache[ i ].data.select === sel ) {
+        _.extend( Dropkick.cache[ i ].data.settings, opts );
+        return Dropkick.cache[ i ];
+      }
     }
 
     if ( sel.nodeName === "SELECT" ) {
@@ -50,6 +47,7 @@ var
   },
 
   noop = function() {},
+  _docListener,
 
   // DK default options
   defaults = {
@@ -275,39 +273,8 @@ Dropkick.prototype = {
     this.selectedOptions = dk.selected.slice( 0 );
     this.value = sel.value;
 
-    // Insert the DK element before the original select
-    sel.parentNode.insertBefore( this.data.elem, sel );
-
-    // Bind events
-    this.data.elem.addEventListener( "click", this );
-    this.data.elem.addEventListener( "keydown", this );
-    this.data.elem.addEventListener( "keypress", this );
-
-    if ( this.form ) {
-      this.form.addEventListener( "reset", this );
-    }
-
-    if ( !this.multiple ) {
-      for ( i = 0; i < this.options.length; i++ ) {
-        this.options[ i ].addEventListener( "mouseover", this );
-      }
-    }
-
-    if ( Dropkick.uid === 0 ) {
-      document.addEventListener( "click", Dropkick.onDocClick );
-      if ( isIframe ){
-        parent.document.addEventListener( "click", Dropkick.onDocClick );
-      }
-    }
-
-    if ( !this._changeListener ) {
-      sel.addEventListener( "change", this );
-      this._changeListener = true;
-    }
-
     // Add the DK Object to the cache
     this.data.cacheID = Dropkick.uid;
-    sel.setAttribute( "data-dkCacheId", this.data.cacheID );
     Dropkick.cache[ this.data.cacheID ] = this;
 
     // Call the optional initialize function
@@ -315,6 +282,45 @@ Dropkick.prototype = {
 
     // Increment the index
     Dropkick.uid += 1;
+
+    // Add the change listener to the select
+    if ( !this._changeListener ) {
+      sel.addEventListener( "change", this );
+      this._changeListener = true;
+    }
+
+    // Don't continue if we're not rendering on mobile
+    if ( !( isMobile && !this.data.settings.mobile ) ) {
+
+      // Insert the DK element before the original select
+      sel.parentNode.insertBefore( this.data.elem, sel );
+      sel.setAttribute( "data-dkCacheId", this.data.cacheID );
+
+      // Bind events
+      this.data.elem.addEventListener( "click", this );
+      this.data.elem.addEventListener( "keydown", this );
+      this.data.elem.addEventListener( "keypress", this );
+
+      if ( this.form ) {
+        this.form.addEventListener( "reset", this );
+      }
+
+      if ( !this.multiple ) {
+        for ( i = 0; i < this.options.length; i++ ) {
+          this.options[ i ].addEventListener( "mouseover", this );
+        }
+      }
+
+      if ( !_docListener ) {
+        document.addEventListener( "click", Dropkick.onDocClick );
+        
+        if ( isIframe ){
+          parent.document.addEventListener( "click", Dropkick.onDocClick );
+        }
+
+        _docListener = true;
+      }
+    }
 
     return this;
   },
