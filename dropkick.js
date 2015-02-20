@@ -18,7 +18,6 @@ var
   isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test( navigator.userAgent ),
   isIframe = (window.parent != window.self && location.host === parent.location.host),
   isIE = navigator.appVersion.indexOf("MSIE")!=-1,
-  isClicked = false,
 
   // The Dropkick Object
   Dropkick = function( sel, opts ) {
@@ -153,6 +152,17 @@ var
       }
 
       return node;
+    },
+
+    deferred: function( fn ) {
+      return function() {
+        var args = arguments,
+          ctx = this;
+
+        window.setTimeout(function() {
+          fn.apply(ctx, args);
+        }, 1);
+      };
     }
 
   };
@@ -351,7 +361,7 @@ Dropkick.prototype = {
   /**
    * Opens the DK dropdown
    */
-  open: function() {
+  open: _.deferred(function() {
     var dropHeight, above, below, direction, dkTop, dkBottom,
       dk = this.data.elem,
       dkOptsList = dk.lastChild;
@@ -380,10 +390,8 @@ Dropkick.prototype = {
     this._scrollTo( this.options.length - 1 );
     this._scrollTo( this.selectedIndex );
 
-    isClicked = true;
-
     this.data.settings.open.call( this );
-  },
+  }),
 
   /**
    * Disables or enables an option or the entire Dropkick
@@ -930,7 +938,7 @@ Dropkick.build = function( sel, idpre ) {
 Dropkick.onDocClick = function( event ) {
   var t, tId, i;
 
-  if (event.target.nodeType !== 1 || isClicked) {
+  if (event.target.nodeType !== 1) {
     isClicked = false;
 
     return false;

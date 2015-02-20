@@ -16,31 +16,48 @@ QUnit.test( "Create a new Dropkick", 3, function( assert ) {
 });
 
 QUnit.test( "Dropkick opens", 1, function( assert ) {
-  var dk = new Dropkick("#normal_select");
-  dk.open();
+  var dk = new Dropkick("#normal_select", {
+    open: function() {
+      assert.equal(this.isOpen, true);
+    }
+  });
 
-  assert.equal(dk.isOpen, true);
+  QUnit.stop();
+  dk.open();
+  QUnit.start();
 });
 
 QUnit.test( "Dropkick opens from external button", 1, function( assert ) {
-  var dk = new Dropkick("#normal_select");
+  var dk = new Dropkick("#normal_select", {
+    open: function() {
+      assert.equal(this.isOpen, true);
+    }
+  });
 
   $("#btn").on("click", function(){
     dk.open();
   });
-  $("#btn").trigger("click");
 
-  assert.equal(dk.isOpen, true);
+  QUnit.stop();
+  $("#btn").trigger("click");
+  QUnit.start();
 });
 
 
 QUnit.test( "Dropkick closes", 2, function( assert ) {
-  var dk = new Dropkick("#normal_select");
-  dk.open();
+  var dk = new Dropkick("#normal_select", {
+    open: function() {
+      assert.notEqual(this.isOpen, false);
 
-  assert.notEqual(dk.isOpen, false);
-  dk.close();
-  assert.equal(dk.isOpen, false);
+      // wait until after we're open to close
+      dk.close();
+      assert.equal(dk.isOpen, false);
+    }
+  });
+
+  QUnit.stop();
+  dk.open();
+  QUnit.start();
 });
 
 QUnit.test( "Dropkick selects an option", 4, function( assert ) {
