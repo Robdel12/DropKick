@@ -1,5 +1,5 @@
 /*
- * DropKick 2.1.1
+ * DropKick 2.1.2
  *
  * Highly customizable <select> lists
  * https://github.com/robdel12/DropKick
@@ -323,7 +323,7 @@ Dropkick.prototype = {
 
       if ( !_docListener ) {
         document.addEventListener( "click", Dropkick.onDocClick );
-        
+
         if ( isIframe ){
           parent.document.addEventListener( "click", Dropkick.onDocClick );
         }
