@@ -21,17 +21,14 @@
     "node": ">=0.10.0"
   },
   "devDependencies": {
-    "gulp-qunit": "~0.3.1",
-    "gulp-util": "~2.2.14",
-    "gulp": "~3.8.6",
-    "qunitjs": "~1.14.0",
-    "gulp-rename": "~1.2.0",
+    "gulp": "^3.8.11",
     "gulp-concat": "~2.2.0",
-    "gulp-uglify": "~0.3.1",
     "gulp-jshint": "~1.6.3",
-    "gulp-sass": "~0.7.2"
-  },
-  "dependencies": {
-    "gulp": "^3.8.6"
+    "gulp-qunit": "^1.2.1",
+    "gulp-rename": "~1.2.0",
+    "gulp-sass": "~0.7.2",
+    "gulp-uglify": "~0.3.1",
+    "gulp-util": "~2.2.14",
+    "qunitjs": "^1.17.1"
   }
 }
