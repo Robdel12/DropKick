@@ -21,7 +21,7 @@ var
 
   // The Dropkick Object
   Dropkick = function( sel, opts ) {
-    var i, l;
+    var i, dk;
 
     // Safety if `Dropkick` is called without `new`
     if ( this === window ) {
@@ -34,9 +34,11 @@ var
 
     // Check if select has already been DK'd and return the DK Object
     for ( i = 0; i < Dropkick.uid; i++) {
-      if ( Dropkick.cache[ i ].data.select === sel ) {
-        _.extend( Dropkick.cache[ i ].data.settings, opts );
-        return Dropkick.cache[ i ];
+      dk = Dropkick.cache[ i ];
+
+      if ( dk instanceof Dropkick && dk.data.select === sel ) {
+        _.extend( dk.data.settings, opts );
+        return dk;
       }
     }
 
