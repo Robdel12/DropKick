@@ -1,9 +1,9 @@
 {
-  "name": "The Foo API",
-  "description": "The Foo API: a library for doing X, Y, and Z",
-  "version": "1.2.1",
+  "name": "DropKick API Documentation",
+  "description": "DropKicks API Documentation",
+  "version": "2.1.3",
   "url": "http://example.com/",
   "options": {
-    "outdir": "/docs"
+    "outdir": "docs"
   }
 }
