@@ -60,19 +60,58 @@ var
   // DK default options
   defaults = {
 
-    // Called once after the DK element is inserted into the DOM
+    /**
+     * Called once after the DK element is inserted into the DOM.
+     * The value of `this` is the Dropkick object itself.
+     *
+     * @config initialize
+     * @type Function
+     *
+     */
     initialize: noop,
 
-    // Called every time the select changes value
+    /**
+     * Called whenever the value of the Dropkick select changes (by user action or through the API).
+     * The value of `this` is the Dropkick object itself.
+     *
+     * @config change
+     * @type Function
+     *
+     */
     change: noop,
 
-    // Called every time the DK element is opened
+    /**
+     * Called whenever the Dropkick select is opened. The value of `this` is the Dropkick object itself.
+     *
+     * @config open
+     * @type Function
+     *
+     */
     open: noop,
 
-    // Called every time the DK element is closed
+    /**
+     * Called whenever the Dropkick select is closed. The value of `this` is the Dropkick object itself.
+     *
+     * @config close
+     * @type Function
+     *
+     */
     close: noop,
 
     // Search method; "strict", "partial", or "fuzzy"
+    /**
+     * `"strict"` - The search string matches exactly from the beginning of the option's text value (case insensitive).
+     *
+     * `"partial"` - The search string matches part of the option's text value (case insensitive).
+     *
+     * `"fuzzy"` - The search string matches the characters in the given order (not exclusively).
+     * The strongest match is selected first. (case insensitive).
+     *
+     * @default "strict"
+     * @config search
+     * @type string
+     *
+     */
     search: "strict"
   },
 
@@ -188,7 +227,8 @@ Dropkick.prototype = {
   // Emulate some of HTMLSelectElement's methods
 
   /**
-   * Adds an element to the select
+   * Adds an element to the select. This option will not only add it to the original
+   * select, but create a Dropkick option and add it to the Dropkick select.
    *
    * @method add
    * @param {string} elem   HTMLOptionElement
@@ -245,8 +285,7 @@ Dropkick.prototype = {
   },
 
   /**
-   * Selects an option in the lists at the desired index
-   * (negative numbers select from the end)
+   * Selects an option in the list at the desired index (negative numbers select from the end).
    *
    * @method item
    * @param  {Integer} index Index of element (positive or negative)
@@ -258,7 +297,7 @@ Dropkick.prototype = {
   },
 
   /**
-   * Removes an element at the given index
+   * Removes the option (from both the select and Dropkick) at the given index.
    *
    * @method  remove
    * @param  {Integer} index Index of element (positive or negative)
@@ -292,13 +331,61 @@ Dropkick.prototype = {
     this.data.settings = _.extend({}, defaults, opts );
 
     // Emulate some of HTMLSelectElement's properties
+
+    /**
+     * Whether the form is currently disabled or not
+     *
+     * @property {boolean} disabled
+     */
     this.disabled = sel.disabled;
+
+    /**
+     * The form associated with the select
+     *
+     * @property {node} form
+     */
     this.form = sel.form;
+
+    /**
+     * The number of options in the select
+     *
+     * @property {integer} length
+     */
     this.length = sel.length;
+
+    /**
+     * If this select is a multi-select
+     *
+     * @property {boolean} multiple
+     */
     this.multiple = sel.multiple;
+
+    /**
+     * An array of Dropkick options
+     *
+     * @property {array} options
+     */
     this.options = dk.options.slice( 0 );
+
+    /**
+     * An index of the first selected option
+     *
+     * @property {integer} selectedIndex
+     */
     this.selectedIndex = sel.selectedIndex;
+
+    /**
+     * An array of selected Dropkick options
+     *
+     * @property {array} selectedOptions
+     */
     this.selectedOptions = dk.selected.slice( 0 );
+
+    /**
+     * The current value of the select
+     *
+     * @property {string} disabled
+     */
     this.value = sel.value;
 
     // Add the DK Object to the cache
@@ -416,7 +503,8 @@ Dropkick.prototype = {
   }),
 
   /**
-   * Disables or enables an option or the entire Dropkick
+   * Disables or enables an option; if only a boolean is passed (or nothing),
+   * then the entire Dropkick will be disabled or enabled.
    *
    * @method disable
    * @param  {Integer} elem     The element or index to disable
@@ -520,7 +608,8 @@ Dropkick.prototype = {
   },
 
   /**
-   * Selects a single option from the list
+   * Selects a single option from the list and scrolls to it (if the select is open or on multi-selects).
+   * Useful for selecting an option after a search by the user.
    *
    * @method selectOne
    * @param  {Integer} elem     The element or index to select
@@ -535,6 +624,15 @@ Dropkick.prototype = {
 
   /**
    * Finds all options who's text matches a pattern (strict, partial, or fuzzy)
+   *
+   * `"strict"` - The search string matches exactly from the beginning of the
+   * option's text value (case insensitive).
+   *
+   * `"partial"` - The search string matches part of the option's text value
+   * (case insensitive).
+   *
+   * `"fuzzy"` - The search string matches the characters in the given order (not
+   * exclusively). The strongest match is selected first. (case insensitive).
    *
    * @method search
    * @param  {String} string  The string to search for
@@ -609,7 +707,8 @@ Dropkick.prototype = {
   },
 
   /**
-   * Resets the DK and select element
+   * Resets the Dropkick and select to it's original selected options; if `clear` is `true`,
+   * It will select the first option by default (or no options for multi-selects).
    *
    * @method reset
    * @param  {Boolean} clear Defaults to first option if True
