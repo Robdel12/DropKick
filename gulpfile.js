@@ -4,9 +4,10 @@ var gulp = require('gulp'),
     sass = require('gulp-sass'),
     concat = require('gulp-concat'),
     uglify = require('gulp-uglify'),
-    rename = require('gulp-rename');
+    rename = require('gulp-rename'),
+    yuidoc = require("gulp-yuidoc-relative");
 
-gulp.task('default', ['sass', 'test', 'scripts']);
+gulp.task('default', ['sass', 'test', 'scripts', 'docs']);
 
 // Lint Task
 gulp.task('lint', function() {
@@ -35,6 +36,13 @@ gulp.task('scripts', function() {
 gulp.task('watch', function() {
   gulp.watch('dropkick.js', ['lint', 'scripts']);
   gulp.watch('css/*.scss', ['sass']);
+});
+
+//Build the docs
+gulp.task('docs', function() {
+  gulp.src("dropkick.js")
+  .pipe(yuidoc())
+  .pipe(gulp.dest("./docs"));
 });
 
 gulp.task('test', function() {

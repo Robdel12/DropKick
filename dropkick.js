@@ -19,7 +19,12 @@ var
   isIframe = (window.parent != window.self && location.host === parent.location.host),
   isIE = navigator.appVersion.indexOf("MSIE")!=-1,
 
-  // The Dropkick Object
+  /**
+  * Dropkick constructor
+  *
+  * @class Dropkick
+  * @constructor
+  */
   Dropkick = function( sel, opts ) {
     var i, dk;
 
@@ -182,7 +187,9 @@ Dropkick.prototype = {
 
   /**
    * Adds an element to the select
-   * @param {string}         elem   HTMLOptionElement
+   *
+   * @method add
+   * @param {string} elem   HTMLOptionElement
    * @param {Node/Integer} before HTMLOptionElement/Index of Element
    */
   add: function( elem, before ) {
@@ -238,6 +245,8 @@ Dropkick.prototype = {
   /**
    * Selects an option in the lists at the desired index
    * (negative numbers select from the end)
+   *
+   * @method item
    * @param  {Integer} index Index of element (positive or negative)
    * @return {Node}          The DK option from the list, or null if not found
    */
@@ -248,6 +257,8 @@ Dropkick.prototype = {
 
   /**
    * Removes an element at the given index
+   *
+   * @method  remove
    * @param  {Integer} index Index of element (positive or negative)
    */
   remove: function( index ) {
@@ -261,6 +272,8 @@ Dropkick.prototype = {
 
   /**
    * Initializes the DK Object
+   *
+   * @method init
    * @param  {Node}   sel  [description]
    * @param  {Object} opts Options to override defaults
    * @return {Object}      The DK Object
@@ -339,6 +352,8 @@ Dropkick.prototype = {
 
   /**
    * Closes the DK dropdown
+   *
+   * @method close
    */
   close: function() {
     var i,
@@ -362,6 +377,8 @@ Dropkick.prototype = {
 
   /**
    * Opens the DK dropdown
+   *
+   * @method open
    */
   open: _.deferred(function() {
     var dropHeight, above, below, direction, dkTop, dkBottom,
@@ -397,7 +414,9 @@ Dropkick.prototype = {
 
   /**
    * Disables or enables an option or the entire Dropkick
-   * @param  {Node/Integer} elem     The element or index to disable
+   *
+   * @method disable
+   * @param  {Integer} elem     The element or index to disable
    * @param  {Boolean}      disabled Value of disabled
    */
   disable: function( elem, disabled ) {
@@ -423,7 +442,9 @@ Dropkick.prototype = {
 
   /**
    * Selects an option from the list
-   * @param  {Node/Integer/String} elem     The element, index, or value to select
+   *
+   * @method select
+   * @param  {String} elem     The element, index, or value to select
    * @param  {Boolean}             disabled Selects disabled options
    * @return {Node}                         The selected element
    */
@@ -497,7 +518,9 @@ Dropkick.prototype = {
 
   /**
    * Selects a single option from the list
-   * @param  {Node/Integer} elem     The element or index to select
+   *
+   * @method selectOne
+   * @param  {Integer} elem     The element or index to select
    * @param  {Boolean}      disabled Selects disabled options
    * @return {Node}                  The selected element
    */
@@ -509,9 +532,11 @@ Dropkick.prototype = {
 
   /**
    * Finds all options who's text matches a pattern (strict, partial, or fuzzy)
+   *
+   * @method search
    * @param  {String} string  The string to search for
    * @param  {Integer} mode   How to search; "strict", "partial", or "fuzzy"
-   * @return {Array/Boolean}  An Array of matched elements
+   * @return {Boolean}  An Array of matched elements
    */
   search: function( pattern, mode ) {
     var i, tokens, str, tIndex, sIndex, cScore, tScore, reg,
@@ -571,6 +596,8 @@ Dropkick.prototype = {
 
   /**
    * Brings focus to the proper DK element
+   *
+   * @method focus
    */
   focus: function() {
     if ( !this.disabled ) {
@@ -580,6 +607,8 @@ Dropkick.prototype = {
 
   /**
    * Resets the DK and select element
+   *
+   * @method reset
    * @param  {Boolean} clear Defaults to first option if True
    */
   reset: function( clear ) {
@@ -605,6 +634,8 @@ Dropkick.prototype = {
   /**
    * Rebuilds the DK Object
    * (use if HTMLSelectElement has changed)
+   *
+   * @method refresh
    */
   refresh: function() {
     this.dispose().init( this.data.select, this.data.settings );
@@ -612,6 +643,8 @@ Dropkick.prototype = {
 
   /**
    * Removes the DK Object from the cache and the element from the DOM
+   *
+   * @method dispose
    */
   dispose: function() {
     delete Dropkick.cache[ this.data.cacheID ];
@@ -622,6 +655,10 @@ Dropkick.prototype = {
 
   // Private Methods
 
+  /**
+   * @method handleEvent
+   * @private
+   */
   handleEvent: function( event ) {
     if ( this.disabled ) return;
 
@@ -647,6 +684,11 @@ Dropkick.prototype = {
     }
   },
 
+
+  /**
+   * @method delegate
+   * @private
+   */
   _delegate: function( event ) {
     var selection, index, firstIndex, lastIndex,
       target = event.target;
@@ -688,6 +730,10 @@ Dropkick.prototype = {
     }
   },
 
+  /**
+   * @method highlight
+   * @private
+   */
   _highlight: function( event ) {
     var i, option = event.target;
 
@@ -701,6 +747,10 @@ Dropkick.prototype = {
     }
   },
 
+  /**
+   * @method keyHandler
+   * @private
+   */
   _keyHandler: function( event ) {
     var lastSelected, j,
       selected = this.selectedOptions,
@@ -771,6 +821,10 @@ Dropkick.prototype = {
     }
   },
 
+  /**
+   * @method searchOptions
+   * @private
+   */
   _searchOptions: function( event ) {
     var results,
       self = this,
@@ -802,6 +856,10 @@ Dropkick.prototype = {
     }
   },
 
+  /**
+   * @method scrollTo
+   * @private
+   */
   _scrollTo: function( option ) {
     var optPos, optTop, optBottom,
       dkOpts = this.data.elem.lastChild;
@@ -832,6 +890,8 @@ Dropkick.prototype = {
 
 /**
  * Builds the Dropkick element from a select element
+ *
+ * @method  build
  * @param  {Node} sel The HTMLSelectElement
  * @return {Object}   An object containing the new DK element and it's options
  */
@@ -936,6 +996,9 @@ Dropkick.build = function( sel, idpre ) {
 
 /**
  * Focus DK Element when corresponding label is clicked; close all other DK's
+ *
+ * @method  onDocClick
+ * @param {Object} event  Event from document click
  */
 Dropkick.onDocClick = function( event ) {
   var t, tId, i;
