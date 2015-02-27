@@ -34,15 +34,21 @@ gulp.task('scripts', function() {
 
 // Watch Files For Changes
 gulp.task('watch', function() {
-  gulp.watch('dropkick.js', ['lint', 'scripts']);
+  gulp.watch('dropkick.js', ['scripts', 'docs']);
   gulp.watch('css/*.scss', ['sass']);
 });
 
 //Build the docs
 gulp.task('docs', function() {
   gulp.src("dropkick.js")
-  .pipe(yuidoc())
-  .pipe(gulp.dest("./docs"));
+  .pipe(yuidoc({
+    "project":{
+      "name": "DropKick API Documentation",
+      "description": "DropKicks API Documentation",
+      "version": "2.1.3",
+      "url": "http://dropkickjs.com/"
+    }
+  })).pipe(gulp.dest("./docs"));
 });
 
 gulp.task('test', function() {

@@ -20,7 +20,9 @@ var
   isIE = navigator.appVersion.indexOf("MSIE")!=-1,
 
   /**
-  * Dropkick constructor
+  * Dropkicks constructor
+  *
+  * Call `new Dropkick( HTMLSelectELement, Options );` or `new Dropkick( "ID", Options );` in your script to create a new DropKick.
   *
   * @class Dropkick
   * @constructor
@@ -274,6 +276,7 @@ Dropkick.prototype = {
    * Initializes the DK Object
    *
    * @method init
+   * @private
    * @param  {Node}   sel  [description]
    * @param  {Object} opts Options to override defaults
    * @return {Object}      The DK Object
@@ -892,6 +895,7 @@ Dropkick.prototype = {
  * Builds the Dropkick element from a select element
  *
  * @method  build
+ * @private
  * @param  {Node} sel The HTMLSelectElement
  * @return {Object}   An object containing the new DK element and it's options
  */
@@ -998,6 +1002,7 @@ Dropkick.build = function( sel, idpre ) {
  * Focus DK Element when corresponding label is clicked; close all other DK's
  *
  * @method  onDocClick
+ * @private
  * @param {Object} event  Event from document click
  */
 Dropkick.onDocClick = function( event ) {
