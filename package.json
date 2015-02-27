@@ -23,12 +23,16 @@
   "devDependencies": {
     "gulp": "^3.8.11",
     "gulp-concat": "~2.2.0",
+    "gulp-gh-pages": "^0.4.0",
+    "gulp-inject": "^1.2.0",
     "gulp-jshint": "~1.6.3",
     "gulp-qunit": "^1.2.1",
     "gulp-rename": "~1.2.0",
     "gulp-sass": "~0.7.2",
     "gulp-uglify": "~0.3.1",
     "gulp-util": "~2.2.14",
+    "merge-stream": "^0.1.7",
+    "minimist": "^1.1.0",
     "qunitjs": "^1.17.1"
   }
 }

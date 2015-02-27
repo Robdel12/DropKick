@@ -4,7 +4,16 @@ var gulp = require('gulp'),
     sass = require('gulp-sass'),
     concat = require('gulp-concat'),
     uglify = require('gulp-uglify'),
-    rename = require('gulp-rename');
+    rename = require('gulp-rename'),
+    minimist = require('minimist'),
+    deploy = require('gulp-gh-pages'),
+    merge = require('merge-stream');
+
+// Passing a version number
+var knownOptions = {
+  string: 'ver'
+};
+var options = minimist(process.argv.slice(2), knownOptions);
 
 gulp.task('default', ['sass', 'test', 'scripts']);
 
@@ -31,6 +40,25 @@ gulp.task('scripts', function() {
     .pipe(gulp.dest('production/'));
 });
 
+gulp.task('rename-release', function() {
+  return gulp.src('dropkick.js')
+    .pipe(rename('dropkick.' + options.ver + '.min.js'))
+    .pipe(uglify())
+    .pipe(gulp.dest('production/'));
+});
+
+gulp.task('gh-pages', function () {
+  return gulp.src('/build')
+    .pipe(deploy());
+});
+
+gulp.task('build', function() {
+  return gulp.src('dropkick.js')
+    .pipe(rename('dropkick.min.js'))
+    .pipe(uglify())
+    .pipe(gulp.dest('build/'));
+});
+
 // Watch Files For Changes
 gulp.task('watch', function() {
   gulp.watch('dropkick.js', ['lint', 'scripts']);
@@ -38,6 +66,7 @@ gulp.task('watch', function() {
 });
 
 gulp.task('test', function() {
+  //TODO: fix
   // return gulp.src(['./tests/src/runner.html', './tests/src/iframe.html'])
   return gulp.src(['./tests/src/runner.html'])
     .pipe(qunit());
