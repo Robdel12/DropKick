@@ -321,7 +321,7 @@
             event.stopPropagation();
 
           }).on( "keypress keyup", function ( event ) {
-            var found = dk.search( this.value, "fuzzy" );
+            var found = dk.search( this.value );
 
             event.stopPropagation();
 
@@ -374,7 +374,7 @@
           }
         }
       }
-      debugger;
+
     });
     </script>
   </div>
