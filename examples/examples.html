@@ -301,11 +301,10 @@
 
     <script>
     $(function() {
-
       $( "#normal_select, #disabled, #opt_group, #multiple" ).dropkick({
         mobile: true
       });
-      $( "#search_select" ).dropkick({
+      var dk = new Dropkick( "#search_select", {
         mobile: true,
         initialize: function() {
           var $input,
@@ -322,8 +321,7 @@
             event.stopPropagation();
 
           }).on( "keypress keyup", function ( event ) {
-
-            var found = dk.search( this.value, dk.data.settings.search );
+            var found = dk.search( this.value, "fuzzy" );
 
             event.stopPropagation();
 
@@ -376,7 +374,7 @@
           }
         }
       }
-
+      debugger;
     });
     </script>
   </div>

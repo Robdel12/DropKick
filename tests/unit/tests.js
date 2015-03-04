@@ -81,10 +81,27 @@ QUnit.test( "Dropkick selects an option", 4, function( assert ) {
   assert.equal(dk.selectedIndex, 4);
 });
 
-QUnit.test( "Dropkick searches Alabama and returns Alabama", 1, function( assert ) {
+QUnit.test( "Strict searches Alabama and returns Alabama", 2, function( assert ) {
   var dk = new Dropkick("#normal_select");
 
+  assert.equal(dk.search("Alabama").length, 1);
   assert.equal(dk.search("Alabama")[0], dk.item(1));
+});
+
+QUnit.test( "Fuzzy searches ac and returns an array of two", 3, function( assert ) {
+  var dk = new Dropkick("#normal_select");
+
+  assert.equal(dk.search("ac", "fuzzy").length, 1, "Nothing returned in search");
+  assert.equal(dk.search("ac", "fuzzy")[0], dk.item(22), "Didn't find 'Massachusetts' in search");
+  assert.deepEqual(dk.search("ac"), [], "Should return an empty array");
+});
+
+QUnit.test( "Partial searches mo and returns an array of two", 3, function( assert ) {
+  var dk = new Dropkick("#normal_select");
+
+  assert.equal(dk.search("mo", "partial").length, 2);
+  assert.equal(dk.search("mo", "partial")[0], dk.item(27));
+  assert.equal(dk.search("mo", "partial")[1], dk.item(46));
 });
 
 QUnit.test( "Adds an option to the select", 1, function( assert ) {
