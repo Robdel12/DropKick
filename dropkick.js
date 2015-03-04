@@ -384,7 +384,7 @@ Dropkick.prototype = {
     /**
      * The current value of the select
      *
-     * @property {string} disabled
+     * @property {string} value
      */
     this.value = sel.value;
 

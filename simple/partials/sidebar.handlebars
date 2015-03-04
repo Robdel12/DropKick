@@ -1,0 +1,54 @@
+{{!-- <div>
+  <h2>Classes</h2>
+  <ul>
+    {{#classes}}
+      <li><a href="{{../projectRoot}}classes/{{name}}.html">{{displayName}}</a></li>
+    {{/classes}}
+  </ul>
+</div> Keep maybe? --}}
+
+{{#if methods}}
+<div>
+  <h2>Methods</h2>
+  <ul>
+    {{#methods}}
+      <li><a href="#methods_{{name}}">{{name}}</a></li>
+    {{/methods}}
+  </ul>
+</div>
+{{/if}}
+
+{{#if events}}
+<div>
+  <h2>Events On Page</h2>
+  <ul>
+    {{#events}}
+      <li><a href="#events_{{name}}">{{name}}</a></li>
+    {{/events}}
+  </ul>
+</div>
+{{/if}}
+
+{{#if props}}
+<div>
+  <h2>Props On Page</h2>
+  <ul>
+    {{#events}}
+      <li><a href="#props_{{name}}">{{name}}</a></li>
+    {{/events}}
+  </ul>
+</div>
+{{/if}}
+
+{{#if attributes}}
+<div>
+  <div>
+    <h2>Attributes</h2>
+  </div>
+  <ul>
+    {{#events}}
+      <li><a href="#attrs_{{name}}">{{name}}</a></li>
+    {{/events}}
+  </ul>
+</div>
+{{/if}}

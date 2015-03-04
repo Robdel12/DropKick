@@ -48,7 +48,9 @@ gulp.task('docs', function() {
       "version": "2.1.3",
       "url": "http://dropkickjs.com/"
     }
-  })).pipe(gulp.dest("./docs"));
+  }, {
+    "themedir": "./simple"
+   })).pipe(gulp.dest("./docs"));
 });
 
 gulp.task('test', function() {

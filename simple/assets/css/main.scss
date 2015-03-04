@@ -1,0 +1,26 @@
+//Fresh start
+@import "reset";
+
+$open_sans: Open Sans, sans-serif;
+
+body{
+  font-family: $open_sans;
+  line-height: 20px;
+}
+.main-header{
+  padding: 25px 0;
+}
+.container{
+  font-size: 0;
+}
+.sidebar,
+.content{
+  font-size: 15px;
+  display: inline-block;
+  vertical-align: top;
+}
+.sidebar{
+  padding: 25px;
+  background: #ddd;
+  margin-right: 35px;
+}
