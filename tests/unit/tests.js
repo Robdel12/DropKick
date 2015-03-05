@@ -170,3 +170,25 @@ QUnit.test( "Dispose should remove dropkick from cache", 2, function( assert ) {
 
   assert.ok(Dropkick.cache[dk.data.cacheID] === undefined);
 });
+
+QUnit.test( "Dropkick options should return an array", 2, function( assert ) {
+  var dk = new Dropkick("#normal_select");
+
+  assert.equal(dk.options.length, 52, "Didn't return the full list of options");
+  assert.ok(dk.options instanceof Array, "Options are not an array");
+});
+
+QUnit.test( "Dropkick refresh should work", 5, function( assert ) {
+  var dk = new Dropkick("#normal_select");
+
+  $("#normal_select").append("<option value='new'>New option</option>");
+
+  assert.equal(dk.options.length, 52, "Length doesn't match 52");
+  assert.equal(dk.search("option").length, 0, "Found option before refresh was called");
+
+  dk.refresh();
+
+  assert.equal(dk.options.length, 53, "Length wasn't updated after refresh");
+  assert.equal(dk.search("New option").length, 1, "Option search didn't return 'option'");
+  assert.equal(dk.search("New option")[0], dk.item(52), "Can't find new option when searching");
+});
