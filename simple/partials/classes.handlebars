@@ -1,73 +1,73 @@
-<h4>Class {{moduleName}}</h4>
+<h2>Class {{moduleName}}</h2>
 {{#if uses}}
-    Uses:
-    {{#each uses}}
-        <a href="{{this}}.html">{{this}}</a>
-    {{/each}}
-    <br>
+  Uses:
+  {{#each uses}}
+    <a href="{{this}}.html">{{this}}</a>
+  {{/each}}
+  <br>
 {{/if}}
 {{#if extension_for}}
-    Extension For:
-    {{#each extension_for}}
-        <a href="{{this}}.html">{{this}}</a>
-    {{/each}}
-    <br>
+  Extension For:
+  {{#each extension_for}}
+    <a href="{{this}}.html">{{this}}</a>
+  {{/each}}
+  <br>
 {{/if}}
 {{#if extends}}
-    Extends: {{#crossLink extends}}{{/crossLink}}<br>
+  Extends: {{#crossLink extends}}{{/crossLink}}<br>
 {{/if}}
 <span class="foundat">Class defined in: <a href="{{foundAt}}">`{{file}}:{{line}}`</a></span>
 <div class="intro">{{{classDescription}}}</div>
 
 {{#if is_constructor}}
-    {{#is_constructor}}
+  {{#is_constructor}}
     {{>method}}
-    {{/is_constructor}}
+  {{/is_constructor}}
 {{/if}}
 
-<div id="classdocs">
-    <ul>
-        {{#if methods}}
-        <li><a href="#methods">Methods</a></li>
-        {{/if}}
-        {{#if properties}}
-        <li><a href="#props">Properties</a></li>
-        {{/if}}
-        {{#if attrs}}
-        <li><a href="#attrs">Attributes</a></li>
-        {{/if}}
-        {{#if events}}
-        <li><a href="#events">Events</a></li>
-        {{/if}}
-    </ul>
-    <div>
-        {{#if methods}}
-            <div id="methods">
-            {{#methods}}
-{{>method}}
-            {{/methods}}
-            </div>
-        {{/if}}
-        {{#if properties}}
-            <div id="props">
-            {{#properties}}
-                {{>props}}
-            {{/properties}}
-            </div>
-        {{/if}}
-        {{#if attrs}}
-            <div id="attrs">
-            {{#attrs}}
-                {{>attrs}}
-            {{/attrs}}
-            </div>
-        {{/if}}
-        {{#if events}}
-            <div id="events">
-            {{#events}}
-                {{>events}}
-            {{/events}}
-            </div>
-        {{/if}}
-    </div>
+<div class="docs-wrapper">
+  <ul class="tabs">
+    {{#if methods}}
+      <li><a href="#methods">Methods</a></li>
+    {{/if}}
+    {{#if properties}}
+      <li><a href="#props">Properties</a></li>
+    {{/if}}
+    {{#if attrs}}
+      <li><a href="#attrs">Attributes</a></li>
+    {{/if}}
+    {{#if events}}
+      <li><a href="#events">Events</a></li>
+    {{/if}}
+  </ul>
+  <div>
+    {{#if methods}}
+      <div id="methods" class="tab-content">
+      {{#methods}}
+        {{>method}}
+      {{/methods}}
+      </div>
+    {{/if}}
+    {{#if properties}}
+      <div id="props" class="tab-content">
+      {{#properties}}
+          {{>props}}
+      {{/properties}}
+      </div>
+    {{/if}}
+    {{#if attrs}}
+      <div id="attrs" class="tab-content">
+      {{#attrs}}
+          {{>attrs}}
+      {{/attrs}}
+      </div>
+    {{/if}}
+    {{#if events}}
+      <div id="events" class="tab-content">
+      {{#events}}
+          {{>events}}
+      {{/events}}
+      </div>
+    {{/if}}
+  </div>
 </div>

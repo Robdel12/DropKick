@@ -28,11 +28,25 @@
       {{>layout_content}}
     </div>
   </section>
-  {{!--
+    {{!--
     <script src="{{projectAssets}}/vendor/prettify/prettify-min.js"></script>
     <script>prettyPrint();</script>
     <script src="{{projectAssets}}/js/yui-prettify.js"></script>
-    <script src="{{projectAssets}}/js/tabs.js"></script>
-   --}}
+     --}}
+  <script src="{{projectAssets}}/js/jquery.js"></script>
+  <script src="{{projectAssets}}/js/tabs.js"></script>
+  <script>
+  window.onscroll = function(event) {
+    if(window.scrollY < 90) {
+      // top: inherit
+      document.getElementsByClassName("sidebar")[0].style.position = "absolute";
+      document.getElementsByClassName("sidebar")[0].style.top = "inherit";
+    } else {
+      // top: 90
+      document.getElementsByClassName("sidebar")[0].style.position = "fixed";
+      document.getElementsByClassName("sidebar")[0].style.top = 0;
+    }
+  }
+  </script>
 </body>
 </html>

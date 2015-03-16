@@ -53,10 +53,10 @@
     </div>
 
     <div class="content">
-      <h4>Class Dropkick</h4>
+      <h2>Class Dropkick</h2>
       <span class="foundat">Class defined in: <a href="../files/dropkick.js.html#l22"><code>dropkick.js:22</code></a></span>
       <div class="intro"><p>Dropkicks constructor</p>
-      <p>Call <code>new Dropkick( HTMLSelectELement, Options );</code> or <code>new Dropkick( &quot;ID&quot;, Options );</code> in your script to create a new DropKick.</p>
+      <p>Call <code>new Dropkick( HTMLSelectElement, Options );</code> or <code>new Dropkick( &quot;ID&quot;, Options );</code> in your script to create a new DropKick.</p>
       </div>
       
           <a name="methods_Dropkick"></a>
@@ -70,510 +70,525 @@
               
           </div>
       
-      <div id="classdocs">
-          <ul>
-              <li><a href="#methods">Methods</a></li>
-              <li><a href="#props">Properties</a></li>
-              <li><a href="#attrs">Attributes</a></li>
-          </ul>
-          <div>
-                  <div id="methods">
-      <a name="methods_add"></a>
-      <div class="method item">
-           <strong class="name"><code>add</code></strong>( <code>elem, before </code> ) 
-          <br>
-          <span class="foundat">
-              
-              <a href="../files/dropkick.js.html#l229"><code>dropkick.js:229</code></a>
-          </span><br>
-          <p>Adds an element to the select. This option will not only add it to the original
-      select, but create a Dropkick option and add it to the Dropkick select.</p>
-      
-          <strong>Parameters:</strong>
-          <ul class="params">
-              <li>
-                  <code>elem</code> <strong>&lt;String&gt;</strong>
-              <p>HTMLOptionElement</p>
-      
-              </li>
-              <li>
-                  <code>before</code> <strong>&lt;Node/Integer&gt;</strong>
-              <p>HTMLOptionElement/Index of Element</p>
-      
-              </li>
-          </ul>
-      </div>
-      <a name="methods_build"></a>
-      <div class="method item private">
-          Object <strong class="name"><code>build</code></strong>( <code>sel </code> ) <em><code>&#x2F;* private method *&#x2F;</code></em>
-          <br>
-          <span class="foundat">
-              
-              <a href="../files/dropkick.js.html#l993"><code>dropkick.js:993</code></a>
-          </span><br>
-          <p>Builds the Dropkick element from a select element</p>
-      
-          <strong>Parameters:</strong>
-          <ul class="params">
-              <li>
-                  <code>sel</code> <strong>&lt;Node&gt;</strong>
-              <p>The HTMLSelectElement</p>
-      
-              </li>
-          </ul>
-          <br><div class="returns"><strong>Returns:</strong> &lt;Object&gt; <p>An object containing the new DK element and it&#39;s options</p>
-      </div>
-      </div>
-      <a name="methods_close"></a>
-      <div class="method item">
-           <strong class="name"><code>close</code></strong>( <code>  </code> ) 
-          <br>
-          <span class="foundat">
-              
-              <a href="../files/dropkick.js.html#l443"><code>dropkick.js:443</code></a>
-          </span><br>
-          <p>Closes the DK dropdown</p>
-      
-      </div>
-      <a name="methods_delegate"></a>
-      <div class="method item private">
-           <strong class="name"><code>delegate</code></strong>( <code>  </code> ) <em><code>&#x2F;* private method *&#x2F;</code></em>
-          <br>
-          <span class="foundat">
-              
-              <a href="../files/dropkick.js.html#l790"><code>dropkick.js:790</code></a>
-          </span><br>
-          
-      </div>
-      <a name="methods_disable"></a>
-      <div class="method item">
-           <strong class="name"><code>disable</code></strong>( <code>elem, disabled </code> ) 
-          <br>
-          <span class="foundat">
-              
-              <a href="../files/dropkick.js.html#l505"><code>dropkick.js:505</code></a>
-          </span><br>
-          <p>Disables or enables an option; if only a boolean is passed (or nothing),
-      then the entire Dropkick will be disabled or enabled.</p>
-      
-          <strong>Parameters:</strong>
-          <ul class="params">
-              <li>
-                  <code>elem</code> <strong>&lt;Integer&gt;</strong>
-              <p>The element or index to disable</p>
-      
-              </li>
-              <li>
-                  <code>disabled</code> <strong>&lt;Boolean&gt;</strong>
-              <p>Value of disabled</p>
-      
-              </li>
-          </ul>
-      </div>
-      <a name="methods_dispose"></a>
-      <div class="method item">
-           <strong class="name"><code>dispose</code></strong>( <code>  </code> ) 
-          <br>
-          <span class="foundat">
-              
-              <a href="../files/dropkick.js.html#l746"><code>dropkick.js:746</code></a>
-          </span><br>
-          <p>Removes the DK Object from the cache and the element from the DOM</p>
-      
-      </div>
-      <a name="methods_focus"></a>
-      <div class="method item">
-           <strong class="name"><code>focus</code></strong>( <code>  </code> ) 
-          <br>
-          <span class="foundat">
-              
-              <a href="../files/dropkick.js.html#l698"><code>dropkick.js:698</code></a>
-          </span><br>
-          <p>Brings focus to the proper DK element</p>
-      
-      </div>
-      <a name="methods_handleEvent"></a>
-      <div class="method item private">
-           <strong class="name"><code>handleEvent</code></strong>( <code>  </code> ) <em><code>&#x2F;* private method *&#x2F;</code></em>
-          <br>
-          <span class="foundat">
-              
-              <a href="../files/dropkick.js.html#l760"><code>dropkick.js:760</code></a>
-          </span><br>
-          
-      </div>
-      <a name="methods_highlight"></a>
-      <div class="method item private">
-           <strong class="name"><code>highlight</code></strong>( <code>  </code> ) <em><code>&#x2F;* private method *&#x2F;</code></em>
-          <br>
-          <span class="foundat">
-              
-              <a href="../files/dropkick.js.html#l835"><code>dropkick.js:835</code></a>
-          </span><br>
-          
-      </div>
-      <a name="methods_init"></a>
-      <div class="method item private">
-          Object <strong class="name"><code>init</code></strong>( <code>sel, opts </code> ) <em><code>&#x2F;* private method *&#x2F;</code></em>
-          <br>
-          <span class="foundat">
-              
-              <a href="../files/dropkick.js.html#l314"><code>dropkick.js:314</code></a>
-          </span><br>
-          <p>Initializes the DK Object</p>
-      
-          <strong>Parameters:</strong>
-          <ul class="params">
-              <li>
-                  <code>sel</code> <strong>&lt;Node&gt;</strong>
-              <p>[description]</p>
-      
-              </li>
-              <li>
-                  <code>opts</code> <strong>&lt;Object&gt;</strong>
-              <p>Options to override defaults</p>
-      
-              </li>
-          </ul>
-          <br><div class="returns"><strong>Returns:</strong> &lt;Object&gt; <p>The DK Object</p>
-      </div>
-      </div>
-      <a name="methods_item"></a>
-      <div class="method item">
-          Node <strong class="name"><code>item</code></strong>( <code>index </code> ) 
-          <br>
-          <span class="foundat">
-              
-              <a href="../files/dropkick.js.html#l287"><code>dropkick.js:287</code></a>
-          </span><br>
-          <p>Selects an option in the list at the desired index (negative numbers select from the end).</p>
-      
-          <strong>Parameters:</strong>
-          <ul class="params">
-              <li>
-                  <code>index</code> <strong>&lt;Integer&gt;</strong>
-              <p>Index of element (positive or negative)</p>
-      
-              </li>
-          </ul>
-          <br><div class="returns"><strong>Returns:</strong> &lt;Node&gt; <p>The DK option from the list, or null if not found</p>
-      </div>
-      </div>
-      <a name="methods_keyHandler"></a>
-      <div class="method item private">
-           <strong class="name"><code>keyHandler</code></strong>( <code>  </code> ) <em><code>&#x2F;* private method *&#x2F;</code></em>
-          <br>
-          <span class="foundat">
-              
-              <a href="../files/dropkick.js.html#l852"><code>dropkick.js:852</code></a>
-          </span><br>
-          
-      </div>
-      <a name="methods_onDocClick"></a>
-      <div class="method item private">
-           <strong class="name"><code>onDocClick</code></strong>( <code>event </code> ) <em><code>&#x2F;* private method *&#x2F;</code></em>
-          <br>
-          <span class="foundat">
-              
-              <a href="../files/dropkick.js.html#l1100"><code>dropkick.js:1100</code></a>
-          </span><br>
-          <p>Focus DK Element when corresponding label is clicked; close all other DK&#39;s</p>
-      
-          <strong>Parameters:</strong>
-          <ul class="params">
-              <li>
-                  <code>event</code> <strong>&lt;Object&gt;</strong>
-              <p>Event from document click</p>
-      
-              </li>
-          </ul>
-      </div>
-      <a name="methods_open"></a>
-      <div class="method item">
-           <strong class="name"><code>open</code></strong>( <code>  </code> ) 
-          <br>
-          <span class="foundat">
-              
-              <a href="../files/dropkick.js.html#l468"><code>dropkick.js:468</code></a>
-          </span><br>
-          <p>Opens the DK dropdown</p>
-      
-      </div>
-      <a name="methods_refresh"></a>
-      <div class="method item">
-           <strong class="name"><code>refresh</code></strong>( <code>  </code> ) 
-          <br>
-          <span class="foundat">
-              
-              <a href="../files/dropkick.js.html#l736"><code>dropkick.js:736</code></a>
-          </span><br>
-          <p>Rebuilds the DK Object
-      (use if HTMLSelectElement has changed)</p>
-      
-      </div>
-      <a name="methods_remove"></a>
-      <div class="method item">
-           <strong class="name"><code>remove</code></strong>( <code>index </code> ) 
-          <br>
-          <span class="foundat">
-              
-              <a href="../files/dropkick.js.html#l299"><code>dropkick.js:299</code></a>
-          </span><br>
-          <p>Removes the option (from both the select and Dropkick) at the given index.</p>
-      
-          <strong>Parameters:</strong>
-          <ul class="params">
-              <li>
-                  <code>index</code> <strong>&lt;Integer&gt;</strong>
-              <p>Index of element (positive or negative)</p>
-      
-              </li>
-          </ul>
-      </div>
-      <a name="methods_reset"></a>
-      <div class="method item">
-           <strong class="name"><code>reset</code></strong>( <code>clear </code> ) 
-          <br>
-          <span class="foundat">
-              
-              <a href="../files/dropkick.js.html#l709"><code>dropkick.js:709</code></a>
-          </span><br>
-          <p>Resets the Dropkick and select to it&#39;s original selected options; if <code>clear</code> is <code>true</code>,
-      It will select the first option by default (or no options for multi-selects).</p>
-      
-          <strong>Parameters:</strong>
-          <ul class="params">
-              <li>
-                  <code>clear</code> <strong>&lt;Boolean&gt;</strong>
-              <p>Defaults to first option if True</p>
-      
-              </li>
-          </ul>
-      </div>
-      <a name="methods_scrollTo"></a>
-      <div class="method item private">
-           <strong class="name"><code>scrollTo</code></strong>( <code>  </code> ) <em><code>&#x2F;* private method *&#x2F;</code></em>
-          <br>
-          <span class="foundat">
-              
-              <a href="../files/dropkick.js.html#l961"><code>dropkick.js:961</code></a>
-          </span><br>
-          
-      </div>
-      <a name="methods_search"></a>
-      <div class="method item">
-          Boolean <strong class="name"><code>search</code></strong>( <code>string, mode </code> ) 
-          <br>
-          <span class="foundat">
-              
-              <a href="../files/dropkick.js.html#l625"><code>dropkick.js:625</code></a>
-          </span><br>
-          <p>Finds all options who&#39;s text matches a pattern (strict, partial, or fuzzy)</p>
-      <p><code>&quot;strict&quot;</code> - The search string matches exactly from the beginning of the
-      option&#39;s text value (case insensitive).</p>
-      <p><code>&quot;partial&quot;</code> - The search string matches part of the option&#39;s text value
-      (case insensitive).</p>
-      <p><code>&quot;fuzzy&quot;</code> - The search string matches the characters in the given order (not
-      exclusively). The strongest match is selected first. (case insensitive).</p>
-      
-          <strong>Parameters:</strong>
-          <ul class="params">
-              <li>
-                  <code>string</code> <strong>&lt;String&gt;</strong>
-              <p>The string to search for</p>
-      
-              </li>
-              <li>
-                  <code>mode</code> <strong>&lt;Integer&gt;</strong>
-              <p>How to search; &quot;strict&quot;, &quot;partial&quot;, or &quot;fuzzy&quot;</p>
-      
-              </li>
-          </ul>
-          <br><div class="returns"><strong>Returns:</strong> &lt;Boolean&gt; <p>An Array of matched elements</p>
-      </div>
-      </div>
-      <a name="methods_searchOptions"></a>
-      <div class="method item private">
-           <strong class="name"><code>searchOptions</code></strong>( <code>  </code> ) <em><code>&#x2F;* private method *&#x2F;</code></em>
-          <br>
-          <span class="foundat">
-              
-              <a href="../files/dropkick.js.html#l926"><code>dropkick.js:926</code></a>
-          </span><br>
-          
-      </div>
-      <a name="methods_select"></a>
-      <div class="method item">
-          Node <strong class="name"><code>select</code></strong>( <code>elem, disabled </code> ) 
-          <br>
-          <span class="foundat">
-              
-              <a href="../files/dropkick.js.html#l534"><code>dropkick.js:534</code></a>
-          </span><br>
-          <p>Selects an option from the list</p>
-      
-          <strong>Parameters:</strong>
-          <ul class="params">
-              <li>
-                  <code>elem</code> <strong>&lt;String&gt;</strong>
-              <p>The element, index, or value to select</p>
-      
-              </li>
-              <li>
-                  <code>disabled</code> <strong>&lt;Boolean&gt;</strong>
-              <p>Selects disabled options</p>
-      
-              </li>
-          </ul>
-          <br><div class="returns"><strong>Returns:</strong> &lt;Node&gt; <p>The selected element</p>
-      </div>
-      </div>
-      <a name="methods_selectOne"></a>
-      <div class="method item">
-          Node <strong class="name"><code>selectOne</code></strong>( <code>elem, disabled </code> ) 
-          <br>
-          <span class="foundat">
-              
-              <a href="../files/dropkick.js.html#l610"><code>dropkick.js:610</code></a>
-          </span><br>
-          <p>Selects a single option from the list and scrolls to it (if the select is open or on multi-selects).
-      Useful for selecting an option after a search by the user.</p>
-      
-          <strong>Parameters:</strong>
-          <ul class="params">
-              <li>
-                  <code>elem</code> <strong>&lt;Integer&gt;</strong>
-              <p>The element or index to select</p>
-      
-              </li>
-              <li>
-                  <code>disabled</code> <strong>&lt;Boolean&gt;</strong>
-              <p>Selects disabled options</p>
-      
-              </li>
-          </ul>
-          <br><div class="returns"><strong>Returns:</strong> &lt;Node&gt; <p>The selected element</p>
-      </div>
-      </div>
-                  </div>
-                  <div id="props">
-                      <a name="props_disabled"></a>
-                      <div class="props item">
-                          <code>disabled</code> &lt;<strong>Boolean</strong>&gt;<br>
-                          <span class="foundat"><a href="../files/dropkick.js.html#l335"><code>dropkick.js:335</code></a></span>
-                          <p>Whether the form is currently disabled or not</p>
+      <div class="docs-wrapper">
+        <ul class="tabs">
+            <li><a href="#methods">Methods</a></li>
+            <li><a href="#props">Properties</a></li>
+            <li><a href="#attrs">Attributes</a></li>
+        </ul>
+        <div>
+            <div id="methods" class="tab-content">
+              <a name="methods_add"></a>
+              <div class="method item">
+                   <strong class="name"><code>add</code></strong>( <code>elem, before </code> ) 
+                  <br>
+                  <span class="foundat">
                       
-                      </div>
-                      <a name="props_form"></a>
-                      <div class="props item">
-                          <code>form</code> &lt;<strong>Node</strong>&gt;<br>
-                          <span class="foundat"><a href="../files/dropkick.js.html#l342"><code>dropkick.js:342</code></a></span>
-                          <p>The form associated with the select</p>
+                      <a href="../files/dropkick.js.html#l229"><code>dropkick.js:229</code></a>
+                  </span><br>
+                  <p>Adds an element to the select. This option will not only add it to the original
+              select, but create a Dropkick option and add it to the Dropkick select.</p>
+              
+                  <strong>Parameters:</strong>
+                  <ul class="params">
+                      <li>
+                          <code>elem</code> <strong>&lt;String&gt;</strong>
+                      <p>HTMLOptionElement</p>
+              
+                      </li>
+                      <li>
+                          <code>before</code> <strong>&lt;Node/Integer&gt;</strong>
+                      <p>HTMLOptionElement/Index of Element</p>
+              
+                      </li>
+                  </ul>
+              </div>
+              <a name="methods_build"></a>
+              <div class="method item private">
+                  Object <strong class="name"><code>build</code></strong>( <code>sel </code> ) <em><code>&#x2F;* private method *&#x2F;</code></em>
+                  <br>
+                  <span class="foundat">
                       
-                      </div>
-                      <a name="props_length"></a>
-                      <div class="props item">
-                          <code>length</code> &lt;<strong>Integer</strong>&gt;<br>
-                          <span class="foundat"><a href="../files/dropkick.js.html#l349"><code>dropkick.js:349</code></a></span>
-                          <p>The number of options in the select</p>
+                      <a href="../files/dropkick.js.html#l993"><code>dropkick.js:993</code></a>
+                  </span><br>
+                  <p>Builds the Dropkick element from a select element</p>
+              
+                  <strong>Parameters:</strong>
+                  <ul class="params">
+                      <li>
+                          <code>sel</code> <strong>&lt;Node&gt;</strong>
+                      <p>The HTMLSelectElement</p>
+              
+                      </li>
+                  </ul>
+                  <br><div class="returns"><strong>Returns:</strong> &lt;Object&gt; <p>An object containing the new DK element and it&#39;s options</p>
+              </div>
+              </div>
+              <a name="methods_close"></a>
+              <div class="method item">
+                   <strong class="name"><code>close</code></strong>( <code>  </code> ) 
+                  <br>
+                  <span class="foundat">
                       
-                      </div>
-                      <a name="props_multiple"></a>
-                      <div class="props item">
-                          <code>multiple</code> &lt;<strong>Boolean</strong>&gt;<br>
-                          <span class="foundat"><a href="../files/dropkick.js.html#l356"><code>dropkick.js:356</code></a></span>
-                          <p>If this select is a multi-select</p>
+                      <a href="../files/dropkick.js.html#l443"><code>dropkick.js:443</code></a>
+                  </span><br>
+                  <p>Closes the DK dropdown</p>
+              
+              </div>
+              <a name="methods_delegate"></a>
+              <div class="method item private">
+                   <strong class="name"><code>delegate</code></strong>( <code>  </code> ) <em><code>&#x2F;* private method *&#x2F;</code></em>
+                  <br>
+                  <span class="foundat">
                       
-                      </div>
-                      <a name="props_options"></a>
-                      <div class="props item">
-                          <code>options</code> &lt;<strong>Array</strong>&gt;<br>
-                          <span class="foundat"><a href="../files/dropkick.js.html#l363"><code>dropkick.js:363</code></a></span>
-                          <p>An array of Dropkick options</p>
+                      <a href="../files/dropkick.js.html#l790"><code>dropkick.js:790</code></a>
+                  </span><br>
+                  
+              </div>
+              <a name="methods_disable"></a>
+              <div class="method item">
+                   <strong class="name"><code>disable</code></strong>( <code>elem, disabled </code> ) 
+                  <br>
+                  <span class="foundat">
                       
-                      </div>
-                      <a name="props_selectedIndex"></a>
-                      <div class="props item">
-                          <code>selectedIndex</code> &lt;<strong>Integer</strong>&gt;<br>
-                          <span class="foundat"><a href="../files/dropkick.js.html#l370"><code>dropkick.js:370</code></a></span>
-                          <p>An index of the first selected option</p>
+                      <a href="../files/dropkick.js.html#l505"><code>dropkick.js:505</code></a>
+                  </span><br>
+                  <p>Disables or enables an option; if only a boolean is passed (or nothing),
+              then the entire Dropkick will be disabled or enabled.</p>
+              
+                  <strong>Parameters:</strong>
+                  <ul class="params">
+                      <li>
+                          <code>elem</code> <strong>&lt;Integer&gt;</strong>
+                      <p>The element or index to disable</p>
+              
+                      </li>
+                      <li>
+                          <code>disabled</code> <strong>&lt;Boolean&gt;</strong>
+                      <p>Value of disabled</p>
+              
+                      </li>
+                  </ul>
+              </div>
+              <a name="methods_dispose"></a>
+              <div class="method item">
+                   <strong class="name"><code>dispose</code></strong>( <code>  </code> ) 
+                  <br>
+                  <span class="foundat">
                       
-                      </div>
-                      <a name="props_selectedOptions"></a>
-                      <div class="props item">
-                          <code>selectedOptions</code> &lt;<strong>Array</strong>&gt;<br>
-                          <span class="foundat"><a href="../files/dropkick.js.html#l377"><code>dropkick.js:377</code></a></span>
-                          <p>An array of selected Dropkick options</p>
+                      <a href="../files/dropkick.js.html#l746"><code>dropkick.js:746</code></a>
+                  </span><br>
+                  <p>Removes the DK Object from the cache and the element from the DOM</p>
+              
+              </div>
+              <a name="methods_focus"></a>
+              <div class="method item">
+                   <strong class="name"><code>focus</code></strong>( <code>  </code> ) 
+                  <br>
+                  <span class="foundat">
                       
-                      </div>
-                      <a name="props_value"></a>
-                      <div class="props item">
-                          <code>value</code> &lt;<strong>String</strong>&gt;<br>
-                          <span class="foundat"><a href="../files/dropkick.js.html#l384"><code>dropkick.js:384</code></a></span>
-                          <p>The current value of the select</p>
+                      <a href="../files/dropkick.js.html#l698"><code>dropkick.js:698</code></a>
+                  </span><br>
+                  <p>Brings focus to the proper DK element</p>
+              
+              </div>
+              <a name="methods_handleEvent"></a>
+              <div class="method item private">
+                   <strong class="name"><code>handleEvent</code></strong>( <code>  </code> ) <em><code>&#x2F;* private method *&#x2F;</code></em>
+                  <br>
+                  <span class="foundat">
                       
-                      </div>
-                  </div>
-                  <div id="attrs">
-                      <a name="attrs_change"></a>
-                      <div class="attrs item">
-                          <code>change</code> <strong>&lt;Function&gt;</strong>
-                          
-                          
-                          <br>
-                          <span class="foundat"><a href="../files/dropkick.js.html#l73"><code>dropkick.js:73</code></a></span>
-                          <p>Called whenever the value of the Dropkick select changes (by user action or through the API).
-                      The value of <code>this</code> is the Dropkick object itself.</p>
+                      <a href="../files/dropkick.js.html#l760"><code>dropkick.js:760</code></a>
+                  </span><br>
+                  
+              </div>
+              <a name="methods_highlight"></a>
+              <div class="method item private">
+                   <strong class="name"><code>highlight</code></strong>( <code>  </code> ) <em><code>&#x2F;* private method *&#x2F;</code></em>
+                  <br>
+                  <span class="foundat">
                       
-                      </div>
-                      <a name="attrs_close"></a>
-                      <div class="attrs item">
-                          <code>close</code> <strong>&lt;Function&gt;</strong>
-                          
-                          
-                          <br>
-                          <span class="foundat"><a href="../files/dropkick.js.html#l92"><code>dropkick.js:92</code></a></span>
-                          <p>Called whenever the Dropkick select is closed. The value of <code>this</code> is the Dropkick object itself.</p>
+                      <a href="../files/dropkick.js.html#l835"><code>dropkick.js:835</code></a>
+                  </span><br>
+                  
+              </div>
+              <a name="methods_init"></a>
+              <div class="method item private">
+                  Object <strong class="name"><code>init</code></strong>( <code>sel, opts </code> ) <em><code>&#x2F;* private method *&#x2F;</code></em>
+                  <br>
+                  <span class="foundat">
                       
-                      </div>
-                      <a name="attrs_initialize"></a>
-                      <div class="attrs item">
-                          <code>initialize</code> <strong>&lt;Function&gt;</strong>
-                          
-                          
-                          <br>
-                          <span class="foundat"><a href="../files/dropkick.js.html#l63"><code>dropkick.js:63</code></a></span>
-                          <p>Called once after the DK element is inserted into the DOM.
-                      The value of <code>this</code> is the Dropkick object itself.</p>
+                      <a href="../files/dropkick.js.html#l314"><code>dropkick.js:314</code></a>
+                  </span><br>
+                  <p>Initializes the DK Object</p>
+              
+                  <strong>Parameters:</strong>
+                  <ul class="params">
+                      <li>
+                          <code>sel</code> <strong>&lt;Node&gt;</strong>
+                      <p>[description]</p>
+              
+                      </li>
+                      <li>
+                          <code>opts</code> <strong>&lt;Object&gt;</strong>
+                      <p>Options to override defaults</p>
+              
+                      </li>
+                  </ul>
+                  <br><div class="returns"><strong>Returns:</strong> &lt;Object&gt; <p>The DK Object</p>
+              </div>
+              </div>
+              <a name="methods_item"></a>
+              <div class="method item">
+                  Node <strong class="name"><code>item</code></strong>( <code>index </code> ) 
+                  <br>
+                  <span class="foundat">
                       
-                      </div>
-                      <a name="attrs_open"></a>
-                      <div class="attrs item">
-                          <code>open</code> <strong>&lt;Function&gt;</strong>
-                          
-                          
-                          <br>
-                          <span class="foundat"><a href="../files/dropkick.js.html#l83"><code>dropkick.js:83</code></a></span>
-                          <p>Called whenever the Dropkick select is opened. The value of <code>this</code> is the Dropkick object itself.</p>
+                      <a href="../files/dropkick.js.html#l287"><code>dropkick.js:287</code></a>
+                  </span><br>
+                  <p>Selects an option in the list at the desired index (negative numbers select from the end).</p>
+              
+                  <strong>Parameters:</strong>
+                  <ul class="params">
+                      <li>
+                          <code>index</code> <strong>&lt;Integer&gt;</strong>
+                      <p>Index of element (positive or negative)</p>
+              
+                      </li>
+                  </ul>
+                  <br><div class="returns"><strong>Returns:</strong> &lt;Node&gt; <p>The DK option from the list, or null if not found</p>
+              </div>
+              </div>
+              <a name="methods_keyHandler"></a>
+              <div class="method item private">
+                   <strong class="name"><code>keyHandler</code></strong>( <code>  </code> ) <em><code>&#x2F;* private method *&#x2F;</code></em>
+                  <br>
+                  <span class="foundat">
                       
-                      </div>
-                      <a name="attrs_search"></a>
-                      <div class="attrs item">
-                          <code>search</code> <strong>&lt;String&gt;</strong>
-                          
-                          
-                          <br>
-                          <span class="foundat"><a href="../files/dropkick.js.html#l102"><code>dropkick.js:102</code></a></span>
-                          <p><code>&quot;strict&quot;</code> - The search string matches exactly from the beginning of the option&#39;s text value (case insensitive).</p>
-                      <p><code>&quot;partial&quot;</code> - The search string matches part of the option&#39;s text value (case insensitive).</p>
-                      <p><code>&quot;fuzzy&quot;</code> - The search string matches the characters in the given order (not exclusively).
-                      The strongest match is selected first. (case insensitive).</p>
+                      <a href="../files/dropkick.js.html#l852"><code>dropkick.js:852</code></a>
+                  </span><br>
+                  
+              </div>
+              <a name="methods_onDocClick"></a>
+              <div class="method item private">
+                   <strong class="name"><code>onDocClick</code></strong>( <code>event </code> ) <em><code>&#x2F;* private method *&#x2F;</code></em>
+                  <br>
+                  <span class="foundat">
                       
-                      </div>
-                  </div>
-          </div>
+                      <a href="../files/dropkick.js.html#l1100"><code>dropkick.js:1100</code></a>
+                  </span><br>
+                  <p>Focus DK Element when corresponding label is clicked; close all other DK&#39;s</p>
+              
+                  <strong>Parameters:</strong>
+                  <ul class="params">
+                      <li>
+                          <code>event</code> <strong>&lt;Object&gt;</strong>
+                      <p>Event from document click</p>
+              
+                      </li>
+                  </ul>
+              </div>
+              <a name="methods_open"></a>
+              <div class="method item">
+                   <strong class="name"><code>open</code></strong>( <code>  </code> ) 
+                  <br>
+                  <span class="foundat">
+                      
+                      <a href="../files/dropkick.js.html#l468"><code>dropkick.js:468</code></a>
+                  </span><br>
+                  <p>Opens the DK dropdown</p>
+              
+              </div>
+              <a name="methods_refresh"></a>
+              <div class="method item">
+                   <strong class="name"><code>refresh</code></strong>( <code>  </code> ) 
+                  <br>
+                  <span class="foundat">
+                      
+                      <a href="../files/dropkick.js.html#l736"><code>dropkick.js:736</code></a>
+                  </span><br>
+                  <p>Rebuilds the DK Object
+              (use if HTMLSelectElement has changed)</p>
+              
+              </div>
+              <a name="methods_remove"></a>
+              <div class="method item">
+                   <strong class="name"><code>remove</code></strong>( <code>index </code> ) 
+                  <br>
+                  <span class="foundat">
+                      
+                      <a href="../files/dropkick.js.html#l299"><code>dropkick.js:299</code></a>
+                  </span><br>
+                  <p>Removes the option (from both the select and Dropkick) at the given index.</p>
+              
+                  <strong>Parameters:</strong>
+                  <ul class="params">
+                      <li>
+                          <code>index</code> <strong>&lt;Integer&gt;</strong>
+                      <p>Index of element (positive or negative)</p>
+              
+                      </li>
+                  </ul>
+              </div>
+              <a name="methods_reset"></a>
+              <div class="method item">
+                   <strong class="name"><code>reset</code></strong>( <code>clear </code> ) 
+                  <br>
+                  <span class="foundat">
+                      
+                      <a href="../files/dropkick.js.html#l709"><code>dropkick.js:709</code></a>
+                  </span><br>
+                  <p>Resets the Dropkick and select to it&#39;s original selected options; if <code>clear</code> is <code>true</code>,
+              It will select the first option by default (or no options for multi-selects).</p>
+              
+                  <strong>Parameters:</strong>
+                  <ul class="params">
+                      <li>
+                          <code>clear</code> <strong>&lt;Boolean&gt;</strong>
+                      <p>Defaults to first option if True</p>
+              
+                      </li>
+                  </ul>
+              </div>
+              <a name="methods_scrollTo"></a>
+              <div class="method item private">
+                   <strong class="name"><code>scrollTo</code></strong>( <code>  </code> ) <em><code>&#x2F;* private method *&#x2F;</code></em>
+                  <br>
+                  <span class="foundat">
+                      
+                      <a href="../files/dropkick.js.html#l961"><code>dropkick.js:961</code></a>
+                  </span><br>
+                  
+              </div>
+              <a name="methods_search"></a>
+              <div class="method item">
+                  Boolean <strong class="name"><code>search</code></strong>( <code>string, mode </code> ) 
+                  <br>
+                  <span class="foundat">
+                      
+                      <a href="../files/dropkick.js.html#l625"><code>dropkick.js:625</code></a>
+                  </span><br>
+                  <p>Finds all options who&#39;s text matches a pattern (strict, partial, or fuzzy)</p>
+              <p><code>&quot;strict&quot;</code> - The search string matches exactly from the beginning of the
+              option&#39;s text value (case insensitive).</p>
+              <p><code>&quot;partial&quot;</code> - The search string matches part of the option&#39;s text value
+              (case insensitive).</p>
+              <p><code>&quot;fuzzy&quot;</code> - The search string matches the characters in the given order (not
+              exclusively). The strongest match is selected first. (case insensitive).</p>
+              
+                  <strong>Parameters:</strong>
+                  <ul class="params">
+                      <li>
+                          <code>string</code> <strong>&lt;String&gt;</strong>
+                      <p>The string to search for</p>
+              
+                      </li>
+                      <li>
+                          <code>mode</code> <strong>&lt;Integer&gt;</strong>
+                      <p>How to search; &quot;strict&quot;, &quot;partial&quot;, or &quot;fuzzy&quot;</p>
+              
+                      </li>
+                  </ul>
+                  <br><div class="returns"><strong>Returns:</strong> &lt;Boolean&gt; <p>An Array of matched elements</p>
+              </div>
+              </div>
+              <a name="methods_searchOptions"></a>
+              <div class="method item private">
+                   <strong class="name"><code>searchOptions</code></strong>( <code>  </code> ) <em><code>&#x2F;* private method *&#x2F;</code></em>
+                  <br>
+                  <span class="foundat">
+                      
+                      <a href="../files/dropkick.js.html#l926"><code>dropkick.js:926</code></a>
+                  </span><br>
+                  
+              </div>
+              <a name="methods_select"></a>
+              <div class="method item">
+                  Node <strong class="name"><code>select</code></strong>( <code>elem, disabled </code> ) 
+                  <br>
+                  <span class="foundat">
+                      
+                      <a href="../files/dropkick.js.html#l534"><code>dropkick.js:534</code></a>
+                  </span><br>
+                  <p>Selects an option from the list</p>
+              
+                  <strong>Parameters:</strong>
+                  <ul class="params">
+                      <li>
+                          <code>elem</code> <strong>&lt;String&gt;</strong>
+                      <p>The element, index, or value to select</p>
+              
+                      </li>
+                      <li>
+                          <code>disabled</code> <strong>&lt;Boolean&gt;</strong>
+                      <p>Selects disabled options</p>
+              
+                      </li>
+                  </ul>
+                  <br><div class="returns"><strong>Returns:</strong> &lt;Node&gt; <p>The selected element</p>
+              </div>
+              </div>
+              <a name="methods_selectOne"></a>
+              <div class="method item">
+                  Node <strong class="name"><code>selectOne</code></strong>( <code>elem, disabled </code> ) 
+                  <br>
+                  <span class="foundat">
+                      
+                      <a href="../files/dropkick.js.html#l610"><code>dropkick.js:610</code></a>
+                  </span><br>
+                  <p>Selects a single option from the list and scrolls to it (if the select is open or on multi-selects).
+              Useful for selecting an option after a search by the user.</p>
+              
+                  <strong>Parameters:</strong>
+                  <ul class="params">
+                      <li>
+                          <code>elem</code> <strong>&lt;Integer&gt;</strong>
+                      <p>The element or index to select</p>
+              
+                      </li>
+                      <li>
+                          <code>disabled</code> <strong>&lt;Boolean&gt;</strong>
+                      <p>Selects disabled options</p>
+              
+                      </li>
+                  </ul>
+                  <br><div class="returns"><strong>Returns:</strong> &lt;Node&gt; <p>The selected element</p>
+              </div>
+              </div>
+            </div>
+            <div id="props" class="tab-content">
+                <a name="props_disabled"></a>
+                <div class="props item">
+                    <code>disabled</code> &lt;<strong>Boolean</strong>&gt;<br>
+                    <span class="foundat"><a href="../files/dropkick.js.html#l335"><code>dropkick.js:335</code></a></span>
+                    <p>Whether the form is currently disabled or not</p>
+                
+                </div>
+                <a name="props_form"></a>
+                <div class="props item">
+                    <code>form</code> &lt;<strong>Node</strong>&gt;<br>
+                    <span class="foundat"><a href="../files/dropkick.js.html#l342"><code>dropkick.js:342</code></a></span>
+                    <p>The form associated with the select</p>
+                
+                </div>
+                <a name="props_length"></a>
+                <div class="props item">
+                    <code>length</code> &lt;<strong>Integer</strong>&gt;<br>
+                    <span class="foundat"><a href="../files/dropkick.js.html#l349"><code>dropkick.js:349</code></a></span>
+                    <p>The number of options in the select</p>
+                
+                </div>
+                <a name="props_multiple"></a>
+                <div class="props item">
+                    <code>multiple</code> &lt;<strong>Boolean</strong>&gt;<br>
+                    <span class="foundat"><a href="../files/dropkick.js.html#l356"><code>dropkick.js:356</code></a></span>
+                    <p>If this select is a multi-select</p>
+                
+                </div>
+                <a name="props_options"></a>
+                <div class="props item">
+                    <code>options</code> &lt;<strong>Array</strong>&gt;<br>
+                    <span class="foundat"><a href="../files/dropkick.js.html#l363"><code>dropkick.js:363</code></a></span>
+                    <p>An array of Dropkick options</p>
+                
+                </div>
+                <a name="props_selectedIndex"></a>
+                <div class="props item">
+                    <code>selectedIndex</code> &lt;<strong>Integer</strong>&gt;<br>
+                    <span class="foundat"><a href="../files/dropkick.js.html#l370"><code>dropkick.js:370</code></a></span>
+                    <p>An index of the first selected option</p>
+                
+                </div>
+                <a name="props_selectedOptions"></a>
+                <div class="props item">
+                    <code>selectedOptions</code> &lt;<strong>Array</strong>&gt;<br>
+                    <span class="foundat"><a href="../files/dropkick.js.html#l377"><code>dropkick.js:377</code></a></span>
+                    <p>An array of selected Dropkick options</p>
+                
+                </div>
+                <a name="props_value"></a>
+                <div class="props item">
+                    <code>value</code> &lt;<strong>String</strong>&gt;<br>
+                    <span class="foundat"><a href="../files/dropkick.js.html#l384"><code>dropkick.js:384</code></a></span>
+                    <p>The current value of the select</p>
+                
+                </div>
+            </div>
+            <div id="attrs" class="tab-content">
+                <a name="attrs_change"></a>
+                <div class="attrs item">
+                    <code>change</code> <strong>&lt;Function&gt;</strong>
+                    
+                    
+                    <br>
+                    <span class="foundat"><a href="../files/dropkick.js.html#l73"><code>dropkick.js:73</code></a></span>
+                    <p>Called whenever the value of the Dropkick select changes (by user action or through the API).
+                The value of <code>this</code> is the Dropkick object itself.</p>
+                
+                </div>
+                <a name="attrs_close"></a>
+                <div class="attrs item">
+                    <code>close</code> <strong>&lt;Function&gt;</strong>
+                    
+                    
+                    <br>
+                    <span class="foundat"><a href="../files/dropkick.js.html#l92"><code>dropkick.js:92</code></a></span>
+                    <p>Called whenever the Dropkick select is closed. The value of <code>this</code> is the Dropkick object itself.</p>
+                
+                </div>
+                <a name="attrs_initialize"></a>
+                <div class="attrs item">
+                    <code>initialize</code> <strong>&lt;Function&gt;</strong>
+                    
+                    
+                    <br>
+                    <span class="foundat"><a href="../files/dropkick.js.html#l63"><code>dropkick.js:63</code></a></span>
+                    <p>Called once after the DK element is inserted into the DOM.
+                The value of <code>this</code> is the Dropkick object itself.</p>
+                
+                </div>
+                <a name="attrs_open"></a>
+                <div class="attrs item">
+                    <code>open</code> <strong>&lt;Function&gt;</strong>
+                    
+                    
+                    <br>
+                    <span class="foundat"><a href="../files/dropkick.js.html#l83"><code>dropkick.js:83</code></a></span>
+                    <p>Called whenever the Dropkick select is opened. The value of <code>this</code> is the Dropkick object itself.</p>
+                
+                </div>
+                <a name="attrs_search"></a>
+                <div class="attrs item">
+                    <code>search</code> <strong>&lt;String&gt;</strong>
+                    
+                    
+                    <br>
+                    <span class="foundat"><a href="../files/dropkick.js.html#l102"><code>dropkick.js:102</code></a></span>
+                    <p><code>&quot;strict&quot;</code> - The search string matches exactly from the beginning of the option&#39;s text value (case insensitive).</p>
+                <p><code>&quot;partial&quot;</code> - The search string matches part of the option&#39;s text value (case insensitive).</p>
+                <p><code>&quot;fuzzy&quot;</code> - The search string matches the characters in the given order (not exclusively).
+                The strongest match is selected first. (case insensitive).</p>
+                
+                </div>
+            </div>
+        </div>
       </div>
     </div>
   </section>
+  <script src="../assets/js/jquery.js"></script>
+  <script src="../assets/js/tabs.js"></script>
+  <script>
+  window.onscroll = function(event) {
+    if(window.scrollY < 90) {
+      // top: inherit
+      document.getElementsByClassName("sidebar")[0].style.position = "absolute";
+      document.getElementsByClassName("sidebar")[0].style.top = "inherit";
+    } else {
+      // top: 90
+      document.getElementsByClassName("sidebar")[0].style.position = "fixed";
+      document.getElementsByClassName("sidebar")[0].style.top = 0;
+    }
+  }
+  </script>
 </body>
 </html>

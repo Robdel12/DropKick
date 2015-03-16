@@ -22,7 +22,7 @@ var
   /**
   * Dropkicks constructor
   *
-  * Call `new Dropkick( HTMLSelectELement, Options );` or `new Dropkick( "ID", Options );` in your script to create a new DropKick.
+  * Call `new Dropkick( HTMLSelectElement, Options );` or `new Dropkick( "ID", Options );` in your script to create a new DropKick.
   *
   * @class Dropkick
   * @constructor

@@ -1,26 +1,55 @@
 //Fresh start
 @import "reset";
+@import "mixins";
+@import "base";
 
-$open_sans: Open Sans, sans-serif;
-
-body{
-  font-family: $open_sans;
-  line-height: 20px;
-}
-.main-header{
+.main-header {
   padding: 25px 0;
 }
-.container{
+
+.container {
   font-size: 0;
+  display: flex;
 }
+
 .sidebar,
-.content{
+.content {
   font-size: 15px;
   display: inline-block;
   vertical-align: top;
 }
-.sidebar{
-  padding: 25px;
-  background: #ddd;
-  margin-right: 35px;
+
+// Make sure we check this on mobile
+.sidebar {
+  position: fixed;
+  width: 200px;
+
+  a {
+    width: 100%;
+    display: block;
+    background: #3D3D3D;
+    padding: 2px 15px;
+    margin: 2px 0;
+    color: white;
+    text-decoration: none;
+  }
+}
+
+.content {
+  margin-left: 210px;
+}
+
+.tab-content {
+  display: none;
+
+  &:first-child {
+    display: block;
+  }
+}
+
+.tabs {
+  li {
+    display: inline-block;
+    padding: 10px;
+  }
 }

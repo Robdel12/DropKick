@@ -24,6 +24,13 @@ gulp.task('sass', function() {
     .pipe(gulp.dest('production/css'));
 });
 
+// Compile Our Sass
+gulp.task('sass-docs', function() {
+  return gulp.src('simple/assets/css/*.scss')
+    .pipe(sass())
+    .pipe(gulp.dest('simple/assets/css'));
+});
+
 // Concatenate & Minify JS
 gulp.task('scripts', function() {
   return gulp.src('dropkick.js')
@@ -34,8 +41,10 @@ gulp.task('scripts', function() {
 
 // Watch Files For Changes
 gulp.task('watch', function() {
-  gulp.watch('dropkick.js', ['scripts', 'docs']);
+  // gulp.watch('dropkick.js', ['scripts', 'docs']);
+  gulp.watch('simple/assets/css/*.scss', ['sass-docs']);
   gulp.watch('css/*.scss', ['sass']);
+  gulp.watch('simple/assets/css/*.scss', ['docs']);
 });
 
 //Build the docs
