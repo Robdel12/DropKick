@@ -53,6 +53,11 @@ a {
   a:active {
     color: #4A4A4A; }
 
+code {
+  font-family: monospace;
+  font-size: 13px;
+  font-weight: 300; }
+
 .main-header {
   padding: 25px 0; }
 
@@ -88,3 +93,6 @@ a {
 .tabs li {
   display: inline-block;
   padding: 10px; }
+
+.foundat {
+  font-size: 13px; }
