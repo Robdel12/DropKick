@@ -42,7 +42,7 @@ var
       }
     }
 
-    if ( sel.nodeName === "SELECT" ) {
+    if ( sel && sel.nodeName === "SELECT" ) {
       return this.init( sel, opts );
     }
   },
