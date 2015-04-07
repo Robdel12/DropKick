@@ -30,7 +30,6 @@
     "gulp-uglify": "~0.3.1",
     "gulp-util": "~2.2.14",
     "gulp-yuidoc-relative": "^0.1.2",
-    "qunitjs": "^1.17.1",
-    "yuidoc-bootstrap-theme": "^1.0.4"
+    "qunitjs": "^1.17.1"
   }
 }

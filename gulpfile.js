@@ -58,7 +58,8 @@ gulp.task('docs', function() {
       "url": "http://dropkickjs.com/"
     }
   }, {
-    "themedir": "./simple"
+    "themedir": "./node_modules/yuidoc-lucid-theme",
+    "helpers" : ["./node_modules/yuidoc-lucid-theme/helpers/helpers.js"]
    })).pipe(gulp.dest("./docs"));
 });
 

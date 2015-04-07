@@ -3,47 +3,104 @@
 <head>
     <meta charset="utf-8">
     <title>DropKick API Documentation</title>
+    <link rel="stylesheet" href="">
     <link rel="stylesheet" href="./assets/vendor/prettify/prettify-min.css">
-    <link rel="stylesheet" href="./assets/css/main.css">
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="./assets/css/main.css" id="site_styles">
+    <link rel="stylesheet" href="./assets/css/custom.css">
+    <link rel="stylesheet" href="./assets/css/lucid.css">
+    <link rel="stylesheet" href="./assets/vendor/bootstrap/css/bootstrap.css">
+    <link rel="shortcut icon" type="image/png" href="./assets/favicon.png">
 </head>
-<body>
-  <header class="main-header">
-    <h1>
-      <a href="./index.html">
-        DropKick Documentation
-      </a>
-    </h1>
-
-    <em>DropKick Docs Version: 2.1.3</em>
-  </header>
-  <section class="container">
-    <div class="sidebar">
-      
-      
-      
-      
+<body class="yui3-skin-sam">
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <h1 class="brand" style="padding: 10px 16px 10px; height: 20px; line-height: 20px; margin-left: 0;">
+            DropKick API Documentation
+        </h1>
+	<div class="nav">
+            <li class="divider-vertical"></li>
+            <li>
+                <p class="navbar-text">
+                    API Docs for Version: <b>2.1.3</b>
+                </p>
+            </li>
+        </div>
+        <form class="navbar-form pull-right" style="line-height: 40px; height: 40px;">
+            <input style="margin-top: 0;" type="text" class="search-query" placeholder="Search for classes/modules..." data-obj='["classes/Dropkick"]'>
+        </form>
     </div>
-
-    <div class="content">
-      <h3>API Docs - Main Index</h3>
-      <p>Something smart and pretty should probably go here.</p>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="span3">
+	    <div>
+	        <div id="sidebar">
+	        <div id="classes">
+	            <ul id="api-classes" class="nav nav-list">
+	                    <li><a href="./classes/Dropkick.html">Dropkick</a></li>
+	            </ul>
+	        </div>
+	        </div>
+	    </div>
+        </div>
+        <div class="span9">
+                <form id="options-form" class="form-inline pull-right">
+                    Show:
+                    <label for="api-show-inherited" class="checkbox">
+                        <input type="checkbox" id="api-show-inherited" checked>
+                        Inherited
+                    </label>
+            
+                    <label for="api-show-protected" class="checkbox">
+                        <input type="checkbox" id="api-show-protected">
+                        Protected
+                    </label>
+            
+                    <label for="api-show-private" class="checkbox">
+                        <input type="checkbox" id="api-show-private">
+                        Private
+                    </label>
+                    <label for="api-show-deprecated" class="checkbox">
+                        <input type="checkbox" id="api-show-deprecated">
+                        Deprecated
+                    </label>
+            
+                </form>
+            
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+                            <div class="apidocs">
+                                <div id="docs-main" class="content">
+                                    <p>
+                                    Browse to a module or class using the sidebar to view its API documentation.
+                                    </p>
+                        
+                                    <h2>Keyboard Shortcuts</h2>
+                        
+                                    <ul>
+                                        <li><p>Press <kbd>s</kbd> to focus the API search box.</p></li>
+                        
+                                        <li><p>Use <kbd>Up</kbd> and <kbd>Down</kbd> to select classes, modules, and search results.</p></li>
+                        
+                                        <li class="mac-only"><p>With the API search box or sidebar focused, use <kbd><span class="cmd">&#x2318;</span>-Left</kbd> or <kbd><span class="cmd">&#x2318;</span>-Right</kbd> to switch sidebar tabs.</p></li>
+                        
+                                        <li class="pc-only"><p>With the API search box or sidebar focused, use <kbd>Ctrl+Left</kbd> and <kbd>Ctrl+Right</kbd> to switch sidebar tabs.</p></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-  </section>
-  <script src="./assets/js/jquery.js"></script>
-  <script src="./assets/js/tabs.js"></script>
-  <script>
-  window.onscroll = function(event) {
-    if(window.scrollY < 90) {
-      // top: inherit
-      document.getElementsByClassName("sidebar")[0].style.position = "absolute";
-      document.getElementsByClassName("sidebar")[0].style.top = "inherit";
-    } else {
-      // top: 90
-      document.getElementsByClassName("sidebar")[0].style.position = "fixed";
-      document.getElementsByClassName("sidebar")[0].style.top = 0;
-    }
-  }
-  </script>
+</div>
+<script src="./assets/vendor/jquery/jquery-1.8.2.min.js"></script>
+<script src="./assets/vendor/bootstrap/js/bootstrap.js"></script>
+<script src="./assets/vendor/prettify/prettify-min.js"></script>
+<script src="./assets/js/yuidoc-bootstrap.js"></script>
+<script>prettyPrint();</script>
 </body>
 </html>
