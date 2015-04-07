@@ -80,6 +80,11 @@
             }
           }
       
+          if ( !sel ) {
+            console.error(&quot;You must pass a select to DropKick&quot;);
+            return false;
+          }
+      
           if ( sel.nodeName === &quot;SELECT&quot; ) {
             return this.init( sel, opts );
           }
