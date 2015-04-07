@@ -192,3 +192,11 @@ QUnit.test( "Dropkick refresh should work", 5, function( assert ) {
   assert.equal(dk.search("New option").length, 1, "Option search didn't return 'option'");
   assert.equal(dk.search("New option")[0], dk.item(52), "Can't find new option when searching");
 });
+
+
+QUnit.test( "Dropkick should return if no select is passed", 2, function( assert ) {
+  var dk = new Dropkick("#nothing");
+
+  assert.ok(dk);
+  assert.ok(!dk.data);
+});
