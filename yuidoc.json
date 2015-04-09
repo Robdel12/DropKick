@@ -4,6 +4,10 @@
   "version": "2.1.3",
   "url": "http://dropkickjs.com/",
   "options": {
-    "outdir": "docs"
+    "outdir": "docs",
+    "exclude": "tests,production,examples,css",
+    "paths": ".",
+    "themedir": "./node_modules/yuidoc-lucid-theme",
+    "helpers" : ["./node_modules/yuidoc-lucid-theme/helpers/helpers.js"]
   }
 }

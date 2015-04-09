@@ -1,4 +1,7 @@
-var gulp = require('gulp'),
+var gulp = require('gulp-npm-run')(require('gulp'), {
+      exclude: ['test'],
+      require: ['docs']
+    }),
     qunit = require('gulp-qunit'),
     jshint = require('gulp-jshint'),
     sass = require('gulp-sass'),
@@ -24,13 +27,6 @@ gulp.task('sass', function() {
     .pipe(gulp.dest('production/css'));
 });
 
-// Compile Our Sass
-gulp.task('sass-docs', function() {
-  return gulp.src('simple/assets/css/*.scss')
-    .pipe(sass())
-    .pipe(gulp.dest('simple/assets/css'));
-});
-
 // Concatenate & Minify JS
 gulp.task('scripts', function() {
   return gulp.src('dropkick.js')
@@ -41,26 +37,8 @@ gulp.task('scripts', function() {
 
 // Watch Files For Changes
 gulp.task('watch', function() {
-  // gulp.watch('dropkick.js', ['scripts', 'docs']);
-  gulp.watch('simple/assets/css/*.scss', ['sass-docs']);
+  gulp.watch('dropkick.js', ['scripts']);
   gulp.watch('css/*.scss', ['sass']);
-  gulp.watch('simple/assets/css/*.scss', ['docs']);
-});
-
-//Build the docs
-gulp.task('docs', function() {
-  gulp.src("dropkick.js")
-  .pipe(yuidoc({
-    "project":{
-      "name": "DropKick API Documentation",
-      "description": "DropKicks API Documentation",
-      "version": "2.1.3",
-      "url": "http://dropkickjs.com/"
-    }
-  }, {
-    "themedir": "./node_modules/yuidoc-lucid-theme",
-    "helpers" : ["./node_modules/yuidoc-lucid-theme/helpers/helpers.js"]
-   })).pipe(gulp.dest("./docs"));
 });
 
 gulp.task('test', function() {

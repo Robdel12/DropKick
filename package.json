@@ -15,7 +15,8 @@
   ],
   "description": "A JavaScript plugin for creating beautiful, graceful, and painless custom dropdowns.",
   "scripts": {
-    "test": "gulp"
+    "test": "gulp",
+    "docs": "yuidoc"
   },
   "engines": {
     "node": ">=0.10.0"
@@ -24,12 +25,12 @@
     "gulp": "^3.8.11",
     "gulp-concat": "~2.2.0",
     "gulp-jshint": "~1.6.3",
+    "gulp-npm-run": "0.0.0-5",
     "gulp-qunit": "^1.2.1",
     "gulp-rename": "~1.2.0",
     "gulp-sass": "~0.7.2",
     "gulp-uglify": "~0.3.1",
     "gulp-util": "~2.2.14",
-    "gulp-yuidoc-relative": "^0.1.2",
     "qunitjs": "^1.17.1"
   }
 }
