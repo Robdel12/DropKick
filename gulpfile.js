@@ -7,8 +7,7 @@ var gulp = require('gulp-npm-run')(require('gulp'), {
     sass = require('gulp-sass'),
     concat = require('gulp-concat'),
     uglify = require('gulp-uglify'),
-    rename = require('gulp-rename'),
-    yuidoc = require("gulp-yuidoc-relative");
+    rename = require('gulp-rename');
 
 gulp.task('default', ['sass', 'test', 'scripts', 'docs']);
 
