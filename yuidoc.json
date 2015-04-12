@@ -6,8 +6,9 @@
   "options": {
     "outdir": "docs",
     "exclude": "tests,production,examples,css",
-    "paths": ".",
-    "themedir": "./node_modules/yuidoc-lucid-theme",
-    "helpers" : ["./node_modules/yuidoc-lucid-theme/helpers/helpers.js"]
+    "paths": "./lib",
+    "themedir": "./node_modules/yuidoc-dropkick-theme",
+    "helpers" : ["./node_modules/yuidoc-dropkick-theme/helpers/helpers.js"],
+     "linkNatives": "true"
   }
 }

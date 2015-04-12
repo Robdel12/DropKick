@@ -10,8 +10,8 @@
     "url": "http://github.com/robdel12/DropKick/issues"
   },
   "main": [
-    "dropkick.js",
-    "dropkick.css"
+    "dist/dropkick.js",
+    "dist/css/dropkick.css"
   ],
   "description": "A JavaScript plugin for creating beautiful, graceful, and painless custom dropdowns.",
   "scripts": {
@@ -22,16 +22,20 @@
     "node": ">=0.10.0"
   },
   "devDependencies": {
+    "del": "^1.1.1",
     "gulp": "^3.8.11",
     "gulp-concat": "~2.2.0",
+    "gulp-file-insert": "^1.0.2",
     "gulp-jshint": "~1.6.3",
     "gulp-npm-run": "0.0.0-5",
     "gulp-qunit": "^1.2.1",
     "gulp-rename": "~1.2.0",
+    "gulp-replace": "^0.5.3",
     "gulp-sass": "~0.7.2",
     "gulp-uglify": "~0.3.1",
     "gulp-util": "~2.2.14",
     "qunitjs": "^1.17.1",
-    "yuidoc-lucid-theme": "^0.1.1"
+    "run-sequence": "^1.0.2",
+    "yuidoc-dropkick-theme": "^0.0.1"
   }
 }

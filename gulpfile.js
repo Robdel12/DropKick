@@ -2,12 +2,15 @@ var gulp = require('gulp-npm-run')(require('gulp'), {
       exclude: ['test'],
       require: ['docs']
     }),
+    del = require('del'),
     qunit = require('gulp-qunit'),
     jshint = require('gulp-jshint'),
     sass = require('gulp-sass'),
     concat = require('gulp-concat'),
     uglify = require('gulp-uglify'),
-    rename = require('gulp-rename');
+    rename = require('gulp-rename'),
+    replace = require('gulp-replace'),
+    runSequence = require('run-sequence');
 
 gulp.task('default', ['sass', 'test', 'scripts', 'docs']);
 
@@ -38,6 +41,15 @@ gulp.task('scripts', function() {
 gulp.task('watch', function() {
   gulp.watch('dropkick.js', ['scripts']);
   gulp.watch('css/*.scss', ['sass']);
+});
+
+gulp.task("docs-rename", function() {
+  return del(['./docs/index.html'], function (err, deletedFiles) {
+    return gulp.src('./docs/classes/Dropkick.html')
+        .pipe(rename('index.html'))
+        .pipe(replace("../", ''))
+        .pipe(gulp.dest('./docs/'));
+  });
 });
 
 gulp.task('test', function() {
