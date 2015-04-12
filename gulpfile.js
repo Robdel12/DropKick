@@ -54,7 +54,9 @@ gulp.task('build-rename', function() {
 });
 
 gulp.task('deploy', function() {
-  return gulp.src('./docs/**/*').pipe(deploy());
+  return gulp.src('./docs/**/*').pipe(deploy({
+    cname: "dropkickjs.com"
+  }));
 });
 
 // Watch Files For Changes
