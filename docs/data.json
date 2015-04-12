@@ -28,7 +28,7 @@
             "extension_for": [],
             "file": "lib/dropkick.js",
             "line": 22,
-            "description": "Dropkicks constructor\n\nCall `new Dropkick( HTMLSelectElement, Options );` or `new Dropkick( \"ID\", Options );` in your script to create a new DropKick.",
+            "description": "DropKick constructor\n\nCall `new Dropkick( HTMLSelectElement, Options );` or `new Dropkick( \"ID\", Options );` in your script to create a new DropKick.",
             "is_constructor": 1
         }
     },

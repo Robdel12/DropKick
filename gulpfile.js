@@ -40,7 +40,7 @@ gulp.task('scripts', function() {
 
 // Watch Files For Changes
 gulp.task('watch', function() {
-  gulp.watch('dropkick.js', ['scripts']);
+  gulp.watch('/lib/dropkick.js', ['scripts', 'docs']);
   gulp.watch('css/*.scss', ['sass']);
 });
 
