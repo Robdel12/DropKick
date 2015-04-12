@@ -38,7 +38,6 @@
     "gulp-util": "~2.2.14",
     "merge-stream": "^0.1.7",
     "minimist": "^1.1.0",
-    "qunitjs": "^1.17.1"
     "qunitjs": "^1.17.1",
     "run-sequence": "^1.0.2",
     "yuidoc-dropkick-theme": "^0.0.2"

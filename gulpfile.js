@@ -22,6 +22,7 @@ var options = minimist(process.argv.slice(2), knownOptions);
 
 gulp.task('default', ['sass', 'test', 'docs']);
 gulp.task('docs', ['doc', 'docs-rename']);
+gulp.task('build', ['sass', 'build-rename']);
 
 // Lint Task
 gulp.task('lint', function() {
@@ -38,8 +39,9 @@ gulp.task('sass', function() {
     .pipe(gulp.dest('dist/css'));
 });
 
-gulp.task('rename-release', function() {
-  return gulp.src('/lib/dropkick.js')
+// USEAGE: gulp build-rename --ver 2.x.x
+gulp.task('build-rename', function() {
+  return gulp.src('./lib/dropkick.js')
     .pipe(rename('dropkick.' + options.ver + '.min.js'))
     .pipe(uglify())
     .pipe(gulp.dest('dist/js/'));
