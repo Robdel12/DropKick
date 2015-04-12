@@ -61,8 +61,8 @@ gulp.task('deploy', function() {
 
 // Watch Files For Changes
 gulp.task('watch', function() {
-  gulp.watch('./lib/dropkick.js', ['scripts']);
-  gulp.watch('./lib/css/*.scss', ['sass']);
+  gulp.watch('/lib/dropkick.js', ['scripts', 'docs']);
+  gulp.watch('css/*.scss', ['sass']);
 });
 
 gulp.task("docs-rename", function() {
