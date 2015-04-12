@@ -188,6 +188,16 @@ Documentation
   Returns an array of matched Dropkick options. ***Note**: will return an empty
   array if no match is found.*
 
+## Building the docs (WIP)
+
+When editing the theme file (which is in the /simple dir _for now_) you should run these commands:
+
+- `gulp sass-docs` This complies the docs themes sass
+- `gulp docs` This compiles the docs from source. You have to do this to see every single theme change.
+
+I've tried running the yuidoc server and developing that way but no dice. Also tried to get gulp to watch the
+`dir` and run both of those commands but it never seemed to recompile the docs if you made a template change.
+
 
 Suggestions or Bugs?
 ====================
