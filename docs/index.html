@@ -15,7 +15,7 @@
 <div class="navbar navbar-fixed-top">
     <div class="navbar-inner">
         <h1 class="brand" style="padding: 10px 16px 10px; height: 20px; line-height: 20px; margin-left: 0;">
-            DropKick API Documentation
+            <a href="http://dropkickjs.com">DropKick API Documentation</a>
         </h1>
 	<div class="nav">
             <li class="divider-vertical"></li>
@@ -25,9 +25,22 @@
                 </p>
             </li>
         </div>
-        <form class="navbar-form pull-right" style="line-height: 40px; height: 40px;">
-            <input style="margin-top: 0;" type="text" class="search-query" placeholder="Search for classes/modules..." data-obj='["classes/Dropkick"]'>
+        <form id="options-form" class="form-inline pull-right dk-options">
+            <label for="api-show-protected" class="checkbox">
+                <input type="checkbox" id="api-show-protected">
+                Protected
+            </label>
+        
+            <label for="api-show-private" class="checkbox">
+                <input type="checkbox" id="api-show-private">
+                Private
+            </label>
+            <label for="api-show-deprecated" class="checkbox">
+                <input type="checkbox" id="api-show-deprecated">
+                Deprecated
+            </label>
         </form>
+        
     </div>
 </div>
 <div class="container">
@@ -38,7 +51,7 @@
 	        <ul>
 	        <li>
 	          <strong>Methods</strong>
-	          <ul>
+	          <ul class="ul--nested">
 	            <li><a href="#method-add"><span class="im">add</span>(<span class="ia">elem</span><span class="ia">before</span>)</a></li>
 	            <li><a href="#method-build"><span class="im">build</span>(<span class="ia">sel</span>)</a></li>
 	            <li><a href="#method-close"><span class="im">close</span>()</a></li>
@@ -66,7 +79,7 @@
 	    
 	        <li>
 	          <strong>Properties</strong>
-	          <ul>
+	          <ul class="ul--nested">
 	            <li><a href="#prop-disabled"><span class="ip">disabled</span></a></li>
 	            <li><a href="#prop-form"><span class="ip">form</span></a></li>
 	            <li><a href="#prop-length"><span class="ip">length</span></a></li>
@@ -80,7 +93,7 @@
 	    
 	        <li>
 	          <strong>Attributes</strong>
-	          <ul>
+	          <ul class="ul--nested">
 	            <li><a href="#attr-change"><span class="iattr">change</span></a></li>
 	            <li><a href="#attr-close"><span class="iattr">close</span></a></li>
 	            <li><a href="#attr-initialize"><span class="iattr">initialize</span></a></li>
@@ -93,29 +106,6 @@
 	    </div>
         </div>
         <div class="span9">
-                <form id="options-form" class="form-inline pull-right">
-                    Show:
-                    <label for="api-show-inherited" class="checkbox">
-                        <input type="checkbox" id="api-show-inherited" checked>
-                        Inherited
-                    </label>
-            
-                    <label for="api-show-protected" class="checkbox">
-                        <input type="checkbox" id="api-show-protected">
-                        Protected
-                    </label>
-            
-                    <label for="api-show-private" class="checkbox">
-                        <input type="checkbox" id="api-show-private">
-                        Private
-                    </label>
-                    <label for="api-show-deprecated" class="checkbox">
-                        <input type="checkbox" id="api-show-deprecated">
-                        Deprecated
-                    </label>
-            
-                </form>
-            
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">

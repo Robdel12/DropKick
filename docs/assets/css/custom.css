@@ -24,8 +24,9 @@
 }
 
 #options-form {
-    margin-top: 20px;
     padding-right: 20px;
+    line-height: 37px;
+    margin-bottom: 0;
 }
 
 /* -- Sidebar --------------------------------------------------------------- */
@@ -75,4 +76,25 @@
 
 .content .well:not(.moduledesc) p {
     margin: 9px 0;
+}
+
+
+.dk-options label{
+    margin-right: 8px;
+}
+.ul--nested {
+    margin-bottom: 10px;
+}
+
+.arg code {
+    font-size: 13px !important;
+}
+
+.description {
+    margin-bottom: 16px;
+}
+
+.description p{
+    font-size: 15px;
+    line-height: 20px;
 }
