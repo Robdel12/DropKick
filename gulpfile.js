@@ -1,6 +1,6 @@
 var gulp = require('gulp-npm-run')(require('gulp'), {
       exclude: ['test'],
-      require: ['docs']
+      require: ['doc']
     }),
     del = require('del'),
     qunit = require('gulp-qunit'),
@@ -13,6 +13,7 @@ var gulp = require('gulp-npm-run')(require('gulp'), {
     runSequence = require('run-sequence');
 
 gulp.task('default', ['sass', 'test', 'scripts', 'docs']);
+gulp.task('docs', ['doc', 'docs-rename']);
 
 // Lint Task
 gulp.task('lint', function() {
@@ -44,12 +45,14 @@ gulp.task('watch', function() {
 });
 
 gulp.task("docs-rename", function() {
-  return del(['./docs/index.html'], function (err, deletedFiles) {
-    return gulp.src('./docs/classes/Dropkick.html')
-        .pipe(rename('index.html'))
-        .pipe(replace("../", ''))
-        .pipe(gulp.dest('./docs/'));
-  });
+  setTimeout(function() { //ugh
+    return del(['./docs/index.html'], function (err, deletedFiles) {
+      return gulp.src('./docs/classes/Dropkick.html')
+          .pipe(rename('index.html'))
+          .pipe(replace("../", ''))
+          .pipe(gulp.dest('./docs/'));
+    });
+  }, 4000);
 });
 
 gulp.task('test', function() {

@@ -16,7 +16,7 @@
   "description": "A JavaScript plugin for creating beautiful, graceful, and painless custom dropdowns.",
   "scripts": {
     "test": "gulp",
-    "docs": "yuidoc"
+    "doc": "yuidoc"
   },
   "engines": {
     "node": ">=0.10.0"
