@@ -81,10 +81,27 @@ QUnit.test( "Dropkick selects an option", 4, function( assert ) {
   assert.equal(dk.selectedIndex, 4);
 });
 
-QUnit.test( "Dropkick searches Alabama and returns Alabama", 1, function( assert ) {
+QUnit.test( "Strict searches Alabama and returns Alabama", 2, function( assert ) {
   var dk = new Dropkick("#normal_select");
 
+  assert.equal(dk.search("Alabama").length, 1);
   assert.equal(dk.search("Alabama")[0], dk.item(1));
+});
+
+QUnit.test( "Fuzzy searches ac and returns an array of two", 3, function( assert ) {
+  var dk = new Dropkick("#normal_select");
+
+  assert.equal(dk.search("ac", "fuzzy").length, 1, "Nothing returned in search");
+  assert.equal(dk.search("ac", "fuzzy")[0], dk.item(22), "Didn't find 'Massachusetts' in search");
+  assert.deepEqual(dk.search("ac"), [], "Should return an empty array");
+});
+
+QUnit.test( "Partial searches mo and returns an array of two", 3, function( assert ) {
+  var dk = new Dropkick("#normal_select");
+
+  assert.equal(dk.search("mo", "partial").length, 2);
+  assert.equal(dk.search("mo", "partial")[0], dk.item(27));
+  assert.equal(dk.search("mo", "partial")[1], dk.item(46));
 });
 
 QUnit.test( "Adds an option to the select", 1, function( assert ) {
@@ -152,4 +169,34 @@ QUnit.test( "Dispose should remove dropkick from cache", 2, function( assert ) {
   dk.dispose();
 
   assert.ok(Dropkick.cache[dk.data.cacheID] === undefined);
+});
+
+QUnit.test( "Dropkick options should return an array", 2, function( assert ) {
+  var dk = new Dropkick("#normal_select");
+
+  assert.equal(dk.options.length, 52, "Didn't return the full list of options");
+  assert.ok(dk.options instanceof Array, "Options are not an array");
+});
+
+QUnit.test( "Dropkick refresh should work", 5, function( assert ) {
+  var dk = new Dropkick("#normal_select");
+
+  $("#normal_select").append("<option value='new'>New option</option>");
+
+  assert.equal(dk.options.length, 52, "Length doesn't match 52");
+  assert.equal(dk.search("option").length, 0, "Found option before refresh was called");
+
+  dk.refresh();
+
+  assert.equal(dk.options.length, 53, "Length wasn't updated after refresh");
+  assert.equal(dk.search("New option").length, 1, "Option search didn't return 'option'");
+  assert.equal(dk.search("New option")[0], dk.item(52), "Can't find new option when searching");
+});
+
+
+QUnit.test( "Dropkick should return if no select is passed", 2, function( assert ) {
+  var dk = new Dropkick("#nothing");
+
+  assert.ok(dk);
+  assert.ok(!dk.data);
 });
