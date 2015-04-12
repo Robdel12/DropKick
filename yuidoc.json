@@ -8,7 +8,9 @@
     "exclude": "tests,production,examples,css",
     "paths": "./lib",
     "themedir": "./node_modules/yuidoc-dropkick-theme",
-    "helpers" : ["./node_modules/yuidoc-dropkick-theme/helpers/helpers.js"],
-     "linkNatives": "true"
+    "helpers": [
+      "./node_modules/yuidoc-dropkick-theme/helpers/helpers.js"
+    ],
+    "linkNatives": "true"
   }
 }

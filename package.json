@@ -25,9 +25,9 @@
     "del": "^1.1.1",
     "gulp": "^3.8.11",
     "gulp-concat": "~2.2.0",
-    "gulp-gh-pages": "^0.4.0",
-    "gulp-inject": "^1.2.0",
     "gulp-file-insert": "^1.0.2",
+    "gulp-gh-pages": "^0.5.0",
+    "gulp-inject": "^1.2.0",
     "gulp-jshint": "~1.6.3",
     "gulp-npm-run": "0.0.0-5",
     "gulp-qunit": "^1.2.1",
@@ -41,5 +41,8 @@
     "qunitjs": "^1.17.1",
     "run-sequence": "^1.0.2",
     "yuidoc-dropkick-theme": "^0.0.2"
+  },
+  "dependencies": {
+    "gulp-bump": "^0.3.0"
   }
 }

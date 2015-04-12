@@ -2,7 +2,8 @@ var gulp = require('gulp-npm-run')(require('gulp'), {
       exclude: ['test'],
       require: ['doc']
     }),
-    del = require('del'),
+    del = require('del')
+    bump = require('gulp-bump'),
     qunit = require('gulp-qunit'),
     jshint = require('gulp-jshint'),
     sass = require('gulp-sass'),
@@ -11,8 +12,7 @@ var gulp = require('gulp-npm-run')(require('gulp'), {
     replace = require('gulp-replace'),
     rename = require('gulp-rename'),
     minimist = require('minimist'),
-    deploy = require('gulp-gh-pages'),
-    merge = require('merge-stream');
+    deploy = require('gulp-gh-pages');
 
 // Passing a version number
 var knownOptions = {
@@ -39,6 +39,12 @@ gulp.task('sass', function() {
     .pipe(gulp.dest('dist/css'));
 });
 
+gulp.task('bump', function(){
+  gulp.src('./*.json')
+  .pipe(bump())
+  .pipe(gulp.dest('./'));
+});
+
 // USEAGE: gulp build-rename --ver 2.x.x
 gulp.task('build-rename', function() {
   return gulp.src('./lib/dropkick.js')
@@ -47,13 +53,8 @@ gulp.task('build-rename', function() {
     .pipe(gulp.dest('dist/js/'));
 });
 
-gulp.task('set-dist', function () {
-  return gulp.src(['./**'], { base: "docs" })
-    .pipe(gulp.dest('dist'));
-});
-
 gulp.task('deploy', function() {
-  return gulp.src('dist').pipe(deploy());
+  return gulp.src('./docs/**/*').pipe(deploy());
 });
 
 // Watch Files For Changes
