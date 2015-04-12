@@ -36,6 +36,6 @@
     "gulp-util": "~2.2.14",
     "qunitjs": "^1.17.1",
     "run-sequence": "^1.0.2",
-    "yuidoc-dropkick-theme": "^0.0.1"
+    "yuidoc-dropkick-theme": "^0.0.2"
   }
 }
