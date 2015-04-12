@@ -1,0 +1,155 @@
+.yuidoc-class-description {
+	background: none;
+	border: 0 none;
+	box-shadow: none;
+	padding: 0;
+	font-size: 16px;
+	line-height: 26px;
+	margin: 20px 0 40px 0;
+}
+h1 {
+	font-weight: 300 !important;
+}
+h2 {
+	font-size: 20px !important;
+	font-weight: normal !important;
+	color: #B2B2B2 !important;
+}
+h3 {
+	font-size: 14px !important;
+	color: #4A4A4A !important;
+}
+body a {
+	color: #4CA0E7;
+}
+
+#sidebar .tab-pane li a:hover, #sidebar .tab-pane li a:focus {
+	background: #A2C7DA !important;
+}
+
+.navbar-fixed-top .navbar-inner, .navbar-static-top .navbar-inner {
+	background: #fff !important;
+	box-shadow: 0 1px 10px rgba(0, 0, 0, 0.04) !important;
+}
+
+code {
+	color: #806857 !important;
+}
+
+ul.inline > li, ol.inline > li {
+	padding: 0 !important;
+}
+
+.method-signature, .method-signature code {
+	line-height: 20px !important;
+	font-size: 15px;
+	background: 0 none;
+	padding: 0;
+	border: 0 none;
+}
+.method-signature .name code {
+	font-weight: bold !important;
+	color: #4CA0E7 !important;
+}
+.method-signature {
+	margin-bottom: 2px;
+}
+
+
+body .apidocs .item + .item {
+	border-top: 0 none;
+}
+body .apidocs .item, body .apidocs .constructor .item {
+	border: 1px solid #efefef;
+	padding: 15px 20px;
+	margin: 0;
+}
+body .apidocs .item:last-child, body .apidocs .constructor .item:last-child {
+	border-radius: 0 0 3px 3px;
+}
+body .apidocs .item:first-child, body .apidocs .constructor .item:first-child {
+	border-radius: 3px 3px 0 0;
+}
+body .apidocs .item:first-child:last-child, body .apidocs .constructor .item:first-child:last-child {
+	border-radius: 3px;
+}
+
+
+.well-small {
+	min-height: 0 !important;
+}
+
+#sidebar {
+	margin-top: 65px;
+}
+
+#api-tabview-filter {
+	margin: 0 0 10px 0 !important;
+}
+
+#api-classes, #api-tabview-filter {
+	padding: 0 !important;
+	border: 0 none !important;
+}
+
+.page-section h2 {
+	margin: 20px 0;
+}
+.meta, .meta a, .meta code {
+	color: #bbb !important;
+}
+
+.nav-list > li > a, .nav-list .nav-header {
+	line-height: 20px;
+	margin: 0 !important;
+	padding: 0 !important;
+	background: none !important;
+}
+.method-signature .optional {
+	color: #bbb !important;
+}
+
+.paren {
+	font-family: monospace;
+}
+.apidocs .args {
+	margin: 0 !important;
+}
+
+.apidocs .flag.optional {
+	background: #DADADA;
+}
+.apidocs .flag.final {
+	background: #B6B6B6;
+}
+
+.page-header {
+	border-bottom: 0 none !important;
+}
+
+.yuidoc-class-description pre {
+	margin-top: 15px !important;
+}
+
+.ia + .ia:before {
+	content: ', ';
+}
+
+#class-toc ul li {
+	line-height: 18px;
+}
+
+.apidocs .param .param-description {
+	padding-top: 5px;
+}
+
+.apidocs .item h4, .apidocs .item h5, .apidocs .item h6 {
+	color: #626262;
+	font-family: inherit;
+	font-size: 13px;
+	line-height: 20px;
+}
+
+.params-list li:last-child {
+	margin-bottom: 0 !important;
+}

@@ -47,9 +47,13 @@ gulp.task('build-rename', function() {
     .pipe(gulp.dest('dist/js/'));
 });
 
-gulp.task('gh-pages', function () {
-  return gulp.src('/dist')
-    .pipe(deploy());
+gulp.task('set-dist', function () {
+  return gulp.src(['./**'], { base: "docs" })
+    .pipe(gulp.dest('dist'));
+});
+
+gulp.task('deploy', function() {
+  return gulp.src('dist').pipe(deploy());
 });
 
 // Watch Files For Changes
