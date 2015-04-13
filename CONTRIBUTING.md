@@ -13,8 +13,7 @@
 - Write tests
   - If you're adding a feature write a test for it
   - If you're fixing a bug write a test for it.
-- Run `gulp` from your command line.
-  - The default runner will run the test suite, lint, and minify the JS.
+- Run `gulp test` from your command line. This is to make sure all tests pass.
 - If all tests pass you can create a pull request. Tag any related github issue tickets in the PR.
 
 **If you fail to do any of these we probably will not accept your changes**
