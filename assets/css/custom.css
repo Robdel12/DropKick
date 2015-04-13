@@ -29,6 +29,10 @@
     margin-bottom: 0;
 }
 
+p code {
+    font-size: 12px;
+}
+
 /* -- Sidebar --------------------------------------------------------------- */
 
 #sidebar .tab-content {
