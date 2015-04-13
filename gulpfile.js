@@ -1,3 +1,5 @@
+/* global require */
+
 var gulp = require('gulp-npm-run')(require('gulp'), {
       exclude: ['test'],
       require: ['doc']
@@ -65,12 +67,12 @@ gulp.task('watch', function() {
   gulp.watch('css/*.scss', ['sass']);
 });
 
-gulp.task("docs-rename", function() {
+gulp.task('docs-rename', function() {
   setTimeout(function() { //ugh
-    return del(['./docs/index.html'], function (err, deletedFiles) {
+    return del(['./docs/index.html'], function () {
       return gulp.src('./docs/classes/Dropkick.html')
           .pipe(rename('index.html'))
-          .pipe(replace("../", ''))
+          .pipe(replace('../', ''))
           .pipe(gulp.dest('./docs/'));
     });
   }, 4000);
