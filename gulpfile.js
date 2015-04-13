@@ -4,7 +4,7 @@ var gulp = require('gulp-npm-run')(require('gulp'), {
       exclude: ['test'],
       require: ['doc']
     }),
-    del = require('del')
+    del = require('del'),
     bump = require('gulp-bump'),
     qunit = require('gulp-qunit'),
     jshint = require('gulp-jshint'),
