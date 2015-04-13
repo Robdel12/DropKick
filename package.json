@@ -42,5 +42,12 @@
     "run-sequence": "^1.0.2",
     "gulp-bump": "^0.3.0",
     "yuidoc-dropkick-theme": "0.0.4"
-  }
+  },
+  "keywords": [
+    "dropkick",
+    "dropkickjs",
+    "select replacement",
+    "select2",
+    "select"
+  ]
 }
