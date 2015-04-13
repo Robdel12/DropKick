@@ -14,7 +14,7 @@ var gulp = require('gulp-npm-run')(require('gulp'), {
     replace = require('gulp-replace'),
     rename = require('gulp-rename'),
     minimist = require('minimist'),
-    deploy = require('gulp-gh-pages');
+    deploy = require('gulp-gh-pages-cname');
 
 // Passing a version number
 var knownOptions = {
