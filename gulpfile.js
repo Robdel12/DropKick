@@ -1,12 +1,19 @@
-var gulp = require('gulp'),
+/* global require */
+var gulp = require('gulp-npm-run')(require('gulp'), {
+      exclude: ['test'],
+      require: ['doc']
+    }),
+    del = require('del'),
     qunit = require('gulp-qunit'),
     jshint = require('gulp-jshint'),
     sass = require('gulp-sass'),
     concat = require('gulp-concat'),
     uglify = require('gulp-uglify'),
-    rename = require('gulp-rename');
+    rename = require('gulp-rename'),
+    replace = require('gulp-replace');
 
-gulp.task('default', ['sass', 'test', 'scripts']);
+gulp.task('default', ['sass', 'test', 'scripts', 'docs']);
+gulp.task('docs', ['doc', 'docs-rename']);
 
 // Lint Task
 gulp.task('lint', function() {
@@ -33,8 +40,19 @@ gulp.task('scripts', function() {
 
 // Watch Files For Changes
 gulp.task('watch', function() {
-  gulp.watch('dropkick.js', ['lint', 'scripts']);
+  gulp.watch('/lib/dropkick.js', ['scripts', 'docs']);
   gulp.watch('css/*.scss', ['sass']);
+});
+
+gulp.task('docs-rename', function() {
+  setTimeout(function() { //ugh
+    return del(['./docs/index.html'], function () {
+      return gulp.src('./docs/classes/Dropkick.html')
+          .pipe(rename('index.html'))
+          .pipe(replace('../', ''))
+          .pipe(gulp.dest('./docs/'));
+    });
+  }, 4000);
 });
 
 gulp.task('test', function() {

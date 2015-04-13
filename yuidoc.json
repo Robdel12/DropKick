@@ -1,0 +1,14 @@
+{
+  "name": "DropKick API Documentation",
+  "description": "DropKicks API Documentation",
+  "version": "2.1.3",
+  "url": "http://dropkickjs.com/",
+  "options": {
+    "outdir": "docs",
+    "exclude": "tests,production,examples,css",
+    "paths": "./lib",
+    "themedir": "./node_modules/yuidoc-dropkick-theme",
+    "helpers" : ["./node_modules/yuidoc-dropkick-theme/helpers/helpers.js"],
+     "linkNatives": "true"
+  }
+}
