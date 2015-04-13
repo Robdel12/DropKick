@@ -37,8 +37,7 @@ gulp.task('lint', function() {
 gulp.task('sass', function() {
   return gulp.src('./lib/css/*.scss')
     .pipe(sass())
-    .pipe(gulp.dest('css'))
-    .pipe(gulp.dest('dist/css'));
+    .pipe(gulp.dest('build/css'));
 });
 
 gulp.task('bump', function(){
@@ -52,7 +51,7 @@ gulp.task('build-rename', function() {
   return gulp.src('./lib/dropkick.js')
     .pipe(rename('dropkick.' + options.ver + '.min.js'))
     .pipe(uglify())
-    .pipe(gulp.dest('dist/js/'));
+    .pipe(gulp.dest('build/js/'));
 });
 
 gulp.task('deploy', function() {
@@ -63,7 +62,7 @@ gulp.task('deploy', function() {
 
 // Watch Files For Changes
 gulp.task('watch', function() {
-  gulp.watch('/lib/dropkick.js', ['scripts', 'docs']);
+  gulp.watch('/lib/dropkick.js', ['docs']);
   gulp.watch('css/*.scss', ['sass']);
 });
 
