@@ -35,7 +35,7 @@
     "gulp-rename": "~1.2.0",
     "gulp-replace": "^0.5.3",
     "gulp-sass": "~0.7.2",
-    "gulp-uglify": "~0.3.1",
+    "gulp-uglify": "^1.2.0",
     "gulp-util": "~2.2.14",
     "merge-stream": "^0.1.7",
     "minimist": "^1.1.0",
