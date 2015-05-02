@@ -41,7 +41,7 @@
     "minimist": "^1.1.0",
     "qunitjs": "^1.17.1",
     "run-sequence": "^1.0.2",
-    "yuidoc-dropkick-theme": "0.0.5"
+    "yuidoc-dropkick-theme": "0.0.6"
   },
   "keywords": [
     "dropkick",
