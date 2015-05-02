@@ -314,6 +314,12 @@
                            * @method add
                            * @param {string} elem   HTMLOptionElement
                            * @param {Node/Integer} before HTMLOptionElement/Index of Element
+                           * @example
+                           *  &#x60;&#x60;&#x60;js
+                           *    var select = new Dropkick(&quot;#select&quot;);
+                           *
+                           *    select.add(&quot;New option&quot;, 5);
+                           *  &#x60;&#x60;&#x60;
                            */
                           add: function( elem, before ) {
                             var text, option, i;
@@ -371,6 +377,12 @@
                            * @method item
                            * @param  {Integer} index Index of element (positive or negative)
                            * @return {Node}          The DK option from the list, or null if not found
+                           * @example
+                           *  &#x60;&#x60;&#x60;js
+                           *    var select = new Dropkick(&quot;#select&quot;);
+                           *
+                           *    select.item(4); //returns DOM node of index
+                           *  &#x60;&#x60;&#x60;
                            */
                           item: function( index ) {
                             index = index &lt; 0 ? this.options.length + index : index;
@@ -382,6 +394,12 @@
                            *
                            * @method  remove
                            * @param  {Integer} index Index of element (positive or negative)
+                           * @example
+                           *  &#x60;&#x60;&#x60;js
+                           *    var select = new Dropkick(&quot;#select&quot;);
+                           *
+                           *    select.remove(4);
+                           *  &#x60;&#x60;&#x60;
                            */
                           remove: function( index ) {
                             var dkOption = this.item( index );
@@ -417,6 +435,12 @@
                              * Whether the form is currently disabled or not
                              *
                              * @property {boolean} disabled
+                             * @example
+                             *  &#x60;&#x60;&#x60;js
+                             *    var select = new Dropkick(&quot;#select&quot;);
+                             *
+                             *    select.disabled;
+                             *  &#x60;&#x60;&#x60;
                              */
                             this.disabled = sel.disabled;
                         
@@ -424,6 +448,12 @@
                              * The form associated with the select
                              *
                              * @property {node} form
+                             * @example
+                             *  &#x60;&#x60;&#x60;js
+                             *    var select = new Dropkick(&quot;#select&quot;);
+                             *
+                             *    select.form;
+                             *  &#x60;&#x60;&#x60;
                              */
                             this.form = sel.form;
                         
@@ -431,6 +461,12 @@
                              * The number of options in the select
                              *
                              * @property {integer} length
+                             * @example
+                             *  &#x60;&#x60;&#x60;js
+                             *    var select = new Dropkick(&quot;#select&quot;);
+                             *
+                             *    select.length;
+                             *  &#x60;&#x60;&#x60;
                              */
                             this.length = sel.length;
                         
@@ -438,6 +474,12 @@
                              * If this select is a multi-select
                              *
                              * @property {boolean} multiple
+                             * @example
+                             *  &#x60;&#x60;&#x60;js
+                             *    var select = new Dropkick(&quot;#select&quot;);
+                             *
+                             *    select.multiple;
+                             *  &#x60;&#x60;&#x60;
                              */
                             this.multiple = sel.multiple;
                         
@@ -445,6 +487,12 @@
                              * An array of Dropkick options
                              *
                              * @property {array} options
+                             * @example
+                             *  &#x60;&#x60;&#x60;js
+                             *    var select = new Dropkick(&quot;#select&quot;);
+                             *
+                             *    select.options;
+                             *  &#x60;&#x60;&#x60;
                              */
                             this.options = dk.options.slice( 0 );
                         
@@ -452,6 +500,12 @@
                              * An index of the first selected option
                              *
                              * @property {integer} selectedIndex
+                             * @example
+                             *  &#x60;&#x60;&#x60;js
+                             *    var select = new Dropkick(&quot;#select&quot;);
+                             *
+                             *    select.selectedIndex;
+                             *  &#x60;&#x60;&#x60;
                              */
                             this.selectedIndex = sel.selectedIndex;
                         
@@ -459,6 +513,12 @@
                              * An array of selected Dropkick options
                              *
                              * @property {array} selectedOptions
+                             * @example
+                             *  &#x60;&#x60;&#x60;js
+                             *    var select = new Dropkick(&quot;#select&quot;);
+                             *
+                             *    select.selectedOptions;
+                             *  &#x60;&#x60;&#x60;
                              */
                             this.selectedOptions = dk.selected.slice( 0 );
                         
@@ -466,6 +526,12 @@
                              * The current value of the select
                              *
                              * @property {string} value
+                             * @example
+                             *  &#x60;&#x60;&#x60;js
+                             *    var select = new Dropkick(&quot;#select&quot;);
+                             *
+                             *    select.value;
+                             *  &#x60;&#x60;&#x60;
                              */
                             this.value = sel.value;
                         
@@ -525,6 +591,12 @@
                            * Closes the DK dropdown
                            *
                            * @method close
+                           * @example
+                           *  &#x60;&#x60;&#x60;js
+                           *    var select = new Dropkick(&quot;#select&quot;);
+                           *
+                           *    select.close(); //closes dk dropdown
+                           *  &#x60;&#x60;&#x60;
                            */
                           close: function() {
                             var i,
@@ -550,6 +622,12 @@
                            * Opens the DK dropdown
                            *
                            * @method open
+                           * @example
+                           *  &#x60;&#x60;&#x60;js
+                           *    var select = new Dropkick(&quot;#select&quot;);
+                           *
+                           *    select.open(); //Opens the dk dropdown
+                           *  &#x60;&#x60;&#x60;
                            */
                           open: _.deferred(function() {
                             var dropHeight, above, below, direction, dkTop, dkBottom,
@@ -590,6 +668,22 @@
                            * @method disable
                            * @param  {Integer} elem     The element or index to disable
                            * @param  {Boolean}      disabled Value of disabled
+                           * @example
+                           *  &#x60;&#x60;&#x60;js
+                           *    var select = new Dropkick(&quot;#select&quot;);
+                           *
+                           *    // To disable the entire select
+                           *    select.disable();
+                           *
+                           *    // To disable just an option with an index
+                           *    select.disable(4, true);
+                           *
+                           *    // To re-enable the entire select
+                           *    select.disable(false);
+                           *
+                           *    // To re-enable just an option with an index
+                           *    select.disable(4, false);
+                           *  &#x60;&#x60;&#x60;
                            */
                           disable: function( elem, disabled ) {
                             var disabledClass = &quot;dk-option-disabled&quot;;
@@ -619,6 +713,16 @@
                            * @param  {String} elem     The element, index, or value to select
                            * @param  {Boolean}             disabled Selects disabled options
                            * @return {Node}                         The selected element
+                           * @example
+                           *  &#x60;&#x60;&#x60;js
+                           *    var elm = new Dropkick(&quot;#select&quot;);
+                           *
+                           *    // Select by index
+                           *    elm.select(4); //selects &amp; returns 5th item in the list
+                           *
+                           *    // Select by value
+                           *    elm.select(&quot;AL&quot;); // selects &amp; returns option with the value &quot;AL&quot;
+                           *  &#x60;&#x60;&#x60;
                            */
                           select: function( elem, disabled ) {
                             var i, index, option, combobox,

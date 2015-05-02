@@ -113,11 +113,14 @@
                     "type": "Node/Integer"
                 }
             ],
+            "example": [
+                "\n ```js\n   var select = new Dropkick(\"#select\");\n\n   select.add(\"New option\", 5);\n ```"
+            ],
             "class": "Dropkick"
         },
         {
             "file": "lib/dropkick.js",
-            "line": 301,
+            "line": 307,
             "description": "Selects an option in the list at the desired index (negative numbers select from the end).",
             "itemtype": "method",
             "name": "item",
@@ -132,11 +135,14 @@
                 "description": "The DK option from the list, or null if not found",
                 "type": "Node"
             },
+            "example": [
+                "\n ```js\n   var select = new Dropkick(\"#select\");\n\n   select.item(4); //returns DOM node of index\n ```"
+            ],
             "class": "Dropkick"
         },
         {
             "file": "lib/dropkick.js",
-            "line": 313,
+            "line": 325,
             "description": "Removes the option (from both the select and Dropkick) at the given index.",
             "itemtype": "method",
             "name": "remove",
@@ -147,11 +153,14 @@
                     "type": "Integer"
                 }
             ],
+            "example": [
+                "\n ```js\n   var select = new Dropkick(\"#select\");\n\n   select.remove(4);\n ```"
+            ],
             "class": "Dropkick"
         },
         {
             "file": "lib/dropkick.js",
-            "line": 328,
+            "line": 346,
             "description": "Initializes the DK Object",
             "itemtype": "method",
             "name": "init",
@@ -177,95 +186,125 @@
         },
         {
             "file": "lib/dropkick.js",
-            "line": 349,
+            "line": 367,
             "description": "Whether the form is currently disabled or not",
             "itemtype": "property",
             "name": "disabled",
             "type": "Boolean",
+            "example": [
+                "\n ```js\n   var select = new Dropkick(\"#select\");\n\n   select.disabled;\n ```"
+            ],
             "class": "Dropkick"
         },
         {
             "file": "lib/dropkick.js",
-            "line": 356,
+            "line": 380,
             "description": "The form associated with the select",
             "itemtype": "property",
             "name": "form",
             "type": "Node",
+            "example": [
+                "\n ```js\n   var select = new Dropkick(\"#select\");\n\n   select.form;\n ```"
+            ],
             "class": "Dropkick"
         },
         {
             "file": "lib/dropkick.js",
-            "line": 363,
+            "line": 393,
             "description": "The number of options in the select",
             "itemtype": "property",
             "name": "length",
             "type": "Integer",
+            "example": [
+                "\n ```js\n   var select = new Dropkick(\"#select\");\n\n   select.length;\n ```"
+            ],
             "class": "Dropkick"
         },
         {
             "file": "lib/dropkick.js",
-            "line": 370,
+            "line": 406,
             "description": "If this select is a multi-select",
             "itemtype": "property",
             "name": "multiple",
             "type": "Boolean",
+            "example": [
+                "\n ```js\n   var select = new Dropkick(\"#select\");\n\n   select.multiple;\n ```"
+            ],
             "class": "Dropkick"
         },
         {
             "file": "lib/dropkick.js",
-            "line": 377,
+            "line": 419,
             "description": "An array of Dropkick options",
             "itemtype": "property",
             "name": "options",
             "type": "Array",
+            "example": [
+                "\n ```js\n   var select = new Dropkick(\"#select\");\n\n   select.options;\n ```"
+            ],
             "class": "Dropkick"
         },
         {
             "file": "lib/dropkick.js",
-            "line": 384,
+            "line": 432,
             "description": "An index of the first selected option",
             "itemtype": "property",
             "name": "selectedIndex",
             "type": "Integer",
+            "example": [
+                "\n ```js\n   var select = new Dropkick(\"#select\");\n\n   select.selectedIndex;\n ```"
+            ],
             "class": "Dropkick"
         },
         {
             "file": "lib/dropkick.js",
-            "line": 391,
+            "line": 445,
             "description": "An array of selected Dropkick options",
             "itemtype": "property",
             "name": "selectedOptions",
             "type": "Array",
+            "example": [
+                "\n ```js\n   var select = new Dropkick(\"#select\");\n\n   select.selectedOptions;\n ```"
+            ],
             "class": "Dropkick"
         },
         {
             "file": "lib/dropkick.js",
-            "line": 398,
+            "line": 458,
             "description": "The current value of the select",
             "itemtype": "property",
             "name": "value",
             "type": "String",
+            "example": [
+                "\n ```js\n   var select = new Dropkick(\"#select\");\n\n   select.value;\n ```"
+            ],
             "class": "Dropkick"
         },
         {
             "file": "lib/dropkick.js",
-            "line": 457,
+            "line": 523,
             "description": "Closes the DK dropdown",
             "itemtype": "method",
             "name": "close",
+            "example": [
+                "\n ```js\n   var select = new Dropkick(\"#select\");\n\n   select.close(); //closes dk dropdown\n ```"
+            ],
             "class": "Dropkick"
         },
         {
             "file": "lib/dropkick.js",
-            "line": 482,
+            "line": 554,
             "description": "Opens the DK dropdown",
             "itemtype": "method",
             "name": "open",
+            "example": [
+                "\n ```js\n   var select = new Dropkick(\"#select\");\n\n   select.open(); //Opens the dk dropdown\n ```"
+            ],
             "class": "Dropkick"
         },
         {
             "file": "lib/dropkick.js",
-            "line": 519,
+            "line": 597,
             "description": "Disables or enables an option; if only a boolean is passed (or nothing),\nthen the entire Dropkick will be disabled or enabled.",
             "itemtype": "method",
             "name": "disable",
@@ -281,11 +320,14 @@
                     "type": "Boolean"
                 }
             ],
+            "example": [
+                "\n ```js\n   var select = new Dropkick(\"#select\");\n\n   // To disable the entire select\n   select.disable();\n\n   // To disable just an option with an index\n   select.disable(4, true);\n\n   // To re-enable the entire select\n   select.disable(false);\n\n   // To re-enable just an option with an index\n   select.disable(4, false);\n ```"
+            ],
             "class": "Dropkick"
         },
         {
             "file": "lib/dropkick.js",
-            "line": 548,
+            "line": 642,
             "description": "Selects an option from the list",
             "itemtype": "method",
             "name": "select",
@@ -305,11 +347,14 @@
                 "description": "The selected element",
                 "type": "Node"
             },
+            "example": [
+                "\n ```js\n   var elm = new Dropkick(\"#select\");\n\n   // Select by index\n   elm.select(4); //selects & returns 5th item in the list\n\n   // Select by value\n   elm.select(\"AL\"); // selects & returns option with the value \"AL\"\n ```"
+            ],
             "class": "Dropkick"
         },
         {
             "file": "lib/dropkick.js",
-            "line": 624,
+            "line": 728,
             "description": "Selects a single option from the list and scrolls to it (if the select is open or on multi-selects).\nUseful for selecting an option after a search by the user.",
             "itemtype": "method",
             "name": "selectOne",
@@ -333,7 +378,7 @@
         },
         {
             "file": "lib/dropkick.js",
-            "line": 639,
+            "line": 743,
             "description": "Finds all options who's text matches a pattern (strict, partial, or fuzzy)\n\n`\"strict\"` - The search string matches exactly from the beginning of the\noption's text value (case insensitive).\n\n`\"partial\"` - The search string matches part of the option's text value\n(case insensitive).\n\n`\"fuzzy\"` - The search string matches the characters in the given order (not\nexclusively). The strongest match is selected first. (case insensitive).",
             "itemtype": "method",
             "name": "search",
@@ -357,7 +402,7 @@
         },
         {
             "file": "lib/dropkick.js",
-            "line": 712,
+            "line": 816,
             "description": "Brings focus to the proper DK element",
             "itemtype": "method",
             "name": "focus",
@@ -365,7 +410,7 @@
         },
         {
             "file": "lib/dropkick.js",
-            "line": 723,
+            "line": 827,
             "description": "Resets the Dropkick and select to it's original selected options; if `clear` is `true`,\nIt will select the first option by default (or no options for multi-selects).",
             "itemtype": "method",
             "name": "reset",
@@ -380,7 +425,7 @@
         },
         {
             "file": "lib/dropkick.js",
-            "line": 750,
+            "line": 854,
             "description": "Rebuilds the DK Object\n(use if HTMLSelectElement has changed)",
             "itemtype": "method",
             "name": "refresh",
@@ -388,7 +433,7 @@
         },
         {
             "file": "lib/dropkick.js",
-            "line": 760,
+            "line": 864,
             "description": "Removes the DK Object from the cache and the element from the DOM",
             "itemtype": "method",
             "name": "dispose",
@@ -396,7 +441,7 @@
         },
         {
             "file": "lib/dropkick.js",
-            "line": 774,
+            "line": 878,
             "itemtype": "method",
             "name": "handleEvent",
             "access": "private",
@@ -405,7 +450,7 @@
         },
         {
             "file": "lib/dropkick.js",
-            "line": 804,
+            "line": 908,
             "itemtype": "method",
             "name": "delegate",
             "access": "private",
@@ -414,7 +459,7 @@
         },
         {
             "file": "lib/dropkick.js",
-            "line": 849,
+            "line": 953,
             "itemtype": "method",
             "name": "highlight",
             "access": "private",
@@ -423,7 +468,7 @@
         },
         {
             "file": "lib/dropkick.js",
-            "line": 866,
+            "line": 970,
             "itemtype": "method",
             "name": "keyHandler",
             "access": "private",
@@ -432,7 +477,7 @@
         },
         {
             "file": "lib/dropkick.js",
-            "line": 940,
+            "line": 1044,
             "itemtype": "method",
             "name": "searchOptions",
             "access": "private",
@@ -441,7 +486,7 @@
         },
         {
             "file": "lib/dropkick.js",
-            "line": 975,
+            "line": 1079,
             "itemtype": "method",
             "name": "scrollTo",
             "access": "private",
@@ -450,7 +495,7 @@
         },
         {
             "file": "lib/dropkick.js",
-            "line": 1007,
+            "line": 1111,
             "description": "Builds the Dropkick element from a select element",
             "itemtype": "method",
             "name": "build",
@@ -471,7 +516,7 @@
         },
         {
             "file": "lib/dropkick.js",
-            "line": 1114,
+            "line": 1218,
             "description": "Focus DK Element when corresponding label is clicked; close all other DK's",
             "itemtype": "method",
             "name": "onDocClick",

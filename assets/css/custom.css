@@ -102,3 +102,7 @@ p code {
     font-size: 15px;
     line-height: 20px;
 }
+
+pre code {
+    white-space: pre-line !important;
+}
