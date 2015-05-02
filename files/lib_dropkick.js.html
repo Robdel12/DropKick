@@ -73,9 +73,6 @@
                          *
                         */
                         
-                        // Enable indexOf, forEach, and EventListener methods for IE
-                        (function(){if(Array.prototype.indexOf||(Array.prototype.indexOf=function(a,b){var c,d,e=b?b:0;if(!this)throw new TypeError;if(d=this.length,0===d||e&gt;=d)return-1;for(0&gt;e&amp;&amp;(e=d-Math.abs(e)),c=e;d&gt;c;c++)if(this[c]===a)return c;return-1}),Array.prototype.forEach||(Array.prototype.forEach=function(a){if(void 0===this||null===this)throw new TypeError;var b=Object(this),c=b.length&gt;&gt;&gt;0;if(&quot;function&quot;!=typeof a)throw new TypeError;for(var d=arguments.length&gt;=2?arguments[1]:void 0,e=0;c&gt;e;e++)e in b&amp;&amp;a.call(d,b[e],e,b)}),Event.prototype.preventDefault||(Event.prototype.preventDefault=function(){this.returnValue=!1}),Event.prototype.stopPropagation||(Event.prototype.stopPropagation=function(){this.cancelBubble=!0}),!Element.prototype.addEventListener){var a=[],b=function(b,c){var d=this,e=function(a){a.target=a.srcElement,a.currentTarget=d,c.handleEvent?c.handleEvent(a):c.call(d,a)};if(&quot;DOMContentLoaded&quot;==b){var f=function(a){&quot;complete&quot;==document.readyState&amp;&amp;e(a)};if(document.attachEvent(&quot;onreadystatechange&quot;,f),a.push({object:this,type:b,listener:c,wrapper:f}),&quot;complete&quot;==document.readyState){var g=new Event;g.srcElement=window,f(g)}}else this.attachEvent(&quot;on&quot;+b,e),a.push({object:this,type:b,listener:c,wrapper:e})},c=function(b,c){for(var d=0;d&lt;a.length;){var e=a[d];if(e.object==this&amp;&amp;e.type==b&amp;&amp;e.listener==c){&quot;DOMContentLoaded&quot;==b?this.detachEvent(&quot;onreadystatechange&quot;,e.wrapper):this.detachEvent(&quot;on&quot;+b,e.wrapper);break}++d}};Element.prototype.addEventListener=b,Element.prototype.removeEventListener=c,HTMLDocument&amp;&amp;(HTMLDocument.prototype.addEventListener=b,HTMLDocument.prototype.removeEventListener=c),Window&amp;&amp;(Window.prototype.addEventListener=b,Window.prototype.removeEventListener=c)} function CustomEvent(e,t){t=t||{bubbles:false,cancelable:false,detail:undefined};var n=document.createEvent(&quot;CustomEvent&quot;);n.initCustomEvent(e,t.bubbles,t.cancelable,t.detail);return n}CustomEvent.prototype=window.Event.prototype;window.CustomEvent=CustomEvent;})();
-                        
                         (function( window, document, undefined ) {
                         
                         
@@ -83,15 +80,27 @@
                         
                           // Browser testing stuff
                           isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test( navigator.userAgent ),
-                          isIframe = (window.parent != window.self &amp;&amp; location.host === parent.location.host),
-                          isIE = navigator.appVersion.indexOf(&quot;MSIE&quot;)!=-1,
+                          isIframe = (window.parent !== window.self &amp;&amp; location.host === parent.location.host),
+                          isIE = navigator.appVersion.indexOf(&quot;MSIE&quot;)!==-1,
                         
                           /**
-                          * DropKick constructor
+                          * # Getting started
+                          * After you&#x27;ve cloned the repo you will need to add the library to your page. In the &#x60;build/js&#x60; folder use
+                          * one of the two DropKick files given. One has a version number in the file name and the other is a version
+                          * number-less version. You will also need to grab the css from &#x60;build/css&#x60; and load it on the page.
                           *
-                          * Call &#x60;new Dropkick( HTMLSelectElement, Options );&#x60; or &#x60;new Dropkick( &quot;ID&quot;, Options );&#x60; in your script to create a new DropKick.
+                          * Once those files are imported into the page you can call DropKick on any HTMLSelectElement:
+                          * &#x60;new Dropkick( HTMLSelectElement, Options );&#x60; or &#x60;new Dropkick( &quot;ID&quot;, Options );&#x60;. This returns the dropkick
+                          * object to you. It may be useful for you to store this in a var to reference later.
+                          *
+                          * If you&#x27;re using jQuery you can do this instead:
+                          * &#x60;$(&#x27;#select&#x27;).dropkick( Options );&#x60;
+                          *
                           *
                           * @class Dropkick
+                          * @return { object } DropKick Object for that select. You can call your methods on this if stored in a var
+                          * @param {elem} sel HTMLSelect Element being passed.
+                          * @param {opts} options See list of [properties you can pass in here](#list_of_properties)
                           * @constructor
                           */
                           Dropkick = function( sel, opts ) {
@@ -214,7 +223,7 @@
                             // Shallow object extend
                             extend: function( obj ) {
                               Array.prototype.slice.call( arguments, 1 ).forEach( function( source ) {
-                                if ( source ) for ( var prop in source ) obj[ prop ] = source[ prop ];
+                                if ( source ) { for ( var prop in source ) obj[ prop ] = source[ prop ]; }
                               });
                         
                               return obj;
@@ -249,7 +258,7 @@
                             // Returns the closest ancestor element of the child or false if not found
                             closest: function( child, ancestor ) {
                               while ( child ) {
-                                if ( child === ancestor ) return child;
+                                if ( child === ancestor ) { return child; }
                                 child = child.parentNode;
                               }
                               return false;
@@ -259,11 +268,11 @@
                             create: function( name, attrs ) {
                               var a, node = document.createElement( name );
                         
-                              if ( !attrs ) attrs = {};
+                              if ( !attrs ) { attrs = {}; }
                         
                               for ( a in attrs ) {
                                 if ( attrs.hasOwnProperty( a ) ) {
-                                  if ( a == &quot;innerHTML&quot; ) {
+                                  if ( a === &quot;innerHTML&quot; ) {
                                     node.innerHTML = attrs[ a ];
                                   } else {
                                     node.setAttribute( a, attrs[ a ] );
@@ -289,7 +298,7 @@
                         
                         
                         // Cache of DK Objects
-                        Dropkick.cache = {}
+                        Dropkick.cache = {};
                         Dropkick.uid = 0;
                         
                         
@@ -555,7 +564,7 @@
                         
                             dkBottom = window.innerHeight - ( dkTop + dk.offsetHeight );
                         
-                            if ( this.isOpen || this.multiple ) return false;
+                            if ( this.isOpen || this.multiple ) { return false; }
                         
                             dkOptsList.style.display = &quot;block&quot;;
                             dropHeight = dkOptsList.offsetHeight;
@@ -621,7 +630,7 @@
                         
                             if ( typeof elem === &quot;string&quot; ) {
                               for ( i = 0; i &lt; this.length; i++ ) {
-                                if ( this.options[ i ].getAttribute( &quot;data-value&quot; ) == elem ) {
+                                if ( this.options[ i ].getAttribute( &quot;data-value&quot; ) === elem ) {
                                   elem = this.options[ i ];
                                 }
                               }
@@ -716,11 +725,11 @@
                               options = this.data.select.options,
                               matches = [];
                         
-                            if ( !pattern ) return this.options;
+                            if ( !pattern ) { return this.options; }
                         
                             // Fix Mode
                             mode = mode ? mode.toLowerCase() : &quot;strict&quot;;
-                            mode = mode == &quot;fuzzy&quot; ? 2 : mode == &quot;partial&quot; ? 1 : 0;
+                            mode = mode === &quot;fuzzy&quot; ? 2 : mode === &quot;partial&quot; ? 1 : 0;
                         
                             reg = new RegExp( ( mode ? &quot;&quot; : &quot;^&quot; ) + pattern, &quot;i&quot; );
                         
@@ -744,7 +753,7 @@
                                   sIndex++;
                                 }
                         
-                                if ( tIndex == tokens.length ) {
+                                if ( tIndex === tokens.length ) {
                                   matches.push({ e: this.options[ i ], s: tScore, i: i });
                                 }
                         
@@ -755,7 +764,7 @@
                             }
                         
                             // Sort fuzzy results
-                            if ( mode == 2 ) {
+                            if ( mode === 2 ) {
                               matches = matches.sort( function ( a, b ) {
                                 return ( b.s - a.s ) || a.i - b.i;
                               }).reduce( function ( p, o ) {
@@ -834,7 +843,7 @@
                            * @private
                            */
                           handleEvent: function( event ) {
-                            if ( this.disabled ) return;
+                            if ( this.disabled ) { return; }
                         
                             switch ( event.type ) {
                             case &quot;click&quot;:
@@ -873,11 +882,11 @@
                         
                             if ( !this.multiple ) {
                               this[ this.isOpen ? &quot;close&quot; : &quot;open&quot; ]();
-                              if ( _.hasClass( target, &quot;dk-option&quot; ) ) this.select( target );
+                              if ( _.hasClass( target, &quot;dk-option&quot; ) ) { this.select( target ); }
                             } else {
                               if ( _.hasClass( target, &quot;dk-option&quot; ) ) {
                                 selection = window.getSelection();
-                                if ( selection.type == &quot;Range&quot; ) selection.collapseToStart();
+                                if ( selection.type === &quot;Range&quot; ) selection.collapseToStart();
                         
                                 if ( event.shiftKey ) {
                                   firstIndex = this.options.indexOf( this.selectedOptions[0] );
@@ -890,9 +899,9 @@
                                   this.reset( true );
                         
                                   if ( lastIndex &gt; index ) {
-                                    while ( index &lt; lastIndex + 1 ) this.select( index++ );
+                                    while ( index &lt; lastIndex + 1 ) { this.select( index++ ); }
                                   } else {
-                                    while ( index &gt; lastIndex - 1 ) this.select( index-- );
+                                    while ( index &gt; lastIndex - 1 ) { this.select( index-- ); }
                                   }
                                 } else if ( event.ctrlKey || event.metaKey ) {
                                   this.select( target );
@@ -1177,11 +1186,9 @@
                          * @param {Object} event  Event from document click
                          */
                         Dropkick.onDocClick = function( event ) {
-                          var t, tId, i;
+                          var tId, i;
                         
                           if (event.target.nodeType !== 1) {
-                            isClicked = false;
-                        
                             return false;
                           }
                         

@@ -119,8 +119,15 @@
                         
                         
                         <div class="yuidoc-class-description">
-                        <p>DropKick constructor</p>
-                        <p>Call <code>new Dropkick( HTMLSelectElement, Options );</code> or <code>new Dropkick( "ID", Options );</code> in your script to create a new DropKick.</p>
+                        <h1>Getting started</h1>
+                        <p>After you've cloned the repo you will need to add the library to your page. In the <code>build/js</code> folder use
+                        one of the two DropKick files given. One has a version number in the file name and the other is a version
+                        number-less version. You will also need to grab the css from <code>build/css</code> and load it on the page.</p>
+                        <p>Once those files are imported into the page you can call DropKick on any HTMLSelectElement:
+                        <code>new Dropkick( HTMLSelectElement, Options );</code> or <code>new Dropkick( "ID", Options );</code>. This returns the dropkick
+                        object to you. It may be useful for you to store this in a var to reference later.</p>
+                        <p>If you're using jQuery you can do this instead:
+                        <code>$('#select').dropkick( Options );</code></p>
                         
                         </div>
                         
@@ -133,7 +140,19 @@
                                 	<div class="method-signature">
                                 	<span class="name"><code>Dropkick</code></span>
                                 
-                                		<span class="paren">()</span>
+                                		<div class="args">
+                                			<span class="paren">(</span><ul class="args-list inline commas">
+                                				<li class="arg">
+                                						<code>sel</code>
+                                				</li>
+                                				<li class="arg">
+                                						<code>options</code>
+                                				</li>
+                                			</ul><span class="paren">)</span>
+                                		</div>
+                                		<span class="returns-inline">
+                                			<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+                                		</span>
                                 	</div>
                                 
                                 
@@ -144,7 +163,7 @@
                                 	<div class="meta">
                                 				<p>
                                 				Defined in
-                                		<a href="files/lib_dropkick.js.html#l22"><code>lib&#x2F;dropkick.js:22</code></a>
+                                		<a href="files/lib_dropkick.js.html#l19"><code>lib&#x2F;dropkick.js:19</code></a>
                                 		</p>
                                 
                                 
@@ -152,7 +171,40 @@
                                 	</div>
                                 
                                 
+                                		<div class="params">
+                                			<h4>Parameters:</h4>
                                 
+                                			<ul class="params-list">
+                                				<li class="param">
+                                						<code class="param-name">sel</code>
+                                						<span class="type">Elem</span>
+                                
+                                
+                                					<div class="param-description"><p>HTMLSelect Element being passed.</p>
+                                </div>
+                                
+                                				</li>
+                                				<li class="param">
+                                						<code class="param-name">options</code>
+                                						<span class="type">Opts</span>
+                                
+                                
+                                					<div class="param-description"><p>See list of <a href="#list_of_properties">properties you can pass in here</a></p>
+                                </div>
+                                
+                                				</li>
+                                			</ul>
+                                		</div>
+                                
+                                		<div class="returns">
+                                			<h4>Returns:</h4>
+                                
+                                			<div class="returns-description">
+                                						<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>:
+                                					<p>DropKick Object for that select. You can call your methods on this if stored in a var</p>
+                                
+                                			</div>
+                                		</div>
                                 
                                 </div>
                                 </div>
@@ -185,7 +237,7 @@
                                     	<div class="meta">
                                     				<p>
                                     				Defined in
-                                    		<a href="files/lib_dropkick.js.html#l234"><code>lib&#x2F;dropkick.js:234</code></a>
+                                    		<a href="files/lib_dropkick.js.html#l243"><code>lib&#x2F;dropkick.js:243</code></a>
                                     		</p>
                                     
                                     
@@ -248,7 +300,7 @@
                                     	<div class="meta">
                                     				<p>
                                     				Defined in
-                                    		<a href="files/lib_dropkick.js.html#l998"><code>lib&#x2F;dropkick.js:998</code></a>
+                                    		<a href="files/lib_dropkick.js.html#l1007"><code>lib&#x2F;dropkick.js:1007</code></a>
                                     		</p>
                                     
                                     
@@ -279,7 +331,7 @@
                                     
                                     			<div class="returns-description">
                                     						<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>:
-                                    					<p>An object containing the new DK element and it&#39;s options</p>
+                                    					<p>An object containing the new DK element and it's options</p>
                                     
                                     			</div>
                                     		</div>
@@ -300,7 +352,7 @@
                                     	<div class="meta">
                                     				<p>
                                     				Defined in
-                                    		<a href="files/lib_dropkick.js.html#l448"><code>lib&#x2F;dropkick.js:448</code></a>
+                                    		<a href="files/lib_dropkick.js.html#l457"><code>lib&#x2F;dropkick.js:457</code></a>
                                     		</p>
                                     
                                     
@@ -329,7 +381,7 @@
                                     	<div class="meta">
                                     				<p>
                                     				Defined in
-                                    		<a href="files/lib_dropkick.js.html#l795"><code>lib&#x2F;dropkick.js:795</code></a>
+                                    		<a href="files/lib_dropkick.js.html#l804"><code>lib&#x2F;dropkick.js:804</code></a>
                                     		</p>
                                     
                                     
@@ -364,7 +416,7 @@
                                     	<div class="meta">
                                     				<p>
                                     				Defined in
-                                    		<a href="files/lib_dropkick.js.html#l510"><code>lib&#x2F;dropkick.js:510</code></a>
+                                    		<a href="files/lib_dropkick.js.html#l519"><code>lib&#x2F;dropkick.js:519</code></a>
                                     		</p>
                                     
                                     
@@ -417,7 +469,7 @@
                                     	<div class="meta">
                                     				<p>
                                     				Defined in
-                                    		<a href="files/lib_dropkick.js.html#l751"><code>lib&#x2F;dropkick.js:751</code></a>
+                                    		<a href="files/lib_dropkick.js.html#l760"><code>lib&#x2F;dropkick.js:760</code></a>
                                     		</p>
                                     
                                     
@@ -445,7 +497,7 @@
                                     	<div class="meta">
                                     				<p>
                                     				Defined in
-                                    		<a href="files/lib_dropkick.js.html#l703"><code>lib&#x2F;dropkick.js:703</code></a>
+                                    		<a href="files/lib_dropkick.js.html#l712"><code>lib&#x2F;dropkick.js:712</code></a>
                                     		</p>
                                     
                                     
@@ -474,7 +526,7 @@
                                     	<div class="meta">
                                     				<p>
                                     				Defined in
-                                    		<a href="files/lib_dropkick.js.html#l765"><code>lib&#x2F;dropkick.js:765</code></a>
+                                    		<a href="files/lib_dropkick.js.html#l774"><code>lib&#x2F;dropkick.js:774</code></a>
                                     		</p>
                                     
                                     
@@ -501,7 +553,7 @@
                                     	<div class="meta">
                                     				<p>
                                     				Defined in
-                                    		<a href="files/lib_dropkick.js.html#l840"><code>lib&#x2F;dropkick.js:840</code></a>
+                                    		<a href="files/lib_dropkick.js.html#l849"><code>lib&#x2F;dropkick.js:849</code></a>
                                     		</p>
                                     
                                     
@@ -540,7 +592,7 @@
                                     	<div class="meta">
                                     				<p>
                                     				Defined in
-                                    		<a href="files/lib_dropkick.js.html#l319"><code>lib&#x2F;dropkick.js:319</code></a>
+                                    		<a href="files/lib_dropkick.js.html#l328"><code>lib&#x2F;dropkick.js:328</code></a>
                                     		</p>
                                     
                                     
@@ -610,7 +662,7 @@
                                     	<div class="meta">
                                     				<p>
                                     				Defined in
-                                    		<a href="files/lib_dropkick.js.html#l292"><code>lib&#x2F;dropkick.js:292</code></a>
+                                    		<a href="files/lib_dropkick.js.html#l301"><code>lib&#x2F;dropkick.js:301</code></a>
                                     		</p>
                                     
                                     
@@ -663,7 +715,7 @@
                                     	<div class="meta">
                                     				<p>
                                     				Defined in
-                                    		<a href="files/lib_dropkick.js.html#l857"><code>lib&#x2F;dropkick.js:857</code></a>
+                                    		<a href="files/lib_dropkick.js.html#l866"><code>lib&#x2F;dropkick.js:866</code></a>
                                     		</p>
                                     
                                     
@@ -696,14 +748,14 @@
                                     	<div class="meta">
                                     				<p>
                                     				Defined in
-                                    		<a href="files/lib_dropkick.js.html#l1105"><code>lib&#x2F;dropkick.js:1105</code></a>
+                                    		<a href="files/lib_dropkick.js.html#l1114"><code>lib&#x2F;dropkick.js:1114</code></a>
                                     		</p>
                                     
                                     
                                     
                                     	</div>
                                     
-                                    	<div class="description"><p>Focus DK Element when corresponding label is clicked; close all other DK&#39;s</p>
+                                    	<div class="description"><p>Focus DK Element when corresponding label is clicked; close all other DK's</p>
                                     </div>
                                     
                                     		<div class="params">
@@ -739,7 +791,7 @@
                                     	<div class="meta">
                                     				<p>
                                     				Defined in
-                                    		<a href="files/lib_dropkick.js.html#l473"><code>lib&#x2F;dropkick.js:473</code></a>
+                                    		<a href="files/lib_dropkick.js.html#l482"><code>lib&#x2F;dropkick.js:482</code></a>
                                     		</p>
                                     
                                     
@@ -767,7 +819,7 @@
                                     	<div class="meta">
                                     				<p>
                                     				Defined in
-                                    		<a href="files/lib_dropkick.js.html#l741"><code>lib&#x2F;dropkick.js:741</code></a>
+                                    		<a href="files/lib_dropkick.js.html#l750"><code>lib&#x2F;dropkick.js:750</code></a>
                                     		</p>
                                     
                                     
@@ -802,7 +854,7 @@
                                     	<div class="meta">
                                     				<p>
                                     				Defined in
-                                    		<a href="files/lib_dropkick.js.html#l304"><code>lib&#x2F;dropkick.js:304</code></a>
+                                    		<a href="files/lib_dropkick.js.html#l313"><code>lib&#x2F;dropkick.js:313</code></a>
                                     		</p>
                                     
                                     
@@ -851,14 +903,14 @@
                                     	<div class="meta">
                                     				<p>
                                     				Defined in
-                                    		<a href="files/lib_dropkick.js.html#l714"><code>lib&#x2F;dropkick.js:714</code></a>
+                                    		<a href="files/lib_dropkick.js.html#l723"><code>lib&#x2F;dropkick.js:723</code></a>
                                     		</p>
                                     
                                     
                                     
                                     	</div>
                                     
-                                    	<div class="description"><p>Resets the Dropkick and select to it&#39;s original selected options; if <code>clear</code> is <code>true</code>,
+                                    	<div class="description"><p>Resets the Dropkick and select to it's original selected options; if <code>clear</code> is <code>true</code>,
                                     It will select the first option by default (or no options for multi-selects).</p>
                                     </div>
                                     
@@ -896,7 +948,7 @@
                                     	<div class="meta">
                                     				<p>
                                     				Defined in
-                                    		<a href="files/lib_dropkick.js.html#l966"><code>lib&#x2F;dropkick.js:966</code></a>
+                                    		<a href="files/lib_dropkick.js.html#l975"><code>lib&#x2F;dropkick.js:975</code></a>
                                     		</p>
                                     
                                     
@@ -934,17 +986,17 @@
                                     	<div class="meta">
                                     				<p>
                                     				Defined in
-                                    		<a href="files/lib_dropkick.js.html#l630"><code>lib&#x2F;dropkick.js:630</code></a>
+                                    		<a href="files/lib_dropkick.js.html#l639"><code>lib&#x2F;dropkick.js:639</code></a>
                                     		</p>
                                     
                                     
                                     
                                     	</div>
                                     
-                                    	<div class="description"><p>Finds all options who&#39;s text matches a pattern (strict, partial, or fuzzy)</p>
+                                    	<div class="description"><p>Finds all options who's text matches a pattern (strict, partial, or fuzzy)</p>
                                     <p><code>"strict"</code> - The search string matches exactly from the beginning of the
-                                    option&#39;s text value (case insensitive).</p>
-                                    <p><code>"partial"</code> - The search string matches part of the option&#39;s text value
+                                    option's text value (case insensitive).</p>
+                                    <p><code>"partial"</code> - The search string matches part of the option's text value
                                     (case insensitive).</p>
                                     <p><code>"fuzzy"</code> - The search string matches the characters in the given order (not
                                     exclusively). The strongest match is selected first. (case insensitive).</p>
@@ -1002,7 +1054,7 @@
                                     	<div class="meta">
                                     				<p>
                                     				Defined in
-                                    		<a href="files/lib_dropkick.js.html#l931"><code>lib&#x2F;dropkick.js:931</code></a>
+                                    		<a href="files/lib_dropkick.js.html#l940"><code>lib&#x2F;dropkick.js:940</code></a>
                                     		</p>
                                     
                                     
@@ -1040,7 +1092,7 @@
                                     	<div class="meta">
                                     				<p>
                                     				Defined in
-                                    		<a href="files/lib_dropkick.js.html#l539"><code>lib&#x2F;dropkick.js:539</code></a>
+                                    		<a href="files/lib_dropkick.js.html#l548"><code>lib&#x2F;dropkick.js:548</code></a>
                                     		</p>
                                     
                                     
@@ -1113,7 +1165,7 @@
                                     	<div class="meta">
                                     				<p>
                                     				Defined in
-                                    		<a href="files/lib_dropkick.js.html#l615"><code>lib&#x2F;dropkick.js:615</code></a>
+                                    		<a href="files/lib_dropkick.js.html#l624"><code>lib&#x2F;dropkick.js:624</code></a>
                                     		</p>
                                     
                                     
@@ -1164,7 +1216,7 @@
                             </div>
                         
                             <div id="properties" class="page-section">
-                                <h2 class="off-left">Properties</h2>
+                                <h2 class="off-left" id="list_of_properties">Properties</h2>
                         
                                 <div class="item-list">
                                     <div id="prop-disabled" class="property item">
@@ -1178,7 +1230,7 @@
                                         <div class="meta">
                                                     <p>
                                                     Defined in
-                                            <a href="files/lib_dropkick.js.html#l340"><code>lib&#x2F;dropkick.js:340</code></a>
+                                            <a href="files/lib_dropkick.js.html#l349"><code>lib&#x2F;dropkick.js:349</code></a>
                                             </p>
                                     
                                     
@@ -1203,7 +1255,7 @@
                                         <div class="meta">
                                                     <p>
                                                     Defined in
-                                            <a href="files/lib_dropkick.js.html#l347"><code>lib&#x2F;dropkick.js:347</code></a>
+                                            <a href="files/lib_dropkick.js.html#l356"><code>lib&#x2F;dropkick.js:356</code></a>
                                             </p>
                                     
                                     
@@ -1228,7 +1280,7 @@
                                         <div class="meta">
                                                     <p>
                                                     Defined in
-                                            <a href="files/lib_dropkick.js.html#l354"><code>lib&#x2F;dropkick.js:354</code></a>
+                                            <a href="files/lib_dropkick.js.html#l363"><code>lib&#x2F;dropkick.js:363</code></a>
                                             </p>
                                     
                                     
@@ -1253,7 +1305,7 @@
                                         <div class="meta">
                                                     <p>
                                                     Defined in
-                                            <a href="files/lib_dropkick.js.html#l361"><code>lib&#x2F;dropkick.js:361</code></a>
+                                            <a href="files/lib_dropkick.js.html#l370"><code>lib&#x2F;dropkick.js:370</code></a>
                                             </p>
                                     
                                     
@@ -1278,7 +1330,7 @@
                                         <div class="meta">
                                                     <p>
                                                     Defined in
-                                            <a href="files/lib_dropkick.js.html#l368"><code>lib&#x2F;dropkick.js:368</code></a>
+                                            <a href="files/lib_dropkick.js.html#l377"><code>lib&#x2F;dropkick.js:377</code></a>
                                             </p>
                                     
                                     
@@ -1303,7 +1355,7 @@
                                         <div class="meta">
                                                     <p>
                                                     Defined in
-                                            <a href="files/lib_dropkick.js.html#l375"><code>lib&#x2F;dropkick.js:375</code></a>
+                                            <a href="files/lib_dropkick.js.html#l384"><code>lib&#x2F;dropkick.js:384</code></a>
                                             </p>
                                     
                                     
@@ -1328,7 +1380,7 @@
                                         <div class="meta">
                                                     <p>
                                                     Defined in
-                                            <a href="files/lib_dropkick.js.html#l382"><code>lib&#x2F;dropkick.js:382</code></a>
+                                            <a href="files/lib_dropkick.js.html#l391"><code>lib&#x2F;dropkick.js:391</code></a>
                                             </p>
                                     
                                     
@@ -1353,7 +1405,7 @@
                                         <div class="meta">
                                                     <p>
                                                     Defined in
-                                            <a href="files/lib_dropkick.js.html#l389"><code>lib&#x2F;dropkick.js:389</code></a>
+                                            <a href="files/lib_dropkick.js.html#l398"><code>lib&#x2F;dropkick.js:398</code></a>
                                             </p>
                                     
                                     
@@ -1388,7 +1440,7 @@
                                         <div class="meta">
                                                     <p>
                                                     Defined in
-                                            <a href="files/lib_dropkick.js.html#l78"><code>lib&#x2F;dropkick.js:78</code></a>
+                                            <a href="files/lib_dropkick.js.html#l87"><code>lib&#x2F;dropkick.js:87</code></a>
                                             </p>
                                     
                                     
@@ -1418,7 +1470,7 @@
                                         <div class="meta">
                                                     <p>
                                                     Defined in
-                                            <a href="files/lib_dropkick.js.html#l97"><code>lib&#x2F;dropkick.js:97</code></a>
+                                            <a href="files/lib_dropkick.js.html#l106"><code>lib&#x2F;dropkick.js:106</code></a>
                                             </p>
                                     
                                     
@@ -1447,7 +1499,7 @@
                                         <div class="meta">
                                                     <p>
                                                     Defined in
-                                            <a href="files/lib_dropkick.js.html#l68"><code>lib&#x2F;dropkick.js:68</code></a>
+                                            <a href="files/lib_dropkick.js.html#l77"><code>lib&#x2F;dropkick.js:77</code></a>
                                             </p>
                                     
                                     
@@ -1477,7 +1529,7 @@
                                         <div class="meta">
                                                     <p>
                                                     Defined in
-                                            <a href="files/lib_dropkick.js.html#l88"><code>lib&#x2F;dropkick.js:88</code></a>
+                                            <a href="files/lib_dropkick.js.html#l97"><code>lib&#x2F;dropkick.js:97</code></a>
                                             </p>
                                     
                                     
@@ -1506,15 +1558,15 @@
                                         <div class="meta">
                                                     <p>
                                                     Defined in
-                                            <a href="files/lib_dropkick.js.html#l107"><code>lib&#x2F;dropkick.js:107</code></a>
+                                            <a href="files/lib_dropkick.js.html#l116"><code>lib&#x2F;dropkick.js:116</code></a>
                                             </p>
                                     
                                     
                                         </div>
                                     
                                         <div class="description">
-                                            <p><code>"strict"</code> - The search string matches exactly from the beginning of the option&#39;s text value (case insensitive).</p>
-                                    <p><code>"partial"</code> - The search string matches part of the option&#39;s text value (case insensitive).</p>
+                                            <p><code>"strict"</code> - The search string matches exactly from the beginning of the option's text value (case insensitive).</p>
+                                    <p><code>"partial"</code> - The search string matches part of the option's text value (case insensitive).</p>
                                     <p><code>"fuzzy"</code> - The search string matches the characters in the given order (not exclusively).
                                     The strongest match is selected first. (case insensitive).</p>
                                     
