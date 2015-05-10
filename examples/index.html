@@ -6,8 +6,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="A JavaScript plugin for creating beautiful, graceful, and painless custom dropdowns." />
   <script src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
-  <script src="../dropkick.js"></script>
-  <link rel="stylesheet" href="../.../../css/dropkick.css">
+  <!-- <script src="../lib/polyfills/customevent.js"></script>
+  <script src="../lib/polyfills/eventtarget.js"></script>
+  <script src="../lib/polyfills/foreach.js"></script>
+  <script src="../lib/polyfills/indexof.js"></script>
+  <script src="../lib/dropkick.js"></script> -->
+  <script src="../build/js/dropkick.min.js"></script>
+  <link rel="stylesheet" href="../lib/css/dropkick.css">
   <link rel="stylesheet" href="css/example.css">
   <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,300' rel='stylesheet' type='text/css'>
 </head>
@@ -349,31 +354,25 @@
         }
       });
 
-      var gists = document.getElementsByClassName("gist-container"),
-          btns = document.getElementsByClassName("btn"),
-          i = 0;
+      $(".gist-container").each(function(gist) {
+        if (gist.offsetHeight > 160) {
+          $(".btn", gist).css('display', 'inline-block').on('click', function() {
+            var $gistWrapper = $(".gist-wrapper", gist);
 
-      for( ; i < gists.length; i++){
-        if(gists[i].offsetHeight > 160){
-          btns[i].style.display = "inline-block";
-
-          btns[i].onclick = function(){
-            var gistWrapper = this.parentNode.getElementsByClassName("gist-wrapper")[0];
-
-            if(gistWrapper.style.maxHeight == "100%"){
-              gistWrapper.style.maxHeight = "";
-              gistWrapper.style.overflow = "";
+            if($gistWrapper.css('maxHeight') == "100%"){
+              $gistWrapper.css('maxHeight', "");
+              $gistWrapper.css('overflow', "");
               this.innerHTML = "Show Full Code";
               return false;
             } else {
-              gistWrapper.style.maxHeight = "100%";
-              gistWrapper.style.overflow = "visible";
+              $gistWrapper.css('maxHeight', "100%");
+              $gistWrapper.css('overflow', "visible");
               this.innerHTML = "Hide Code";
               return false;
             }
-          }
+          })
         }
-      }
+      });
 
     });
     </script>
