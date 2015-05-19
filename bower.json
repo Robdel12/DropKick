@@ -1,9 +1,9 @@
 {
-  "name": "DropKick",
-  "version": "2.1.3",
+  "name": "dropkick",
+  "version": "2.1.4",
   "main": [
-    "dist/dropkick.js",
-    "dist/css/dropkick.css"
+    "build/dropkick.js",
+    "build/css/dropkick.css"
   ],
   "description": "A JavaScript plugin for creating beautiful, graceful, and painless custom dropdowns."
 }
