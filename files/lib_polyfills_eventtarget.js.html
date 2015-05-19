@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>lib/polyfills/eventtarget.js - DropKick API Documentation</title>
+    <link rel="stylesheet" href="">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="stylesheet" href="../assets/css/custom.css">
+    <link rel="stylesheet" href="../assets/css/lucid.css">
+    <link rel="stylesheet" href="../assets/vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="shortcut icon" type="image/png" href="../assets/favicon.png">
+</head>
+<body class="yui3-skin-sam">
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <h1 class="brand" style="padding: 10px 16px 10px; height: 20px; line-height: 20px; margin-left: 0;">
+            <a href="http://dropkickjs.com">DropKick API Documentation</a>
+        </h1>
+	<div class="nav">
+            <li class="divider-vertical"></li>
+            <li>
+                <p class="navbar-text">
+                    API Docs for Version: <b>2.1.4</b>
+                </p>
+            </li>
+        </div>
+        <form id="options-form" class="form-inline pull-right dk-options">
+            <label for="api-show-protected" class="checkbox">
+                <input type="checkbox" id="api-show-protected">
+                Protected
+            </label>
+        
+            <label for="api-show-private" class="checkbox">
+                <input type="checkbox" id="api-show-private">
+                Private
+            </label>
+            <label for="api-show-deprecated" class="checkbox">
+                <input type="checkbox" id="api-show-deprecated">
+                Deprecated
+            </label>
+        </form>
+        
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="span3">
+	      <div id="sidebar">
+	        <h2>Table of Contents</h2>
+	        <ul>
+	    
+	    
+	    
+	      </ul>
+	    </div>
+        </div>
+        <div class="span9">
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+                        <div class="page-header">
+                            <h1>lib/polyfills/eventtarget.js <small>File</small></h1>
+                        </div>
+                        
+                        <div class="file">
+                            <pre class="prettyprint linenums">
+                        /** EventTarget support */
+                        (function() {
+                          if (document.addEventListener || !window.Element || !window.Event) { return; }
+                        
+                          var expando = &quot;__events&quot;; /* own property for storing listeners */
+                          var flag = &quot;__immediateStopped&quot;; /* stopImmediatePropagation flag */
+                        
+                          Event.prototype.NONE = Event.NONE = 0;
+                          Event.prototype.CAPTURING_PHASE = Event.CAPTURING_PHASE = 1;
+                          Event.prototype.AT_TARGET = Event.AT_TARGET = 2;
+                          Event.prototype.BUBBLING_PHASE = Event.BUBBLING_PHASE = 3;
+                        
+                          Event.prototype.preventDefault = function() { if (this.cancelable !== false) { this.returnValue = false; } }
+                          Event.prototype.stopPropagation = function() { this.cancelBubble = true; }
+                          Event.prototype.stopImmediatePropagation = function() { this[flag] = this.cancelBubble = true; }
+                        
+                          var decorate = function(e, listenerNode) { /* improve event properties */
+                            e.timeStamp = +new Date();
+                            if (!e.target) { e.target = e.srcElement || listenerNode; }
+                            e.pageX = e.clientX + document.documentElement.scrollLeft;
+                            e.pageY = e.clientY + document.documentElement.scrollTop;
+                        
+                            if (e.type == &quot;mouseover&quot;) { 
+                              e.relatedTarget = e.fromElement; 
+                            } else if (e.type == &quot;mouseout&quot;) { 
+                              e.relatedTarget = e.toElement; 
+                            } else {
+                              e.relatedTarget = null;
+                            }
+                            return e;
+                          }
+                        
+                          /**
+                           * @param {object[]} data
+                           * @param {function} listener
+                           * @param {bool} useCapture
+                           * @returns {number}
+                           */
+                          var indexOf = function(data, listener, useCapture) { /* return an index of an existing listener */
+                            for (var i=0;i&lt;data.length;i++) {
+                              var item = data[i];
+                              if (item.useCapture == useCapture &amp;&amp; item.listener == listener) { return i; }
+                            }
+                            return -1;
+                          }
+                        
+                          var fire = function(event, listener, currentTarget) {
+                            event.currentTarget = currentTarget;
+                            if (typeof(listener) == &quot;function&quot;) {
+                              listener.call(currentTarget, event);
+                            } else {
+                              listener.handleEvent(event);
+                            }
+                          }
+                        
+                          var getAncestors = function(node) {
+                            var result = [];
+                            while (node.parentNode) {
+                              result.unshift(node.parentNode);
+                              node = node.parentNode;
+                            }
+                            return result;
+                          }
+                        
+                          /**
+                           * Run listeners on a nodelist
+                           * @param {Event} event
+                           * @param {node[]} nodes
+                           * @param {number} phase
+                           * @returns {bool} terminated?
+                           */
+                          var runListeners = function(event, nodes, phase) {
+                            event.eventPhase = phase;
+                            for (var i=0;i&lt;nodes.length;i++) {
+                              var node = nodes[i];
+                              var listeners = [];
+                              var data = (node[expando] || {})[event.type] || [];
+                        
+                              for (var j=0;j&lt;data.length;j++) { /* get list of relevant listeners */
+                                var item = data[j];
+                                if (item.useCapture &amp;&amp; phase == Event.BUBBLING_PHASE) { continue; }
+                                if (!item.useCapture &amp;&amp; phase == Event.CAPTURING_PHASE) { continue; }
+                                listeners.push(item.listener);
+                              }
+                        
+                              /* trick: use try-catch to gracefully handle failing listeners, but do not use it abundantly */
+                              j=0;
+                              while (j &lt; listeners.length) {
+                                try {
+                                  while (j &lt; listeners.length) {
+                                    var listener = listeners[j++];
+                                    fire(event, listener, node);
+                                    if (event[flag]) { return true; } /* stopped immediate propagation */
+                                  }
+                                } catch (e) {
+                                  setTimeout(function() { throw e; }, 0);
+                                }
+                              }
+                        
+                              if (event.cancelBubble) { return true; } /* stopped propagation */
+                            }
+                        
+                            return false; /* propagation not stopped */
+                          }
+                        
+                          /**
+                           * The &quot;real&quot; event handler/processor. &quot;this&quot; is {Node} listenerNode.
+                           * @param {Event} event
+                           * @returns {boolean} Not cancelled?
+                           */
+                          var handler = function(event) {
+                            decorate(event, this);
+                        
+                            var ancestors = getAncestors(event.target);
+                            if (ancestors.length) { /* capture */
+                              if (runListeners(event, ancestors, Event.CAPTURING_PHASE)) { return event.returnValue; }
+                            }
+                        
+                            /* at target */
+                            if (runListeners(event, [event.target], Event.AT_TARGET)) { return event.returnValue; }
+                        
+                            if (ancestors.length &amp;&amp; event.bubbles !== false) { /* bubble */
+                              ancestors.reverse();
+                              if (runListeners(event, ancestors, Event.BUBBLING_PHASE)) { return event.returnValue; }
+                            }
+                        
+                            event.stopPropagation(); /* do not process natively */
+                            return event.returnValue;
+                          }
+                        
+                          var proto = {
+                            addEventListener: function(type, listener, useCapture) {
+                              var self = this;
+                              var data = (this[expando] || {})[type] || [];
+                              var count = data.length;
+                              if (indexOf(data, listener, useCapture) &gt; -1) { return; } /* already added */
+                        
+                              if (expando in this) {
+                                var storage = this[expando];
+                              } else {
+                                var storage = {
+                                  _handler: function() {
+                                    handler.apply(self, arguments);
+                                  }
+                                };
+                                this[expando] = storage;
+                              }
+                              if (!(type in storage)) { storage[type] = []; }
+                              storage[type].push({listener:listener, useCapture:useCapture});
+                        
+                              if (!count) { this.attachEvent(&quot;on&quot;+type, storage._handler); } /* first: add native listener */
+                            },
+                        
+                            removeEventListener: function(type, listener, useCapture) {
+                              var data = (this[expando] || {})[type] || [];
+                              var index = indexOf(data, listener, useCapture);
+                              if (index == -1) { return; } /* not present */
+                        
+                              data.splice(index, 1);
+                              if (!data.length) { this.detachEvent(&quot;on&quot;+type, this[expando]._handler); } /* last: remove native listener */
+                            },
+                        
+                            dispatchEvent: function(event) {
+                              event.returnValue = true;
+                              return handler.call(this, event);
+                            }
+                          }
+                        
+                          var todo = [Element, window.constructor, document.constructor];
+                          while (todo.length) {
+                            var parent = todo.pop();
+                            for (var p in proto) { parent.prototype[p] = proto[p]; }
+                          }
+                        })();
+                            </pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../assets/vendor/jquery/jquery-1.8.2.min.js"></script>
+<script src="../assets/vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script src="../assets/js/yuidoc-bootstrap.js"></script>
+<script>prettyPrint();</script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-42326845-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</body>
+</html>

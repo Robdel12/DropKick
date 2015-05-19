@@ -2,10 +2,24 @@
     "project": {
         "name": "DropKick API Documentation",
         "description": "DropKicks API Documentation",
-        "version": "2.1.3",
+        "version": "2.1.4",
         "url": "http://dropkickjs.com/"
     },
     "files": {
+        "lib/polyfills/customevent.js": {
+            "name": "lib/polyfills/customevent.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
+        "lib/polyfills/eventtarget.js": {
+            "name": "lib/polyfills/eventtarget.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
         "lib/dropkick.js": {
             "name": "lib/dropkick.js",
             "modules": {},
@@ -53,6 +67,86 @@
         }
     },
     "classitems": [
+        {
+            "file": "lib/polyfills/customevent.js",
+            "line": 1,
+            "class": "Dropkick"
+        },
+        {
+            "file": "lib/polyfills/eventtarget.js",
+            "line": 1,
+            "class": "Dropkick"
+        },
+        {
+            "file": "lib/polyfills/eventtarget.js",
+            "line": 33,
+            "params": [
+                {
+                    "name": "data",
+                    "description": "",
+                    "type": "Object[]"
+                },
+                {
+                    "name": "listener",
+                    "description": "",
+                    "type": "Function"
+                },
+                {
+                    "name": "useCapture",
+                    "description": "",
+                    "type": "Bool"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Number"
+            },
+            "class": "Dropkick"
+        },
+        {
+            "file": "lib/polyfills/eventtarget.js",
+            "line": 65,
+            "description": "Run listeners on a nodelist",
+            "params": [
+                {
+                    "name": "event",
+                    "description": "",
+                    "type": "Event"
+                },
+                {
+                    "name": "nodes",
+                    "description": "",
+                    "type": "Node[]"
+                },
+                {
+                    "name": "phase",
+                    "description": "",
+                    "type": "Number"
+                }
+            ],
+            "return": {
+                "description": "terminated?",
+                "type": "Bool"
+            },
+            "class": "Dropkick"
+        },
+        {
+            "file": "lib/polyfills/eventtarget.js",
+            "line": 106,
+            "description": "The \"real\" event handler/processor. \"this\" is {Node} listenerNode.",
+            "params": [
+                {
+                    "name": "event",
+                    "description": "",
+                    "type": "Event"
+                }
+            ],
+            "return": {
+                "description": "Not cancelled?",
+                "type": "Boolean"
+            },
+            "class": "Dropkick"
+        },
         {
             "file": "lib/dropkick.js",
             "line": 87,
@@ -551,5 +645,38 @@
             "class": "Dropkick"
         }
     ],
-    "warnings": []
+    "warnings": [
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " lib/polyfills/eventtarget.js:33"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " lib/polyfills/eventtarget.js:65"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " lib/polyfills/eventtarget.js:106"
+        },
+        {
+            "message": "Missing item type",
+            "line": " lib/polyfills/customevent.js:1"
+        },
+        {
+            "message": "Missing item type",
+            "line": " lib/polyfills/eventtarget.js:1"
+        },
+        {
+            "message": "Missing item type",
+            "line": " lib/polyfills/eventtarget.js:33"
+        },
+        {
+            "message": "Missing item type\nRun listeners on a nodelist",
+            "line": " lib/polyfills/eventtarget.js:65"
+        },
+        {
+            "message": "Missing item type\nThe \"real\" event handler/processor. \"this\" is {Node} listenerNode.",
+            "line": " lib/polyfills/eventtarget.js:106"
+        }
+    ]
 }

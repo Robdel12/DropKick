@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>lib/polyfills/customevent.js - DropKick API Documentation</title>
+    <link rel="stylesheet" href="">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="stylesheet" href="../assets/css/custom.css">
+    <link rel="stylesheet" href="../assets/css/lucid.css">
+    <link rel="stylesheet" href="../assets/vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="shortcut icon" type="image/png" href="../assets/favicon.png">
+</head>
+<body class="yui3-skin-sam">
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <h1 class="brand" style="padding: 10px 16px 10px; height: 20px; line-height: 20px; margin-left: 0;">
+            <a href="http://dropkickjs.com">DropKick API Documentation</a>
+        </h1>
+	<div class="nav">
+            <li class="divider-vertical"></li>
+            <li>
+                <p class="navbar-text">
+                    API Docs for Version: <b>2.1.4</b>
+                </p>
+            </li>
+        </div>
+        <form id="options-form" class="form-inline pull-right dk-options">
+            <label for="api-show-protected" class="checkbox">
+                <input type="checkbox" id="api-show-protected">
+                Protected
+            </label>
+        
+            <label for="api-show-private" class="checkbox">
+                <input type="checkbox" id="api-show-private">
+                Private
+            </label>
+            <label for="api-show-deprecated" class="checkbox">
+                <input type="checkbox" id="api-show-deprecated">
+                Deprecated
+            </label>
+        </form>
+        
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="span3">
+	      <div id="sidebar">
+	        <h2>Table of Contents</h2>
+	        <ul>
+	    
+	    
+	    
+	      </ul>
+	    </div>
+        </div>
+        <div class="span9">
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+                        <div class="page-header">
+                            <h1>lib/polyfills/customevent.js <small>File</small></h1>
+                        </div>
+                        
+                        <div class="file">
+                            <pre class="prettyprint linenums">
+                        /** CustomEvent polyfill */
+                        (function() {
+                          if (!window.CustomEvent &amp;&amp; document.createEventObject) { /* IE only */
+                            window.CustomEvent = function(type, props) {
+                              if (!arguments.length) { throw new Error(&quot;Not enough arguments&quot;); }
+                              var def = {
+                                type: type,
+                                bubbles: false,
+                                cancelable: false,
+                                detail: null
+                              }
+                              var event = document.createEventObject();
+                              for (var p in def)   { event[p] = def[p];   }
+                              for (var p in props) { event[p] = props[p]; }
+                              return event;
+                            }
+                        
+                            return;
+                          }
+                        
+                          try {
+                            new CustomEvent(&quot;test&quot;);
+                          } catch (e) { /* ctor version not supported or no window.CustomEvent */
+                            var CE = function (type, props) {
+                              if (!arguments.length) { throw new Error(&quot;Not enough arguments&quot;); }
+                              var def = {
+                                bubbles: false,
+                                cancelable: false,
+                                detail: null 
+                              };
+                              for (var p in props)   { def[p] = props[p];   }
+                              var event = document.createEvent(&quot;CustomEvent&quot;);
+                              event.initCustomEvent(type, def.bubbles, def.cancelable, def.detail);
+                              return event;
+                            };
+                            
+                            CE.prototype = (window.CustomEvent || window.Event).prototype;
+                            window.CustomEvent = CE;
+                          }
+                        })();
+                            </pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../assets/vendor/jquery/jquery-1.8.2.min.js"></script>
+<script src="../assets/vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script src="../assets/js/yuidoc-bootstrap.js"></script>
+<script>prettyPrint();</script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-42326845-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</body>
+</html>

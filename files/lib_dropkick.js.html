@@ -21,7 +21,7 @@
             <li class="divider-vertical"></li>
             <li>
                 <p class="navbar-text">
-                    API Docs for Version: <b>2.1.3</b>
+                    API Docs for Version: <b>2.1.4</b>
                 </p>
             </li>
         </div>
@@ -256,7 +256,7 @@
                             position: function( elem, relative ) {
                               var pos = { top: 0, left: 0 };
                         
-                              while ( elem !== relative ) {
+                              while ( elem &amp;&amp; elem !== relative ) {
                                 pos.top += elem.offsetTop;
                                 pos.left += elem.offsetLeft;
                                 elem = elem.parentNode;
