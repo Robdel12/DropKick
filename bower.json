@@ -1,6 +1,5 @@
 {
   "name": "dropkick",
-  "version": "2.1.4",
   "main": [
     "build/dropkick.js",
     "build/css/dropkick.css"
