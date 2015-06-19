@@ -33,6 +33,10 @@ See [Dropkickjs.com](http://dropkickjs.com) for full docs.
 
 Run `gulp docs` and it'll build the docs from source.
 
+## WordPress Plugin
+DropKick WordPress Plugin By [Mahfuzul Hasan](http://www.mahfuzulhasan.com/)
+
+https://wordpress.org/plugins/wp-dropkick/
 
 Suggestions or Bugs?
 ====================
