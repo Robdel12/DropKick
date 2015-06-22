@@ -21,7 +21,7 @@
             <li class="divider-vertical"></li>
             <li>
                 <p class="navbar-text">
-                    API Docs for Version: <b>2.1.4</b>
+                    API Docs for Version: <b>2.1.5</b>
                 </p>
             </li>
         </div>
@@ -72,8 +72,24 @@
                          * https://github.com/robdel12/DropKick
                          *
                         */
+                        (function(factory) {
+                          var jQuery;
                         
-                        (function( window, document, undefined ) {
+                          if ( typeof exports === &quot;object&quot; ) {
+                            // Node. Does not work with strict CommonJS, but
+                            // only CommonJS-like environments that support module.exports,
+                            // like Node.
+                            try {
+                              jQuery = require( &quot;jquery&quot; );
+                            } catch ( e ) {}
+                        
+                            module.exports = factory( window, document, jQuery );
+                          } else {
+                            // Browser globals (root is window)
+                            window.Dropkick = factory( window, document, window.jQuery );
+                          }
+                        
+                        }(function( window, document, jQuery, undefined ) {
                         
                         
                         var
@@ -1357,14 +1373,11 @@
                         };
                         
                         
-                        // Expose Dropkick Globally
-                        window.Dropkick = Dropkick;
-                        
                         // Add jQuery method
-                        if ( window.jQuery !== undefined ) {
-                          window.jQuery.fn.dropkick = function () {
+                        if ( jQuery !== undefined ) {
+                          jQuery.fn.dropkick = function () {
                             var args = Array.prototype.slice.call( arguments );
-                            return window.jQuery( this ).each(function() {
+                            return jQuery( this ).each(function() {
                               if ( !args[0] || typeof args[0] === &#x27;object&#x27; ) {
                                 new Dropkick( this, args[0] || {} );
                               } else if ( typeof args[0] === &#x27;string&#x27; ) {
@@ -1374,7 +1387,9 @@
                           };
                         }
                         
-                        })( window, document );
+                        return Dropkick;
+                        
+                        }));
                         
                             </pre>
                         </div>
