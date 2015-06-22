@@ -12,10 +12,7 @@
   "bugs": {
     "url": "http://github.com/robdel12/DropKick/issues"
   },
-  "main": [
-    "dist/dropkick.js",
-    "dist/css/dropkick.css"
-  ],
+  "main": "lib/dropkick.js",
   "description": "A JavaScript plugin for creating beautiful, graceful, and painless custom dropdowns.",
   "scripts": {
     "test": "gulp",
