@@ -24,6 +24,13 @@ You can install DropKick.js using bower:
 `bower install dropkick --save-dev`
 
 
+## npm Install
+
+You can install DropKick.js using npm:
+
+`npm install dropkickjs --save-dev`
+
+
 ## Documentation
 
 See [Dropkickjs.com](http://dropkickjs.com) for full docs.
