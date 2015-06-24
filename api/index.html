@@ -1,0 +1,1860 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Dropkick - DropKick API Documentation</title>
+    <link rel="stylesheet" href="">
+    <link rel="stylesheet" href="assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="assets/css/main.css" id="site_styles">
+    <link rel="stylesheet" href="assets/css/custom.css">
+    <link rel="stylesheet" href="assets/css/lucid.css">
+    <link rel="stylesheet" href="assets/vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="shortcut icon" type="image/png" href="assets/favicon.png">
+</head>
+<body class="yui3-skin-sam">
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <h1 class="brand" style="padding: 10px 16px 10px; height: 20px; line-height: 20px; margin-left: 0;">
+            <a href="http://dropkickjs.com">DropKick API Documentation</a>
+        </h1>
+	<div class="nav">
+            <li class="divider-vertical"></li>
+            <li>
+                <p class="navbar-text">
+                    API Docs for Version: <b>2.1.5</b>
+                </p>
+            </li>
+        </div>
+        <form id="options-form" class="form-inline pull-right dk-options">
+            <label for="api-show-protected" class="checkbox">
+                <input type="checkbox" id="api-show-protected">
+                Protected
+            </label>
+        
+            <label for="api-show-private" class="checkbox">
+                <input type="checkbox" id="api-show-private">
+                Private
+            </label>
+            <label for="api-show-deprecated" class="checkbox">
+                <input type="checkbox" id="api-show-deprecated">
+                Deprecated
+            </label>
+        </form>
+        
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="span3">
+	      <div id="sidebar">
+	        <h2>Table of Contents</h2>
+	        <ul>
+	        <li>
+	          <strong>Methods</strong>
+	          <ul class="ul--nested">
+	              <li><a href="#method-add"><span class="im">add</span>(<span class="ia">elem</span><span class="ia">before</span>)</a></li>
+	              <li><a href="#method-build"><span class="im">build</span>(<span class="ia">sel</span>)</a></li>
+	              <li><a href="#method-close"><span class="im">close</span>()</a></li>
+	              <li><a href="#method-delegate"><span class="im">delegate</span>()</a></li>
+	              <li><a href="#method-disable"><span class="im">disable</span>(<span class="ia">elem</span><span class="ia">disabled</span>)</a></li>
+	              <li><a href="#method-dispose"><span class="im">dispose</span>()</a></li>
+	              <li><a href="#method-focus"><span class="im">focus</span>()</a></li>
+	              <li><a href="#method-handleEvent"><span class="im">handleEvent</span>()</a></li>
+	              <li><a href="#method-highlight"><span class="im">highlight</span>()</a></li>
+	              <li><a href="#method-init"><span class="im">init</span>(<span class="ia">sel</span><span class="ia">opts</span>)</a></li>
+	              <li><a href="#method-item"><span class="im">item</span>(<span class="ia">index</span>)</a></li>
+	              <li><a href="#method-keyHandler"><span class="im">keyHandler</span>()</a></li>
+	              <li><a href="#method-onDocClick"><span class="im">onDocClick</span>(<span class="ia">event</span>)</a></li>
+	              <li><a href="#method-open"><span class="im">open</span>()</a></li>
+	              <li><a href="#method-refresh"><span class="im">refresh</span>()</a></li>
+	              <li><a href="#method-remove"><span class="im">remove</span>(<span class="ia">index</span>)</a></li>
+	              <li><a href="#method-reset"><span class="im">reset</span>(<span class="ia">clear</span>)</a></li>
+	              <li><a href="#method-scrollTo"><span class="im">scrollTo</span>()</a></li>
+	              <li><a href="#method-search"><span class="im">search</span>(<span class="ia">string</span><span class="ia">mode</span>)</a></li>
+	              <li><a href="#method-searchOptions"><span class="im">searchOptions</span>()</a></li>
+	              <li><a href="#method-select"><span class="im">select</span>(<span class="ia">elem</span><span class="ia">disabled</span>)</a></li>
+	              <li><a href="#method-selectOne"><span class="im">selectOne</span>(<span class="ia">elem</span><span class="ia">disabled</span>)</a></li>
+	          </ul>
+	        </li>
+	    
+	        <li>
+	          <strong>Properties</strong>
+	          <ul class="ul--nested">
+	            <li><a href="#prop-disabled"><span class="ip">disabled</span></a></li>
+	            <li><a href="#prop-form"><span class="ip">form</span></a></li>
+	            <li><a href="#prop-length"><span class="ip">length</span></a></li>
+	            <li><a href="#prop-multiple"><span class="ip">multiple</span></a></li>
+	            <li><a href="#prop-options"><span class="ip">options</span></a></li>
+	            <li><a href="#prop-selectedIndex"><span class="ip">selectedIndex</span></a></li>
+	            <li><a href="#prop-selectedOptions"><span class="ip">selectedOptions</span></a></li>
+	            <li><a href="#prop-value"><span class="ip">value</span></a></li>
+	          </ul>
+	        </li>
+	    
+	        <li>
+	          <strong>Attributes</strong>
+	          <ul class="ul--nested">
+	            <li><a href="#attr-change"><span class="iattr">change</span></a></li>
+	            <li><a href="#attr-close"><span class="iattr">close</span></a></li>
+	            <li><a href="#attr-initialize"><span class="iattr">initialize</span></a></li>
+	            <li><a href="#attr-open"><span class="iattr">open</span></a></li>
+	            <li><a href="#attr-search"><span class="iattr">search</span></a></li>
+	          </ul>
+	        </li>
+	    
+	      </ul>
+	    </div>
+        </div>
+        <div class="span9">
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+                        <div class="page-header">
+                            <h1>Dropkick</h1>
+                        </div>
+                        
+                        
+                        
+                        
+                        
+                        
+                        <div class="yuidoc-class-description">
+                        <h1>Getting started</h1>
+                        <p>After you've cloned the repo you will need to add the library to your page. In the <code>build/js</code> folder use
+                        one of the two DropKick files given. One has a version number in the file name and the other is a version
+                        number-less version. You will also need to grab the css from <code>build/css</code> and load it on the page.</p>
+                        <p>Once those files are imported into the page you can call DropKick on any HTMLSelectElement:
+                        <code>new Dropkick( HTMLSelectElement, Options );</code> or <code>new Dropkick( "ID", Options );</code>. This returns the dropkick
+                        object to you. It may be useful for you to store this in a var to reference later.</p>
+                        <p>If you're using jQuery you can do this instead:
+                        <code>$('#select').dropkick( Options );</code></p>
+                        
+                        </div>
+                        
+                        <!-- details -->
+                        
+                            <div class="constructor yuidoc-class-constructor page-section">
+                                <h2>Constructor</h2>
+                                <div class="item-list">
+                                <div id="method-Dropkick" class="method item">
+                                	<div class="method-signature">
+                                	<span class="name"><code>Dropkick</code></span>
+                                
+                                		<div class="args">
+                                			<span class="paren">(</span><ul class="args-list inline commas">
+                                				<li class="arg">
+                                						<code>sel</code>
+                                				</li>
+                                				<li class="arg">
+                                						<code>options</code>
+                                				</li>
+                                			</ul><span class="paren">)</span>
+                                		</div>
+                                		<span class="returns-inline">
+                                			<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+                                		</span>
+                                	</div>
+                                
+                                
+                                
+                                
+                                
+                                
+                                	<div class="meta">
+                                				<p>
+                                				Defined in
+                                		<a href="files/lib_dropkick.js.html#l35"><code>lib&#x2F;dropkick.js:35</code></a>
+                                		</p>
+                                
+                                
+                                
+                                	</div>
+                                
+                                
+                                		<div class="params">
+                                			<h4>Parameters:</h4>
+                                
+                                			<ul class="params-list">
+                                				<li class="param">
+                                						<code class="param-name">sel</code>
+                                						<span class="type">Elem</span>
+                                
+                                
+                                					<div class="param-description"><p>HTMLSelect Element being passed.</p>
+                                </div>
+                                
+                                				</li>
+                                				<li class="param">
+                                						<code class="param-name">options</code>
+                                						<span class="type">Opts</span>
+                                
+                                
+                                					<div class="param-description"><p>See list of <a href="#list_of_properties">properties you can pass in here</a></p>
+                                </div>
+                                
+                                				</li>
+                                			</ul>
+                                		</div>
+                                
+                                		<div class="returns">
+                                			<h4>Returns:</h4>
+                                
+                                			<div class="returns-description">
+                                						<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>:
+                                					<p>DropKick Object for that select. You can call your methods on this if stored in a var</p>
+                                
+                                			</div>
+                                		</div>
+                                
+                                		<div class="example">
+                                			<h4>Example:</h4>
+                                
+                                			<div class="example-content">
+                                				<pre class="code prettyprint"><code class="language-js">  // Pure JS
+                                  var select = new Dropkick("#select");
+                                </code></pre>
+                                <pre class="code prettyprint"><code class="language-js">  // jQuery
+                                  $("#select").dropkick();
+                                </code></pre>
+                                
+                                			</div>
+                                		</div>
+                                </div>
+                                </div>
+                            </div>
+                        
+                            <div id="methods" class="page-section">
+                                <h2 class="off-left">Methods</h2>
+                                <div class="item-list">
+                                    <div id="method-add" class="method item">
+                                    	<div class="method-signature">
+                                    	<span class="name"><code>add</code></span>
+                                    
+                                    		<div class="args">
+                                    			<span class="paren">(</span><ul class="args-list inline commas">
+                                    				<li class="arg">
+                                    						<code>elem</code>
+                                    				</li>
+                                    				<li class="arg">
+                                    						<code>before</code>
+                                    				</li>
+                                    			</ul><span class="paren">)</span>
+                                    		</div>
+                                    	</div>
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    	<div class="meta">
+                                    				<p>
+                                    				Defined in
+                                    		<a href="files/lib_dropkick.js.html#l269"><code>lib&#x2F;dropkick.js:269</code></a>
+                                    		</p>
+                                    
+                                    
+                                    
+                                    	</div>
+                                    
+                                    	<div class="description"><p>Adds an element to the select. This option will not only add it to the original
+                                    select, but create a Dropkick option and add it to the Dropkick select.</p>
+                                    </div>
+                                    
+                                    		<div class="params">
+                                    			<h4>Parameters:</h4>
+                                    
+                                    			<ul class="params-list">
+                                    				<li class="param">
+                                    						<code class="param-name">elem</code>
+                                    						<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+                                    
+                                    
+                                    					<div class="param-description"><p>HTMLOptionElement</p>
+                                    </div>
+                                    
+                                    				</li>
+                                    				<li class="param">
+                                    						<code class="param-name">before</code>
+                                    						<span class="type">Node/Integer</span>
+                                    
+                                    
+                                    					<div class="param-description"><p>HTMLOptionElement/Index of Element</p>
+                                    </div>
+                                    
+                                    				</li>
+                                    			</ul>
+                                    		</div>
+                                    
+                                    
+                                    		<div class="example">
+                                    			<h4>Example:</h4>
+                                    
+                                    			<div class="example-content">
+                                    				<pre class="code prettyprint"><code class="language-js">  var select = new Dropkick("#select");
+                                    
+                                      select.add("New option", 5);
+                                    </code></pre>
+                                    
+                                    			</div>
+                                    		</div>
+                                    </div>
+                                    <div id="method-build" class="method item private">
+                                    	<div class="method-signature">
+                                    	<span class="name"><code>build</code></span>
+                                    
+                                    		<div class="args">
+                                    			<span class="paren">(</span><ul class="args-list inline commas">
+                                    				<li class="arg">
+                                    						<code>sel</code>
+                                    				</li>
+                                    			</ul><span class="paren">)</span>
+                                    		</div>
+                                    		<span class="returns-inline">
+                                    			<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+                                    		</span>
+                                    	</div>
+                                    
+                                    
+                                    		<span class="flag private">private</span>
+                                    
+                                    
+                                    
+                                    
+                                    	<div class="meta">
+                                    				<p>
+                                    				Defined in
+                                    		<a href="files/lib_dropkick.js.html#l1176"><code>lib&#x2F;dropkick.js:1176</code></a>
+                                    		</p>
+                                    
+                                    
+                                    
+                                    	</div>
+                                    
+                                    	<div class="description"><p>Builds the Dropkick element from a select element</p>
+                                    </div>
+                                    
+                                    		<div class="params">
+                                    			<h4>Parameters:</h4>
+                                    
+                                    			<ul class="params-list">
+                                    				<li class="param">
+                                    						<code class="param-name">sel</code>
+                                    						<span class="type">Node</span>
+                                    
+                                    
+                                    					<div class="param-description"><p>The HTMLSelectElement</p>
+                                    </div>
+                                    
+                                    				</li>
+                                    			</ul>
+                                    		</div>
+                                    
+                                    		<div class="returns">
+                                    			<h4>Returns:</h4>
+                                    
+                                    			<div class="returns-description">
+                                    						<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>:
+                                    					<p>An object containing the new DK element and it's options</p>
+                                    
+                                    			</div>
+                                    		</div>
+                                    
+                                    </div>
+                                    <div id="method-close" class="method item">
+                                    	<div class="method-signature">
+                                    	<span class="name"><code>close</code></span>
+                                    
+                                    		<span class="paren">()</span>
+                                    	</div>
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    	<div class="meta">
+                                    				<p>
+                                    				Defined in
+                                    		<a href="files/lib_dropkick.js.html#l549"><code>lib&#x2F;dropkick.js:549</code></a>
+                                    		</p>
+                                    
+                                    
+                                    
+                                    	</div>
+                                    
+                                    	<div class="description"><p>Closes the DK dropdown</p>
+                                    </div>
+                                    
+                                    
+                                    
+                                    		<div class="example">
+                                    			<h4>Example:</h4>
+                                    
+                                    			<div class="example-content">
+                                    				<pre class="code prettyprint"><code class="language-js">  var select = new Dropkick("#select");
+                                    
+                                      select.close(); //closes dk dropdown
+                                    </code></pre>
+                                    
+                                    			</div>
+                                    		</div>
+                                    </div>
+                                    <div id="method-delegate" class="method item private">
+                                    	<div class="method-signature">
+                                    	<span class="name"><code>delegate</code></span>
+                                    
+                                    		<span class="paren">()</span>
+                                    	</div>
+                                    
+                                    
+                                    		<span class="flag private">private</span>
+                                    
+                                    
+                                    
+                                    
+                                    	<div class="meta">
+                                    				<p>
+                                    				Defined in
+                                    		<a href="files/lib_dropkick.js.html#l973"><code>lib&#x2F;dropkick.js:973</code></a>
+                                    		</p>
+                                    
+                                    
+                                    
+                                    	</div>
+                                    
+                                    
+                                    
+                                    
+                                    </div>
+                                    <div id="method-disable" class="method item">
+                                    	<div class="method-signature">
+                                    	<span class="name"><code>disable</code></span>
+                                    
+                                    		<div class="args">
+                                    			<span class="paren">(</span><ul class="args-list inline commas">
+                                    				<li class="arg">
+                                    						<code>elem</code>
+                                    				</li>
+                                    				<li class="arg">
+                                    						<code>disabled</code>
+                                    				</li>
+                                    			</ul><span class="paren">)</span>
+                                    		</div>
+                                    	</div>
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    	<div class="meta">
+                                    				<p>
+                                    				Defined in
+                                    		<a href="files/lib_dropkick.js.html#l623"><code>lib&#x2F;dropkick.js:623</code></a>
+                                    		</p>
+                                    
+                                    
+                                    
+                                    	</div>
+                                    
+                                    	<div class="description"><p>Disables or enables an option; if only a boolean is passed (or nothing),
+                                    then the entire Dropkick will be disabled or enabled.</p>
+                                    </div>
+                                    
+                                    		<div class="params">
+                                    			<h4>Parameters:</h4>
+                                    
+                                    			<ul class="params-list">
+                                    				<li class="param">
+                                    						<code class="param-name">elem</code>
+                                    						<span class="type">Integer</span>
+                                    
+                                    
+                                    					<div class="param-description"><p>The element or index to disable</p>
+                                    </div>
+                                    
+                                    				</li>
+                                    				<li class="param">
+                                    						<code class="param-name">disabled</code>
+                                    						<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+                                    
+                                    
+                                    					<div class="param-description"><p>Value of disabled</p>
+                                    </div>
+                                    
+                                    				</li>
+                                    			</ul>
+                                    		</div>
+                                    
+                                    
+                                    		<div class="example">
+                                    			<h4>Example:</h4>
+                                    
+                                    			<div class="example-content">
+                                    				<pre class="code prettyprint"><code class="language-js">  var select = new Dropkick("#select");
+                                    
+                                      // To disable the entire select
+                                      select.disable();
+                                    
+                                      // To disable just an option with an index
+                                      select.disable(4, true);
+                                    
+                                      // To re-enable the entire select
+                                      select.disable(false);
+                                    
+                                      // To re-enable just an option with an index
+                                      select.disable(4, false);
+                                    </code></pre>
+                                    
+                                    			</div>
+                                    		</div>
+                                    </div>
+                                    <div id="method-dispose" class="method item">
+                                    	<div class="method-signature">
+                                    	<span class="name"><code>dispose</code></span>
+                                    
+                                    		<span class="paren">()</span>
+                                    	</div>
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    	<div class="meta">
+                                    				<p>
+                                    				Defined in
+                                    		<a href="files/lib_dropkick.js.html#l923"><code>lib&#x2F;dropkick.js:923</code></a>
+                                    		</p>
+                                    
+                                    
+                                    
+                                    	</div>
+                                    
+                                    	<div class="description"><p>Removes the DK Object from the cache and the element from the DOM</p>
+                                    </div>
+                                    
+                                    
+                                    
+                                    		<div class="example">
+                                    			<h4>Example:</h4>
+                                    
+                                    			<div class="example-content">
+                                    				<pre class="code prettyprint"><code class="language-js">  var select = new Dropkick("#select");
+                                    
+                                      select.dispose();
+                                    </code></pre>
+                                    
+                                    			</div>
+                                    		</div>
+                                    </div>
+                                    <div id="method-focus" class="method item">
+                                    	<div class="method-signature">
+                                    	<span class="name"><code>focus</code></span>
+                                    
+                                    		<span class="paren">()</span>
+                                    	</div>
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    	<div class="meta">
+                                    				<p>
+                                    				Defined in
+                                    		<a href="files/lib_dropkick.js.html#l849"><code>lib&#x2F;dropkick.js:849</code></a>
+                                    		</p>
+                                    
+                                    
+                                    
+                                    	</div>
+                                    
+                                    	<div class="description"><p>Brings focus to the proper DK element</p>
+                                    </div>
+                                    
+                                    
+                                    
+                                    		<div class="example">
+                                    			<h4>Example:</h4>
+                                    
+                                    			<div class="example-content">
+                                    				<pre class="code prettyprint"><code class="language-js">  var select = new Dropkick("#select");
+                                    
+                                      $("#some_elm").on("click", function() {
+                                        select.focus();
+                                      });
+                                    </code></pre>
+                                    
+                                    			</div>
+                                    		</div>
+                                    </div>
+                                    <div id="method-handleEvent" class="method item private">
+                                    	<div class="method-signature">
+                                    	<span class="name"><code>handleEvent</code></span>
+                                    
+                                    		<span class="paren">()</span>
+                                    	</div>
+                                    
+                                    
+                                    		<span class="flag private">private</span>
+                                    
+                                    
+                                    
+                                    
+                                    	<div class="meta">
+                                    				<p>
+                                    				Defined in
+                                    		<a href="files/lib_dropkick.js.html#l943"><code>lib&#x2F;dropkick.js:943</code></a>
+                                    		</p>
+                                    
+                                    
+                                    
+                                    	</div>
+                                    
+                                    
+                                    
+                                    
+                                    </div>
+                                    <div id="method-highlight" class="method item private">
+                                    	<div class="method-signature">
+                                    	<span class="name"><code>highlight</code></span>
+                                    
+                                    		<span class="paren">()</span>
+                                    	</div>
+                                    
+                                    
+                                    		<span class="flag private">private</span>
+                                    
+                                    
+                                    
+                                    
+                                    	<div class="meta">
+                                    				<p>
+                                    				Defined in
+                                    		<a href="files/lib_dropkick.js.html#l1018"><code>lib&#x2F;dropkick.js:1018</code></a>
+                                    		</p>
+                                    
+                                    
+                                    
+                                    	</div>
+                                    
+                                    
+                                    
+                                    
+                                    </div>
+                                    <div id="method-init" class="method item private">
+                                    	<div class="method-signature">
+                                    	<span class="name"><code>init</code></span>
+                                    
+                                    		<div class="args">
+                                    			<span class="paren">(</span><ul class="args-list inline commas">
+                                    				<li class="arg">
+                                    						<code>sel</code>
+                                    				</li>
+                                    				<li class="arg">
+                                    						<code>opts</code>
+                                    				</li>
+                                    			</ul><span class="paren">)</span>
+                                    		</div>
+                                    		<span class="returns-inline">
+                                    			<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+                                    		</span>
+                                    	</div>
+                                    
+                                    
+                                    		<span class="flag private">private</span>
+                                    
+                                    
+                                    
+                                    
+                                    	<div class="meta">
+                                    				<p>
+                                    				Defined in
+                                    		<a href="files/lib_dropkick.js.html#l372"><code>lib&#x2F;dropkick.js:372</code></a>
+                                    		</p>
+                                    
+                                    
+                                    
+                                    	</div>
+                                    
+                                    	<div class="description"><p>Initializes the DK Object</p>
+                                    </div>
+                                    
+                                    		<div class="params">
+                                    			<h4>Parameters:</h4>
+                                    
+                                    			<ul class="params-list">
+                                    				<li class="param">
+                                    						<code class="param-name">sel</code>
+                                    						<span class="type">Node</span>
+                                    
+                                    
+                                    					<div class="param-description"><p>[description]</p>
+                                    </div>
+                                    
+                                    				</li>
+                                    				<li class="param">
+                                    						<code class="param-name">opts</code>
+                                    						<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+                                    
+                                    
+                                    					<div class="param-description"><p>Options to override defaults</p>
+                                    </div>
+                                    
+                                    				</li>
+                                    			</ul>
+                                    		</div>
+                                    
+                                    		<div class="returns">
+                                    			<h4>Returns:</h4>
+                                    
+                                    			<div class="returns-description">
+                                    						<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>:
+                                    					<p>The DK Object</p>
+                                    
+                                    			</div>
+                                    		</div>
+                                    
+                                    </div>
+                                    <div id="method-item" class="method item">
+                                    	<div class="method-signature">
+                                    	<span class="name"><code>item</code></span>
+                                    
+                                    		<div class="args">
+                                    			<span class="paren">(</span><ul class="args-list inline commas">
+                                    				<li class="arg">
+                                    						<code>index</code>
+                                    				</li>
+                                    			</ul><span class="paren">)</span>
+                                    		</div>
+                                    		<span class="returns-inline">
+                                    			<span class="type">Node</span>
+                                    		</span>
+                                    	</div>
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    	<div class="meta">
+                                    				<p>
+                                    				Defined in
+                                    		<a href="files/lib_dropkick.js.html#l333"><code>lib&#x2F;dropkick.js:333</code></a>
+                                    		</p>
+                                    
+                                    
+                                    
+                                    	</div>
+                                    
+                                    	<div class="description"><p>Selects an option in the list at the desired index (negative numbers select from the end).</p>
+                                    </div>
+                                    
+                                    		<div class="params">
+                                    			<h4>Parameters:</h4>
+                                    
+                                    			<ul class="params-list">
+                                    				<li class="param">
+                                    						<code class="param-name">index</code>
+                                    						<span class="type">Integer</span>
+                                    
+                                    
+                                    					<div class="param-description"><p>Index of element (positive or negative)</p>
+                                    </div>
+                                    
+                                    				</li>
+                                    			</ul>
+                                    		</div>
+                                    
+                                    		<div class="returns">
+                                    			<h4>Returns:</h4>
+                                    
+                                    			<div class="returns-description">
+                                    						<span class="type">Node</span>:
+                                    					<p>The DK option from the list, or null if not found</p>
+                                    
+                                    			</div>
+                                    		</div>
+                                    
+                                    		<div class="example">
+                                    			<h4>Example:</h4>
+                                    
+                                    			<div class="example-content">
+                                    				<pre class="code prettyprint"><code class="language-js">  var select = new Dropkick("#select");
+                                    
+                                      select.item(4); //returns DOM node of index
+                                    </code></pre>
+                                    
+                                    			</div>
+                                    		</div>
+                                    </div>
+                                    <div id="method-keyHandler" class="method item private">
+                                    	<div class="method-signature">
+                                    	<span class="name"><code>keyHandler</code></span>
+                                    
+                                    		<span class="paren">()</span>
+                                    	</div>
+                                    
+                                    
+                                    		<span class="flag private">private</span>
+                                    
+                                    
+                                    
+                                    
+                                    	<div class="meta">
+                                    				<p>
+                                    				Defined in
+                                    		<a href="files/lib_dropkick.js.html#l1035"><code>lib&#x2F;dropkick.js:1035</code></a>
+                                    		</p>
+                                    
+                                    
+                                    
+                                    	</div>
+                                    
+                                    
+                                    
+                                    
+                                    </div>
+                                    <div id="method-onDocClick" class="method item private">
+                                    	<div class="method-signature">
+                                    	<span class="name"><code>onDocClick</code></span>
+                                    
+                                    		<div class="args">
+                                    			<span class="paren">(</span><ul class="args-list inline commas">
+                                    				<li class="arg">
+                                    						<code>event</code>
+                                    				</li>
+                                    			</ul><span class="paren">)</span>
+                                    		</div>
+                                    	</div>
+                                    
+                                    
+                                    		<span class="flag private">private</span>
+                                    
+                                    
+                                    
+                                    
+                                    	<div class="meta">
+                                    				<p>
+                                    				Defined in
+                                    		<a href="files/lib_dropkick.js.html#l1283"><code>lib&#x2F;dropkick.js:1283</code></a>
+                                    		</p>
+                                    
+                                    
+                                    
+                                    	</div>
+                                    
+                                    	<div class="description"><p>Focus DK Element when corresponding label is clicked; close all other DK's</p>
+                                    </div>
+                                    
+                                    		<div class="params">
+                                    			<h4>Parameters:</h4>
+                                    
+                                    			<ul class="params-list">
+                                    				<li class="param">
+                                    						<code class="param-name">event</code>
+                                    						<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+                                    
+                                    
+                                    					<div class="param-description"><p>Event from document click</p>
+                                    </div>
+                                    
+                                    				</li>
+                                    			</ul>
+                                    		</div>
+                                    
+                                    
+                                    </div>
+                                    <div id="method-open" class="method item">
+                                    	<div class="method-signature">
+                                    	<span class="name"><code>open</code></span>
+                                    
+                                    		<span class="paren">()</span>
+                                    	</div>
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    	<div class="meta">
+                                    				<p>
+                                    				Defined in
+                                    		<a href="files/lib_dropkick.js.html#l580"><code>lib&#x2F;dropkick.js:580</code></a>
+                                    		</p>
+                                    
+                                    
+                                    
+                                    	</div>
+                                    
+                                    	<div class="description"><p>Opens the DK dropdown</p>
+                                    </div>
+                                    
+                                    
+                                    
+                                    		<div class="example">
+                                    			<h4>Example:</h4>
+                                    
+                                    			<div class="example-content">
+                                    				<pre class="code prettyprint"><code class="language-js">  var select = new Dropkick("#select");
+                                    
+                                      select.open(); //Opens the dk dropdown
+                                    </code></pre>
+                                    
+                                    			</div>
+                                    		</div>
+                                    </div>
+                                    <div id="method-refresh" class="method item">
+                                    	<div class="method-signature">
+                                    	<span class="name"><code>refresh</code></span>
+                                    
+                                    		<span class="paren">()</span>
+                                    	</div>
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    	<div class="meta">
+                                    				<p>
+                                    				Defined in
+                                    		<a href="files/lib_dropkick.js.html#l905"><code>lib&#x2F;dropkick.js:905</code></a>
+                                    		</p>
+                                    
+                                    
+                                    
+                                    	</div>
+                                    
+                                    	<div class="description"><p>Rebuilds the DK Object
+                                    (use if HTMLSelectElement has changed)</p>
+                                    </div>
+                                    
+                                    
+                                    
+                                    		<div class="example">
+                                    			<h4>Example:</h4>
+                                    
+                                    			<div class="example-content">
+                                    				<pre class="code prettyprint"><code class="language-js">  var select = new Dropkick("#select");
+                                    
+                                      //... [change original select] ...
+                                    
+                                      select.refresh();
+                                    </code></pre>
+                                    
+                                    			</div>
+                                    		</div>
+                                    </div>
+                                    <div id="method-remove" class="method item">
+                                    	<div class="method-signature">
+                                    	<span class="name"><code>remove</code></span>
+                                    
+                                    		<div class="args">
+                                    			<span class="paren">(</span><ul class="args-list inline commas">
+                                    				<li class="arg">
+                                    						<code>index</code>
+                                    				</li>
+                                    			</ul><span class="paren">)</span>
+                                    		</div>
+                                    	</div>
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    	<div class="meta">
+                                    				<p>
+                                    				Defined in
+                                    		<a href="files/lib_dropkick.js.html#l351"><code>lib&#x2F;dropkick.js:351</code></a>
+                                    		</p>
+                                    
+                                    
+                                    
+                                    	</div>
+                                    
+                                    	<div class="description"><p>Removes the option (from both the select and Dropkick) at the given index.</p>
+                                    </div>
+                                    
+                                    		<div class="params">
+                                    			<h4>Parameters:</h4>
+                                    
+                                    			<ul class="params-list">
+                                    				<li class="param">
+                                    						<code class="param-name">index</code>
+                                    						<span class="type">Integer</span>
+                                    
+                                    
+                                    					<div class="param-description"><p>Index of element (positive or negative)</p>
+                                    </div>
+                                    
+                                    				</li>
+                                    			</ul>
+                                    		</div>
+                                    
+                                    
+                                    		<div class="example">
+                                    			<h4>Example:</h4>
+                                    
+                                    			<div class="example-content">
+                                    				<pre class="code prettyprint"><code class="language-js">  var select = new Dropkick("#select");
+                                    
+                                      select.remove(4);
+                                    </code></pre>
+                                    
+                                    			</div>
+                                    		</div>
+                                    </div>
+                                    <div id="method-reset" class="method item">
+                                    	<div class="method-signature">
+                                    	<span class="name"><code>reset</code></span>
+                                    
+                                    		<div class="args">
+                                    			<span class="paren">(</span><ul class="args-list inline commas">
+                                    				<li class="arg">
+                                    						<code>clear</code>
+                                    				</li>
+                                    			</ul><span class="paren">)</span>
+                                    		</div>
+                                    	</div>
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    	<div class="meta">
+                                    				<p>
+                                    				Defined in
+                                    		<a href="files/lib_dropkick.js.html#l868"><code>lib&#x2F;dropkick.js:868</code></a>
+                                    		</p>
+                                    
+                                    
+                                    
+                                    	</div>
+                                    
+                                    	<div class="description"><p>Resets the Dropkick and select to it's original selected options; if <code>clear</code> is <code>true</code>,
+                                    It will select the first option by default (or no options for multi-selects).</p>
+                                    </div>
+                                    
+                                    		<div class="params">
+                                    			<h4>Parameters:</h4>
+                                    
+                                    			<ul class="params-list">
+                                    				<li class="param">
+                                    						<code class="param-name">clear</code>
+                                    						<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+                                    
+                                    
+                                    					<div class="param-description"><p>Defaults to first option if True</p>
+                                    </div>
+                                    
+                                    				</li>
+                                    			</ul>
+                                    		</div>
+                                    
+                                    
+                                    		<div class="example">
+                                    			<h4>Example:</h4>
+                                    
+                                    			<div class="example-content">
+                                    				<pre class="code prettyprint"><code class="language-js">  var select = new Dropkick("#select");
+                                    
+                                      // Reset to originally <code>selected</code> option
+                                      select.reset();
+                                    
+                                      // Reset to first option in select
+                                      select.reset(true);
+                                    </code></pre>
+                                    
+                                    			</div>
+                                    		</div>
+                                    </div>
+                                    <div id="method-scrollTo" class="method item private">
+                                    	<div class="method-signature">
+                                    	<span class="name"><code>scrollTo</code></span>
+                                    
+                                    		<span class="paren">()</span>
+                                    	</div>
+                                    
+                                    
+                                    		<span class="flag private">private</span>
+                                    
+                                    
+                                    
+                                    
+                                    	<div class="meta">
+                                    				<p>
+                                    				Defined in
+                                    		<a href="files/lib_dropkick.js.html#l1144"><code>lib&#x2F;dropkick.js:1144</code></a>
+                                    		</p>
+                                    
+                                    
+                                    
+                                    	</div>
+                                    
+                                    
+                                    
+                                    
+                                    </div>
+                                    <div id="method-search" class="method item">
+                                    	<div class="method-signature">
+                                    	<span class="name"><code>search</code></span>
+                                    
+                                    		<div class="args">
+                                    			<span class="paren">(</span><ul class="args-list inline commas">
+                                    				<li class="arg">
+                                    						<code>string</code>
+                                    				</li>
+                                    				<li class="arg">
+                                    						<code>mode</code>
+                                    				</li>
+                                    			</ul><span class="paren">)</span>
+                                    		</div>
+                                    		<span class="returns-inline">
+                                    			<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+                                    		</span>
+                                    	</div>
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    	<div class="meta">
+                                    				<p>
+                                    				Defined in
+                                    		<a href="files/lib_dropkick.js.html#l776"><code>lib&#x2F;dropkick.js:776</code></a>
+                                    		</p>
+                                    
+                                    
+                                    
+                                    	</div>
+                                    
+                                    	<div class="description"><p>Finds all options who's text matches a pattern (strict, partial, or fuzzy)</p>
+                                    <p><code>"strict"</code> - The search string matches exactly from the beginning of the
+                                    option's text value (case insensitive).</p>
+                                    <p><code>"partial"</code> - The search string matches part of the option's text value
+                                    (case insensitive).</p>
+                                    <p><code>"fuzzy"</code> - The search string matches the characters in the given order (not
+                                    exclusively). The strongest match is selected first. (case insensitive).</p>
+                                    </div>
+                                    
+                                    		<div class="params">
+                                    			<h4>Parameters:</h4>
+                                    
+                                    			<ul class="params-list">
+                                    				<li class="param">
+                                    						<code class="param-name">string</code>
+                                    						<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+                                    
+                                    
+                                    					<div class="param-description"><p>The string to search for</p>
+                                    </div>
+                                    
+                                    				</li>
+                                    				<li class="param">
+                                    						<code class="param-name">mode</code>
+                                    						<span class="type">Integer</span>
+                                    
+                                    
+                                    					<div class="param-description"><p>How to search; "strict", "partial", or "fuzzy"</p>
+                                    </div>
+                                    
+                                    				</li>
+                                    			</ul>
+                                    		</div>
+                                    
+                                    		<div class="returns">
+                                    			<h4>Returns:</h4>
+                                    
+                                    			<div class="returns-description">
+                                    						<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>:
+                                    					<p>An Array of matched elements</p>
+                                    
+                                    			</div>
+                                    		</div>
+                                    
+                                    </div>
+                                    <div id="method-searchOptions" class="method item private">
+                                    	<div class="method-signature">
+                                    	<span class="name"><code>searchOptions</code></span>
+                                    
+                                    		<span class="paren">()</span>
+                                    	</div>
+                                    
+                                    
+                                    		<span class="flag private">private</span>
+                                    
+                                    
+                                    
+                                    
+                                    	<div class="meta">
+                                    				<p>
+                                    				Defined in
+                                    		<a href="files/lib_dropkick.js.html#l1109"><code>lib&#x2F;dropkick.js:1109</code></a>
+                                    		</p>
+                                    
+                                    
+                                    
+                                    	</div>
+                                    
+                                    
+                                    
+                                    
+                                    </div>
+                                    <div id="method-select" class="method item">
+                                    	<div class="method-signature">
+                                    	<span class="name"><code>select</code></span>
+                                    
+                                    		<div class="args">
+                                    			<span class="paren">(</span><ul class="args-list inline commas">
+                                    				<li class="arg">
+                                    						<code>elem</code>
+                                    				</li>
+                                    				<li class="arg">
+                                    						<code>disabled</code>
+                                    				</li>
+                                    			</ul><span class="paren">)</span>
+                                    		</div>
+                                    		<span class="returns-inline">
+                                    			<span class="type">Node</span>
+                                    		</span>
+                                    	</div>
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    	<div class="meta">
+                                    				<p>
+                                    				Defined in
+                                    		<a href="files/lib_dropkick.js.html#l668"><code>lib&#x2F;dropkick.js:668</code></a>
+                                    		</p>
+                                    
+                                    
+                                    
+                                    	</div>
+                                    
+                                    	<div class="description"><p>Selects an option from the list</p>
+                                    </div>
+                                    
+                                    		<div class="params">
+                                    			<h4>Parameters:</h4>
+                                    
+                                    			<ul class="params-list">
+                                    				<li class="param">
+                                    						<code class="param-name">elem</code>
+                                    						<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+                                    
+                                    
+                                    					<div class="param-description"><p>The element, index, or value to select</p>
+                                    </div>
+                                    
+                                    				</li>
+                                    				<li class="param">
+                                    						<code class="param-name">disabled</code>
+                                    						<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+                                    
+                                    
+                                    					<div class="param-description"><p>Selects disabled options</p>
+                                    </div>
+                                    
+                                    				</li>
+                                    			</ul>
+                                    		</div>
+                                    
+                                    		<div class="returns">
+                                    			<h4>Returns:</h4>
+                                    
+                                    			<div class="returns-description">
+                                    						<span class="type">Node</span>:
+                                    					<p>The selected element</p>
+                                    
+                                    			</div>
+                                    		</div>
+                                    
+                                    		<div class="example">
+                                    			<h4>Example:</h4>
+                                    
+                                    			<div class="example-content">
+                                    				<pre class="code prettyprint"><code class="language-js">  var elm = new Dropkick("#select");
+                                    
+                                      // Select by index
+                                      elm.select(4); //selects &amp; returns 5th item in the list
+                                    
+                                      // Select by value
+                                      elm.select("AL"); // selects &amp; returns option with the value "AL"
+                                    </code></pre>
+                                    
+                                    			</div>
+                                    		</div>
+                                    </div>
+                                    <div id="method-selectOne" class="method item">
+                                    	<div class="method-signature">
+                                    	<span class="name"><code>selectOne</code></span>
+                                    
+                                    		<div class="args">
+                                    			<span class="paren">(</span><ul class="args-list inline commas">
+                                    				<li class="arg">
+                                    						<code>elem</code>
+                                    				</li>
+                                    				<li class="arg">
+                                    						<code>disabled</code>
+                                    				</li>
+                                    			</ul><span class="paren">)</span>
+                                    		</div>
+                                    		<span class="returns-inline">
+                                    			<span class="type">Node</span>
+                                    		</span>
+                                    	</div>
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    	<div class="meta">
+                                    				<p>
+                                    				Defined in
+                                    		<a href="files/lib_dropkick.js.html#l754"><code>lib&#x2F;dropkick.js:754</code></a>
+                                    		</p>
+                                    
+                                    
+                                    
+                                    	</div>
+                                    
+                                    	<div class="description"><p>Selects a single option from the list and scrolls to it (if the select is open or on multi-selects).
+                                    Useful for selecting an option after a search by the user. Important to note: this doesn't close the
+                                    dropdown when selecting. It keeps the dropdown open and scrolls to proper position.</p>
+                                    </div>
+                                    
+                                    		<div class="params">
+                                    			<h4>Parameters:</h4>
+                                    
+                                    			<ul class="params-list">
+                                    				<li class="param">
+                                    						<code class="param-name">elem</code>
+                                    						<span class="type">Integer</span>
+                                    
+                                    
+                                    					<div class="param-description"><p>The element or index to select</p>
+                                    </div>
+                                    
+                                    				</li>
+                                    				<li class="param">
+                                    						<code class="param-name">disabled</code>
+                                    						<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+                                    
+                                    
+                                    					<div class="param-description"><p>Selects disabled options</p>
+                                    </div>
+                                    
+                                    				</li>
+                                    			</ul>
+                                    		</div>
+                                    
+                                    		<div class="returns">
+                                    			<h4>Returns:</h4>
+                                    
+                                    			<div class="returns-description">
+                                    						<span class="type">Node</span>:
+                                    					<p>The selected element</p>
+                                    
+                                    			</div>
+                                    		</div>
+                                    
+                                    		<div class="example">
+                                    			<h4>Example:</h4>
+                                    
+                                    			<div class="example-content">
+                                    				<pre class="code prettyprint"><code class="language-js">  var select = new Dropkick("#select");
+                                    
+                                      select.selectOne(4);
+                                    </code></pre>
+                                    
+                                    			</div>
+                                    		</div>
+                                    </div>
+                                </div>
+                            </div>
+                        
+                            <div id="properties" class="page-section">
+                                <h2 class="off-left" id="list_of_properties">Properties</h2>
+                        
+                                <div class="item-list">
+                                    <div id="prop-disabled" class="property item">
+                                        <h3 class="name"><code>disabled</code></h3>
+                                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+                                    
+                                    
+                                    
+                                    
+                                    
+                                        <div class="meta">
+                                                    <p>
+                                                    Defined in
+                                            <a href="files/lib_dropkick.js.html#l393"><code>lib&#x2F;dropkick.js:393</code></a>
+                                            </p>
+                                    
+                                    
+                                        </div>
+                                    
+                                        <div class="description">
+                                            <p>Whether the form is currently disabled or not</p>
+                                    
+                                        </div>
+                                    
+                                    
+                                            <div class="example">
+                                                <h4>Example:</h4>
+                                    
+                                                <div class="example-content">
+                                                    <pre class="code prettyprint"><code class="language-js">  var select = new Dropkick("#select");
+                                    
+                                      select.disabled;
+                                    </code></pre>
+                                    
+                                                </div>
+                                            </div>
+                                    
+                                    </div>
+                                    <div id="prop-form" class="property item">
+                                        <h3 class="name"><code>form</code></h3>
+                                        <span class="type">Node</span>
+                                    
+                                    
+                                    
+                                    
+                                    
+                                        <div class="meta">
+                                                    <p>
+                                                    Defined in
+                                            <a href="files/lib_dropkick.js.html#l406"><code>lib&#x2F;dropkick.js:406</code></a>
+                                            </p>
+                                    
+                                    
+                                        </div>
+                                    
+                                        <div class="description">
+                                            <p>The form associated with the select</p>
+                                    
+                                        </div>
+                                    
+                                    
+                                            <div class="example">
+                                                <h4>Example:</h4>
+                                    
+                                                <div class="example-content">
+                                                    <pre class="code prettyprint"><code class="language-js">  var select = new Dropkick("#select");
+                                    
+                                      select.form;
+                                    </code></pre>
+                                    
+                                                </div>
+                                            </div>
+                                    
+                                    </div>
+                                    <div id="prop-length" class="property item">
+                                        <h3 class="name"><code>length</code></h3>
+                                        <span class="type">Integer</span>
+                                    
+                                    
+                                    
+                                    
+                                    
+                                        <div class="meta">
+                                                    <p>
+                                                    Defined in
+                                            <a href="files/lib_dropkick.js.html#l419"><code>lib&#x2F;dropkick.js:419</code></a>
+                                            </p>
+                                    
+                                    
+                                        </div>
+                                    
+                                        <div class="description">
+                                            <p>The number of options in the select</p>
+                                    
+                                        </div>
+                                    
+                                    
+                                            <div class="example">
+                                                <h4>Example:</h4>
+                                    
+                                                <div class="example-content">
+                                                    <pre class="code prettyprint"><code class="language-js">  var select = new Dropkick("#select");
+                                    
+                                      select.length;
+                                    </code></pre>
+                                    
+                                                </div>
+                                            </div>
+                                    
+                                    </div>
+                                    <div id="prop-multiple" class="property item">
+                                        <h3 class="name"><code>multiple</code></h3>
+                                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+                                    
+                                    
+                                    
+                                    
+                                    
+                                        <div class="meta">
+                                                    <p>
+                                                    Defined in
+                                            <a href="files/lib_dropkick.js.html#l432"><code>lib&#x2F;dropkick.js:432</code></a>
+                                            </p>
+                                    
+                                    
+                                        </div>
+                                    
+                                        <div class="description">
+                                            <p>If this select is a multi-select</p>
+                                    
+                                        </div>
+                                    
+                                    
+                                            <div class="example">
+                                                <h4>Example:</h4>
+                                    
+                                                <div class="example-content">
+                                                    <pre class="code prettyprint"><code class="language-js">  var select = new Dropkick("#select");
+                                    
+                                      select.multiple;
+                                    </code></pre>
+                                    
+                                                </div>
+                                            </div>
+                                    
+                                    </div>
+                                    <div id="prop-options" class="property item">
+                                        <h3 class="name"><code>options</code></h3>
+                                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
+                                    
+                                    
+                                    
+                                    
+                                    
+                                        <div class="meta">
+                                                    <p>
+                                                    Defined in
+                                            <a href="files/lib_dropkick.js.html#l445"><code>lib&#x2F;dropkick.js:445</code></a>
+                                            </p>
+                                    
+                                    
+                                        </div>
+                                    
+                                        <div class="description">
+                                            <p>An array of Dropkick options</p>
+                                    
+                                        </div>
+                                    
+                                    
+                                            <div class="example">
+                                                <h4>Example:</h4>
+                                    
+                                                <div class="example-content">
+                                                    <pre class="code prettyprint"><code class="language-js">  var select = new Dropkick("#select");
+                                    
+                                      select.options;
+                                    </code></pre>
+                                    
+                                                </div>
+                                            </div>
+                                    
+                                    </div>
+                                    <div id="prop-selectedIndex" class="property item">
+                                        <h3 class="name"><code>selectedIndex</code></h3>
+                                        <span class="type">Integer</span>
+                                    
+                                    
+                                    
+                                    
+                                    
+                                        <div class="meta">
+                                                    <p>
+                                                    Defined in
+                                            <a href="files/lib_dropkick.js.html#l458"><code>lib&#x2F;dropkick.js:458</code></a>
+                                            </p>
+                                    
+                                    
+                                        </div>
+                                    
+                                        <div class="description">
+                                            <p>An index of the first selected option</p>
+                                    
+                                        </div>
+                                    
+                                    
+                                            <div class="example">
+                                                <h4>Example:</h4>
+                                    
+                                                <div class="example-content">
+                                                    <pre class="code prettyprint"><code class="language-js">  var select = new Dropkick("#select");
+                                    
+                                      select.selectedIndex;
+                                    </code></pre>
+                                    
+                                                </div>
+                                            </div>
+                                    
+                                    </div>
+                                    <div id="prop-selectedOptions" class="property item">
+                                        <h3 class="name"><code>selectedOptions</code></h3>
+                                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
+                                    
+                                    
+                                    
+                                    
+                                    
+                                        <div class="meta">
+                                                    <p>
+                                                    Defined in
+                                            <a href="files/lib_dropkick.js.html#l471"><code>lib&#x2F;dropkick.js:471</code></a>
+                                            </p>
+                                    
+                                    
+                                        </div>
+                                    
+                                        <div class="description">
+                                            <p>An array of selected Dropkick options</p>
+                                    
+                                        </div>
+                                    
+                                    
+                                            <div class="example">
+                                                <h4>Example:</h4>
+                                    
+                                                <div class="example-content">
+                                                    <pre class="code prettyprint"><code class="language-js">  var select = new Dropkick("#select");
+                                    
+                                      select.selectedOptions;
+                                    </code></pre>
+                                    
+                                                </div>
+                                            </div>
+                                    
+                                    </div>
+                                    <div id="prop-value" class="property item">
+                                        <h3 class="name"><code>value</code></h3>
+                                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+                                    
+                                    
+                                    
+                                    
+                                    
+                                        <div class="meta">
+                                                    <p>
+                                                    Defined in
+                                            <a href="files/lib_dropkick.js.html#l484"><code>lib&#x2F;dropkick.js:484</code></a>
+                                            </p>
+                                    
+                                    
+                                        </div>
+                                    
+                                        <div class="description">
+                                            <p>The current value of the select</p>
+                                    
+                                        </div>
+                                    
+                                    
+                                            <div class="example">
+                                                <h4>Example:</h4>
+                                    
+                                                <div class="example-content">
+                                                    <pre class="code prettyprint"><code class="language-js">  var select = new Dropkick("#select");
+                                    
+                                      select.value;
+                                    </code></pre>
+                                    
+                                                </div>
+                                            </div>
+                                    
+                                    </div>
+                                </div>
+                            </div>
+                        
+                            <div id="attrs" class="page-section">
+                                <h2 class="off-left">Attributes</h2>
+                        
+                                    <div id="attr-change" class="attr item">
+                                        <a name="config_change"></a> 
+                                        <h3 class="name"><code>change</code></h3>
+                                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                        <div class="meta">
+                                                    <p>
+                                                    Defined in
+                                            <a href="files/lib_dropkick.js.html#l113"><code>lib&#x2F;dropkick.js:113</code></a>
+                                            </p>
+                                    
+                                    
+                                        </div>
+                                    
+                                        <div class="description">
+                                            <p>Called whenever the value of the Dropkick select changes (by user action or through the API).
+                                    The value of <code>this</code> is the Dropkick object itself.</p>
+                                    
+                                        </div>
+                                    
+                                    
+                                    
+                                    </div>
+                                    <div id="attr-close" class="attr item">
+                                        <a name="config_close"></a> 
+                                        <h3 class="name"><code>close</code></h3>
+                                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                        <div class="meta">
+                                                    <p>
+                                                    Defined in
+                                            <a href="files/lib_dropkick.js.html#l132"><code>lib&#x2F;dropkick.js:132</code></a>
+                                            </p>
+                                    
+                                    
+                                        </div>
+                                    
+                                        <div class="description">
+                                            <p>Called whenever the Dropkick select is closed. The value of <code>this</code> is the Dropkick object itself.</p>
+                                    
+                                        </div>
+                                    
+                                    
+                                    
+                                    </div>
+                                    <div id="attr-initialize" class="attr item">
+                                        <a name="config_initialize"></a> 
+                                        <h3 class="name"><code>initialize</code></h3>
+                                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                        <div class="meta">
+                                                    <p>
+                                                    Defined in
+                                            <a href="files/lib_dropkick.js.html#l103"><code>lib&#x2F;dropkick.js:103</code></a>
+                                            </p>
+                                    
+                                    
+                                        </div>
+                                    
+                                        <div class="description">
+                                            <p>Called once after the DK element is inserted into the DOM.
+                                    The value of <code>this</code> is the Dropkick object itself.</p>
+                                    
+                                        </div>
+                                    
+                                    
+                                    
+                                    </div>
+                                    <div id="attr-open" class="attr item">
+                                        <a name="config_open"></a> 
+                                        <h3 class="name"><code>open</code></h3>
+                                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                        <div class="meta">
+                                                    <p>
+                                                    Defined in
+                                            <a href="files/lib_dropkick.js.html#l123"><code>lib&#x2F;dropkick.js:123</code></a>
+                                            </p>
+                                    
+                                    
+                                        </div>
+                                    
+                                        <div class="description">
+                                            <p>Called whenever the Dropkick select is opened. The value of <code>this</code> is the Dropkick object itself.</p>
+                                    
+                                        </div>
+                                    
+                                    
+                                    
+                                    </div>
+                                    <div id="attr-search" class="attr item">
+                                        <a name="config_search"></a> 
+                                        <h3 class="name"><code>search</code></h3>
+                                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                        <div class="meta">
+                                                    <p>
+                                                    Defined in
+                                            <a href="files/lib_dropkick.js.html#l142"><code>lib&#x2F;dropkick.js:142</code></a>
+                                            </p>
+                                    
+                                    
+                                        </div>
+                                    
+                                        <div class="description">
+                                            <p><code>"strict"</code> - The search string matches exactly from the beginning of the option's text value (case insensitive).</p>
+                                    <p><code>"partial"</code> - The search string matches part of the option's text value (case insensitive).</p>
+                                    <p><code>"fuzzy"</code> - The search string matches the characters in the given order (not exclusively).
+                                    The strongest match is selected first. (case insensitive).</p>
+                                    
+                                        </div>
+                                    
+                                            <p><strong>Default:</strong> &quot;strict&quot;</p>
+                                    
+                                    
+                                    </div>
+                            </div>
+                        
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="assets/vendor/jquery/jquery-1.8.2.min.js"></script>
+<script src="assets/vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="assets/vendor/prettify/prettify-min.js"></script>
+<script src="assets/js/yuidoc-bootstrap.js"></script>
+<script>prettyPrint();</script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-42326845-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</body>
+</html>
