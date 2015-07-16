@@ -1,10 +1,8 @@
-
 //*---------------------------------------*
 //  Imports
 //*---------------------------------------*
 
 @import "reset";
-@import "search_styles";
 
 //*---------------------------------------*
 //  vars
@@ -37,7 +35,13 @@ body{
     }
     margin: 0 0 40px 0;
     text-align: center;
-
+  }
+  h2 {
+    font-size: 1.2em;
+    margin: 0 0 0.5em 0;
+    font-family: "Open Sans", sans-serif;
+    font-weight: 700;
+    text-align: center;
   }
 }
 
