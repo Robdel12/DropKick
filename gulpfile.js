@@ -1,9 +1,9 @@
 /* global require */
 
 var gulp = require('gulp-npm-run')(require('gulp'), {
-      exclude: ['test'],
-      require: ['doc']
-    }),
+  exclude: ['test'],
+  require: ['doc']
+}),
     del = require('del'),
     bump = require('gulp-bump'),
     qunit = require('gulp-qunit'),
@@ -23,7 +23,7 @@ var knownOptions = {
 var options = minimist(process.argv.slice(2), knownOptions);
 
 gulp.task('default', ['sass', 'test', 'docs']);
-gulp.task('docs', ['doc', 'docs-rename']);
+gulp.task('docs', ['doc', 'docs-move-api']);
 gulp.task('build', ['sass', 'build-rename', 'build-polyfill', 'build-versionless-file']);
 
 // Lint Task
@@ -42,8 +42,8 @@ gulp.task('sass', function() {
 
 gulp.task('bump', function(){
   gulp.src('./*.json')
-  .pipe(bump())
-  .pipe(gulp.dest('./'));
+    .pipe(bump())
+    .pipe(gulp.dest('./'));
 });
 
 // USEAGE: gulp build-rename --ver 2.x.x
@@ -80,15 +80,16 @@ gulp.task('watch', function() {
   gulp.watch('css/*.scss', ['sass']);
 });
 
-gulp.task('docs-rename', function() {
+gulp.task('docs-move-api', function() {
   setTimeout(function() { //ugh
     return del(['./docs/index.html'], function () {
+      gulp.src('./examples/**/*').pipe(gulp.dest('./docs/'));
       return gulp.src('./docs/classes/Dropkick.html')
-          .pipe(rename('index.html'))
-          .pipe(replace('../', ''))
-          .pipe(gulp.dest('./docs/'));
+        .pipe(rename('api.html'))
+        .pipe(replace('../', ''))
+        .pipe(gulp.dest('./docs/'));
     });
-  }, 4000);
+  }, 2000);
 });
 
 gulp.task('test', function() {
