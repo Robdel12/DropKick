@@ -246,52 +246,8 @@
          $( "#normal_select, #disabled, #opt_group, #multiple" ).dropkick({
            mobile: true
          });
-         var dk = new Dropkick( "#search_select", {
-           mobile: true,
-           initialize: function() {
-             var $input,
-                 dk = this;
-             $( '.dk-selected', dk.data.elem ).after([
-               '<div class="dk-search">',
-               '<input type="text" class="dk-search-input" placeholder="Search">',
-               '</div>',
-             ].join(""));
 
-             $input = $( ".dk-search-input", dk.data.elem );
-
-             $input.on( "click", function ( event ) {
-               event.stopPropagation();
-
-             }).on( "keypress keyup", function ( event ) {
-               var found = dk.search( this.value );
-
-               event.stopPropagation();
-
-               $( '.dk-option', dk.data.elem ).remove();
-
-               if ( found.length ) {
-                 $( found ).appendTo( dk.data.elem.lastChild );
-                 dk.selectOne( found[0] );
-               } else {
-                 $( "<li></li>" ).addClass( "dk-option dk-option-disabled" ).text( "Not Found" ).appendTo( dk.data.elem.lastChild );
-               }
-
-               found.length && dk.selectOne( found[0] );
-             });
-           },
-
-           open: function() {
-             $( '.dk-search-input', this.data.elem ).focus();
-           },
-
-           close: function() {
-             $( '.dk-search-input', this.data.elem ).val("").blur();
-             $( '.dk-option', this.data.elem ).remove();
-             $( this.options ).appendTo( this.data.elem.lastChild );
-           }
-         });
-
-         $(".gist-container").each(function(gist) {
+         $(".gist-container").each(function(index, gist) {
            if (gist.offsetHeight > 160) {
              $(".btn", gist).css('display', 'inline-block').on('click', function() {
                var $gistWrapper = $(".gist-wrapper", gist);
