@@ -24,7 +24,7 @@ var options = minimist(process.argv.slice(2), knownOptions);
 
 gulp.task('default', ['sass', 'test', 'docs']);
 gulp.task('docs', ['doc', 'docs-move-api']);
-gulp.task('build', ['sass', 'build-rename', 'build-polyfill', 'build-versionless-file']);
+gulp.task('build', ['sass', 'build-polyfill', 'build-versionless-file']);
 
 // Lint Task
 gulp.task('lint', function() {
@@ -47,13 +47,6 @@ gulp.task('bump', function(){
 });
 
 // USEAGE: gulp build-rename --ver 2.x.x
-gulp.task('build-rename', function() {
-  return gulp.src('./lib/dropkick.js')
-    .pipe(rename('dropkick.' + options.ver + '.min.js'))
-    .pipe(uglify())
-    .pipe(gulp.dest('build/js/'));
-});
-
 gulp.task('build-polyfill', function() {
   return gulp.src(['./lib/polyfills/*.js', './lib/dropkick.js'])
     .pipe(concat('dropkick.' + options.ver + '.min.js'))
