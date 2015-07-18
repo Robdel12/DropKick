@@ -42,7 +42,7 @@ gulp.task('sass', function() {
 
 gulp.task('bump', function(){
   gulp.src('./*.json')
-    .pipe(bump())
+    .pipe(bump({version: options.ver}))
     .pipe(gulp.dest('./'));
 });
 

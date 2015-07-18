@@ -4,5 +4,6 @@
     "build/dropkick.js",
     "build/css/dropkick.css"
   ],
-  "description": "A JavaScript plugin for creating beautiful, graceful, and painless custom dropdowns."
+  "description": "A JavaScript plugin for creating beautiful, graceful, and painless custom dropdowns.",
+  "version": "2.1.7"
 }

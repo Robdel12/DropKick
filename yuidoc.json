@@ -1,7 +1,7 @@
 {
   "name": "DropKick API Documentation",
   "description": "DropKicks API Documentation",
-  "version": "2.1.6",
+  "version": "2.1.7",
   "url": "http://dropkickjs.com/",
   "options": {
     "outdir": "docs",

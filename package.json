@@ -1,13 +1,15 @@
 {
   "name": "dropkickjs",
-  "version": "2.1.6",
+  "version": "2.1.7",
   "author": {
     "name": "Robert DeLuca",
     "email": "robertdeluca19@gmail.com"
   },
-  "contributors": [{
-    "name": "Wil Wilsman"
-  }],
+  "contributors": [
+    {
+      "name": "Wil Wilsman"
+    }
+  ],
   "repository": "robdel12/DropKick",
   "bugs": {
     "url": "http://github.com/robdel12/DropKick/issues"
