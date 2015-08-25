@@ -1,9 +1,27 @@
 {
   "name": "dropkick",
   "main": [
-    "build/dropkick.js",
+    "build/js/dropkick.min.js",
     "build/css/dropkick.css"
   ],
   "description": "A JavaScript plugin for creating beautiful, graceful, and painless custom dropdowns.",
-  "version": "2.1.7"
+  "keywords": [
+    "dropkick",
+    "dropkickjs",
+    "select replacement",
+    "select2",
+    "select"
+  ],
+  "authors": [{
+    "name": "Robert DeLuca",
+    "email": "robertdeluca19@gmail.com"
+  }],
+  "homepage": "http://dropkickjs.com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Robdel12/DropKick.git"
+  },
+  "dependencies": {
+    "jquery": "~2.1.4"
+  }
 }
