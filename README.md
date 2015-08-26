@@ -21,7 +21,7 @@ Pure JS:
 
 You can install DropKick.js using bower:
 
-`bower install dropkick --save-dev`
+`bower install dropkick --save`
 
 
 ## npm Install
