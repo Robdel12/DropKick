@@ -104,11 +104,15 @@ QUnit.test( "Partial searches mo and returns an array of two", 3, function( asse
   assert.equal(dk.search("mo", "partial")[1], dk.item(46));
 });
 
-QUnit.test( "Adds an option to the select", 1, function( assert ) {
+QUnit.test( "Adds an option to the select", 2, function( assert ) {
   var dk = new Dropkick("#normal_select");
   dk.add("This is an option", 5);
 
   assert.equal(dk.item(5).innerHTML, "This is an option");
+
+  dk.add("This is another option");
+
+  assert.equal(dk.item(dk.options.length - 1).innerHTML, "This is another option");
 });
 
 QUnit.test( "Remove an option from the select", 1, function( assert ) {
