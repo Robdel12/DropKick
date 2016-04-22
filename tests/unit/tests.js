@@ -204,3 +204,10 @@ QUnit.test( "Dropkick should return if no select is passed", 2, function( assert
   assert.ok(dk);
   assert.ok(!dk.data);
 });
+
+QUnit.test( "Dropkick should return if no options are passed", 2, function( assert ) {
+  var dk = new Dropkick("#empty");
+
+  assert.ok(dk);
+  assert.ok(!dk.data);
+});
