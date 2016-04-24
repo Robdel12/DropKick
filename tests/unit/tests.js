@@ -17,7 +17,7 @@ QUnit.test( "Create a new Dropkick", 3, function( assert ) {
 
 QUnit.test( "Dropkick should be cached", 2, function( assert ) {
   var dk = new Dropkick("#normal_select"),
-    currentDkCacheID = dk.data.cacheID;
+      currentDkCacheID = dk.data.cacheID;
 
   // uid is always one more than the last id
   assert.equal(Dropkick.uid - 1, currentDkCacheID);
@@ -122,18 +122,40 @@ QUnit.test( "Remove an option from the select", 1, function( assert ) {
   assert.notEqual(dk.item(2).innerHTML, "Alaska");
 });
 
-QUnit.test( "Disable the entire select", 1, function( assert ) {
+QUnit.test( "Disable the entire select", 2, function( assert ) {
   var dk = new Dropkick("#normal_select");
   dk.disable();
 
   assert.equal(dk.disabled, true);
+  assert.equal(dk.data.elem.hasAttribute('aria-disabled', true), true);
 });
 
-QUnit.test( "Disable the one option in the select", 1, function( assert ) {
+QUnit.test( "Enable the entire select", 2, function( assert ) {
+  var dk = new Dropkick("#normal_select");
+  dk.disable();
+  //reenable
+  dk.disable(false);
+
+  assert.equal(dk.disabled, false);
+  assert.equal(dk.data.elem.hasAttribute('aria-disabled', false), true);
+});
+
+QUnit.test( "Disable the one option in the select", 2, function( assert ) {
   var dk = new Dropkick("#normal_select");
   dk.disable(2); //2 = Alaska
 
   assert.equal(_.hasClass(dk.item(2), "dk-option-disabled"), true);
+  assert.equal(dk.item(2).hasAttribute('aria-disabled', true), true);
+});
+
+QUnit.test( "Enable the one option in the select", 2, function( assert ) {
+  var dk = new Dropkick("#normal_select");
+  dk.disable(2); //2 = Alaska
+  //reenable
+  dk.disable(2, false); //2 = Alaska
+
+  assert.equal(_.hasClass(dk.item(2), "dk-option-disabled"), false);
+  assert.equal(dk.item(2).hasAttribute('aria-disabled', false), true);
 });
 
 QUnit.test( "Reset the selection", 2, function( assert ) {
