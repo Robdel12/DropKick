@@ -12,10 +12,12 @@
     "select2",
     "select"
   ],
-  "authors": [{
-    "name": "Robert DeLuca",
-    "email": "robertdeluca19@gmail.com"
-  }],
+  "authors": [
+    {
+      "name": "Robert DeLuca",
+      "email": "robertdeluca19@gmail.com"
+    }
+  ],
   "homepage": "http://dropkickjs.com",
   "repository": {
     "type": "git",
@@ -23,5 +25,6 @@
   },
   "dependencies": {
     "jquery": "~2.1.4"
-  }
+  },
+  "version": "2.1.8"
 }
