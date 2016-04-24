@@ -14,7 +14,7 @@
   "bugs": {
     "url": "http://github.com/robdel12/DropKick/issues"
   },
-  "main": "lib/dropkick.js",
+  "main": "./build/js/dropkick.min.js",
   "description": "A JavaScript plugin for creating beautiful, graceful, and painless custom dropdowns.",
   "scripts": {
     "test": "gulp",
