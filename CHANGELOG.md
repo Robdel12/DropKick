@@ -1,5 +1,45 @@
 # Change Log
 
+## [v2.1.8](https://github.com/Robdel12/DropKick/tree/v2.1.8) (2016-04-24)
+[Full Changelog](https://github.com/Robdel12/DropKick/compare/v2.1.7...v2.1.8)
+
+**Fixed bugs:**
+
+- Disabled state isn't relayed to the screen reader [\#324](https://github.com/Robdel12/DropKick/issues/324)
+- Empty select causes crash [\#315](https://github.com/Robdel12/DropKick/issues/315)
+- Trigering change event fails on Internet Explorer [\#314](https://github.com/Robdel12/DropKick/issues/314)
+
+**Closed issues:**
+
+- Demo Page [\#320](https://github.com/Robdel12/DropKick/issues/320)
+- DropKick errors out when not mounted on mobile. [\#318](https://github.com/Robdel12/DropKick/issues/318)
+- Using DropKick with form validation. [\#313](https://github.com/Robdel12/DropKick/issues/313)
+- Select option programattically [\#312](https://github.com/Robdel12/DropKick/issues/312)
+- Dropkick exclude "option selected" value within drop down [\#309](https://github.com/Robdel12/DropKick/issues/309)
+- IE11 Issue: Change event. [\#321](https://github.com/Robdel12/DropKick/issues/321)
+- add\(\) method messes with selection  [\#317](https://github.com/Robdel12/DropKick/issues/317)
+- IE/Edge Scrollbar outside the Dropkick box [\#316](https://github.com/Robdel12/DropKick/issues/316)
+- Write tests for \#310 [\#311](https://github.com/Robdel12/DropKick/issues/311)
+- mobile: true in the Doc but not in the API [\#306](https://github.com/Robdel12/DropKick/issues/306)
+- DK always expanded down on IE [\#301](https://github.com/Robdel12/DropKick/issues/301)
+
+**Merged pull requests:**
+
+- Add issue template [\#322](https://github.com/Robdel12/DropKick/pull/322) ([Robdel12](https://github.com/Robdel12))
+- Fix name of multiselect example \(muliselect\) [\#319](https://github.com/Robdel12/DropKick/pull/319) ([diamondo25](https://github.com/diamondo25))
+- Allow use of refresh even on mobile [\#310](https://github.com/Robdel12/DropKick/pull/310) ([Korri](https://github.com/Korri))
+- Updated bower.json and readme [\#307](https://github.com/Robdel12/DropKick/pull/307) ([alexgleason](https://github.com/alexgleason))
+- Add tests for \#310. Fixes \#311 [\#333](https://github.com/Robdel12/DropKick/pull/333) ([Robdel12](https://github.com/Robdel12))
+- Fix IE bug with opening DK select. Fixes \#301 [\#332](https://github.com/Robdel12/DropKick/pull/332) ([Robdel12](https://github.com/Robdel12))
+- Use the built file for modules [\#331](https://github.com/Robdel12/DropKick/pull/331) ([Robdel12](https://github.com/Robdel12))
+- Fixes \#316, fix scrollbar in IE browsers [\#330](https://github.com/Robdel12/DropKick/pull/330) ([Robdel12](https://github.com/Robdel12))
+- Fixes \#306, add mobile documentation to api docs [\#329](https://github.com/Robdel12/DropKick/pull/329) ([Robdel12](https://github.com/Robdel12))
+- Add `aria-disabled` to dk when disabled. Fixes \#324. [\#328](https://github.com/Robdel12/DropKick/pull/328) ([Robdel12](https://github.com/Robdel12))
+- Add a test for no options in a select [\#327](https://github.com/Robdel12/DropKick/pull/327) ([Robdel12](https://github.com/Robdel12))
+- Fix \#315, throw error when no options are in select [\#326](https://github.com/Robdel12/DropKick/pull/326) ([Robdel12](https://github.com/Robdel12))
+- support requirejs [\#323](https://github.com/Robdel12/DropKick/pull/323) ([pecuchet](https://github.com/pecuchet))
+- Remove the extra check on location [\#304](https://github.com/Robdel12/DropKick/pull/304) ([casr](https://github.com/casr))
+
 ## [v2.1.7](https://github.com/Robdel12/DropKick/tree/v2.1.7) (2015-07-18)
 [Full Changelog](https://github.com/Robdel12/DropKick/compare/v2.1.6...v2.1.7)
 
@@ -374,7 +414,7 @@
 - jQuery 1.9 support [\#104](https://github.com/Robdel12/DropKick/pull/104) ([joeblynch](https://github.com/joeblynch))
 - fix: if two selects have one same name in a page [\#93](https://github.com/Robdel12/DropKick/pull/93) ([chenhouwu](https://github.com/chenhouwu))
 - Fix browser detection to make dropkick work in IE 10 [\#88](https://github.com/Robdel12/DropKick/pull/88) ([steve-v-jedo](https://github.com/steve-v-jedo))
-- Fixed issue \#58 [\#73](https://github.com/Robdel12/DropKick/pull/73) ([clupascu](https://github.com/clupascu))
+- Fixed issue \#58 [\#73](https://github.com/Robdel12/DropKick/pull/73) ([wolfascu](https://github.com/wolfascu))
 - Remove unused variables, small cleanup [\#23](https://github.com/Robdel12/DropKick/pull/23) ([bdukes](https://github.com/bdukes))
 - Another example ... [\#14](https://github.com/Robdel12/DropKick/pull/14) ([petty](https://github.com/petty))
 
