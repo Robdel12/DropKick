@@ -139,6 +139,10 @@ $dk-disabled-color: #BBBBBB !default;
   background-color: transparent;
 }
 
+.dk-select-options .dk-option-hidden {
+    display: none;
+}
+
 .dk-optgroup {
   border: solid $dk-border-color;
   border-width: 1px 0;

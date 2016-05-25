@@ -94,6 +94,9 @@
   color: #BBBBBB;
   background-color: transparent; }
 
+.dk-select-options .dk-option-hidden {
+  display: none; }
+
 .dk-optgroup {
   border: solid #CCCCCC;
   border-width: 1px 0;
