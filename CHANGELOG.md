@@ -1,5 +1,18 @@
 # Change Log
 
+## [v2.1.9](https://github.com/Robdel12/DropKick/tree/v2.1.9) (2016-08-14)
+[Full Changelog](https://github.com/Robdel12/DropKick/compare/v2.1.8...v2.1.9)
+
+**Closed issues:**
+
+- Classes added to the combobox are removed on select [\#337](https://github.com/Robdel12/DropKick/issues/337)
+- Updating from DropKick 1.3.3 and I have issues [\#308](https://github.com/Robdel12/DropKick/issues/308)
+
+**Merged pull requests:**
+
+- Potential XSS hole fix: e.text is not safe while e.innerHTML is [\#338](https://github.com/Robdel12/DropKick/pull/338) ([javuto](https://github.com/javuto))
+- Added support for the hidden attribute on options. [\#335](https://github.com/Robdel12/DropKick/pull/335) ([aesinv](https://github.com/aesinv))
+
 ## [v2.1.8](https://github.com/Robdel12/DropKick/tree/v2.1.8) (2016-04-24)
 [Full Changelog](https://github.com/Robdel12/DropKick/compare/v2.1.7...v2.1.8)
 
