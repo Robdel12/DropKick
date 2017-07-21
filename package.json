@@ -17,6 +17,8 @@
   "main": "./build/js/dropkick.min.js",
   "description": "A JavaScript plugin for creating beautiful, graceful, and painless custom dropdowns.",
   "scripts": {
+    "build": "webpack",
+    "start": "webpack-dev-server --open",
     "test": "gulp",
     "doc": "yuidoc"
   },
@@ -24,27 +26,18 @@
     "node": ">=0.10.0"
   },
   "devDependencies": {
-    "del": "^1.1.1",
-    "gulp": "^3.8.11",
-    "gulp-bump": "^0.3.0",
-    "gulp-concat": "~2.2.0",
-    "gulp-file-insert": "^1.0.2",
-    "gulp-gh-pages-cname": "0.5.0",
-    "gulp-inject": "^1.2.0",
-    "gulp-jshint": "~1.6.3",
-    "gulp-npm-run": "0.0.0-5",
-    "gulp-qunit": "^1.2.1",
-    "gulp-rename": "~1.2.0",
-    "gulp-replace": "^0.5.3",
-    "node-sass": "0.9.3",
-    "gulp-sass": "~0.7.2",
-    "gulp-uglify": "^1.2.0",
-    "gulp-util": "~2.2.14",
-    "merge-stream": "^0.1.7",
-    "minimist": "^1.1.0",
+    "babel-core": "^6.25.0",
+    "babel-loader": "^7.1.1",
+    "babel-preset-env": "^1.6.0",
+    "css-loader": "^0.28.4",
+    "extract-text-webpack-plugin": "^3.0.0",
+    "jquery": "2",
+    "node-sass": "4.5.3",
     "qunitjs": "^1.17.1",
-    "run-sequence": "^1.0.2",
-    "yuidoc-dropkick-theme": "0.0.8"
+    "sass-loader": "^6.0.6",
+    "style-loader": "^0.18.2",
+    "webpack": "^3.3.0",
+    "webpack-dev-server": "^2.5.1"
   },
   "keywords": [
     "dropkick",

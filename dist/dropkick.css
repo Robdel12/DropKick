@@ -1,9 +1,17 @@
-.dk-select, .dk-select *, .dk-select *:before, .dk-select *:after, .dk-select-multi, .dk-select-multi *, .dk-select-multi *:before, .dk-select-multi *:after {
+.dk-select,
+.dk-select *,
+.dk-select *:before,
+.dk-select *:after,
+.dk-select-multi,
+.dk-select-multi *,
+.dk-select-multi *:before,
+.dk-select-multi *:after {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box; }
 
-.dk-select, .dk-select-multi {
+.dk-select,
+.dk-select-multi {
   position: relative;
   display: inline-block;
   vertical-align: middle;
@@ -68,7 +76,6 @@
   list-style: none;
   margin: 0;
   max-height: 10.5em;
-  min-width: 100%;
   overflow-x: hidden;
   overflow-y: auto;
   padding: 0.25em 0;
@@ -137,26 +144,34 @@
   border-bottom-right-radius: 0;
   border-color: #3297fd; }
 
-.dk-select-open-up .dk-selected:before, .dk-select-open-down .dk-selected:before {
+.dk-select-open-up .dk-selected:before,
+.dk-select-open-down .dk-selected:before {
   border-width: 0 0.25em 0.25em;
   border-bottom-color: #3297fd; }
 
-.dk-select-open-up .dk-selected:after, .dk-select-open-down .dk-selected:after {
+.dk-select-open-up .dk-selected:after,
+.dk-select-open-down .dk-selected:after {
   border-left-color: #3297fd; }
 
-.dk-select-open-up .dk-select-options, .dk-select-open-down .dk-select-options, .dk-select-multi:focus .dk-select-options {
+.dk-select-open-up .dk-select-options,
+.dk-select-open-down .dk-select-options,
+.dk-select-multi:focus .dk-select-options {
   display: block;
   border-color: #3297fd; }
 
-.dk-select-multi:hover, .dk-select-multi:focus {
+.dk-select-multi:hover,
+.dk-select-multi:focus {
   outline: none; }
 
-.dk-selected:hover, .dk-selected:focus {
+.dk-selected:hover,
+.dk-selected:focus {
   outline: none;
   border-color: #3297fd; }
-  .dk-selected:hover:before, .dk-selected:focus:before {
+  .dk-selected:hover:before,
+  .dk-selected:focus:before {
     border-top-color: #3297fd; }
-  .dk-selected:hover:after, .dk-selected:focus:after {
+  .dk-selected:hover:after,
+  .dk-selected:focus:after {
     border-left-color: #3297fd; }
 
 .dk-select-disabled {

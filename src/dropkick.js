@@ -4,278 +4,252 @@
  * Highly customizable <select> lists
  * https://github.com/robdel12/DropKick
  *
-*/
-(function(factory) {
-  var jQuery;
+ */
 
-  if ( typeof exports === "object" ) {
-    // Node. Does not work with strict CommonJS, but
-    // only CommonJS-like environments that support module.exports,
-    // like Node.
-    try {
-      jQuery = require( "jquery" );
-    } catch ( e ) {}
+const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test( navigator.userAgent );
+const isIframe = window.parent !== window.self;
+const isIE = navigator.appVersion.indexOf("MSIE")!==-1;
 
-    module.exports = factory( window, document, jQuery );
-  } else if ( typeof define === 'function' && define.amd ) {
-    define([], function(){ return factory( window, document, window.jQuery ) });
-  } else {
-    // Browser globals (root is window)
-    window.Dropkick = factory( window, document, window.jQuery );
-  }
+/**
+ * # Getting started
+ * After you've cloned the repo you will need to add the library to your page. In the `build/js` folder use
+ * one of the two DropKick files given. One has a version number in the file name and the other is a version
+ * number-less version. You will also need to grab the css from `build/css` and load it on the page.
+ *
+ * Once those files are imported into the page you can call DropKick on any HTMLSelectElement:
+ * `new Dropkick( HTMLSelectElement, Options );` or `new Dropkick( "ID", Options );`. This returns the dropkick
+ * object to you. It may be useful for you to store this in a var to reference later.
+ *
+ * If you're using jQuery you can do this instead:
+ * `$('#select').dropkick( Options );`
+ *
+ *
+ * @class Dropkick
+ * @return { object } DropKick Object for that select. You can call your methods on this if stored in a var
+ * @param {elem} sel HTMLSelect Element being passed.
+ * @param {opts} options See list of [properties you can pass in here](#list_of_properties)
+ * @constructor
+ * @example
+ *  ```js
+ *    // Pure JS
+ *    var select = new Dropkick("#select");
+ *  ```
+ * @example
+ *  ```js
+ *    // jQuery
+ *    $("#select").dropkick();
+ *  ```
+ */
+export default class Dropkick {
+  constructor(select, options) {
+    this.sel = select;
+    let i, dk;
 
-}(function( window, document, jQuery, undefined ) {
-
-
-var
-
-  // Browser testing stuff
-  isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test( navigator.userAgent ),
-  isIframe = window.parent !== window.self,
-  isIE = navigator.appVersion.indexOf("MSIE")!==-1,
-
-  /**
-  * # Getting started
-  * After you've cloned the repo you will need to add the library to your page. In the `build/js` folder use
-  * one of the two DropKick files given. One has a version number in the file name and the other is a version
-  * number-less version. You will also need to grab the css from `build/css` and load it on the page.
-  *
-  * Once those files are imported into the page you can call DropKick on any HTMLSelectElement:
-  * `new Dropkick( HTMLSelectElement, Options );` or `new Dropkick( "ID", Options );`. This returns the dropkick
-  * object to you. It may be useful for you to store this in a var to reference later.
-  *
-  * If you're using jQuery you can do this instead:
-  * `$('#select').dropkick( Options );`
-  *
-  *
-  * @class Dropkick
-  * @return { object } DropKick Object for that select. You can call your methods on this if stored in a var
-  * @param {elem} sel HTMLSelect Element being passed.
-  * @param {opts} options See list of [properties you can pass in here](#list_of_properties)
-  * @constructor
-  * @example
-  *  ```js
-  *    // Pure JS
-  *    var select = new Dropkick("#select");
-  *  ```
-  * @example
-  *  ```js
-  *    // jQuery
-  *    $("#select").dropkick();
-  *  ```
-  */
-  Dropkick = function( sel, opts ) {
-    var i, dk;
-
-    // Safety if `Dropkick` is called without `new`
-    if ( this === window ) {
-      return new Dropkick( sel, opts );
-    }
-
-    if ( typeof sel === "string" && sel[0] === "#" ) {
-      sel = document.getElementById( sel.substr( 1 ) );
+    if ( typeof select === "string" && select[0] === "#" ) {
+      select = document.getElementById( select.substr( 1 ) );
     }
 
     // Check if select has already been DK'd and return the DK Object
     for ( i = 0; i < Dropkick.uid; i++) {
       dk = Dropkick.cache[ i ];
 
-      if ( dk instanceof Dropkick && dk.data.select === sel ) {
+      if ( dk instanceof Dropkick && dk.data.select === select ) {
         _.extend( dk.data.settings, opts );
         return dk;
       }
     }
 
-    if ( !sel ) {
-      console.error("You must pass a select to DropKick");
+    if ( !select ) {
+      console.error("You must pass a selectect to DropKick");
       return false;
     }
 
-    if ( sel.length < 1 ) {
-      console.error("You must have options inside your <select>: ", sel);
+    if ( select.length < 1 ) {
+      console.error("You must have options inside your <selectect>: ", select);
       return false;
     }
 
-    if ( sel.nodeName === "SELECT" ) {
-      return this.init( sel, opts );
+    if ( select.nodeName === "SELECT" ) {
+      return this.init( select, options );
+    }
+  }
+};
+
+const noop = function() {};
+let _docListener;
+
+// DK default options
+const defaults = {
+
+  /**
+   * Called once after the DK element is inserted into the DOM.
+   * The value of `this` is the Dropkick object itself.
+   *
+   * @config initialize
+   * @type Function
+   *
+   */
+  initialize: noop,
+
+  /**
+   * Whether or not you would like Dropkick to render on mobile devices.
+   *
+   * @default false
+   * @property {boolean} mobile
+   * @type boolean
+   *
+   */
+  mobile: false,
+
+  /**
+   * Called whenever the value of the Dropkick select changes (by user action or through the API).
+   * The value of `this` is the Dropkick object itself.
+   *
+   * @config change
+   * @type Function
+   *
+   */
+  change: noop,
+
+  /**
+   * Called whenever the Dropkick select is opened. The value of `this` is the Dropkick object itself.
+   *
+   * @config open
+   * @type Function
+   *
+   */
+  open: noop,
+
+  /**
+   * Called whenever the Dropkick select is closed. The value of `this` is the Dropkick object itself.
+   *
+   * @config close
+   * @type Function
+   *
+   */
+  close: noop,
+
+  // Search method; "strict", "partial", or "fuzzy"
+  /**
+   * `"strict"` - The search string matches exactly from the beginning of the option's text value (case insensitive).
+   *
+   * `"partial"` - The search string matches part of the option's text value (case insensitive).
+   *
+   * `"fuzzy"` - The search string matches the characters in the given order (not exclusively).
+   * The strongest match is selected first. (case insensitive).
+   *
+   * @default "strict"
+   * @config search
+   * @type string
+   *
+   */
+  search: "strict",
+
+  /**
+   * Bubble up the custom change event attached to Dropkick to the original element (select).
+   */
+  bubble: true
+};
+
+// Common Utilities
+const _ = {
+
+  hasClass: function( elem, classname ) {
+    var reg = new RegExp( "(^|\\s+)" + classname + "(\\s+|$)" );
+    return elem && reg.test( elem.className );
+  },
+
+  addClass: function( elem, classname ) {
+    if( elem && !_.hasClass( elem, classname ) ) {
+      elem.className += " " + classname;
     }
   },
 
-  noop = function() {},
-  _docListener,
-
-  // DK default options
-  defaults = {
-
-    /**
-     * Called once after the DK element is inserted into the DOM.
-     * The value of `this` is the Dropkick object itself.
-     *
-     * @config initialize
-     * @type Function
-     *
-     */
-    initialize: noop,
-
-    /**
-     * Whether or not you would like Dropkick to render on mobile devices.
-     *
-     * @default false
-     * @property {boolean} mobile
-     * @type boolean
-     *
-     */
-    mobile: false,
-
-    /**
-     * Called whenever the value of the Dropkick select changes (by user action or through the API).
-     * The value of `this` is the Dropkick object itself.
-     *
-     * @config change
-     * @type Function
-     *
-     */
-    change: noop,
-
-    /**
-     * Called whenever the Dropkick select is opened. The value of `this` is the Dropkick object itself.
-     *
-     * @config open
-     * @type Function
-     *
-     */
-    open: noop,
-
-    /**
-     * Called whenever the Dropkick select is closed. The value of `this` is the Dropkick object itself.
-     *
-     * @config close
-     * @type Function
-     *
-     */
-    close: noop,
-
-    // Search method; "strict", "partial", or "fuzzy"
-    /**
-     * `"strict"` - The search string matches exactly from the beginning of the option's text value (case insensitive).
-     *
-     * `"partial"` - The search string matches part of the option's text value (case insensitive).
-     *
-     * `"fuzzy"` - The search string matches the characters in the given order (not exclusively).
-     * The strongest match is selected first. (case insensitive).
-     *
-     * @default "strict"
-     * @config search
-     * @type string
-     *
-     */
-    search: "strict",
-
-    /**
-     * Bubble up the custom change event attached to Dropkick to the original element (select).
-     */
-    bubble: true
+  removeClass: function( elem, classname ) {
+    var reg = new RegExp( "(^|\\s+)" + classname + "(\\s+|$)" );
+    elem && ( elem.className = elem.className.replace( reg, " " ) );
   },
 
-  // Common Utilities
-  _ = {
+  toggleClass: function( elem, classname ) {
+    var fn = _.hasClass( elem, classname ) ? "remove" : "add";
+    _[ fn + "Class" ]( elem, classname );
+  },
 
-    hasClass: function( elem, classname ) {
-      var reg = new RegExp( "(^|\\s+)" + classname + "(\\s+|$)" );
-      return elem && reg.test( elem.className );
-    },
+  // Shallow object extend
+  extend: function( obj ) {
+    Array.prototype.slice.call( arguments, 1 ).forEach( function( source ) {
+      if ( source ) { for ( var prop in source ) obj[ prop ] = source[ prop ]; }
+    });
 
-    addClass: function( elem, classname ) {
-      if( elem && !_.hasClass( elem, classname ) ) {
-        elem.className += " " + classname;
-      }
-    },
+    return obj;
+  },
 
-    removeClass: function( elem, classname ) {
-      var reg = new RegExp( "(^|\\s+)" + classname + "(\\s+|$)" );
-      elem && ( elem.className = elem.className.replace( reg, " " ) );
-    },
+  // Returns the top and left offset of an element
+  offset: function( elem ) {
+    var box = elem.getBoundingClientRect() || { top: 0, left: 0 },
+    docElem = document.documentElement,
+    offsetTop = isIE ? docElem.scrollTop : window.pageYOffset,
+    offsetLeft = isIE ? docElem.scrollLeft : window.pageXOffset;
 
-    toggleClass: function( elem, classname ) {
-      var fn = _.hasClass( elem, classname ) ? "remove" : "add";
-      _[ fn + "Class" ]( elem, classname );
-    },
+    return {
+      top: box.top + offsetTop - docElem.clientTop,
+      left: box.left + offsetLeft - docElem.clientLeft
+    };
+  },
 
-    // Shallow object extend
-    extend: function( obj ) {
-      Array.prototype.slice.call( arguments, 1 ).forEach( function( source ) {
-        if ( source ) { for ( var prop in source ) obj[ prop ] = source[ prop ]; }
-      });
+  // Returns the top and left position of an element relative to an ancestor
+  position: function( elem, relative ) {
+    var pos = { top: 0, left: 0 };
 
-      return obj;
-    },
+    while ( elem && elem !== relative ) {
+      pos.top += elem.offsetTop;
+      pos.left += elem.offsetLeft;
+      elem = elem.parentNode;
+    }
 
-    // Returns the top and left offset of an element
-    offset: function( elem ) {
-      var box = elem.getBoundingClientRect() || { top: 0, left: 0 },
-        docElem = document.documentElement,
-        offsetTop = isIE ? docElem.scrollTop : window.pageYOffset,
-        offsetLeft = isIE ? docElem.scrollLeft : window.pageXOffset;
+    return pos;
+  },
 
-        return {
-          top: box.top + offsetTop - docElem.clientTop,
-          left: box.left + offsetLeft - docElem.clientLeft
-        };
-    },
+  // Returns the closest ancestor element of the child or false if not found
+  closest: function( child, ancestor ) {
+    while ( child ) {
+      if ( child === ancestor ) { return child; }
+      child = child.parentNode;
+    }
+    return false;
+  },
 
-    // Returns the top and left position of an element relative to an ancestor
-    position: function( elem, relative ) {
-      var pos = { top: 0, left: 0 };
+  // Creates a DOM node with the specified attributes
+  create: function( name, attrs ) {
+    var a, node = document.createElement( name );
 
-      while ( elem && elem !== relative ) {
-        pos.top += elem.offsetTop;
-        pos.left += elem.offsetLeft;
-        elem = elem.parentNode;
-      }
+    if ( !attrs ) { attrs = {}; }
 
-      return pos;
-    },
-
-    // Returns the closest ancestor element of the child or false if not found
-    closest: function( child, ancestor ) {
-      while ( child ) {
-        if ( child === ancestor ) { return child; }
-        child = child.parentNode;
-      }
-      return false;
-    },
-
-    // Creates a DOM node with the specified attributes
-    create: function( name, attrs ) {
-      var a, node = document.createElement( name );
-
-      if ( !attrs ) { attrs = {}; }
-
-      for ( a in attrs ) {
-        if ( attrs.hasOwnProperty( a ) ) {
-          if ( a === "innerHTML" ) {
-            node.innerHTML = attrs[ a ];
-          } else {
-            node.setAttribute( a, attrs[ a ] );
-          }
+    for ( a in attrs ) {
+      if ( attrs.hasOwnProperty( a ) ) {
+        if ( a === "innerHTML" ) {
+          node.innerHTML = attrs[ a ];
+        } else {
+          node.setAttribute( a, attrs[ a ] );
         }
       }
-
-      return node;
-    },
-
-    deferred: function( fn ) {
-      return function() {
-        var args = arguments,
-          ctx = this;
-
-        window.setTimeout(function() {
-          fn.apply(ctx, args);
-        }, 1);
-      };
     }
 
-  };
+    return node;
+  },
+
+  deferred: function( fn ) {
+    return function() {
+      var args = arguments,
+          ctx = this;
+
+      window.setTimeout(function() {
+        fn.apply(ctx, args);
+      }, 1);
+    };
+  }
+
+};
 
 
 // Cache of DK Objects
@@ -409,7 +383,7 @@ Dropkick.prototype = {
    */
   init: function( sel, opts ) {
     var i,
-      dk =  Dropkick.build( sel, "dk" + Dropkick.uid );
+        dk =  Dropkick.build( sel, "dk" + Dropkick.uid );
 
     // Set some data on the DK Object
     this.data = {};
@@ -588,7 +562,7 @@ Dropkick.prototype = {
    */
   close: function() {
     var i,
-      dk = this.data.elem;
+        dk = this.data.elem;
 
     if ( !this.isOpen || this.multiple ) {
       return false;
@@ -619,13 +593,13 @@ Dropkick.prototype = {
    */
   open: _.deferred(function() {
     var dropHeight, above, below, direction, dkTop, dkBottom,
-        dk = this.data.elem,
-        dkOptsList = dk.lastChild,
-        // Using MDNs suggestion for crossbrowser scrollY:
-        // https://developer.mozilla.org/en-US/docs/Web/API/Window/scrollY
-        supportPageOffset = window.pageXOffset !== undefined,
-        isCSS1Compat = ((document.compatMode || "") === "CSS1Compat"),
-        scrollY = supportPageOffset ? window.pageYOffset : isCSS1Compat ? document.documentElement.scrollTop : document.body.scrollTop;
+    dk = this.data.elem,
+    dkOptsList = dk.lastChild,
+    // Using MDNs suggestion for crossbrowser scrollY:
+    // https://developer.mozilla.org/en-US/docs/Web/API/Window/scrollY
+    supportPageOffset = window.pageXOffset !== undefined,
+    isCSS1Compat = ((document.compatMode || "") === "CSS1Compat"),
+    scrollY = supportPageOffset ? window.pageYOffset : isCSS1Compat ? document.documentElement.scrollTop : document.body.scrollTop;
 
     dkTop = _.offset( dk ).top - scrollY;
     dkBottom = window.innerHeight - ( dkTop + dk.offsetHeight );
@@ -755,7 +729,7 @@ Dropkick.prototype = {
    */
   select: function( elem, disabled ) {
     var i, index, option, combobox,
-      select = this.data.select;
+    select = this.data.select;
 
     if ( typeof elem === "number" ) {
       elem = this.item( elem );
@@ -862,8 +836,8 @@ Dropkick.prototype = {
    */
   search: function( pattern, mode ) {
     var i, tokens, str, tIndex, sIndex, cScore, tScore, reg,
-      options = this.data.select.options,
-      matches = [];
+        options = this.data.select.options,
+        matches = [];
 
     if ( !pattern ) { return this.options; }
 
@@ -897,7 +871,7 @@ Dropkick.prototype = {
           matches.push({ e: this.options[ i ], s: tScore, i: i });
         }
 
-      // Partial or Strict (Default)
+        // Partial or Strict (Default)
       } else {
         reg.test( str ) && matches.push( this.options[ i ] );
       }
@@ -954,7 +928,7 @@ Dropkick.prototype = {
    */
   reset: function( clear ) {
     var i,
-      select = this.data.select;
+    select = this.data.select;
 
     this.selectedOptions.length = 0;
 
@@ -1050,7 +1024,7 @@ Dropkick.prototype = {
    */
   _delegate: function( event ) {
     var selection, index, firstIndex, lastIndex,
-      target = event.target;
+    target = event.target;
 
     if ( _.hasClass( target, "dk-option-disabled" ) ) {
       return false;
@@ -1112,17 +1086,17 @@ Dropkick.prototype = {
    */
   _keyHandler: function( event ) {
     var lastSelected, j,
-      selected = this.selectedOptions,
-      options = this.options,
-      i = 1,
-      keys = {
-        tab: 9,
-        enter: 13,
-        esc: 27,
-        space: 32,
-        up: 38,
-        down: 40
-      };
+        selected = this.selectedOptions,
+        options = this.options,
+        i = 1,
+        keys = {
+          tab: 9,
+          enter: 13,
+          esc: 27,
+          space: 32,
+          up: 38,
+          down: 40
+        };
 
     switch ( event.keyCode ) {
     case keys.up:
@@ -1186,18 +1160,18 @@ Dropkick.prototype = {
    */
   _searchOptions: function( event ) {
     var results,
-      self = this,
-      keyChar = String.fromCharCode( event.keyCode || event.which ),
+    self = this,
+    keyChar = String.fromCharCode( event.keyCode || event.which ),
 
-      waitToReset = function() {
-        if ( self.data.searchTimeout ) {
-          clearTimeout( self.data.searchTimeout );
-        }
+    waitToReset = function() {
+      if ( self.data.searchTimeout ) {
+        clearTimeout( self.data.searchTimeout );
+      }
 
-        self.data.searchTimeout = setTimeout(function() {
-          self.data.searchString = "";
-        }, 1000 );
-      };
+      self.data.searchTimeout = setTimeout(function() {
+        self.data.searchString = "";
+      }, 1000 );
+    };
 
     if ( this.data.searchString === undefined ) {
       this.data.searchString = "";
@@ -1221,10 +1195,10 @@ Dropkick.prototype = {
    */
   _scrollTo: function( option ) {
     var optPos, optTop, optBottom,
-      dkOpts = this.data.elem.lastChild;
+        dkOpts = this.data.elem.lastChild;
 
     if ( option === -1 || ( typeof option !== "number" && !option ) ||
-        ( !this.isOpen && !this.multiple ) ) {
+         ( !this.isOpen && !this.multiple ) ) {
       return false;
     }
 
@@ -1257,71 +1231,71 @@ Dropkick.prototype = {
  */
 Dropkick.build = function( sel, idpre ) {
   var selOpt, optList, i,
-    options = [],
+      options = [],
 
-    ret = {
-      elem: null,
-      options: [],
-      selected: []
-    },
+      ret = {
+        elem: null,
+        options: [],
+        selected: []
+      },
 
-    addOption = function ( node ) {
-      var option, optgroup, optgroupList, i,
-        children = [];
+      addOption = function ( node ) {
+        var option, optgroup, optgroupList, i,
+            children = [];
 
-      switch ( node.nodeName ) {
-      case "OPTION":
-        option = _.create( "li", {
-          "class": "dk-option ",
-          "data-value": node.value,
-          "text": node.text,
-          "innerHTML": node.innerHTML,
-          "role": "option",
-          "aria-selected": "false",
-          "id": idpre + "-" + ( node.id || node.value.replace( " ", "-" ) )
-        });
+        switch ( node.nodeName ) {
+        case "OPTION":
+          option = _.create( "li", {
+            "class": "dk-option ",
+            "data-value": node.value,
+            "text": node.text,
+            "innerHTML": node.innerHTML,
+            "role": "option",
+            "aria-selected": "false",
+            "id": idpre + "-" + ( node.id || node.value.replace( " ", "-" ) )
+          });
 
-        _.addClass( option, node.className );
+          _.addClass( option, node.className );
 
-        if ( node.disabled ) {
-          _.addClass( option, "dk-option-disabled" );
-          option.setAttribute( "aria-disabled", "true" );
+          if ( node.disabled ) {
+            _.addClass( option, "dk-option-disabled" );
+            option.setAttribute( "aria-disabled", "true" );
+          }
+
+          if ( node.hidden ) {
+            _.addClass( option, "dk-option-hidden" );
+            option.setAttribute( "aria-hidden", "true" );
+          }
+
+          if ( node.selected ) {
+            _.addClass( option, "dk-option-selected" );
+            option.setAttribute( "aria-selected", "true" );
+            ret.selected.push( option );
+          }
+
+          ret.options.push( this.appendChild( option ) );
+          break;
+        case "OPTGROUP":
+          optgroup = _.create( "li", { "class": "dk-optgroup" });
+
+          if ( node.label ) {
+            optgroup.appendChild( _.create( "div", {
+              "class": "dk-optgroup-label",
+              "innerHTML": node.label
+            }));
+          }
+
+          optgroupList = _.create( "ul", {
+            "class": "dk-optgroup-options"
+          });
+
+          for ( i = node.children.length; i--; children.unshift( node.children[ i ] ) );
+          children.forEach( addOption, optgroupList );
+
+          this.appendChild( optgroup ).appendChild( optgroupList );
+          break;
         }
-
-        if ( node.hidden ) {
-          _.addClass( option, "dk-option-hidden" );
-          option.setAttribute( "aria-hidden", "true" );
-        }
-
-        if ( node.selected ) {
-          _.addClass( option, "dk-option-selected" );
-          option.setAttribute( "aria-selected", "true" );
-          ret.selected.push( option );
-        }
-
-        ret.options.push( this.appendChild( option ) );
-        break;
-      case "OPTGROUP":
-        optgroup = _.create( "li", { "class": "dk-optgroup" });
-
-        if ( node.label ) {
-          optgroup.appendChild( _.create( "div", {
-            "class": "dk-optgroup-label",
-            "innerHTML": node.label
-          }));
-        }
-
-        optgroupList = _.create( "ul", {
-          "class": "dk-optgroup-options"
-        });
-
-        for ( i = node.children.length; i--; children.unshift( node.children[ i ] ) );
-        children.forEach( addOption, optgroupList );
-
-        this.appendChild( optgroup ).appendChild( optgroupList );
-        break;
-      }
-    };
+      };
 
   ret.elem = _.create( "div", {
     "class": "dk-select" + ( sel.multiple ? "-multi" : "" )
@@ -1390,8 +1364,8 @@ Dropkick.onDocClick = function( event ) {
 
 
 // Add jQuery method
-if ( jQuery !== undefined ) {
-  jQuery.fn.dropkick = function () {
+if ( window.jQuery !== undefined ) {
+  window.jQuery.fn.dropkick = function () {
     var args = Array.prototype.slice.call( arguments );
     return jQuery( this ).each(function() {
       if ( !args[0] || typeof args[0] === 'object' ) {
@@ -1403,6 +1377,4 @@ if ( jQuery !== undefined ) {
   };
 }
 
-return Dropkick;
-
-}));
+window.Dropkick = Dropkick;
