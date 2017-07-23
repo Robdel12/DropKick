@@ -171,7 +171,7 @@ QUnit.test( "Show the one option in the select", 2, function ( assert ) {
   dk.hide(2); // 2 = Alaska
   // Show the option again
   dk.hide(2, false);
-  
+
   assert.equal(_.hasClass(dk.item(2), "dk-option-hidden"), false);
   assert.equal(dk.item(2).hasAttribute('aria-hidden', false), true);
 });
