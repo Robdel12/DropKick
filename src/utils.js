@@ -19,7 +19,7 @@ const Utils = {
   },
 
   toggleClass( elem, classname ) {
-    let fn = hasClass( elem, classname ) ? "remove" : "add";
+    let fn = this.hasClass( elem, classname ) ? "remove" : "add";
 
     [ fn + "Class" ]( elem, classname );
   },
@@ -27,7 +27,9 @@ const Utils = {
   // Shallow object extend
   extend( obj ) {
     Array.prototype.slice.call( arguments, 1 ).forEach( function( source ) {
-      if ( source ) { for ( let prop in source ) obj[ prop ] = source[ prop ]; }
+      if ( source ) {
+        for ( let prop in source ) obj[ prop ] = source[ prop ];
+      }
     });
 
     return obj;
