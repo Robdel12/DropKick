@@ -1,24 +1,21 @@
-import sinonChai from 'sinon-chai';
-import jqueryChai from 'chai-jquery';
 import { expect } from 'chai';
-import chai from 'chai';
-import jQuery from 'jquery';
+import { $ } from './utils.js';
 import Dropkick from '../src/dropkick.js';
 
-chai.use(sinonChai);
-chai.use((chai, utils) => jqueryChai(chai, utils, jQuery));
 
 function buildSelect(id, options) {
+  if (document.getElementById(id)) { return false; }
+
   let selectEl = document.createElement("select");
 
   selectEl.id = id;
   document.body.appendChild(selectEl);
 
-  options.forEach((option, i) => {
+  options.forEach(option => {
     let optionEl = document.createElement("option");
 
-    optionEl.value = option[i];
-    optionEl.text = option[i];
+    optionEl.value = option;
+    optionEl.text = option;
 
     selectEl.appendChild(optionEl);
   });
@@ -26,15 +23,31 @@ function buildSelect(id, options) {
 
 describe('Dropkick tests', function() {
   beforeEach(function() {
-    buildSelect("normal_select", ['first', 'second']);
+    buildSelect("normal_select", ['first', 'second', 'fires']);
     this.dk = new Dropkick("#normal_select");
   });
 
   it('creates a new Dropkick', function() {
-    expect(this.dk.length).to.equal(2);
+    expect(this.dk.length).to.equal(3);
+    expect(this.dk.options.length).to.equal(3);
     expect(this.dk.data.select.id).equal("normal_select");
     expect(this.dk.data.select.getAttribute("data-dkcacheid")).equal('0');
     expect(window.Dropkick.uid).equal(1);
+  });
+
+  it('strict searching for first', function() {
+    let result = this.dk.search('first', 'strict');
+
+    expect(result.length).equals(1);
+    expect(result[0]).equals(this.dk.item(0));
+  });
+
+  it('fuzzy searching for first', function() {
+    let result = this.dk.search('fir', 'fuzzy');
+
+    expect(result.length).equals(2);
+    expect(result[0]).equals(this.dk.item(0));
+    expect(result[1]).equals(this.dk.item(2));
   });
 
   describe('reinit dropkick with the same select', function() {
@@ -60,192 +73,154 @@ describe('Dropkick tests', function() {
     });
   });
 
+  describe('selecting a new option', function() {
+    beforeEach(function() {
+      this.dk.select(1);
+    });
+
+    it('selects the new option', function() {
+      expect($('#normal_select').val()).to.equal('second');
+      expect(this.dk.data.select.value).to.equal('second');
+      expect(this.dk.item(this.dk.selectedIndex).innerText).to.equal('second');
+    });
+
+    describe('resetting the selection', function() {
+      beforeEach(function() {
+        this.dk.reset();
+      });
+
+      it('resets the selection', function() {
+        expect($('#normal_select').val()).to.equal('first');
+        expect(this.dk.data.select.value).to.equal('first');
+        expect(this.dk.item(this.dk.selectedIndex).innerText).to.equal('first');
+      });
+    });
+
+  });
+
+  describe('calling the open the method', function() {
+    beforeEach(function() {
+      this.dk.open();
+    });
+
+    it('opens the select', function() {
+      expect($('#dk0-normal_select').hasClass('dk-select-open-down')).to.equal(true);
+    });
+
+    describe('calling the close method', function() {
+      beforeEach(function() {
+        this.dk.close();
+      });
+
+      it('closes the select', function() {
+        expect($('#dk0-normal_select').hasClass('dk-select-open-down')).to.equal(false);
+      });
+    });
+
+  });
+
+  describe('adding an option', function() {
+    before(function() {
+      this.dk.add('third', 2);
+    });
+
+    it('adds the option', function() {
+      expect(this.dk.length).to.equal(4);
+      expect(this.dk.sel.options[2].innerText).to.equal('third');
+    });
+
+    describe('removing the newly added option', function() {
+      beforeEach(function() {
+        this.dk.remove(2);
+      });
+
+      it('removes the correct option', function() {
+        expect(this.dk.length).to.equal(3);
+        expect(this.dk.sel.options[2].innerText).to.equal('fires');
+      });
+    });
+
+  });
+
+  describe('calling disable on the entire select', function() {
+    beforeEach(function() {
+      this.dk.disable();
+    });
+
+    it('disables the select', function() {
+      let dkElm = $('#dk0-normal_select');
+
+      expect(dkElm.hasClass('dk-select-disabled')).to.equal(true);
+      expect(dkElm.attr('aria-disabled')).to.equal('true');
+    });
+
+    describe('calling disable with true', function() {
+      beforeEach(function() {
+        this.dk.disable(false);
+      });
+
+      it('enables the select', function() {
+        let dkElm = $('#dk0-normal_select');
+
+        expect(dkElm.hasClass('dk-select-disabled')).to.equal(false);
+        expect(dkElm.attr('aria-disabled')).to.equal('false');
+      });
+    });
+  });
+
+  describe('disabling an option', function() {
+    beforeEach(function() {
+      this.dk.disable(1, true);
+    });
+
+    it('disables the correct option', function() {
+      let optionElm = $(this.dk.item(1));
+
+      expect(optionElm.attr('aria-disabled')).to.equal('true');
+      expect(optionElm.hasClass('dk-option-disabled')).to.equal(true);
+    });
+
+    describe('renabling an option', function() {
+      beforeEach(function() {
+        this.dk.disable(1, false);
+      });
+
+      it('enables the correct option', function() {
+        let optionElm = $(this.dk.item(1));
+
+        expect(optionElm.attr('aria-disabled')).to.equal('false');
+        expect(optionElm.hasClass('dk-option-disabled')).to.equal(false);
+      });
+    });
+  });
+
+  describe('hiding an option', function() {
+    beforeEach(function() {
+      this.dk.hide(1, true);
+    });
+
+    it('hides the correct option', function() {
+      let optionElm = $(this.dk.item(1));
+
+      expect(optionElm.hasClass('dk-option-hidden')).to.equal(true);
+      expect(optionElm.attr('aria-hidden')).to.equal('true');
+    });
+
+    describe('unhiding an option', function() {
+      beforeEach(function() {
+        this.dk.hide(1, false);
+      });
+
+      it('hides the correct option', function() {
+        let optionElm = $(this.dk.item(1));
+
+        expect(optionElm.hasClass('dk-option-hidden')).to.equal(false);
+        expect(optionElm.attr('aria-hidden')).to.equal('false');
+      });
+    });
+  });
+
 });
-
-
-// QUnit.test( "Dropkick should be cached", 2, function( assert ) {
-//   var dk = new Dropkick("#normal_select"),
-//       currentDkCacheID = dk.data.cacheID;
-
-//   // uid is always one more than the last id
-//   assert.equal(Dropkick.uid - 1, currentDkCacheID);
-
-//   dk = new Dropkick("#normal_select");
-
-//   assert.equal(Dropkick.uid - 1, currentDkCacheID);
-// });
-
-// QUnit.test( "Dropkick opens", 1, function( assert ) {
-//   var dk = new Dropkick("#normal_select", {
-//     open: function() {
-//       assert.equal(this.isOpen, true);
-//     }
-//   });
-
-//   QUnit.stop();
-//   dk.open();
-//   QUnit.start();
-// });
-
-// QUnit.test( "Dropkick opens from external button", 1, function( assert ) {
-//   var dk = new Dropkick("#normal_select", {
-//     open: function() {
-//       assert.equal(this.isOpen, true);
-//     }
-//   });
-
-//   $("#btn").on("click", function(){
-//     dk.open();
-//   });
-
-//   QUnit.stop();
-//   $("#btn").trigger("click");
-//   QUnit.start();
-// });
-
-
-// QUnit.test( "Dropkick closes", 2, function( assert ) {
-//   var dk = new Dropkick("#normal_select", {
-//     open: function() {
-//       assert.notEqual(this.isOpen, false);
-
-//       // wait until after we're open to close
-//       dk.close();
-//       assert.equal(dk.isOpen, false);
-//     }
-//   });
-
-//   QUnit.stop();
-//   dk.open();
-//   QUnit.start();
-// });
-
-// QUnit.test( "Dropkick selects an option", 4, function( assert ) {
-//   var dk = new Dropkick("#normal_select");
-
-//   assert.equal(dk.select(4), dk.item(4));
-//   assert.equal(_.hasClass(dk.item(4), "dk-option-selected"), true);
-//   assert.equal(dk.select(4), dk.selectedOptions[0]);
-//   assert.equal(dk.selectedIndex, 4);
-// });
-
-// QUnit.test( "Strict searches Alabama and returns Alabama", 2, function( assert ) {
-//   var dk = new Dropkick("#normal_select");
-
-//   assert.equal(dk.search("Alabama").length, 1);
-//   assert.equal(dk.search("Alabama")[0], dk.item(1));
-// });
-
-// QUnit.test( "Fuzzy searches ac and returns an array of two", 3, function( assert ) {
-//   var dk = new Dropkick("#normal_select");
-
-//   assert.equal(dk.search("ac", "fuzzy").length, 1, "Nothing returned in search");
-//   assert.equal(dk.search("ac", "fuzzy")[0], dk.item(22), "Didn't find 'Massachusetts' in search");
-//   assert.deepEqual(dk.search("ac"), [], "Should return an empty array");
-// });
-
-// QUnit.test( "Partial searches mo and returns an array of two", 3, function( assert ) {
-//   var dk = new Dropkick("#normal_select");
-
-//   assert.equal(dk.search("mo", "partial").length, 2);
-//   assert.equal(dk.search("mo", "partial")[0], dk.item(27));
-//   assert.equal(dk.search("mo", "partial")[1], dk.item(46));
-// });
-
-// QUnit.test( "Adds an option to the select", 2, function( assert ) {
-//   var dk = new Dropkick("#normal_select");
-//   dk.add("This is an option", 5);
-
-//   assert.equal(dk.item(5).innerHTML, "This is an option");
-
-//   dk.add("This is another option");
-
-//   assert.equal(dk.item(dk.options.length - 1).innerHTML, "This is another option");
-// });
-
-// QUnit.test( "Remove an option from the select", 1, function( assert ) {
-//   var dk = new Dropkick("#normal_select");
-//   dk.remove(2); //2 = Alaska
-
-//   assert.notEqual(dk.item(2).innerHTML, "Alaska");
-// });
-
-// QUnit.test( "Disable the entire select", 2, function( assert ) {
-//   var dk = new Dropkick("#normal_select");
-//   dk.disable();
-
-//   assert.equal(dk.disabled, true);
-//   assert.equal(dk.data.elem.hasAttribute('aria-disabled', true), true);
-// });
-
-// QUnit.test( "Enable the entire select", 2, function( assert ) {
-//   var dk = new Dropkick("#normal_select");
-//   dk.disable();
-//   //reenable
-//   dk.disable(false);
-
-//   assert.equal(dk.disabled, false);
-//   assert.equal(dk.data.elem.hasAttribute('aria-disabled', false), true);
-// });
-
-// QUnit.test( "Disable the one option in the select", 2, function( assert ) {
-//   var dk = new Dropkick("#normal_select");
-//   dk.disable(2); //2 = Alaska
-
-//   assert.equal(_.hasClass(dk.item(2), "dk-option-disabled"), true);
-//   assert.equal(dk.item(2).hasAttribute('aria-disabled', true), true);
-// });
-
-// QUnit.test( "Enable the one option in the select", 2, function( assert ) {
-//   var dk = new Dropkick("#normal_select");
-//   dk.disable(2); //2 = Alaska
-//   //reenable
-//   dk.disable(2, false); //2 = Alaska
-
-//   assert.equal(_.hasClass(dk.item(2), "dk-option-disabled"), false);
-//   assert.equal(dk.item(2).hasAttribute('aria-disabled', false), true);
-// });
-
-// QUnit.test( "Hide the one option in the select", 2, function ( assert ) {
-//   var dk = new Dropkick('#normal_select');
-//   dk.hide(2); // 2 = Alaska
-
-//   assert.equal(_.hasClass(dk.item(2), "dk-option-hidden"), true);
-//   assert.equal(dk.item(2).hasAttribute('aria-hidden', true), true);
-// });
-
-// QUnit.test( "Show the one option in the select", 2, function ( assert ) {
-//   var dk = new Dropkick('#normal_select');
-//   dk.hide(2); // 2 = Alaska
-//   // Show the option again
-//   dk.hide(2, false);
-
-//   assert.equal(_.hasClass(dk.item(2), "dk-option-hidden"), false);
-//   assert.equal(dk.item(2).hasAttribute('aria-hidden', false), true);
-// });
-
-// QUnit.test( "Reset the selection", 2, function( assert ) {
-//   var dk = new Dropkick("#normal_select");
-//   dk.select(2); //2 = Alaska
-
-//   assert.equal(dk.selectedIndex, 2); //Make sure we're really selected on the second index
-//   dk.reset();
-//   assert.equal(dk.selectedIndex, 0);
-// });
-
-// QUnit.test( "Dropkick returns the proper selected value", 1, function( assert ) {
-//   var dk = new Dropkick("#normal_select");
-//   dk.select(2); //2 = Alaska
-
-//   assert.equal(dk.value, "AK"); //Make sure we're really selected on the second index
-// });
-
-// QUnit.test( "Update the length properly", 1, function( assert ) {
-//   var dk = new Dropkick("#normal_select");
-//   while(dk.length > 49) dk.remove(1);
-
-//   assert.equal(dk.length, 49);
-// });
 
 // QUnit.test( "Checks if multi select is true", 1, function( assert ) {
 //   var dk_multi = new Dropkick("#multiple");
@@ -261,13 +236,6 @@ describe('Dropkick tests', function() {
 //   dk.dispose();
 
 //   assert.ok(Dropkick.cache[dk.data.cacheID] === undefined);
-// });
-
-// QUnit.test( "Dropkick options should return an array", 2, function( assert ) {
-//   var dk = new Dropkick("#normal_select");
-
-//   assert.equal(dk.options.length, 52, "Didn't return the full list of options");
-//   assert.ok(dk.options instanceof Array, "Options are not an array");
 // });
 
 // QUnit.test( "Dropkick refresh should work", 5, function( assert ) {

@@ -14,12 +14,17 @@ module.exports = {
   entry: ['./src/dropkick.js', './src/css/dropkick.scss'],
   output: {
     filename: 'dropkick.js',
-    path: path.resolve(__dirname, 'dist')
+    path: path.resolve(__dirname, "dist")
   },
   devServer: {
     contentBase: path.join(__dirname, "dist"),
     compress: true,
     port: 9000
+  },
+  resolve: {
+    alias: {
+      jquery: "jquery/src/jquery"
+    }
   },
   module: {
     rules: [

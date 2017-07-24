@@ -359,7 +359,7 @@ export default class Dropkick {
    *  ```
    */
   remove( index ) {
-    var dkOption = this.item( index );
+    let dkOption = this.item( index );
     dkOption.parentNode.removeChild( dkOption );
     this.options.splice( index, 1 );
     this.data.select.remove( index );
