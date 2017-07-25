@@ -64,12 +64,12 @@ export default class Dropkick {
     }
 
     if ( !this.sel ) {
-      console.error("You must pass a select to DropKick");
+      throw "You must pass a select to DropKick";
       return false;
     }
 
     if ( this.sel.length < 1 ) {
-      console.error("You must have options inside your <select>: ", select);
+      throw `You must have options inside your <select>: ${select}`;
       return false;
     }
 
