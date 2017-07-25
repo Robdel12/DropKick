@@ -1,4 +1,4 @@
-# DropKick.js [![Build Status](https://travis-ci.org/Robdel12/DropKick.svg?branch=master)](https://travis-ci.org/Robdel12/DropKick)
+# DropKick.js [![CircleCI](https://circleci.com/gh/Robdel12/DropKick/tree/master.svg?style=svg)](https://circleci.com/gh/Robdel12/DropKick/tree/master)
 
 # Quick start
 
