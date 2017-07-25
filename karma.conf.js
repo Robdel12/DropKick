@@ -10,7 +10,8 @@ module.exports = function(config) {
 
     // files to watch
     files: [
-      'tests/*-test.js'
+      'tests/*-test.js',
+      'dist/dropkick.css'
     ],
 
     // processors per file
@@ -32,10 +33,6 @@ module.exports = function(config) {
     // level of logging
     // possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
     logLevel: config.LOG_INFO,
-
-    // provide a custom container which the app runs in
-    // allows us to force fetch into polyfill mode & use pretender
-    // customContextFile: 'tests/index.html', TODO
 
     // enable / disable watching file and executing tests whenever any file changes
     autoWatch: true,
