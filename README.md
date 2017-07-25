@@ -15,30 +15,19 @@ If you're using jQuery:
 Pure JS:
 - Call `new Dropkick( HTMLSelectELement, Options );` or `new Dropkick( "ID", Options );` in your script
 
-**Note: As of DropKick 2.1 we automatically include the polyfills and jQuery plugin.**
-
-## Bower Install
-
-You can install DropKick.js using bower:
-
-`bower install dropkick --save`
-
-
 ## npm Install
 
 You can install DropKick.js using npm:
 
 `npm install dropkickjs --save-dev`
 
-
 ## Documentation
 
 See [Dropkickjs.com](http://dropkickjs.com) for full docs.
 
-
 ## Building the docs
 
-Run `gulp docs` and it'll build the docs from source.
+Run `yarn docs` and it will build the docs from source.
 
 ## WordPress Plugin
 DropKick WordPress Plugin By [Mahfuzul Hasan](http://www.mahfuzulhasan.com/)
