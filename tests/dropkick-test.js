@@ -1,6 +1,11 @@
 import { expect } from 'chai';
-import { $, buildSelect, setupTesting } from './utils.js';
-import Dropkick from '../src/dropkick.js';
+import {
+  $,
+  buildSelect,
+  buildIframe,
+  setupTesting
+} from './utils/utils';
+import Dropkick from '../src/dropkick';
 
 describe('Dropkick tests', function() {
   setupTesting();
@@ -229,6 +234,38 @@ describe('Dropkick tests', function() {
 
     it('creates a multiselect dk', function() {
       expect(this.multiDk.multiple).to.equal(true);
+    });
+  });
+
+  describe('dropkick in iframes', function() {
+    beforeEach(function() {
+      // build an iframe
+      // insert into test container
+      this.iframe = buildIframe('iframe');
+      // create select
+      // insert into iframe
+      this.select = buildSelect('iframe_select', ['one', 'two', 'three'], false, this.iframe.contentDocument.body);
+      this.iframeSelect = new Dropkick(this.select);
+      // open select
+      this.iframeSelect.open();
+    });
+
+    it('opens the select', function() {
+      let select = $(this.iframe.contentDocument).find('.dk-select');
+
+      expect(select.hasClass('dk-select-open-down')).to.equal(true);
+    });
+
+    describe('clicking outside of the iframe', function() {
+      beforeEach(function() {
+        $('#testingContainer').click();
+      });
+
+      it('closes the select', function() {
+        let select = $(this.iframe.contentDocument).find('.dk-select');
+
+        expect(select.hasClass('dk-select-open-down')).to.equal(false);
+      });
     });
   });
 });

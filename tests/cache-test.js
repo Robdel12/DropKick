@@ -1,6 +1,6 @@
 import { expect } from 'chai';
-import { $, buildSelect, setupTesting } from './utils.js';
-import Dropkick from '../src/dropkick.js';
+import { $, buildSelect, setupTesting } from './utils/utils';
+import Dropkick from '../src/dropkick';
 
 // this needs to be set to false in order to test caching.
 // if clean up is enabled it will destroy the select & dk

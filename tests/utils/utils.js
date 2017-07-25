@@ -15,16 +15,23 @@ export { default as $ } from 'jquery';
  * @param { String } id
  * @param { Array } options
  * @param { Boolean } isMultiSelect
+ * @param { DOM Node } appendEl - element which to append the select
+ * to
+ * @returns { DOM Node } selectEl - newly created select element
  */
-export function buildSelect(id, options, isMultiSelect = false) {
-  if (document.getElementById(id)) { return false; }
+export function buildSelect(id, options, isMultiSelect = false, appendEl) {
+  let selectEl = document.getElementById(id);
 
-  let selectEl = document.createElement("select");
+  if (selectEl) { return selectEl; }
+
+  selectEl = document.createElement("select");
   let testingContainerEl = document.getElementById('testingContainer');
+  // if nothing is passed, append to the normal container
+  if (!appendEl) { appendEl = testingContainerEl;}
 
   selectEl.id = id;
   selectEl.multiple = isMultiSelect;
-  testingContainerEl.appendChild(selectEl);
+  appendEl.appendChild(selectEl);
 
   options.forEach(option => {
     let optionEl = document.createElement("option");
@@ -34,6 +41,27 @@ export function buildSelect(id, options, isMultiSelect = false) {
 
     selectEl.appendChild(optionEl);
   });
+
+  return selectEl;
+}
+
+/**
+ * Create an iframe and append it to the testing container
+ *
+ * @param { String } id
+ * @returns { DOM Node } iframeEl - newly created iframe
+ */
+export function buildIframe(id) {
+  let iframeEl = document.getElementById(id);
+  let testingContainerEl = document.getElementById('testingContainer');
+
+  if (iframeEl) { return iframeEl; }
+
+  iframeEl = document.createElement('iframe');
+  iframeEl.id = id;
+  testingContainerEl.appendChild(iframeEl);
+
+  return iframeEl;
 }
 
 /**
@@ -52,6 +80,8 @@ export function setupTesting(cleanUpAfterTests = true) {
   }
 
   if (cleanUpAfterTests) {
+    testingContainer.innerHTML = "";
+
     afterEach(function() {
       testingContainer.innerHTML = "";
     });
