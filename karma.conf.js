@@ -1,9 +1,8 @@
+// load .env so we can use it for browserstack
+require('dotenv').config();
+
 module.exports = function(config) {
   config.set({
-
-    // base path that will be used to resolve all patterns (eg. files, exclude)
-    basePath: '',
-
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
     frameworks: ['mocha'],
@@ -22,39 +21,32 @@ module.exports = function(config) {
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['mocha'],
+    reporters: ['mocha', 'BrowserStack'],
 
-    // web server port
-    port: 9876,
+    browserStack: {
+      username: process.env.BROWSER_STACK_USERNAME,
+      accessKey: process.env.BROWSER_STACK_ACCESS_KEY
+    },
 
-    // enable / disable colors in the output (reporters and logs)
-    colors: true,
-
-    // level of logging
-    // possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
-    logLevel: config.LOG_INFO,
-
-    // enable / disable watching file and executing tests whenever any file changes
-    autoWatch: true,
-
-    // start these browsers
-    // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: ['Chrome'],
-
+    // define browsers
     customLaunchers: {
+      iPhone_6sp: {
+        base: "BrowserStack",
+        "os":"ios",
+        "os_version":"9.1",
+        "browser":"iphone",
+        "device":"iPhone 6S Plus",
+        "browser_version":null
+      },
       Chrome_travis_ci: {
         base: 'Chrome',
         flags: ['--no-sandbox']
       }
     },
 
-    // Continuous Integration mode
-    // if true, Karma captures browsers, runs the tests and exits
-    singleRun: false,
-
-    // Concurrency level
-    // how many browser should be started simultaneous
-    concurrency: Infinity,
+    // start these browsers
+    // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
+    browsers: ['Chrome', 'iPhone_6sp'],
 
     // webpack configuration
     webpack: require('./webpack.config.js'),
@@ -69,6 +61,7 @@ module.exports = function(config) {
       require('karma-mocha'),
       require('karma-webpack'),
       require('karma-mocha-reporter'),
+      require('karma-browserstack-launcher'),
       require('karma-chrome-launcher')
     ]
   });

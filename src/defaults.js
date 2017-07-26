@@ -17,7 +17,7 @@ const defaults = {
    * @type boolean
    *
    */
-  mobile: false,
+  mobile: true, // TODO: Temp for browserstack tests
 
   /**
    * Called whenever the value of the Dropkick select changes (by user action or through the API).

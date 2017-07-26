@@ -58,15 +58,13 @@
       <option value="WI">Wisconsin</option>
       <option value="WY">Wyoming</option>
     </select>
-    <button onclick="close()">Close</button>
+    <button onclick="dropkick.close()">Close</button>
     <script src="dropkick.js"></script>
     <script>
      var select = document.getElementById('normal_select');
-     var dropkick = new Dropkick(select);
-     console.log(dropkick);
-     function close() {
-       dropkick.close();
-     }
+     var dropkick = new Dropkick(select, {
+       mobile: true
+     });
     </script>
   </body>
 </html>
