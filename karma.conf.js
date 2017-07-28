@@ -69,6 +69,6 @@ module.exports = function(config) {
   // CI config
   if (process.env.TRAVIS || process.env.CI) {
     config.singleRun = true;
-    config.browsers = ['Chrome_travis_ci'];
+    config.browsers = ['Chrome_travis_ci', 'iPhone_6sp'];
   }
 };
