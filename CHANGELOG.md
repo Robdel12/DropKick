@@ -1,5 +1,20 @@
 # Change Log
 
+## [Unreleased](https://github.com/Robdel12/DropKick/tree/HEAD)
+
+[Full Changelog](https://github.com/Robdel12/DropKick/compare/v2.1.9...HEAD)
+
+**Closed issues:**
+
+- This isn't really an issue, but [\#343](https://github.com/Robdel12/DropKick/issues/343)
+- this object doesn't support this property or method dropkick [\#341](https://github.com/Robdel12/DropKick/issues/341)
+- iFrame tests need to be reworked [\#264](https://github.com/Robdel12/DropKick/issues/264)
+
+**Merged pull requests:**
+
+- Fix deploy [\#347](https://github.com/Robdel12/DropKick/pull/347) ([Robdel12](https://github.com/Robdel12))
+- Use Webpack & modernize Dropkick [\#346](https://github.com/Robdel12/DropKick/pull/346) ([Robdel12](https://github.com/Robdel12))
+
 ## [v2.1.9](https://github.com/Robdel12/DropKick/tree/v2.1.9) (2016-08-14)
 [Full Changelog](https://github.com/Robdel12/DropKick/compare/v2.1.8...v2.1.9)
 
@@ -11,7 +26,7 @@
 **Merged pull requests:**
 
 - Potential XSS hole fix: e.text is not safe while e.innerHTML is [\#338](https://github.com/Robdel12/DropKick/pull/338) ([javuto](https://github.com/javuto))
-- Added support for the hidden attribute on options. [\#335](https://github.com/Robdel12/DropKick/pull/335) ([aesinv](https://github.com/aesinv))
+- Added support for the hidden attribute on options. [\#335](https://github.com/Robdel12/DropKick/pull/335) ([bengsfort](https://github.com/bengsfort))
 
 ## [v2.1.8](https://github.com/Robdel12/DropKick/tree/v2.1.8) (2016-04-24)
 [Full Changelog](https://github.com/Robdel12/DropKick/compare/v2.1.7...v2.1.8)
@@ -20,7 +35,6 @@
 
 - Disabled state isn't relayed to the screen reader [\#324](https://github.com/Robdel12/DropKick/issues/324)
 - Empty select causes crash [\#315](https://github.com/Robdel12/DropKick/issues/315)
-- Trigering change event fails on Internet Explorer [\#314](https://github.com/Robdel12/DropKick/issues/314)
 
 **Closed issues:**
 
@@ -143,7 +157,7 @@
 
 **Merged pull requests:**
 
-- IE9 width fix [\#269](https://github.com/Robdel12/DropKick/pull/269) ([aesinv](https://github.com/aesinv))
+- IE9 width fix [\#269](https://github.com/Robdel12/DropKick/pull/269) ([bengsfort](https://github.com/bengsfort))
 
 ## [v2.1](https://github.com/Robdel12/DropKick/tree/v2.1) (2015-01-31)
 [Full Changelog](https://github.com/Robdel12/DropKick/compare/v2.0.2...v2.1)
@@ -427,7 +441,7 @@
 - jQuery 1.9 support [\#104](https://github.com/Robdel12/DropKick/pull/104) ([joeblynch](https://github.com/joeblynch))
 - fix: if two selects have one same name in a page [\#93](https://github.com/Robdel12/DropKick/pull/93) ([chenhouwu](https://github.com/chenhouwu))
 - Fix browser detection to make dropkick work in IE 10 [\#88](https://github.com/Robdel12/DropKick/pull/88) ([steve-v-jedo](https://github.com/steve-v-jedo))
-- Fixed issue \#58 [\#73](https://github.com/Robdel12/DropKick/pull/73) ([wolfascu](https://github.com/wolfascu))
+- Fixed issue \#58 [\#73](https://github.com/Robdel12/DropKick/pull/73) ([clupasq](https://github.com/clupasq))
 - Remove unused variables, small cleanup [\#23](https://github.com/Robdel12/DropKick/pull/23) ([bdukes](https://github.com/bdukes))
 - Another example ... [\#14](https://github.com/Robdel12/DropKick/pull/14) ([petty](https://github.com/petty))
 
