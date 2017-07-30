@@ -1,5 +1,4 @@
 # DropKick.js [![CircleCI](https://circleci.com/gh/Robdel12/DropKick/tree/master.svg?style=svg)](https://circleci.com/gh/Robdel12/DropKick/tree/master)
-[![BrowserStack Status](https://www.browserstack.com/automate/badge.svg?badge_key=RnlldmErREpQM092WDc2Tzl5bEVGVFVFV1l4UFdYbWM4WWJadDV1dUNwTT0tLWdXWDBQSERtb0kxTGozVzBjZVBaRWc9PQ==--bd38dd39be257847e3c43c5064c1f01059d782b9%)](https://www.browserstack.com/automate/public-build/RnlldmErREpQM092WDc2Tzl5bEVGVFVFV1l4UFdYbWM4WWJadDV1dUNwTT0tLWdXWDBQSERtb0kxTGozVzBjZVBaRWc9PQ==--bd38dd39be257847e3c43c5064c1f01059d782b9%)
 
 # Quick start
 
@@ -26,7 +25,7 @@ You can install DropKick.js using npm:
 
 See [Dropkickjs.com](http://dropkickjs.com) for full docs.
 
-## Browserstack Testing
+## Browserstack Testing [![BrowserStack Status](https://www.browserstack.com/automate/badge.svg?badge_key=RnlldmErREpQM092WDc2Tzl5bEVGVFVFV1l4UFdYbWM4WWJadDV1dUNwTT0tLWdXWDBQSERtb0kxTGozVzBjZVBaRWc9PQ==--bd38dd39be257847e3c43c5064c1f01059d782b9%)](https://www.browserstack.com/automate/public-build/RnlldmErREpQM092WDc2Tzl5bEVGVFVFV1l4UFdYbWM4WWJadDV1dUNwTT0tLWdXWDBQSERtb0kxTGozVzBjZVBaRWc9PQ==--bd38dd39be257847e3c43c5064c1f01059d782b9%)
 
 Cross browser testing is provided
 by [BrowserStack](https://www.browserstack.com)! They have generously
