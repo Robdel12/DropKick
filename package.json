@@ -23,7 +23,7 @@
     "test-browserstack": "NODE_ENV=test BROWSER_STACK=true karma start",
     "docs": "documentation build src/** -f html -o dist/docs",
     "docs-md": "documentation build src/dropkick.js -f md > API-docs.md",
-    "deploy": "yarn build-prod && yarn docs && surge -p dist/ -d dropkickjs.surge.sh"
+    "deploy": "yarn build-prod && yarn docs && surge -p dist/ -d dropkickjs.com"
   },
   "engines": {
     "node": ">= 4"
