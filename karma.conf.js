@@ -106,7 +106,6 @@ module.exports = function(config) {
 
   if (process.env.BROWSER_STACK) {
     config.browsers.push('iPhone_6sp', 'windows7_chrome50', 'windows7_ff50', 'osxMav_chrome50', 'osxMav_ff50');
-    console.log(config.browsers);
   }
 
 };
