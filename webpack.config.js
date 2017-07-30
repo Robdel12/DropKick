@@ -3,12 +3,18 @@ const Dotenv = require('dotenv-webpack');
 const isProduction = process.env.NODE_ENV === "production";
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
+  template: './src/index.html',
+  filename: 'index.html',
+  inject: 'body'
+});
 const extractSass = new ExtractTextPlugin({
   filename: "dropkick.css"
 });
 
 // I hate this, but I guess you can't pass disable to uglify..
-const plugins = [ extractSass, new Dotenv() ];
+const plugins = [ extractSass, new Dotenv(), HtmlWebpackPluginConfig ];
 isProduction ? plugins.push(new UglifyJSPlugin()) : null ;
 
 module.exports = {
