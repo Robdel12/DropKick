@@ -13,9 +13,9 @@ const extractSass = new ExtractTextPlugin({
   filename: "dropkick.css"
 });
 
-// I hate this, but I guess you can't pass disable to uglify..
 const plugins = [ extractSass, new Dotenv(), HtmlWebpackPluginConfig ];
-isProduction ? plugins.push(new UglifyJSPlugin()) : null ;
+// minify the output
+if (isProduction)  { plugins.push(new UglifyJSPlugin()); }
 
 module.exports = {
   entry: ['./src/dropkick.js', './src/css/dropkick.scss'],

@@ -1,13 +1,5 @@
 import _ from './utils';
 import defaults from './defaults';
-/*
- * DropKick
- *
- * Highly customizable <select> lists
- * https://github.com/robdel12/DropKick
- *
- */
-
 const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test( navigator.userAgent );
 const isIframe = window.parent !== window.self;
 const noop = function() {};
