@@ -1,22 +1,50 @@
-// QUnit.test( "Dropkick methods should still work when not rendered on mobile", 3, function( assert ) {
-//   var $sel = $("#normal_select"),
-//     dk = new Dropkick($sel[0]);
+import { expect } from 'chai';
+import { $, buildSelect, setupTesting } from './utils/utils';
+import Dropkick from '../src/dropkick';
+const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test( navigator.userAgent );
 
-//   assert.equal(navigator.userAgent, "Android");
+if (isMobile) {
+  describe('Dropkick mobile tests', function() {
+    beforeEach(function() {
+      buildSelect("mobile_dk", ['first', 'second', 'fires']);
+      this.mobileDk = new Dropkick('#mobile_dk', {
+        mobile: false
+      });
+    });
 
-//   assert.notEqual($sel.attr("data-dkCacheId"), dk.data.cacheID + '');
+    it('does not build dropkick', function() {
+      expect($('.dk-select').length).to.equal(0);
+    });
 
-//   dk.select(2); //2 = Alaska
-//   dk.refresh();
+    describe('calling select', function() {
+      beforeEach(function() {
+        this.mobileDk.select(2);
+      });
 
-//   assert.equal($sel.val(), dk.value);
-// });
+      it('selects the correct value on the original select', function() {
+        expect($('#mobile_dk').val()).to.equal('fires');
+      });
+    });
 
-// QUnit.test( "Dropkick shouldn't blow up when calling methods on mobile: false dks", 1, function( assert ) {
-//   var $sel = $("#normal_select", {mobile: false}),
-//       dk = new Dropkick($sel[0]);
+    describe('adding an option', function() {
+      before(function() {
+        this.mobileDk.add('The last', 3);
+      });
 
-//   assert.equal(navigator.userAgent, "Android");
+      it('adds an option to the normal select', function() {
+        expect($('#mobile_dk option')[3].innerText).to.equal('The last');
+      });
 
-//   dk.refresh();
-// });
+      describe('removing an option', function() {
+        beforeEach(function() {
+          this.mobileDk.remove(3);
+        });
+
+        it('removes the option', function() {
+          expect($('#mobile_dk option').length).to.equal(3);
+          expect($('#mobile_dk option')[3]).to.equal(undefined);
+        });
+      });
+    });
+  });
+}

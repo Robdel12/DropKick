@@ -38,6 +38,38 @@ module.exports = function(config) {
         "device":"iPhone 6S Plus",
         "browser_version":null
       },
+      windows7_chrome50: {
+        base: "BrowserStack",
+        "os":"Windows",
+        "os_version":"7",
+        "browser":"chrome",
+        "device":null,
+        "browser_version":"50.0"
+      },
+      windows7_ff50: {
+        base: "BrowserStack",
+        "os":"Windows",
+        "os_version":"7",
+        "browser":"firefox",
+        "device":null,
+        "browser_version":"50.0"
+      },
+      osxMav_chrome50: {
+        base: "BrowserStack",
+        "os":"OS X",
+        "os_version":"Mavericks",
+        "browser":"chrome",
+        "device":null,
+        "browser_version":"50.0"
+      },
+      osxMav_ff50: {
+        base: "BrowserStack",
+        "os":"OS X",
+        "os_version":"Mavericks",
+        "browser":"firefox",
+        "device":null,
+        "browser_version":"50.0"
+      },
       Chrome_travis_ci: {
         base: 'Chrome',
         flags: ['--no-sandbox']
@@ -46,7 +78,7 @@ module.exports = function(config) {
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: ['Chrome', 'iPhone_6sp'],
+    browsers: ['Chrome'],
 
     // webpack configuration
     webpack: require('./webpack.config.js'),
@@ -71,4 +103,10 @@ module.exports = function(config) {
     config.singleRun = true;
     config.browsers = ['Chrome_travis_ci', 'iPhone_6sp'];
   }
+
+  if (process.env.BROWSER_STACK) {
+    config.browsers.push('iPhone_6sp', 'windows7_chrome50', 'windows7_ff50', 'osxMav_chrome50', 'osxMav_ff50');
+    console.log(config.browsers);
+  }
+
 };

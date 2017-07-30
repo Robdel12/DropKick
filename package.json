@@ -20,6 +20,7 @@
     "build-prod": "NODE_ENV=\"production\" webpack",
     "start": "webpack-dev-server",
     "test": "NODE_ENV=test karma start",
+    "test-browserstack": "NODE_ENV=test BROWSER_STACK=true karma start",
     "docs": "documentation build src/** -f html -o docs",
     "docs-md": "documentation build src/dropkick.js -f md > API-docs.md"
   },
