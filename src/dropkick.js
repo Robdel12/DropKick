@@ -1115,6 +1115,15 @@ Dropkick.build = function( sel, idpre ) {
           });
 
           for ( i = node.children.length; i--; children.unshift( node.children[ i ] ) );
+
+          if (node.disabled) {
+            optgroup.classList.add('dk-optgroup-disabled');
+
+            children.forEach(option => {
+              option.disabled = node.disabled;
+            });
+          }
+
           children.forEach( addOption, optgroupList );
 
           this.appendChild( optgroup ).appendChild( optgroupList );
