@@ -167,6 +167,12 @@ $dk-disabled-color: #BBBBBB !default;
   }
 }
 
+.dk-optgroup-disabled {
+  opacity: 0.6;
+  color: $dk-disabled-color;
+  cursor: not-allowed;
+}
+
 .dk-optgroup-label {
   padding: 0 0.5em 0.25em;
   font-weight: bold;

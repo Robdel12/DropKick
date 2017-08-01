@@ -268,4 +268,26 @@ describe('Dropkick tests', function() {
       });
     });
   });
+
+  describe('disabled optgroups', function() {
+    beforeEach(function() {
+      $('#normal_select').append('<optgroup disabled label="Maybe"><option value="one">One</option></optgroup>');
+      this.dk.refresh();
+    });
+
+    it('has a disabled optgroup', function() {
+      expect($('.dk-optgroup').hasClass('dk-optgroup-disabled')).to.equal(true);
+    });
+
+    describe('clicking the disabled optgroup', function() {
+      beforeEach(function() {
+        this.dk.open();
+        $('.dk-optgroup-options li:first').click();
+      });
+
+      it('does not select the disabled option', function() {
+        expect($('.dk-selected ').text()).to.equal('first');
+      });
+    });
+  });
 });
