@@ -16,6 +16,6 @@
 
 ### JSBin / Example repo / Failing test:
 
-Here is a codepen template for reproducing bugs: http://codepen.io/robdel12/pen/pyZYzM
+Here is a codepen template for reproducing bugs: https://codepen.io/robdel12/pen/MvyQLP
 
 (This is extremely helpful and speeds up the debugging process.)
