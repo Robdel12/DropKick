@@ -1,8 +1,11 @@
 # Change Log
 
-## [Unreleased](https://github.com/Robdel12/DropKick/tree/HEAD)
+## [v2.2.0](https://github.com/Robdel12/DropKick/tree/v2.2.0) (2017-08-27)
+[Full Changelog](https://github.com/Robdel12/DropKick/compare/v2.1.9...v2.2.0)
 
-[Full Changelog](https://github.com/Robdel12/DropKick/compare/v2.1.9...HEAD)
+**Fixed bugs:**
+
+- Disabled optgroup not detected [\#336](https://github.com/Robdel12/DropKick/issues/336)
 
 **Closed issues:**
 
@@ -12,8 +15,10 @@
 
 **Merged pull requests:**
 
+- Fix disabled optgroups not being disabled in dropkick [\#348](https://github.com/Robdel12/DropKick/pull/348) ([Robdel12](https://github.com/Robdel12))
 - Fix deploy [\#347](https://github.com/Robdel12/DropKick/pull/347) ([Robdel12](https://github.com/Robdel12))
 - Use Webpack & modernize Dropkick [\#346](https://github.com/Robdel12/DropKick/pull/346) ([Robdel12](https://github.com/Robdel12))
+- fix if selOpt is undefined [\#345](https://github.com/Robdel12/DropKick/pull/345) ([oaki](https://github.com/oaki))
 
 ## [v2.1.9](https://github.com/Robdel12/DropKick/tree/v2.1.9) (2016-08-14)
 [Full Changelog](https://github.com/Robdel12/DropKick/compare/v2.1.8...v2.1.9)
