@@ -1,6 +1,6 @@
 {
   "name": "dropkickjs",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "author": {
     "name": "Robert DeLuca"
   },
@@ -13,7 +13,7 @@
   "bugs": {
     "url": "http://github.com/robdel12/DropKick/issues"
   },
-  "main": "./src/dropkick.js",
+  "main": "./dist/dropkick.js",
   "description": "A JavaScript plugin for creating beautiful, graceful, and painless custom dropdowns.",
   "scripts": {
     "build": "webpack",
@@ -49,7 +49,6 @@
     "karma-webpack": "2.0.3",
     "mocha": "^3.4.2",
     "node-sass": "4.5.3",
-    "qunitjs": "^1.17.1",
     "sass-loader": "^6.0.6",
     "sinon": "^2.3.8",
     "sinon-chai": "^2.12.0",
