@@ -1,5 +1,21 @@
 # Change Log
 
+## [v2.2.1](https://github.com/Robdel12/DropKick/tree/v2.2.1) (2017-10-13)
+[Full Changelog](https://github.com/Robdel12/DropKick/compare/v2.2.0...v2.2.1)
+
+**Fixed bugs:**
+
+- UglifyJS error because of ES6 [\#349](https://github.com/Robdel12/DropKick/issues/349)
+
+**Closed issues:**
+
+- More robust tests [\#272](https://github.com/Robdel12/DropKick/issues/272)
+- Migration guide from DK 1 to 2 [\#260](https://github.com/Robdel12/DropKick/issues/260)
+
+**Merged pull requests:**
+
+- Change package main source to built files [\#351](https://github.com/Robdel12/DropKick/pull/351) ([Robdel12](https://github.com/Robdel12))
+
 ## [v2.2.0](https://github.com/Robdel12/DropKick/tree/v2.2.0) (2017-08-27)
 [Full Changelog](https://github.com/Robdel12/DropKick/compare/v2.1.9...v2.2.0)
 
@@ -444,7 +460,7 @@
 - Updates [\#122](https://github.com/Robdel12/DropKick/pull/122) ([caiovaccaro](https://github.com/caiovaccaro))
 - Globally handle a click outside of the dropdown  [\#117](https://github.com/Robdel12/DropKick/pull/117) ([cskevint](https://github.com/cskevint))
 - jQuery 1.9 support [\#104](https://github.com/Robdel12/DropKick/pull/104) ([joeblynch](https://github.com/joeblynch))
-- fix: if two selects have one same name in a page [\#93](https://github.com/Robdel12/DropKick/pull/93) ([chenhouwu](https://github.com/chenhouwu))
+- fix: if two selects have one same name in a page [\#93](https://github.com/Robdel12/DropKick/pull/93) ([laishua](https://github.com/laishua))
 - Fix browser detection to make dropkick work in IE 10 [\#88](https://github.com/Robdel12/DropKick/pull/88) ([steve-v-jedo](https://github.com/steve-v-jedo))
 - Fixed issue \#58 [\#73](https://github.com/Robdel12/DropKick/pull/73) ([clupasq](https://github.com/clupasq))
 - Remove unused variables, small cleanup [\#23](https://github.com/Robdel12/DropKick/pull/23) ([bdukes](https://github.com/bdukes))
