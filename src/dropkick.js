@@ -25,15 +25,11 @@ let _docListener;
  * @param {opts} options See list of [properties you can pass in here](#list_of_properties)
  * @constructor
  * @example
- *  ```js
- *    // Pure JS
- *    var select = new Dropkick("#select");
- *  ```
+ * // Pure JS
+ * var select = new Dropkick("#select");
  * @example
- *  ```js
- *    // jQuery
- *    $("#select").dropkick();
- *  ```
+ * // jQuery
+ * $("#select").dropkick();
  */
 export default class Dropkick {
   constructor(select, options) {
@@ -97,11 +93,9 @@ export default class Dropkick {
      *
      * @property {boolean} disabled
      * @example
-     *  ```js
-     *    var select = new Dropkick("#select");
+     * var select = new Dropkick("#select");
      *
-     *    select.disabled;
-     *  ```
+     * select.disabled;
      */
     this.disabled = sel.disabled;
 
@@ -110,11 +104,9 @@ export default class Dropkick {
      *
      * @property {node} form
      * @example
-     *  ```js
-     *    var select = new Dropkick("#select");
+     * var select = new Dropkick("#select");
      *
-     *    select.form;
-     *  ```
+     * select.form;
      */
     this.form = sel.form;
 
@@ -123,11 +115,9 @@ export default class Dropkick {
      *
      * @property {integer} length
      * @example
-     *  ```js
-     *    var select = new Dropkick("#select");
+     * var select = new Dropkick("#select");
      *
-     *    select.length;
-     *  ```
+     * select.length;
      */
     this.length = sel.length;
 
@@ -136,11 +126,9 @@ export default class Dropkick {
      *
      * @property {boolean} multiple
      * @example
-     *  ```js
-     *    var select = new Dropkick("#select");
+     * var select = new Dropkick("#select");
      *
-     *    select.multiple;
-     *  ```
+     * select.multiple;
      */
     this.multiple = sel.multiple;
 
@@ -149,11 +137,9 @@ export default class Dropkick {
      *
      * @property {array} options
      * @example
-     *  ```js
-     *    var select = new Dropkick("#select");
+     * var select = new Dropkick("#select");
      *
-     *    select.options;
-     *  ```
+     * select.options;
      */
     this.options = dk.options.slice( 0 );
 
@@ -162,11 +148,9 @@ export default class Dropkick {
      *
      * @property {integer} selectedIndex
      * @example
-     *  ```js
-     *    var select = new Dropkick("#select");
+     * var select = new Dropkick("#select");
      *
-     *    select.selectedIndex;
-     *  ```
+     * select.selectedIndex;
      */
     this.selectedIndex = sel.selectedIndex;
 
@@ -175,11 +159,9 @@ export default class Dropkick {
      *
      * @property {array} selectedOptions
      * @example
-     *  ```js
-     *    var select = new Dropkick("#select");
+     * var select = new Dropkick("#select");
      *
-     *    select.selectedOptions;
-     *  ```
+     * select.selectedOptions;
      */
     this.selectedOptions = dk.selected.slice( 0 );
 
@@ -188,11 +170,9 @@ export default class Dropkick {
      *
      * @property {string} value
      * @example
-     *  ```js
-     *    var select = new Dropkick("#select");
+     * var select = new Dropkick("#select");
      *
-     *    select.value;
-     *  ```
+     * select.value;
      */
     this.value = sel.value;
 
@@ -257,11 +237,9 @@ export default class Dropkick {
    * @param {string} elem   HTMLOptionElement
    * @param {Node/Integer} before HTMLOptionElement/Index of Element
    * @example
-   *  ```js
-   *    var select = new Dropkick("#select");
+   * var select = new Dropkick("#select");
    *
-   *    select.add("New option", 5);
-   *  ```
+   * select.add("New option", 5);
    */
   add( elem, before ) {
     var text, option, i;
@@ -327,11 +305,9 @@ export default class Dropkick {
    * @param  {Integer} index Index of element (positive or negative)
    * @return {Node}          The DK option from the list, or null if not found
    * @example
-   *  ```js
-   *    var select = new Dropkick("#select");
+   * var select = new Dropkick("#select");
    *
-   *    select.item(4); //returns DOM node of index
-   *  ```
+   * select.item(4); //returns DOM node of index
    */
   item( index ) {
     index = index < 0 ? this.options.length + index : index;
@@ -344,11 +320,9 @@ export default class Dropkick {
    * @method  remove
    * @param  {Integer} index Index of element (positive or negative)
    * @example
-   *  ```js
-   *    var select = new Dropkick("#select");
+   * var select = new Dropkick("#select");
    *
-   *    select.remove(4);
-   *  ```
+   * select.remove(4);
    */
   remove( index ) {
     let dkOption = this.item( index );
@@ -364,11 +338,9 @@ export default class Dropkick {
    *
    * @method close
    * @example
-   *  ```js
-   *    var select = new Dropkick("#select");
+   * var select = new Dropkick("#select");
    *
-   *    select.close(); //closes dk dropdown
-   *  ```
+   * select.close(); //closes dk dropdown
    */
   close() {
     var i,
@@ -395,11 +367,9 @@ export default class Dropkick {
    *
    * @method open
    * @example
-   *  ```js
-   *    var select = new Dropkick("#select");
+   * var select = new Dropkick("#select");
    *
-   *    select.open(); //Opens the dk dropdown
-   *  ```
+   * select.open(); //Opens the dk dropdown
    */
   // TODO: This used to run with the deffered util method
   // is that needed? What problem was that solving?
@@ -444,21 +414,19 @@ export default class Dropkick {
    * @param  {Integer} elem     The element or index to disable
    * @param  {Boolean}      disabled Value of disabled
    * @example
-   *  ```js
-   *    var select = new Dropkick("#select");
+   * var select = new Dropkick("#select");
    *
-   *    // To disable the entire select
-   *    select.disable();
+   * // To disable the entire select
+   * select.disable();
    *
-   *    // To disable just an option with an index
-   *    select.disable(4, true);
+   * // To disable just an option with an index
+   * select.disable(4, true);
    *
-   *    // To re-enable the entire select
-   *    select.disable(false);
+   * // To re-enable the entire select
+   * select.disable(false);
    *
-   *    // To re-enable just an option with an index
-   *    select.disable(4, false);
-   *  ```
+   * // To re-enable just an option with an index
+   * select.disable(4, false);
    */
   disable( elem, disabled ) {
     var disabledClass = "dk-option-disabled";
@@ -494,15 +462,13 @@ export default class Dropkick {
    * @param  {Integer} elem     The element or index to hide
    * @param  {Boolean} hidden   Whether or not to hide the element
    * @example
-   *  ```js
-   *    var select = new Dropkick("#select");
+   * var select = new Dropkick("#select");
    *
-   *    // To hide an option with an index
-   *    select.hide(4, true);
+   * // To hide an option with an index
+   * select.hide(4, true);
    *
-   *    // To make an option visible with an index
-   *    select.hide(4, false);
-   *  ```
+   * // To make an option visible with an index
+   * select.hide(4, false);
    */
   hide( elem, hidden ) {
     var hiddenClass = "dk-option-hidden";
@@ -530,15 +496,13 @@ export default class Dropkick {
    * @param  {Boolean}             disabled Selects disabled options
    * @return {Node}                         The selected element
    * @example
-   *  ```js
-   *    var elm = new Dropkick("#select");
+   * var elm = new Dropkick("#select");
    *
-   *    // Select by index
-   *    elm.select(4); //selects & returns 5th item in the list
+   * // Select by index
+   * elm.select(4); //selects & returns 5th item in the list
    *
-   *    // Select by value
-   *    elm.select("AL"); // selects & returns option with the value "AL"
-   *  ```
+   * // Select by value
+   * elm.select("AL"); // selects & returns option with the value "AL"
    */
   select( elem, disabled ) {
     var i, index, option, combobox,
@@ -618,11 +582,9 @@ export default class Dropkick {
    * @param  {Boolean}      disabled Selects disabled options
    * @return {Node}                  The selected element
    * @example
-   *  ```js
-   *    var select = new Dropkick("#select");
+   * var select = new Dropkick("#select");
    *
-   *    select.selectOne(4);
-   *  ```
+   * select.selectOne(4);
    */
   selectOne( elem, disabled ) {
     this.reset( true );
@@ -708,13 +670,11 @@ export default class Dropkick {
    *
    * @method focus
    * @example
-   *  ```js
-   *    var select = new Dropkick("#select");
+   * var select = new Dropkick("#select");
    *
-   *    $("#some_elm").on("click", function() {
-   *      select.focus();
-   *    });
-   *  ```
+   * $("#some_elm").on("click", function() {
+   *   select.focus();
+   * });
    */
   focus() {
     if ( !this.disabled ) {
@@ -727,17 +687,15 @@ export default class Dropkick {
    * It will select the first option by default (or no options for multi-selects).
    *
    * @method reset
-   * @param  {Boolean} clear Defaults to first option if True
+   * @param  {Boolean} clear Defaults to first option if true
    * @example
-   *  ```js
-   *    var select = new Dropkick("#select");
+   * var select = new Dropkick("#select");
    *
-   *    // Reset to originally `selected` option
-   *    select.reset();
+   * // Reset to originally `selected` option
+   * select.reset();
    *
-   *    // Reset to first option in select
-   *    select.reset(true);
-   *  ```
+   * // Reset to first option in select
+   * select.reset(true);
    */
   reset( clear ) {
     var i,
@@ -765,13 +723,11 @@ export default class Dropkick {
    *
    * @method refresh
    * @example
-   *  ```js
-   *    var select = new Dropkick("#select");
+   * var select = new Dropkick("#select");
    *
-   *    //... [change original select] ...
+   * //... [change original select] ...
    *
-   *    select.refresh();
-   *  ```
+   * select.refresh();
    */
   refresh() {
     if(Object.keys(this).length > 0 && !( isMobile && !this.data.settings.mobile )) {
@@ -784,11 +740,9 @@ export default class Dropkick {
    *
    * @method dispose
    * @example
-   *  ```js
-   *    var select = new Dropkick("#select");
+   * var select = new Dropkick("#select");
    *
-   *    select.dispose();
-   *  ```
+   * select.dispose();
    */
   dispose() {
     let globalDK = window.Dropkick;

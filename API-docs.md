@@ -57,19 +57,15 @@ If you're using jQuery you can do this instead:
 
 **Examples**
 
-````javascript
-    ```js
-       // Pure JS
-       var select = new Dropkick("#select");
-     ```
-````
+```javascript
+// Pure JS
+var select = new Dropkick("#select");
+```
 
-````javascript
-    ```js
-       // jQuery
-       $("#select").dropkick();
-     ```
-````
+```javascript
+// jQuery
+$("#select").dropkick();
+```
 
 Returns **[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** DropKick Object for that select. You can call your methods on this if stored in a var
 
@@ -83,13 +79,11 @@ Whether the form is currently disabled or not
 
 **Examples**
 
-````javascript
-    ```js
-       var select = new Dropkick("#select");
+```javascript
+var select = new Dropkick("#select");
 
-       select.disabled;
-     ```
-````
+select.disabled;
+```
 
 ### form
 
@@ -101,13 +95,11 @@ The form associated with the select
 
 **Examples**
 
-````javascript
-    ```js
-       var select = new Dropkick("#select");
+```javascript
+var select = new Dropkick("#select");
 
-       select.form;
-     ```
-````
+select.form;
+```
 
 ### length
 
@@ -119,13 +111,11 @@ The number of options in the select
 
 **Examples**
 
-````javascript
-    ```js
-       var select = new Dropkick("#select");
+```javascript
+var select = new Dropkick("#select");
 
-       select.length;
-     ```
-````
+select.length;
+```
 
 ### multiple
 
@@ -137,13 +127,11 @@ If this select is a multi-select
 
 **Examples**
 
-````javascript
-    ```js
-       var select = new Dropkick("#select");
+```javascript
+var select = new Dropkick("#select");
 
-       select.multiple;
-     ```
-````
+select.multiple;
+```
 
 ### options
 
@@ -155,13 +143,11 @@ An array of Dropkick options
 
 **Examples**
 
-````javascript
-    ```js
-       var select = new Dropkick("#select");
+```javascript
+var select = new Dropkick("#select");
 
-       select.options;
-     ```
-````
+select.options;
+```
 
 ### selectedIndex
 
@@ -173,13 +159,11 @@ An index of the first selected option
 
 **Examples**
 
-````javascript
-    ```js
-       var select = new Dropkick("#select");
+```javascript
+var select = new Dropkick("#select");
 
-       select.selectedIndex;
-     ```
-````
+select.selectedIndex;
+```
 
 ### selectedOptions
 
@@ -191,13 +175,11 @@ An array of selected Dropkick options
 
 **Examples**
 
-````javascript
-    ```js
-       var select = new Dropkick("#select");
+```javascript
+var select = new Dropkick("#select");
 
-       select.selectedOptions;
-     ```
-````
+select.selectedOptions;
+```
 
 ### value
 
@@ -209,13 +191,11 @@ The current value of the select
 
 **Examples**
 
-````javascript
-    ```js
-       var select = new Dropkick("#select");
+```javascript
+var select = new Dropkick("#select");
 
-       select.value;
-     ```
-````
+select.value;
+```
 
 ### add
 
@@ -229,13 +209,11 @@ select, but create a Dropkick option and add it to the Dropkick select.
 
 **Examples**
 
-````javascript
-    ```js
-       var select = new Dropkick("#select");
+```javascript
+var select = new Dropkick("#select");
 
-       select.add("New option", 5);
-     ```
-````
+select.add("New option", 5);
+```
 
 ### item
 
@@ -247,13 +225,11 @@ Selects an option in the list at the desired index (negative numbers select from
 
 **Examples**
 
-````javascript
-    ```js
-       var select = new Dropkick("#select");
+```javascript
+var select = new Dropkick("#select");
 
-       select.item(4); //returns DOM node of index
-     ```
-````
+select.item(4); //returns DOM node of index
+```
 
 Returns **[Node](https://developer.mozilla.org/en-US/docs/Web/API/Node/nextSibling)** The DK option from the list, or null if not found
 
@@ -267,13 +243,11 @@ Removes the option (from both the select and Dropkick) at the given index.
 
 **Examples**
 
-````javascript
-    ```js
-       var select = new Dropkick("#select");
+```javascript
+var select = new Dropkick("#select");
 
-       select.remove(4);
-     ```
-````
+select.remove(4);
+```
 
 ### close
 
@@ -281,13 +255,11 @@ Closes the DK dropdown
 
 **Examples**
 
-````javascript
-    ```js
-       var select = new Dropkick("#select");
+```javascript
+var select = new Dropkick("#select");
 
-       select.close(); //closes dk dropdown
-     ```
-````
+select.close(); //closes dk dropdown
+```
 
 ### open
 
@@ -295,13 +267,11 @@ Opens the DK dropdown
 
 **Examples**
 
-````javascript
-    ```js
-       var select = new Dropkick("#select");
+```javascript
+var select = new Dropkick("#select");
 
-       select.open(); //Opens the dk dropdown
-     ```
-````
+select.open(); //Opens the dk dropdown
+```
 
 ### disable
 
@@ -315,23 +285,21 @@ then the entire Dropkick will be disabled or enabled.
 
 **Examples**
 
-````javascript
-    ```js
-       var select = new Dropkick("#select");
+```javascript
+var select = new Dropkick("#select");
 
-       // To disable the entire select
-       select.disable();
+// To disable the entire select
+select.disable();
 
-       // To disable just an option with an index
-       select.disable(4, true);
+// To disable just an option with an index
+select.disable(4, true);
 
-       // To re-enable the entire select
-       select.disable(false);
+// To re-enable the entire select
+select.disable(false);
 
-       // To re-enable just an option with an index
-       select.disable(4, false);
-     ```
-````
+// To re-enable just an option with an index
+select.disable(4, false);
+```
 
 ### hide
 
@@ -344,17 +312,15 @@ Hides or shows an option.
 
 **Examples**
 
-````javascript
-    ```js
-       var select = new Dropkick("#select");
+```javascript
+var select = new Dropkick("#select");
 
-       // To hide an option with an index
-       select.hide(4, true);
+// To hide an option with an index
+select.hide(4, true);
 
-       // To make an option visible with an index
-       select.hide(4, false);
-     ```
-````
+// To make an option visible with an index
+select.hide(4, false);
+```
 
 ### select
 
@@ -367,17 +333,15 @@ Selects an option from the list
 
 **Examples**
 
-````javascript
-    ```js
-       var elm = new Dropkick("#select");
+```javascript
+var elm = new Dropkick("#select");
 
-       // Select by index
-       elm.select(4); //selects & returns 5th item in the list
+// Select by index
+elm.select(4); //selects & returns 5th item in the list
 
-       // Select by value
-       elm.select("AL"); // selects & returns option with the value "AL"
-     ```
-````
+// Select by value
+elm.select("AL"); // selects & returns option with the value "AL"
+```
 
 Returns **[Node](https://developer.mozilla.org/en-US/docs/Web/API/Node/nextSibling)** The selected element
 
@@ -394,13 +358,11 @@ dropdown when selecting. It keeps the dropdown open and scrolls to proper positi
 
 **Examples**
 
-````javascript
-    ```js
-       var select = new Dropkick("#select");
+```javascript
+var select = new Dropkick("#select");
 
-       select.selectOne(4);
-     ```
-````
+select.selectOne(4);
+```
 
 Returns **[Node](https://developer.mozilla.org/en-US/docs/Web/API/Node/nextSibling)** The selected element
 
@@ -431,15 +393,13 @@ Brings focus to the proper DK element
 
 **Examples**
 
-````javascript
-    ```js
-       var select = new Dropkick("#select");
+```javascript
+var select = new Dropkick("#select");
 
-       $("#some_elm").on("click", function() {
-         select.focus();
-       });
-     ```
-````
+$("#some_elm").on("click", function() {
+  select.focus();
+});
+```
 
 ### reset
 
@@ -448,21 +408,19 @@ It will select the first option by default (or no options for multi-selects).
 
 **Parameters**
 
--   `clear` **[Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Defaults to first option if True
+-   `clear` **[Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Defaults to first option if true
 
 **Examples**
 
-````javascript
-    ```js
-       var select = new Dropkick("#select");
+```javascript
+var select = new Dropkick("#select");
 
-       // Reset to originally `selected` option
-       select.reset();
+// Reset to originally `selected` option
+select.reset();
 
-       // Reset to first option in select
-       select.reset(true);
-     ```
-````
+// Reset to first option in select
+select.reset(true);
+```
 
 ### refresh
 
@@ -471,15 +429,13 @@ Rebuilds the DK Object
 
 **Examples**
 
-````javascript
-    ```js
-       var select = new Dropkick("#select");
+```javascript
+var select = new Dropkick("#select");
 
-       //... [change original select] ...
+//... [change original select] ...
 
-       select.refresh();
-     ```
-````
+select.refresh();
+```
 
 ### dispose
 
@@ -487,13 +443,11 @@ Removes the DK Object from the cache and the element from the DOM
 
 **Examples**
 
-````javascript
-    ```js
-       var select = new Dropkick("#select");
+```javascript
+var select = new Dropkick("#select");
 
-       select.dispose();
-     ```
-````
+select.dispose();
+```
 
 ## initialize
 
