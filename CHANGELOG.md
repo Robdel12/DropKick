@@ -1,11 +1,24 @@
 # Change Log
 
-## [v2.2.1](https://github.com/Robdel12/DropKick/tree/v2.2.1) (2017-10-13)
-[Full Changelog](https://github.com/Robdel12/DropKick/compare/v2.2.0...v2.2.1)
+## [v2.2.2](https://github.com/Robdel12/DropKick/tree/v2.2.2) (2017-10-15)
+[Full Changelog](https://github.com/Robdel12/DropKick/compare/v2.2.1...v2.2.2)
 
 **Fixed bugs:**
 
+- Not working on IE 11 [\#350](https://github.com/Robdel12/DropKick/issues/350)
 - UglifyJS error because of ES6 [\#349](https://github.com/Robdel12/DropKick/issues/349)
+
+**Closed issues:**
+
+- Select with all options disabled breaks [\#339](https://github.com/Robdel12/DropKick/issues/339)
+
+**Merged pull requests:**
+
+- Fix IE11 custom events issue [\#353](https://github.com/Robdel12/DropKick/pull/353) ([Robdel12](https://github.com/Robdel12))
+- Clean up docs examples [\#352](https://github.com/Robdel12/DropKick/pull/352) ([Robdel12](https://github.com/Robdel12))
+
+## [v2.2.1](https://github.com/Robdel12/DropKick/tree/v2.2.1) (2017-10-13)
+[Full Changelog](https://github.com/Robdel12/DropKick/compare/v2.2.0...v2.2.1)
 
 **Closed issues:**
 
@@ -56,6 +69,7 @@
 
 - Disabled state isn't relayed to the screen reader [\#324](https://github.com/Robdel12/DropKick/issues/324)
 - Empty select causes crash [\#315](https://github.com/Robdel12/DropKick/issues/315)
+- Trigering change event fails on Internet Explorer [\#314](https://github.com/Robdel12/DropKick/issues/314)
 
 **Closed issues:**
 
