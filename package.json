@@ -35,6 +35,7 @@
     "chai": "^4.1.0",
     "chai-jquery": "^2.0.0",
     "css-loader": "^0.28.4",
+    "custom-event": "^1.0.1",
     "documentation": "^4.0.0-rc.1",
     "dotenv": "^4.0.0",
     "dotenv-webpack": "^1.5.4",

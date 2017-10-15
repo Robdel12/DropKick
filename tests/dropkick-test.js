@@ -237,38 +237,6 @@ describe('Dropkick tests', function() {
     });
   });
 
-  describe('dropkick in iframes', function() {
-    beforeEach(function() {
-      // build an iframe
-      // insert into test container
-      this.iframe = buildIframe('iframe');
-      // create select
-      // insert into iframe
-      this.select = buildSelect('iframe_select', ['one', 'two', 'three'], false, this.iframe.contentDocument.body);
-      this.iframeSelect = new Dropkick(this.select);
-      // open select
-      this.iframeSelect.open();
-    });
-
-    it('opens the select', function() {
-      let select = $(this.iframe.contentDocument).find('.dk-select');
-
-      expect(select.hasClass('dk-select-open-down')).to.equal(true);
-    });
-
-    describe('clicking outside of the iframe', function() {
-      beforeEach(function() {
-        $('#testingContainer').click();
-      });
-
-      it('closes the select', function() {
-        let select = $(this.iframe.contentDocument).find('.dk-select');
-
-        expect(select.hasClass('dk-select-open-down')).to.equal(false);
-      });
-    });
-  });
-
   describe('disabled optgroups', function() {
     beforeEach(function() {
       $('#normal_select').append('<optgroup disabled label="Maybe"><option value="one">One</option></optgroup>');
