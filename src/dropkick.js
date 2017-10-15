@@ -1,5 +1,7 @@
 import _ from './utils';
 import defaults from './defaults';
+import CustomEvent from 'custom-event';
+
 const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test( navigator.userAgent );
 const isIframe = window.parent !== window.self;
 const noop = function() {};

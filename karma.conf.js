@@ -54,6 +54,14 @@ module.exports = function(config) {
         "device":null,
         "browser_version":"50.0"
       },
+      windows7_ie11: {
+        base: "BrowserStack",
+        "os":"Windows",
+        "os_version":"7",
+        "browser":"ie",
+        "device":null,
+        "browser_version":"11"
+      },
       osxMav_chrome50: {
         base: "BrowserStack",
         "os":"OS X",
@@ -105,6 +113,13 @@ module.exports = function(config) {
   }
 
   if (process.env.BROWSER_STACK) {
-    config.browsers.push('iPhone_6sp', 'windows7_chrome50', 'windows7_ff50', 'osxMav_chrome50', 'osxMav_ff50');
+    config.browsers.push(
+      'iPhone_6sp',
+      'windows7_ie11',
+      'windows7_chrome50',
+      'windows7_ff50',
+      'osxMav_chrome50',
+      'osxMav_ff50'
+    );
   }
 };
