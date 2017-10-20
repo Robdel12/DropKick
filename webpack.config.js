@@ -20,6 +20,8 @@ if (isProduction)  { plugins.push(new UglifyJSPlugin()); }
 module.exports = {
   entry: ['./src/dropkick.js', './src/css/dropkick.scss'],
   output: {
+    libraryTarget: "umd",
+    library: "dropkickjs",
     filename: 'dropkick.js',
     path: path.resolve(__dirname, "dist")
   },
