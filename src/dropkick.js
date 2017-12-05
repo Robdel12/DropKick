@@ -33,7 +33,7 @@ let _docListener;
  * // jQuery
  * $("#select").dropkick();
  */
-export default class Dropkick {
+class Dropkick {
   constructor(select, options) {
     this.sel = select;
     let i, dk;
@@ -1167,3 +1167,5 @@ if ( window.jQuery !== undefined ) {
     });
   };
 }
+
+export default Dropkick;

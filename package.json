@@ -16,8 +16,10 @@
   "main": "./dist/dropkick.js",
   "description": "A JavaScript plugin for creating beautiful, graceful, and painless custom dropdowns.",
   "scripts": {
-    "build": "webpack",
-    "build-prod": "NODE_ENV=\"production\" webpack",
+    "build-js": "webpack",
+    "build-css": "webpack --config webpack.css.js",
+    "build": "yarn build-js && yarn build-css",
+    "build-prod": "NODE_ENV=\"production\" yarn build-js && yarn build-css",
     "start": "webpack-dev-server",
     "test": "NODE_ENV=test karma start",
     "test-browserstack": "NODE_ENV=test BROWSER_STACK=true karma start",
