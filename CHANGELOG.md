@@ -1,5 +1,17 @@
 # Change Log
 
+## [v2.2.3](https://github.com/Robdel12/DropKick/tree/v2.2.3) (2017-12-05)
+[Full Changelog](https://github.com/Robdel12/DropKick/compare/v2.2.2...v2.2.3)
+
+**Fixed bugs:**
+
+- TypeError default is not a constructor [\#355](https://github.com/Robdel12/DropKick/issues/355)
+
+**Merged pull requests:**
+
+- UMD module output \(Will fix \#355\) [\#357](https://github.com/Robdel12/DropKick/pull/357) ([Robdel12](https://github.com/Robdel12))
+- Deploy docs & example page on tests success [\#354](https://github.com/Robdel12/DropKick/pull/354) ([Robdel12](https://github.com/Robdel12))
+
 ## [v2.2.2](https://github.com/Robdel12/DropKick/tree/v2.2.2) (2017-10-15)
 [Full Changelog](https://github.com/Robdel12/DropKick/compare/v2.2.1...v2.2.2)
 
