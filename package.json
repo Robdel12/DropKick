@@ -43,7 +43,7 @@
     "dotenv-webpack": "^1.5.4",
     "extract-text-webpack-plugin": "^3.0.0",
     "html-webpack-plugin": "^2.29.0",
-    "jquery": "^2.0.0",
+    "jquery": "^3.0.0",
     "karma": "1.6.0",
     "karma-browserstack-launcher": "^1.3.0",
     "karma-chrome-launcher": "^2.2.0",
