@@ -21,7 +21,7 @@ const Utils = {
   toggleClass( elem, classname ) {
     let fn = this.hasClass( elem, classname ) ? "remove" : "add";
 
-    [ fn + "Class" ]( elem, classname );
+    this[ fn + "Class" ]( elem, classname );
   },
 
   // Shallow object extend
