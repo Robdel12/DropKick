@@ -1,5 +1,17 @@
 # Change Log
 
+## [v2.2.4](https://github.com/Robdel12/DropKick/tree/v2.2.4) (2018-02-12)
+[Full Changelog](https://github.com/Robdel12/DropKick/compare/v2.2.3...v2.2.4)
+
+**Closed issues:**
+
+- toggleClass throws "is not a function" [\#360](https://github.com/Robdel12/DropKick/issues/360)
+
+**Merged pull requests:**
+
+- \[BUGFIX\] toggle class on elem when selecting multiple [\#361](https://github.com/Robdel12/DropKick/pull/361) ([typeoneerror](https://github.com/typeoneerror))
+- Update jQuery to 3.x [\#359](https://github.com/Robdel12/DropKick/pull/359) ([Robdel12](https://github.com/Robdel12))
+
 ## [v2.2.3](https://github.com/Robdel12/DropKick/tree/v2.2.3) (2017-12-05)
 [Full Changelog](https://github.com/Robdel12/DropKick/compare/v2.2.2...v2.2.3)
 
