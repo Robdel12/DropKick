@@ -235,6 +235,11 @@ describe('Dropkick tests', function() {
     it('creates a multiselect dk', function() {
       expect(this.multiDk.multiple).to.equal(true);
     });
+
+    it('toggles selected class when selected', function() {
+      let sel = this.multiDk.select(0);
+      expect($(sel).hasClass('dk-option-selected')).to.equal(true);
+    })
   });
 
   describe('disabled optgroups', function() {
@@ -254,7 +259,7 @@ describe('Dropkick tests', function() {
       });
 
       it('does not select the disabled option', function() {
-        expect($('.dk-selected ').text()).to.equal('first');
+        expect($('.dk-selected').text()).to.equal('first');
       });
     });
   });
