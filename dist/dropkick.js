@@ -1,1 +1,1675 @@
-!function(e,t){"object"==typeof exports&&"object"==typeof module?module.exports=t():"function"==typeof define&&define.amd?define([],t):"object"==typeof exports?exports.dropkickjs=t():e.dropkickjs=t()}(this,function(){return function(e){function t(s){if(i[s])return i[s].exports;var a=i[s]={i:s,l:!1,exports:{}};return e[s].call(a.exports,a,a.exports,t),a.l=!0,a.exports}var i={};return t.m=e,t.c=i,t.d=function(e,i,s){t.o(e,i)||Object.defineProperty(e,i,{configurable:!1,enumerable:!0,get:s})},t.n=function(e){var i=e&&e.__esModule?function(){return e.default}:function(){return e};return t.d(i,"a",i),i},t.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},t.p="",t(t.s=0)}([function(e,t,i){"use strict";function s(e){return e&&e.__esModule?e:{default:e}}function a(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}Object.defineProperty(t,"__esModule",{value:!0});var n="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(e){return typeof e}:function(e){return e&&"function"==typeof Symbol&&e.constructor===Symbol&&e!==Symbol.prototype?"symbol":typeof e},l=function(){function e(e,t){for(var i=0;i<t.length;i++){var s=t[i];s.enumerable=s.enumerable||!1,s.configurable=!0,"value"in s&&(s.writable=!0),Object.defineProperty(e,s.key,s)}}return function(t,i,s){return i&&e(t.prototype,i),s&&e(t,s),t}}(),o=i(1),d=s(o),r=i(2),c=s(r),h=i(3),u=s(h),f=/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent),p=window.parent!==window.self,b=void 0,m=function(){function e(t,i){a(this,e),this.sel=t;var s=void 0,n=void 0,l=window.Dropkick;for("string"==typeof this.sel&&"#"===this.sel[0]&&(this.sel=document.getElementById(t.substr(1))),s=0;s<l.uid;s++)if((n=l.cache[s])instanceof e&&n.data.select===this.sel)return d.default.extend(n.data.settings,i),n;if(!this.sel)throw"You must pass a select to DropKick";if(this.sel.length<1)throw"You must have options inside your <select>: "+t;if("SELECT"===this.sel.nodeName)return this.init(this.sel,i)}return l(e,[{key:"init",value:function(t,i){var s,a=window.Dropkick,n=e.build(t,"dk"+a.uid);if(this.data={},this.data.select=t,this.data.elem=n.elem,this.data.settings=d.default.extend({},c.default,i),this.disabled=t.disabled,this.form=t.form,this.length=t.length,this.multiple=t.multiple,this.options=n.options.slice(0),this.selectedIndex=t.selectedIndex,this.selectedOptions=n.selected.slice(0),this.value=t.value,this.data.cacheID=a.uid,a.cache[this.data.cacheID]=this,this.data.settings.initialize.call(this),a.uid+=1,this._changeListener||(t.addEventListener("change",this),this._changeListener=!0),!f||this.data.settings.mobile){if(t.parentNode.insertBefore(this.data.elem,t),t.setAttribute("data-dkCacheId",this.data.cacheID),this.data.elem.addEventListener("click",this),this.data.elem.addEventListener("keydown",this),this.data.elem.addEventListener("keypress",this),this.form&&this.form.addEventListener("reset",this),!this.multiple)for(s=0;s<this.options.length;s++)this.options[s].addEventListener("mouseover",this);b||(document.addEventListener("click",e.onDocClick),p&&parent.document.addEventListener("click",e.onDocClick),b=!0)}return this}},{key:"add",value:function(e,t){var i,s,a;"string"==typeof e&&(i=e,e=document.createElement("option"),e.text=i),"OPTION"===e.nodeName&&(s=d.default.create("li",{class:"dk-option","data-value":e.value,text:e.text,innerHTML:e.innerHTML,role:"option","aria-selected":"false",id:"dk"+this.data.cacheID+"-"+(e.id||e.value.replace(" ","-"))}),d.default.addClass(s,e.className),this.length+=1,e.disabled&&(d.default.addClass(s,"dk-option-disabled"),s.setAttribute("aria-disabled","true")),e.hidden&&(d.default.addClass(s,"dk-option-hidden"),s.setAttribute("aria-hidden","true")),this.data.select.add(e,t),"number"==typeof t&&(t=this.item(t)),a=this.options.indexOf(t),a>-1?(t.parentNode.insertBefore(s,t),this.options.splice(a,0,s)):(this.data.elem.lastChild.appendChild(s),this.options.push(s)),s.addEventListener("mouseover",this),e.selected&&this.select(a))}},{key:"item",value:function(e){return e=e<0?this.options.length+e:e,this.options[e]||null}},{key:"remove",value:function(e){var t=this.item(e);t.parentNode.removeChild(t),this.options.splice(e,1),this.data.select.remove(e),this.select(this.data.select.selectedIndex),this.length-=1}},{key:"close",value:function(){var e,t=this.data.elem;if(!this.isOpen||this.multiple)return!1;for(e=0;e<this.options.length;e++)d.default.removeClass(this.options[e],"dk-option-highlight");t.lastChild.setAttribute("aria-expanded","false"),d.default.removeClass(t.lastChild,"dk-select-options-highlight"),d.default.removeClass(t,"dk-select-open-(up|down)"),this.isOpen=!1,this.data.settings.close.call(this)}},{key:"open",value:function(){var e=void 0,t=void 0,i=void 0,s=void 0,a=void 0,n=void 0,l=this.data.elem,o=l.lastChild,r=void 0!==window.pageXOffset,c="CSS1Compat"===(document.compatMode||""),h=r?window.pageYOffset:c?document.documentElement.scrollTop:document.body.scrollTop;if(a=d.default.offset(l).top-h,n=window.innerHeight-(a+l.offsetHeight),this.isOpen||this.multiple)return!1;o.style.display="block",e=o.offsetHeight,o.style.display="",t=a>e,i=n>e,s=t&&!i?"-up":"-down",this.isOpen=!0,d.default.addClass(l,"dk-select-open"+s),o.setAttribute("aria-expanded","true"),this._scrollTo(this.options.length-1),this._scrollTo(this.selectedIndex),this.data.settings.open.call(this)}},{key:"disable",value:function(e,t){var i="dk-option-disabled";0!==arguments.length&&"boolean"!=typeof e||(t=void 0===e,e=this.data.elem,i="dk-select-disabled",this.disabled=t),void 0===t&&(t=!0),"number"==typeof e&&(e=this.item(e)),t?(e.setAttribute("aria-disabled",!0),d.default.addClass(e,i)):(e.setAttribute("aria-disabled",!1),d.default.removeClass(e,i))}},{key:"hide",value:function(e,t){void 0===t&&(t=!0),e=this.item(e),t?(e.setAttribute("aria-hidden",!0),d.default.addClass(e,"dk-option-hidden")):(e.setAttribute("aria-hidden",!1),d.default.removeClass(e,"dk-option-hidden"))}},{key:"select",value:function(e,t){var i,s,a,n,l=this.data.select;if("number"==typeof e&&(e=this.item(e)),"string"==typeof e)for(i=0;i<this.length;i++)this.options[i].getAttribute("data-value")===e&&(e=this.options[i]);return!(!e||"string"==typeof e||!t&&d.default.hasClass(e,"dk-option-disabled"))&&(d.default.hasClass(e,"dk-option")?(s=this.options.indexOf(e),a=l.options[s],this.multiple?(d.default.toggleClass(e,"dk-option-selected"),a.selected=!a.selected,d.default.hasClass(e,"dk-option-selected")?(e.setAttribute("aria-selected","true"),this.selectedOptions.push(e)):(e.setAttribute("aria-selected","false"),s=this.selectedOptions.indexOf(e),this.selectedOptions.splice(s,1))):(n=this.data.elem.firstChild,this.selectedOptions.length&&(d.default.removeClass(this.selectedOptions[0],"dk-option-selected"),this.selectedOptions[0].setAttribute("aria-selected","false")),d.default.addClass(e,"dk-option-selected"),e.setAttribute("aria-selected","true"),n.setAttribute("aria-activedescendant",e.id),n.className="dk-selected "+a.className,n.innerHTML=a.innerHTML,this.selectedOptions[0]=e,a.selected=!0),this.selectedIndex=l.selectedIndex,this.value=l.value,t||this.data.select.dispatchEvent(new u.default("change",{bubbles:this.data.settings.bubble})),e):void 0)}},{key:"selectOne",value:function(e,t){return this.reset(!0),this._scrollTo(e),this.select(e,t)}},{key:"search",value:function(e,t){var i,s,a,n,l,o,d,r,c=this.data.select.options,h=[];if(!e)return this.options;for(t=t?t.toLowerCase():"strict",t="fuzzy"===t?2:"partial"===t?1:0,r=new RegExp((t?"":"^")+e,"i"),i=0;i<c.length;i++)if(a=c[i].text.toLowerCase(),2==t){for(s=e.toLowerCase().split(""),n=l=o=d=0;l<a.length;)a[l]===s[n]?(o+=1+o,n++):o=0,d+=o,l++;n===s.length&&h.push({e:this.options[i],s:d,i:i})}else r.test(a)&&h.push(this.options[i]);return 2===t&&(h=h.sort(function(e,t){return t.s-e.s||e.i-t.i}).reduce(function(e,t){return e[e.length]=t.e,e},[])),h}},{key:"focus",value:function(){this.disabled||(this.multiple?this.data.elem:this.data.elem.children[0]).focus()}},{key:"reset",value:function(e){var t,i=this.data.select;for(this.selectedOptions.length=0,t=0;t<i.options.length;t++)i.options[t].selected=!1,d.default.removeClass(this.options[t],"dk-option-selected"),this.options[t].setAttribute("aria-selected","false"),!e&&i.options[t].defaultSelected&&this.select(t,!0);this.selectedOptions.length||this.multiple||this.select(0,!0)}},{key:"refresh",value:function(){Object.keys(this).length>0&&(!f||this.data.settings.mobile)&&this.dispose().init(this.data.select,this.data.settings)}},{key:"dispose",value:function(){var e=window.Dropkick;return Object.keys(this).length>0&&(!f||this.data.settings.mobile)&&(delete e.cache[this.data.cacheID],this.data.elem.parentNode.removeChild(this.data.elem),this.data.select.removeAttribute("data-dkCacheId")),this}},{key:"handleEvent",value:function(e){if(!this.disabled)switch(e.type){case"click":this._delegate(e);break;case"keydown":this._keyHandler(e);break;case"keypress":this._searchOptions(e);break;case"mouseover":this._highlight(e);break;case"reset":this.reset();break;case"change":this.data.settings.change.call(this)}}},{key:"_delegate",value:function(e){var t,i,s,a,n=e.target;if(d.default.hasClass(n,"dk-option-disabled"))return!1;if(this.multiple){if(d.default.hasClass(n,"dk-option"))if(t=window.getSelection(),"Range"===t.type&&t.collapseToStart(),e.shiftKey)if(s=this.options.indexOf(this.selectedOptions[0]),a=this.options.indexOf(this.selectedOptions[this.selectedOptions.length-1]),i=this.options.indexOf(n),i>s&&i<a&&(i=s),i>a&&a>s&&(a=s),this.reset(!0),a>i)for(;i<a+1;)this.select(i++);else for(;i>a-1;)this.select(i--);else e.ctrlKey||e.metaKey?this.select(n):(this.reset(!0),this.select(n))}else this[this.isOpen?"close":"open"](),d.default.hasClass(n,"dk-option")&&this.select(n)}},{key:"_highlight",value:function(e){var t,i=e.target;if(!this.multiple){for(t=0;t<this.options.length;t++)d.default.removeClass(this.options[t],"dk-option-highlight");d.default.addClass(this.data.elem.lastChild,"dk-select-options-highlight"),d.default.addClass(i,"dk-option-highlight")}}},{key:"_keyHandler",value:function(e){var t,i,s=this.selectedOptions,a=this.options,n=1,l={tab:9,enter:13,esc:27,space:32,up:38,down:40};switch(e.keyCode){case l.up:n=-1;case l.down:if(e.preventDefault(),t=s[s.length-1],d.default.hasClass(this.data.elem.lastChild,"dk-select-options-highlight"))for(d.default.removeClass(this.data.elem.lastChild,"dk-select-options-highlight"),i=0;i<a.length;i++)d.default.hasClass(a[i],"dk-option-highlight")&&(d.default.removeClass(a[i],"dk-option-highlight"),t=a[i]);n=a.indexOf(t)+n,n>a.length-1?n=a.length-1:n<0&&(n=0),this.data.select.options[n].disabled||(this.reset(!0),this.select(n),this._scrollTo(n));break;case l.space:if(!this.isOpen){e.preventDefault(),this.open();break}case l.tab:case l.enter:for(n=0;n<a.length;n++)d.default.hasClass(a[n],"dk-option-highlight")&&this.select(n);case l.esc:this.isOpen&&(e.preventDefault(),this.close())}}},{key:"_searchOptions",value:function(e){var t,i=this,s=String.fromCharCode(e.keyCode||e.which);void 0===this.data.searchString&&(this.data.searchString=""),function(){i.data.searchTimeout&&clearTimeout(i.data.searchTimeout),i.data.searchTimeout=setTimeout(function(){i.data.searchString=""},1e3)}(),this.data.searchString+=s,t=this.search(this.data.searchString,this.data.settings.search),t.length&&(d.default.hasClass(t[0],"dk-option-disabled")||this.selectOne(t[0]))}},{key:"_scrollTo",value:function(e){var t,i,s,a=this.data.elem.lastChild;if(-1===e||"number"!=typeof e&&!e||!this.isOpen&&!this.multiple)return!1;"number"==typeof e&&(e=this.item(e)),t=d.default.position(e,a).top,i=t-a.scrollTop,s=i+e.offsetHeight,s>a.offsetHeight?(t+=e.offsetHeight,a.scrollTop=t-a.offsetHeight):i<0&&(a.scrollTop=t)}}]),e}();window.Dropkick=m,window.Dropkick.cache={},window.Dropkick.uid=0,m.build=function(e,t){var i,s,a,n=[],l={elem:null,options:[],selected:[]},o=function e(i){var s,a,n,o,r=[];switch(i.nodeName){case"OPTION":s=d.default.create("li",{class:"dk-option ","data-value":i.value,text:i.text,innerHTML:i.innerHTML,role:"option","aria-selected":"false",id:t+"-"+(i.id||i.value.replace(" ","-"))}),d.default.addClass(s,i.className),i.disabled&&(d.default.addClass(s,"dk-option-disabled"),s.setAttribute("aria-disabled","true")),i.hidden&&(d.default.addClass(s,"dk-option-hidden"),s.setAttribute("aria-hidden","true")),i.selected&&(d.default.addClass(s,"dk-option-selected"),s.setAttribute("aria-selected","true"),l.selected.push(s)),l.options.push(this.appendChild(s));break;case"OPTGROUP":for(a=d.default.create("li",{class:"dk-optgroup"}),i.label&&a.appendChild(d.default.create("div",{class:"dk-optgroup-label",innerHTML:i.label})),n=d.default.create("ul",{class:"dk-optgroup-options"}),o=i.children.length;o--;r.unshift(i.children[o]));i.disabled&&(a.classList.add("dk-optgroup-disabled"),r.forEach(function(e){e.disabled=i.disabled})),r.forEach(e,n),this.appendChild(a).appendChild(n)}};for(l.elem=d.default.create("div",{class:"dk-select"+(e.multiple?"-multi":"")}),s=d.default.create("ul",{class:"dk-select-options",id:t+"-listbox",role:"listbox"}),e.disabled&&(d.default.addClass(l.elem,"dk-select-disabled"),l.elem.setAttribute("aria-disabled",!0)),l.elem.id=t+(e.id?"-"+e.id:""),d.default.addClass(l.elem,e.className),e.multiple?(l.elem.setAttribute("tabindex",e.getAttribute("tabindex")||"0"),s.setAttribute("aria-multiselectable","true")):(i=e.options[e.selectedIndex],l.elem.appendChild(d.default.create("div",{class:"dk-selected "+(i?i.className:""),tabindex:e.tabindex||0,innerHTML:i?i.text:"&nbsp;",id:t+"-combobox","aria-live":"assertive","aria-owns":s.id,role:"combobox"})),s.setAttribute("aria-expanded","false")),a=e.children.length;a--;n.unshift(e.children[a]));return n.forEach(o,l.elem.appendChild(s)),l},m.onDocClick=function(e){var t,i,s=window.Dropkick;if(1!==e.target.nodeType)return!1;null!==(t=e.target.getAttribute("data-dkcacheid"))&&s.cache[t].focus();for(i in s.cache)d.default.closest(e.target,s.cache[i].data.elem)||i===t||s.cache[i].disabled||s.cache[i].close()},void 0!==window.jQuery&&(window.jQuery.fn.dropkick=function(){var e=Array.prototype.slice.call(arguments);return jQuery(this).each(function(){e[0]&&"object"!==n(e[0])?"string"==typeof e[0]&&m.prototype[e[0]].apply(new m(this),e.slice(1)):new m(this,e[0]||{})})}),t.default=m},function(e,t,i){"use strict";Object.defineProperty(t,"__esModule",{value:!0});var s=-1!==navigator.appVersion.indexOf("MSIE"),a={hasClass:function(e,t){var i=new RegExp("(^|\\s+)"+t+"(\\s+|$)");return e&&i.test(e.className)},addClass:function(e,t){e&&!this.hasClass(e,t)&&(e.className+=" "+t)},removeClass:function(e,t){var i=new RegExp("(^|\\s+)"+t+"(\\s+|$)");e&&(e.className=e.className.replace(i," "))},toggleClass:function(e,t){[(this.hasClass(e,t)?"remove":"add")+"Class"](e,t)},extend:function(e){return Array.prototype.slice.call(arguments,1).forEach(function(t){if(t)for(var i in t)e[i]=t[i]}),e},offset:function(e){var t=e.getBoundingClientRect()||{top:0,left:0},i=document.documentElement,a=s?i.scrollTop:window.pageYOffset,n=s?i.scrollLeft:window.pageXOffset;return{top:t.top+a-i.clientTop,left:t.left+n-i.clientLeft}},position:function(e,t){for(var i={top:0,left:0};e&&e!==t;)i.top+=e.offsetTop,i.left+=e.offsetLeft,e=e.parentNode;return i},closest:function(e,t){for(;e;){if(e===t)return e;e=e.parentNode}return!1},create:function(e,t){var i=void 0,s=document.createElement(e);t||(t={});for(i in t)t.hasOwnProperty(i)&&("innerHTML"===i?s.innerHTML=t[i]:s.setAttribute(i,t[i]));return s},deferred:function(e){return function(){var t=this,i=arguments;window.setTimeout(function(){e.apply(t,i)},1)}}};t.default=a},function(e,t,i){"use strict";Object.defineProperty(t,"__esModule",{value:!0});var s={initialize:function(){},mobile:!0,change:function(){},open:function(){},close:function(){},search:"strict",bubble:!0};t.default=s},function(e,t,i){(function(t){var i=t.CustomEvent;e.exports=function(){try{var e=new i("cat",{detail:{foo:"bar"}});return"cat"===e.type&&"bar"===e.detail.foo}catch(e){}return!1}()?i:"undefined"!=typeof document&&"function"==typeof document.createEvent?function(e,t){var i=document.createEvent("CustomEvent");return t?i.initCustomEvent(e,t.bubbles,t.cancelable,t.detail):i.initCustomEvent(e,!1,!1,void 0),i}:function(e,t){var i=document.createEventObject();return i.type=e,t?(i.bubbles=Boolean(t.bubbles),i.cancelable=Boolean(t.cancelable),i.detail=t.detail):(i.bubbles=!1,i.cancelable=!1,i.detail=void 0),i}}).call(t,i(4))},function(e,t){var i;i=function(){return this}();try{i=i||Function("return this")()||(0,eval)("this")}catch(e){"object"==typeof window&&(i=window)}e.exports=i}])});
+(function webpackUniversalModuleDefinition(root, factory) {
+	if(typeof exports === 'object' && typeof module === 'object')
+		module.exports = factory();
+	else if(typeof define === 'function' && define.amd)
+		define([], factory);
+	else if(typeof exports === 'object')
+		exports["dropkickjs"] = factory();
+	else
+		root["dropkickjs"] = factory();
+})(this, function() {
+return /******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, {
+/******/ 				configurable: false,
+/******/ 				enumerable: true,
+/******/ 				get: getter
+/******/ 			});
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "";
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = 0);
+/******/ })
+/************************************************************************/
+/******/ ([
+/* 0 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _utils = __webpack_require__(1);
+
+var _utils2 = _interopRequireDefault(_utils);
+
+var _defaults = __webpack_require__(2);
+
+var _defaults2 = _interopRequireDefault(_defaults);
+
+var _customEvent = __webpack_require__(3);
+
+var _customEvent2 = _interopRequireDefault(_customEvent);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+var isIframe = window.parent !== window.self;
+var noop = function noop() {};
+var _docListener = void 0;
+
+/**
+ * # Getting started
+ * After you've cloned the repo you will need to add the library to your page. In the `build/js` folder use
+ * one of the two DropKick files given. One has a version number in the file name and the other is a version
+ * number-less version. You will also need to grab the css from `build/css` and load it on the page.
+ *
+ * Once those files are imported into the page you can call DropKick on any HTMLSelectElement:
+ * `new Dropkick( HTMLSelectElement, Options );` or `new Dropkick( "ID", Options );`. This returns the dropkick
+ * object to you. It may be useful for you to store this in a var to reference later.
+ *
+ * If you're using jQuery you can do this instead:
+ * `$('#select').dropkick( Options );`
+ *
+ *
+ * @class Dropkick
+ * @return { object } DropKick Object for that select. You can call your methods on this if stored in a var
+ * @param {elem} sel HTMLSelect Element being passed.
+ * @param {opts} options See list of [properties you can pass in here](#list_of_properties)
+ * @constructor
+ * @example
+ * // Pure JS
+ * var select = new Dropkick("#select");
+ * @example
+ * // jQuery
+ * $("#select").dropkick();
+ */
+
+var Dropkick = function () {
+  function Dropkick(select, options) {
+    _classCallCheck(this, Dropkick);
+
+    this.sel = select;
+    var i = void 0,
+        dk = void 0;
+    var globalDK = window.Dropkick;
+
+    if (typeof this.sel === "string" && this.sel[0] === "#") {
+      this.sel = document.getElementById(select.substr(1));
+    }
+
+    // Check if select has already been DK'd and return the DK Object
+    for (i = 0; i < globalDK.uid; i++) {
+      dk = globalDK.cache[i];
+
+      if (dk instanceof Dropkick && dk.data.select === this.sel) {
+        _utils2.default.extend(dk.data.settings, options);
+        return dk;
+      }
+    }
+
+    if (!this.sel) {
+      throw "You must pass a select to DropKick";
+      return false;
+    }
+
+    if (this.sel.length < 1) {
+      throw 'You must have options inside your <select>: ' + select;
+      return false;
+    }
+
+    if (this.sel.nodeName === "SELECT") {
+      return this.init(this.sel, options);
+    }
+  }
+
+  /**
+   * Initializes the DK Object
+   *
+   * @method init
+   * @private
+   * @param  {Node}   sel  [description]
+   * @param  {Object} opts Options to override defaults
+   * @return {Object}      The DK Object
+   */
+
+
+  _createClass(Dropkick, [{
+    key: 'init',
+    value: function init(sel, opts) {
+      var globalDK = window.Dropkick;
+      var i,
+          dk = Dropkick.build(sel, "dk" + globalDK.uid);
+
+      // Set some data on the DK Object
+      this.data = {};
+      this.data.select = sel;
+      this.data.elem = dk.elem;
+      this.data.settings = _utils2.default.extend({}, _defaults2.default, opts);
+
+      // Emulate some of HTMLSelectElement's properties
+
+      /**
+       * Whether the form is currently disabled or not
+       *
+       * @property {boolean} disabled
+       * @example
+       * var select = new Dropkick("#select");
+       *
+       * select.disabled;
+       */
+      this.disabled = sel.disabled;
+
+      /**
+       * The form associated with the select
+       *
+       * @property {node} form
+       * @example
+       * var select = new Dropkick("#select");
+       *
+       * select.form;
+       */
+      this.form = sel.form;
+
+      /**
+       * The number of options in the select
+       *
+       * @property {integer} length
+       * @example
+       * var select = new Dropkick("#select");
+       *
+       * select.length;
+       */
+      this.length = sel.length;
+
+      /**
+       * If this select is a multi-select
+       *
+       * @property {boolean} multiple
+       * @example
+       * var select = new Dropkick("#select");
+       *
+       * select.multiple;
+       */
+      this.multiple = sel.multiple;
+
+      /**
+       * An array of Dropkick options
+       *
+       * @property {array} options
+       * @example
+       * var select = new Dropkick("#select");
+       *
+       * select.options;
+       */
+      this.options = dk.options.slice(0);
+
+      /**
+       * An index of the first selected option
+       *
+       * @property {integer} selectedIndex
+       * @example
+       * var select = new Dropkick("#select");
+       *
+       * select.selectedIndex;
+       */
+      this.selectedIndex = sel.selectedIndex;
+
+      /**
+       * An array of selected Dropkick options
+       *
+       * @property {array} selectedOptions
+       * @example
+       * var select = new Dropkick("#select");
+       *
+       * select.selectedOptions;
+       */
+      this.selectedOptions = dk.selected.slice(0);
+
+      /**
+       * The current value of the select
+       *
+       * @property {string} value
+       * @example
+       * var select = new Dropkick("#select");
+       *
+       * select.value;
+       */
+      this.value = sel.value;
+
+      // Add the DK Object to the cache
+      this.data.cacheID = globalDK.uid;
+      globalDK.cache[this.data.cacheID] = this;
+
+      // Call the optional initialize function
+      this.data.settings.initialize.call(this);
+
+      // Increment the index
+      globalDK.uid += 1;
+
+      // Add the change listener to the select
+      if (!this._changeListener) {
+        sel.addEventListener("change", this);
+        this._changeListener = true;
+      }
+
+      // Don't continue if we're not rendering on mobile
+      if (!(isMobile && !this.data.settings.mobile)) {
+
+        // Insert the DK element before the original select
+        sel.parentNode.insertBefore(this.data.elem, sel);
+        sel.setAttribute("data-dkCacheId", this.data.cacheID);
+
+        // Bind events
+        this.data.elem.addEventListener("click", this);
+        this.data.elem.addEventListener("keydown", this);
+        this.data.elem.addEventListener("keypress", this);
+
+        if (this.form) {
+          this.form.addEventListener("reset", this);
+        }
+
+        if (!this.multiple) {
+          for (i = 0; i < this.options.length; i++) {
+            this.options[i].addEventListener("mouseover", this);
+          }
+        }
+
+        if (!_docListener) {
+          document.addEventListener("click", Dropkick.onDocClick);
+
+          if (isIframe) {
+            parent.document.addEventListener("click", Dropkick.onDocClick);
+          }
+
+          _docListener = true;
+        }
+      }
+
+      return this;
+    }
+    // Emulate some of HTMLSelectElement's methods
+
+    /**
+     * Adds an element to the select. This option will not only add it to the original
+     * select, but create a Dropkick option and add it to the Dropkick select.
+     *
+     * @method add
+     * @param {string} elem   HTMLOptionElement
+     * @param {Node/Integer} before HTMLOptionElement/Index of Element
+     * @example
+     * var select = new Dropkick("#select");
+     *
+     * select.add("New option", 5);
+     */
+
+  }, {
+    key: 'add',
+    value: function add(elem, before) {
+      var text, option, i;
+
+      if (typeof elem === "string") {
+        text = elem;
+        elem = document.createElement("option");
+        elem.text = text;
+      }
+
+      if (elem.nodeName === "OPTION") {
+        option = _utils2.default.create("li", {
+          "class": "dk-option",
+          "data-value": elem.value,
+          "text": elem.text,
+          "innerHTML": elem.innerHTML,
+          "role": "option",
+          "aria-selected": "false",
+          "id": "dk" + this.data.cacheID + "-" + (elem.id || elem.value.replace(" ", "-"))
+        });
+
+        _utils2.default.addClass(option, elem.className);
+        this.length += 1;
+
+        if (elem.disabled) {
+          _utils2.default.addClass(option, "dk-option-disabled");
+          option.setAttribute("aria-disabled", "true");
+        }
+
+        if (elem.hidden) {
+          _utils2.default.addClass(option, "dk-option-hidden");
+          option.setAttribute("aria-hidden", "true");
+        }
+
+        this.data.select.add(elem, before);
+
+        if (typeof before === "number") {
+          before = this.item(before);
+        }
+
+        i = this.options.indexOf(before);
+
+        if (i > -1) {
+          before.parentNode.insertBefore(option, before);
+          this.options.splice(i, 0, option);
+        } else {
+          this.data.elem.lastChild.appendChild(option);
+          this.options.push(option);
+        }
+
+        option.addEventListener("mouseover", this);
+
+        if (elem.selected) {
+          this.select(i);
+        }
+      }
+    }
+
+    /**
+     * Selects an option in the list at the desired index (negative numbers select from the end).
+     *
+     * @method item
+     * @param  {Integer} index Index of element (positive or negative)
+     * @return {Node}          The DK option from the list, or null if not found
+     * @example
+     * var select = new Dropkick("#select");
+     *
+     * select.item(4); //returns DOM node of index
+     */
+
+  }, {
+    key: 'item',
+    value: function item(index) {
+      index = index < 0 ? this.options.length + index : index;
+      return this.options[index] || null;
+    }
+
+    /**
+     * Removes the option (from both the select and Dropkick) at the given index.
+     *
+     * @method  remove
+     * @param  {Integer} index Index of element (positive or negative)
+     * @example
+     * var select = new Dropkick("#select");
+     *
+     * select.remove(4);
+     */
+
+  }, {
+    key: 'remove',
+    value: function remove(index) {
+      var dkOption = this.item(index);
+      dkOption.parentNode.removeChild(dkOption);
+      this.options.splice(index, 1);
+      this.data.select.remove(index);
+      this.select(this.data.select.selectedIndex);
+      this.length -= 1;
+    }
+
+    /**
+     * Closes the DK dropdown
+     *
+     * @method close
+     * @example
+     * var select = new Dropkick("#select");
+     *
+     * select.close(); //closes dk dropdown
+     */
+
+  }, {
+    key: 'close',
+    value: function close() {
+      var i,
+          dk = this.data.elem;
+
+      if (!this.isOpen || this.multiple) {
+        return false;
+      }
+
+      for (i = 0; i < this.options.length; i++) {
+        _utils2.default.removeClass(this.options[i], "dk-option-highlight");
+      }
+
+      dk.lastChild.setAttribute("aria-expanded", "false");
+      _utils2.default.removeClass(dk.lastChild, "dk-select-options-highlight");
+      _utils2.default.removeClass(dk, "dk-select-open-(up|down)");
+      this.isOpen = false;
+
+      this.data.settings.close.call(this);
+    }
+
+    /**
+     * Opens the DK dropdown
+     *
+     * @method open
+     * @example
+     * var select = new Dropkick("#select");
+     *
+     * select.open(); //Opens the dk dropdown
+     */
+    // TODO: This used to run with the deffered util method
+    // is that needed? What problem was that solving?
+    // to make sure this runs in the next animation tick?
+
+  }, {
+    key: 'open',
+    value: function open() {
+      var dropHeight = void 0,
+          above = void 0,
+          below = void 0,
+          direction = void 0,
+          dkTop = void 0,
+          dkBottom = void 0;
+      var dk = this.data.elem;
+      var dkOptsList = dk.lastChild;
+      // Using MDNs suggestion for crossbrowser scrollY:
+      // https://developer.mozilla.org/en-US/docs/Web/API/Window/scrollY
+      var supportPageOffset = window.pageXOffset !== undefined;
+      var isCSS1Compat = (document.compatMode || "") === "CSS1Compat";
+      var scrollY = supportPageOffset ? window.pageYOffset : isCSS1Compat ? document.documentElement.scrollTop : document.body.scrollTop;
+
+      dkTop = _utils2.default.offset(dk).top - scrollY;
+      dkBottom = window.innerHeight - (dkTop + dk.offsetHeight);
+
+      if (this.isOpen || this.multiple) {
+        return false;
+      }
+
+      dkOptsList.style.display = "block";
+      dropHeight = dkOptsList.offsetHeight;
+      dkOptsList.style.display = "";
+
+      above = dkTop > dropHeight;
+      below = dkBottom > dropHeight;
+      direction = above && !below ? "-up" : "-down";
+
+      this.isOpen = true;
+      _utils2.default.addClass(dk, "dk-select-open" + direction);
+      dkOptsList.setAttribute("aria-expanded", "true");
+      this._scrollTo(this.options.length - 1);
+      this._scrollTo(this.selectedIndex);
+
+      this.data.settings.open.call(this);
+    }
+
+    /**
+     * Disables or enables an option; if only a boolean is passed (or nothing),
+     * then the entire Dropkick will be disabled or enabled.
+     *
+     * @method disable
+     * @param  {Integer} elem     The element or index to disable
+     * @param  {Boolean}      disabled Value of disabled
+     * @example
+     * var select = new Dropkick("#select");
+     *
+     * // To disable the entire select
+     * select.disable();
+     *
+     * // To disable just an option with an index
+     * select.disable(4, true);
+     *
+     * // To re-enable the entire select
+     * select.disable(false);
+     *
+     * // To re-enable just an option with an index
+     * select.disable(4, false);
+     */
+
+  }, {
+    key: 'disable',
+    value: function disable(elem, disabled) {
+      var disabledClass = "dk-option-disabled";
+
+      if (arguments.length === 0 || typeof elem === "boolean") {
+        disabled = elem === undefined ? true : false;
+        elem = this.data.elem;
+        disabledClass = "dk-select-disabled";
+        this.disabled = disabled;
+      }
+
+      if (disabled === undefined) {
+        disabled = true;
+      }
+
+      if (typeof elem === "number") {
+        elem = this.item(elem);
+      }
+
+      if (disabled) {
+        elem.setAttribute('aria-disabled', true);
+        _utils2.default.addClass(elem, disabledClass);
+      } else {
+        elem.setAttribute('aria-disabled', false);
+        _utils2.default.removeClass(elem, disabledClass);
+      }
+    }
+
+    /**
+     * Hides or shows an option.
+     *
+     * @method hide
+     * @param  {Integer} elem     The element or index to hide
+     * @param  {Boolean} hidden   Whether or not to hide the element
+     * @example
+     * var select = new Dropkick("#select");
+     *
+     * // To hide an option with an index
+     * select.hide(4, true);
+     *
+     * // To make an option visible with an index
+     * select.hide(4, false);
+     */
+
+  }, {
+    key: 'hide',
+    value: function hide(elem, hidden) {
+      var hiddenClass = "dk-option-hidden";
+
+      if (hidden === undefined) {
+        hidden = true;
+      }
+
+      elem = this.item(elem);
+
+      if (hidden) {
+        elem.setAttribute('aria-hidden', true);
+        _utils2.default.addClass(elem, hiddenClass);
+      } else {
+        elem.setAttribute('aria-hidden', false);
+        _utils2.default.removeClass(elem, hiddenClass);
+      }
+    }
+
+    /**
+     * Selects an option from the list
+     *
+     * @method select
+     * @param  {String} elem     The element, index, or value to select
+     * @param  {Boolean}             disabled Selects disabled options
+     * @return {Node}                         The selected element
+     * @example
+     * var elm = new Dropkick("#select");
+     *
+     * // Select by index
+     * elm.select(4); //selects & returns 5th item in the list
+     *
+     * // Select by value
+     * elm.select("AL"); // selects & returns option with the value "AL"
+     */
+
+  }, {
+    key: 'select',
+    value: function select(elem, disabled) {
+      var i,
+          index,
+          option,
+          combobox,
+          select = this.data.select;
+
+      if (typeof elem === "number") {
+        elem = this.item(elem);
+      }
+
+      if (typeof elem === "string") {
+        for (i = 0; i < this.length; i++) {
+          if (this.options[i].getAttribute("data-value") === elem) {
+            elem = this.options[i];
+          }
+        }
+      }
+
+      // No element or enabled option
+      if (!elem || typeof elem === "string" || !disabled && _utils2.default.hasClass(elem, "dk-option-disabled")) {
+        return false;
+      }
+
+      if (_utils2.default.hasClass(elem, "dk-option")) {
+        index = this.options.indexOf(elem);
+        option = select.options[index];
+
+        if (this.multiple) {
+          _utils2.default.toggleClass(elem, "dk-option-selected");
+          option.selected = !option.selected;
+
+          if (_utils2.default.hasClass(elem, "dk-option-selected")) {
+            elem.setAttribute("aria-selected", "true");
+            this.selectedOptions.push(elem);
+          } else {
+            elem.setAttribute("aria-selected", "false");
+            index = this.selectedOptions.indexOf(elem);
+            this.selectedOptions.splice(index, 1);
+          }
+        } else {
+          combobox = this.data.elem.firstChild;
+
+          if (this.selectedOptions.length) {
+            _utils2.default.removeClass(this.selectedOptions[0], "dk-option-selected");
+            this.selectedOptions[0].setAttribute("aria-selected", "false");
+          }
+
+          _utils2.default.addClass(elem, "dk-option-selected");
+          elem.setAttribute("aria-selected", "true");
+
+          combobox.setAttribute("aria-activedescendant", elem.id);
+          combobox.className = "dk-selected " + option.className;
+          combobox.innerHTML = option.innerHTML;
+
+          this.selectedOptions[0] = elem;
+          option.selected = true;
+        }
+
+        this.selectedIndex = select.selectedIndex;
+        this.value = select.value;
+
+        if (!disabled) {
+          this.data.select.dispatchEvent(new _customEvent2.default("change", { bubbles: this.data.settings.bubble }));
+        }
+
+        return elem;
+      }
+    }
+
+    /**
+     * Selects a single option from the list and scrolls to it (if the select is open or on multi-selects).
+     * Useful for selecting an option after a search by the user. Important to note: this doesn't close the
+     * dropdown when selecting. It keeps the dropdown open and scrolls to proper position.
+     *
+     * @method selectOne
+     * @param  {Integer} elem     The element or index to select
+     * @param  {Boolean}      disabled Selects disabled options
+     * @return {Node}                  The selected element
+     * @example
+     * var select = new Dropkick("#select");
+     *
+     * select.selectOne(4);
+     */
+
+  }, {
+    key: 'selectOne',
+    value: function selectOne(elem, disabled) {
+      this.reset(true);
+      this._scrollTo(elem);
+      return this.select(elem, disabled);
+    }
+
+    /**
+     * Finds all options who's text matches a pattern (strict, partial, or fuzzy)
+     *
+     * `"strict"` - The search string matches exactly from the beginning of the
+     * option's text value (case insensitive).
+     *
+     * `"partial"` - The search string matches part of the option's text value
+     * (case insensitive).
+     *
+     * `"fuzzy"` - The search string matches the characters in the given order (not
+     * exclusively). The strongest match is selected first. (case insensitive).
+     *
+     * @method search
+     * @param  {String} string  The string to search for
+     * @param  {Integer} mode   How to search; "strict", "partial", or "fuzzy"
+     * @return {Boolean}  An Array of matched elements
+     */
+
+  }, {
+    key: 'search',
+    value: function search(pattern, mode) {
+      var i,
+          tokens,
+          str,
+          tIndex,
+          sIndex,
+          cScore,
+          tScore,
+          reg,
+          options = this.data.select.options,
+          matches = [];
+
+      if (!pattern) {
+        return this.options;
+      }
+
+      // Fix Mode
+      mode = mode ? mode.toLowerCase() : "strict";
+      mode = mode === "fuzzy" ? 2 : mode === "partial" ? 1 : 0;
+
+      reg = new RegExp((mode ? "" : "^") + pattern, "i");
+
+      for (i = 0; i < options.length; i++) {
+        str = options[i].text.toLowerCase();
+
+        // Fuzzy
+        if (mode == 2) {
+          tokens = pattern.toLowerCase().split("");
+          tIndex = sIndex = cScore = tScore = 0;
+
+          while (sIndex < str.length) {
+            if (str[sIndex] === tokens[tIndex]) {
+              cScore += 1 + cScore;
+              tIndex++;
+            } else {
+              cScore = 0;
+            }
+
+            tScore += cScore;
+            sIndex++;
+          }
+
+          if (tIndex === tokens.length) {
+            matches.push({ e: this.options[i], s: tScore, i: i });
+          }
+
+          // Partial or Strict (Default)
+        } else {
+          reg.test(str) && matches.push(this.options[i]);
+        }
+      }
+
+      // Sort fuzzy results
+      if (mode === 2) {
+        matches = matches.sort(function (a, b) {
+          return b.s - a.s || a.i - b.i;
+        }).reduce(function (p, o) {
+          p[p.length] = o.e;
+          return p;
+        }, []);
+      }
+
+      return matches;
+    }
+
+    /**
+     * Brings focus to the proper DK element
+     *
+     * @method focus
+     * @example
+     * var select = new Dropkick("#select");
+     *
+     * $("#some_elm").on("click", function() {
+     *   select.focus();
+     * });
+     */
+
+  }, {
+    key: 'focus',
+    value: function focus() {
+      if (!this.disabled) {
+        (this.multiple ? this.data.elem : this.data.elem.children[0]).focus();
+      }
+    }
+
+    /**
+     * Resets the Dropkick and select to it's original selected options; if `clear` is `true`,
+     * It will select the first option by default (or no options for multi-selects).
+     *
+     * @method reset
+     * @param  {Boolean} clear Defaults to first option if true
+     * @example
+     * var select = new Dropkick("#select");
+     *
+     * // Reset to originally `selected` option
+     * select.reset();
+     *
+     * // Reset to first option in select
+     * select.reset(true);
+     */
+
+  }, {
+    key: 'reset',
+    value: function reset(clear) {
+      var i,
+          select = this.data.select;
+
+      this.selectedOptions.length = 0;
+
+      for (i = 0; i < select.options.length; i++) {
+        select.options[i].selected = false;
+        _utils2.default.removeClass(this.options[i], "dk-option-selected");
+        this.options[i].setAttribute("aria-selected", "false");
+        if (!clear && select.options[i].defaultSelected) {
+          this.select(i, true);
+        }
+      }
+
+      if (!this.selectedOptions.length && !this.multiple) {
+        this.select(0, true);
+      }
+    }
+
+    /**
+     * Rebuilds the DK Object
+     * (use if HTMLSelectElement has changed)
+     *
+     * @method refresh
+     * @example
+     * var select = new Dropkick("#select");
+     *
+     * //... [change original select] ...
+     *
+     * select.refresh();
+     */
+
+  }, {
+    key: 'refresh',
+    value: function refresh() {
+      if (Object.keys(this).length > 0 && !(isMobile && !this.data.settings.mobile)) {
+        this.dispose().init(this.data.select, this.data.settings);
+      }
+    }
+
+    /**
+     * Removes the DK Object from the cache and the element from the DOM
+     *
+     * @method dispose
+     * @example
+     * var select = new Dropkick("#select");
+     *
+     * select.dispose();
+     */
+
+  }, {
+    key: 'dispose',
+    value: function dispose() {
+      var globalDK = window.Dropkick;
+
+      if (Object.keys(this).length > 0 && !(isMobile && !this.data.settings.mobile)) {
+        delete globalDK.cache[this.data.cacheID];
+        this.data.elem.parentNode.removeChild(this.data.elem);
+        this.data.select.removeAttribute("data-dkCacheId");
+      }
+
+      return this;
+    }
+
+    // Private Methods
+
+    /**
+     * @method handleEvent
+     * @private
+     */
+
+  }, {
+    key: 'handleEvent',
+    value: function handleEvent(event) {
+      if (this.disabled) {
+        return;
+      }
+
+      switch (event.type) {
+        case "click":
+          this._delegate(event);
+          break;
+        case "keydown":
+          this._keyHandler(event);
+          break;
+        case "keypress":
+          this._searchOptions(event);
+          break;
+        case "mouseover":
+          this._highlight(event);
+          break;
+        case "reset":
+          this.reset();
+          break;
+        case "change":
+          this.data.settings.change.call(this);
+          break;
+      }
+    }
+
+    /**
+     * @method delegate
+     * @private
+     */
+
+  }, {
+    key: '_delegate',
+    value: function _delegate(event) {
+      var selection,
+          index,
+          firstIndex,
+          lastIndex,
+          target = event.target;
+
+      if (_utils2.default.hasClass(target, "dk-option-disabled")) {
+        return false;
+      }
+
+      if (!this.multiple) {
+        this[this.isOpen ? "close" : "open"]();
+        if (_utils2.default.hasClass(target, "dk-option")) {
+          this.select(target);
+        }
+      } else {
+        if (_utils2.default.hasClass(target, "dk-option")) {
+          selection = window.getSelection();
+          if (selection.type === "Range") selection.collapseToStart();
+
+          if (event.shiftKey) {
+            firstIndex = this.options.indexOf(this.selectedOptions[0]);
+            lastIndex = this.options.indexOf(this.selectedOptions[this.selectedOptions.length - 1]);
+            index = this.options.indexOf(target);
+
+            if (index > firstIndex && index < lastIndex) index = firstIndex;
+            if (index > lastIndex && lastIndex > firstIndex) lastIndex = firstIndex;
+
+            this.reset(true);
+
+            if (lastIndex > index) {
+              while (index < lastIndex + 1) {
+                this.select(index++);
+              }
+            } else {
+              while (index > lastIndex - 1) {
+                this.select(index--);
+              }
+            }
+          } else if (event.ctrlKey || event.metaKey) {
+            this.select(target);
+          } else {
+            this.reset(true);
+            this.select(target);
+          }
+        }
+      }
+    }
+
+    /**
+     * @method highlight
+     * @private
+     */
+
+  }, {
+    key: '_highlight',
+    value: function _highlight(event) {
+      var i,
+          option = event.target;
+
+      if (!this.multiple) {
+        for (i = 0; i < this.options.length; i++) {
+          _utils2.default.removeClass(this.options[i], "dk-option-highlight");
+        }
+
+        _utils2.default.addClass(this.data.elem.lastChild, "dk-select-options-highlight");
+        _utils2.default.addClass(option, "dk-option-highlight");
+      }
+    }
+
+    /**
+     * @method keyHandler
+     * @private
+     */
+
+  }, {
+    key: '_keyHandler',
+    value: function _keyHandler(event) {
+      var lastSelected,
+          j,
+          selected = this.selectedOptions,
+          options = this.options,
+          i = 1,
+          keys = {
+        tab: 9,
+        enter: 13,
+        esc: 27,
+        space: 32,
+        up: 38,
+        down: 40
+      };
+
+      switch (event.keyCode) {
+        case keys.up:
+          i = -1;
+        // deliberate fallthrough
+        case keys.down:
+          event.preventDefault();
+          lastSelected = selected[selected.length - 1];
+
+          if (_utils2.default.hasClass(this.data.elem.lastChild, "dk-select-options-highlight")) {
+            _utils2.default.removeClass(this.data.elem.lastChild, "dk-select-options-highlight");
+            for (j = 0; j < options.length; j++) {
+              if (_utils2.default.hasClass(options[j], "dk-option-highlight")) {
+                _utils2.default.removeClass(options[j], "dk-option-highlight");
+                lastSelected = options[j];
+              }
+            }
+          }
+
+          i = options.indexOf(lastSelected) + i;
+
+          if (i > options.length - 1) {
+            i = options.length - 1;
+          } else if (i < 0) {
+            i = 0;
+          }
+
+          if (!this.data.select.options[i].disabled) {
+            this.reset(true);
+            this.select(i);
+            this._scrollTo(i);
+          }
+          break;
+        case keys.space:
+          if (!this.isOpen) {
+            event.preventDefault();
+            this.open();
+            break;
+          }
+        // deliberate fallthrough
+        case keys.tab:
+        case keys.enter:
+          for (i = 0; i < options.length; i++) {
+            if (_utils2.default.hasClass(options[i], "dk-option-highlight")) {
+              this.select(i);
+            }
+          }
+        // deliberate fallthrough
+        case keys.esc:
+          if (this.isOpen) {
+            event.preventDefault();
+            this.close();
+          }
+          break;
+      }
+    }
+
+    /**
+     * @method searchOptions
+     * @private
+     */
+
+  }, {
+    key: '_searchOptions',
+    value: function _searchOptions(event) {
+      var results,
+          self = this,
+          keyChar = String.fromCharCode(event.keyCode || event.which),
+          waitToReset = function waitToReset() {
+        if (self.data.searchTimeout) {
+          clearTimeout(self.data.searchTimeout);
+        }
+
+        self.data.searchTimeout = setTimeout(function () {
+          self.data.searchString = "";
+        }, 1000);
+      };
+
+      if (this.data.searchString === undefined) {
+        this.data.searchString = "";
+      }
+
+      waitToReset();
+
+      this.data.searchString += keyChar;
+      results = this.search(this.data.searchString, this.data.settings.search);
+
+      if (results.length) {
+        if (!_utils2.default.hasClass(results[0], "dk-option-disabled")) {
+          this.selectOne(results[0]);
+        }
+      }
+    }
+
+    /**
+     * @method scrollTo
+     * @private
+     */
+
+  }, {
+    key: '_scrollTo',
+    value: function _scrollTo(option) {
+      var optPos,
+          optTop,
+          optBottom,
+          dkOpts = this.data.elem.lastChild;
+
+      if (option === -1 || typeof option !== "number" && !option || !this.isOpen && !this.multiple) {
+        return false;
+      }
+
+      if (typeof option === "number") {
+        option = this.item(option);
+      }
+
+      optPos = _utils2.default.position(option, dkOpts).top;
+      optTop = optPos - dkOpts.scrollTop;
+      optBottom = optTop + option.offsetHeight;
+
+      if (optBottom > dkOpts.offsetHeight) {
+        optPos += option.offsetHeight;
+        dkOpts.scrollTop = optPos - dkOpts.offsetHeight;
+      } else if (optTop < 0) {
+        dkOpts.scrollTop = optPos;
+      }
+    }
+  }]);
+
+  return Dropkick;
+}();
+
+;
+
+// Cache of DK Objects
+// currently can't think of a way to do this not in the global space
+// since DK isn't a singleton.
+
+// is this cache a must have?
+window.Dropkick = Dropkick;
+window.Dropkick.cache = {};
+window.Dropkick.uid = 0;
+
+// Static Methods
+
+/**
+ * Builds the Dropkick element from a select element
+ *
+ * @method  build
+ * @private
+ * @param  {Node} sel The HTMLSelectElement
+ * @return {Object}   An object containing the new DK element and it's options
+ */
+Dropkick.build = function (sel, idpre) {
+  var selOpt,
+      optList,
+      i,
+      options = [],
+      ret = {
+    elem: null,
+    options: [],
+    selected: []
+  },
+      addOption = function addOption(node) {
+    var option,
+        optgroup,
+        optgroupList,
+        i,
+        children = [];
+
+    switch (node.nodeName) {
+      case "OPTION":
+        option = _utils2.default.create("li", {
+          "class": "dk-option ",
+          "data-value": node.value,
+          "text": node.text,
+          "innerHTML": node.innerHTML,
+          "role": "option",
+          "aria-selected": "false",
+          "id": idpre + "-" + (node.id || node.value.replace(" ", "-"))
+        });
+
+        _utils2.default.addClass(option, node.className);
+
+        if (node.disabled) {
+          _utils2.default.addClass(option, "dk-option-disabled");
+          option.setAttribute("aria-disabled", "true");
+        }
+
+        if (node.hidden) {
+          _utils2.default.addClass(option, "dk-option-hidden");
+          option.setAttribute("aria-hidden", "true");
+        }
+
+        if (node.selected) {
+          _utils2.default.addClass(option, "dk-option-selected");
+          option.setAttribute("aria-selected", "true");
+          ret.selected.push(option);
+        }
+
+        ret.options.push(this.appendChild(option));
+        break;
+      case "OPTGROUP":
+        optgroup = _utils2.default.create("li", { "class": "dk-optgroup" });
+
+        if (node.label) {
+          optgroup.appendChild(_utils2.default.create("div", {
+            "class": "dk-optgroup-label",
+            "innerHTML": node.label
+          }));
+        }
+
+        optgroupList = _utils2.default.create("ul", {
+          "class": "dk-optgroup-options"
+        });
+
+        for (i = node.children.length; i--; children.unshift(node.children[i])) {}
+
+        if (node.disabled) {
+          optgroup.classList.add('dk-optgroup-disabled');
+
+          children.forEach(function (option) {
+            option.disabled = node.disabled;
+          });
+        }
+
+        children.forEach(addOption, optgroupList);
+
+        this.appendChild(optgroup).appendChild(optgroupList);
+        break;
+    }
+  };
+
+  ret.elem = _utils2.default.create("div", {
+    "class": "dk-select" + (sel.multiple ? "-multi" : "")
+  });
+
+  optList = _utils2.default.create("ul", {
+    "class": "dk-select-options",
+    "id": idpre + "-listbox",
+    "role": "listbox"
+  });
+
+  if (sel.disabled) {
+    _utils2.default.addClass(ret.elem, "dk-select-disabled");
+    ret.elem.setAttribute('aria-disabled', true);
+  }
+  ret.elem.id = idpre + (sel.id ? "-" + sel.id : "");
+  _utils2.default.addClass(ret.elem, sel.className);
+
+  if (!sel.multiple) {
+    selOpt = sel.options[sel.selectedIndex];
+    ret.elem.appendChild(_utils2.default.create("div", {
+      "class": "dk-selected " + (selOpt ? selOpt.className : ""),
+      "tabindex": sel.tabindex || 0,
+      "innerHTML": selOpt ? selOpt.text : '&nbsp;',
+      "id": idpre + "-combobox",
+      "aria-live": "assertive",
+      "aria-owns": optList.id,
+      "role": "combobox"
+    }));
+    optList.setAttribute("aria-expanded", "false");
+  } else {
+    ret.elem.setAttribute("tabindex", sel.getAttribute("tabindex") || "0");
+    optList.setAttribute("aria-multiselectable", "true");
+  }
+
+  for (i = sel.children.length; i--; options.unshift(sel.children[i])) {}
+  options.forEach(addOption, ret.elem.appendChild(optList));
+
+  return ret;
+};
+
+/**
+ * Focus DK Element when corresponding label is clicked; close all other DK's
+ *
+ * @method  onDocClick
+ * @private
+ * @param {Object} event  Event from document click
+ */
+Dropkick.onDocClick = function (event) {
+  var tId, i;
+  var globalDK = window.Dropkick;
+
+  if (event.target.nodeType !== 1) {
+    return false;
+  }
+
+  if ((tId = event.target.getAttribute("data-dkcacheid")) !== null) {
+    globalDK.cache[tId].focus();
+  }
+
+  for (i in globalDK.cache) {
+    if (!_utils2.default.closest(event.target, globalDK.cache[i].data.elem) && i !== tId) {
+      globalDK.cache[i].disabled || globalDK.cache[i].close();
+    }
+  }
+};
+
+// Add jQuery method
+if (window.jQuery !== undefined) {
+  window.jQuery.fn.dropkick = function () {
+    var args = Array.prototype.slice.call(arguments);
+    return jQuery(this).each(function () {
+      if (!args[0] || _typeof(args[0]) === 'object') {
+        new Dropkick(this, args[0] || {});
+      } else if (typeof args[0] === 'string') {
+        Dropkick.prototype[args[0]].apply(new Dropkick(this), args.slice(1));
+      }
+    });
+  };
+}
+
+exports.default = Dropkick;
+
+/***/ }),
+/* 1 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var isIE = navigator.appVersion.indexOf("MSIE") !== -1;
+var Utils = {
+  hasClass: function hasClass(elem, classname) {
+    var reg = new RegExp("(^|\\s+)" + classname + "(\\s+|$)");
+
+    return elem && reg.test(elem.className);
+  },
+  addClass: function addClass(elem, classname) {
+    if (elem && !this.hasClass(elem, classname)) {
+      elem.className += " " + classname;
+    }
+  },
+  removeClass: function removeClass(elem, classname) {
+    var reg = new RegExp("(^|\\s+)" + classname + "(\\s+|$)");
+
+    elem && (elem.className = elem.className.replace(reg, " "));
+  },
+  toggleClass: function toggleClass(elem, classname) {
+    var fn = this.hasClass(elem, classname) ? "remove" : "add";
+
+    this[fn + "Class"](elem, classname);
+  },
+
+
+  // Shallow object extend
+  extend: function extend(obj) {
+    Array.prototype.slice.call(arguments, 1).forEach(function (source) {
+      if (source) {
+        for (var prop in source) {
+          obj[prop] = source[prop];
+        }
+      }
+    });
+
+    return obj;
+  },
+
+
+  // Returns the top and left offset of an element
+  offset: function offset(elem) {
+    var box = elem.getBoundingClientRect() || { top: 0, left: 0 };
+    var docElem = document.documentElement;
+    var offsetTop = isIE ? docElem.scrollTop : window.pageYOffset;
+    var offsetLeft = isIE ? docElem.scrollLeft : window.pageXOffset;
+
+    return {
+      top: box.top + offsetTop - docElem.clientTop,
+      left: box.left + offsetLeft - docElem.clientLeft
+    };
+  },
+
+
+  // Returns the top and left position of an element relative to an ancestor
+  position: function position(elem, relative) {
+    var pos = { top: 0, left: 0 };
+
+    while (elem && elem !== relative) {
+      pos.top += elem.offsetTop;
+      pos.left += elem.offsetLeft;
+      elem = elem.parentNode;
+    }
+
+    return pos;
+  },
+
+
+  // Returns the closest ancestor element of the child or false if not found
+  closest: function closest(child, ancestor) {
+    while (child) {
+      if (child === ancestor) {
+        return child;
+      }
+      child = child.parentNode;
+    }
+
+    return false;
+  },
+
+
+  // Creates a DOM node with the specified attributes
+  create: function create(name, attrs) {
+    var a = void 0;
+    var node = document.createElement(name);
+
+    if (!attrs) {
+      attrs = {};
+    }
+
+    for (a in attrs) {
+      if (attrs.hasOwnProperty(a)) {
+        if (a === "innerHTML") {
+          node.innerHTML = attrs[a];
+        } else {
+          node.setAttribute(a, attrs[a]);
+        }
+      }
+    }
+
+    return node;
+  },
+  deferred: function deferred(fn) {
+    return function () {
+      var _this = this,
+          _arguments = arguments;
+
+      window.setTimeout(function () {
+        fn.apply(_this, _arguments);
+      }, 1);
+    };
+  }
+};
+
+exports.default = Utils;
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var defaults = {
+  /**
+   * Called once after the DK element is inserted into the DOM.
+   * The value of `this` is the Dropkick object itself.
+   *
+   * @config initialize
+   * @type Function
+   *
+   */
+  initialize: function initialize() {},
+
+
+  /**
+   * Whether or not you would like Dropkick to render on mobile devices.
+   *
+   * @default false
+   * @property {boolean} mobile
+   * @type boolean
+   *
+   */
+  mobile: true,
+
+  /**
+   * Called whenever the value of the Dropkick select changes (by user action or through the API).
+   * The value of `this` is the Dropkick object itself.
+   *
+   * @config change
+   * @type Function
+   *
+   */
+  change: function change() {},
+
+
+  /**
+   * Called whenever the Dropkick select is opened. The value of `this` is the Dropkick object itself.
+   *
+   * @config open
+   * @type Function
+   *
+   */
+  open: function open() {},
+
+
+  /**
+   * Called whenever the Dropkick select is closed. The value of `this` is the Dropkick object itself.
+   *
+   * @config close
+   * @type Function
+   *
+   */
+  close: function close() {},
+
+
+  // Search method; "strict", "partial", or "fuzzy"
+  /**
+   * `"strict"` - The search string matches exactly from the beginning of the option's text value (case insensitive).
+   *
+   * `"partial"` - The search string matches part of the option's text value (case insensitive).
+   *
+   * `"fuzzy"` - The search string matches the characters in the given order (not exclusively).
+   * The strongest match is selected first. (case insensitive).
+   *
+   * @default "strict"
+   * @config search
+   * @type string
+   *
+   */
+  search: "strict",
+
+  /**
+   * Bubble up the custom change event attached to Dropkick to the original element (select).
+   */
+  bubble: true
+};
+
+exports.default = defaults;
+
+/***/ }),
+/* 3 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(global) {
+var NativeCustomEvent = global.CustomEvent;
+
+function useNative () {
+  try {
+    var p = new NativeCustomEvent('cat', { detail: { foo: 'bar' } });
+    return  'cat' === p.type && 'bar' === p.detail.foo;
+  } catch (e) {
+  }
+  return false;
+}
+
+/**
+ * Cross-browser `CustomEvent` constructor.
+ *
+ * https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent.CustomEvent
+ *
+ * @public
+ */
+
+module.exports = useNative() ? NativeCustomEvent :
+
+// IE >= 9
+'undefined' !== typeof document && 'function' === typeof document.createEvent ? function CustomEvent (type, params) {
+  var e = document.createEvent('CustomEvent');
+  if (params) {
+    e.initCustomEvent(type, params.bubbles, params.cancelable, params.detail);
+  } else {
+    e.initCustomEvent(type, false, false, void 0);
+  }
+  return e;
+} :
+
+// IE <= 8
+function CustomEvent (type, params) {
+  var e = document.createEventObject();
+  e.type = type;
+  if (params) {
+    e.bubbles = Boolean(params.bubbles);
+    e.cancelable = Boolean(params.cancelable);
+    e.detail = params.detail;
+  } else {
+    e.bubbles = false;
+    e.cancelable = false;
+    e.detail = void 0;
+  }
+  return e;
+}
+
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
+
+/***/ }),
+/* 4 */
+/***/ (function(module, exports) {
+
+var g;
+
+// This works in non-strict mode
+g = (function() {
+	return this;
+})();
+
+try {
+	// This works if eval is allowed (see CSP)
+	g = g || Function("return this")() || (1,eval)("this");
+} catch(e) {
+	// This works if the window reference is available
+	if(typeof window === "object")
+		g = window;
+}
+
+// g can still be undefined, but nothing to do about it...
+// We return undefined, instead of nothing here, so it's
+// easier to handle this case. if(!global) { ...}
+
+module.exports = g;
+
+
+/***/ })
+/******/ ]);
+});
