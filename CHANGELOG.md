@@ -1,5 +1,12 @@
 # Change Log
 
+## [v2.2.5](https://github.com/Robdel12/DropKick/tree/v2.2.5) (2018-04-26)
+[Full Changelog](https://github.com/Robdel12/DropKick/compare/v2.2.4...v2.2.5)
+
+**Merged pull requests:**
+
+- Update dropkick.js with bugfix \#361 [\#362](https://github.com/Robdel12/DropKick/pull/362) ([AnthonySpault](https://github.com/AnthonySpault))
+
 ## [v2.2.4](https://github.com/Robdel12/DropKick/tree/v2.2.4) (2018-02-12)
 [Full Changelog](https://github.com/Robdel12/DropKick/compare/v2.2.3...v2.2.4)
 
@@ -383,7 +390,6 @@
 - Should the 'blank theme' contain the minimum CSS required to get Dropkick working? [\#171](https://github.com/Robdel12/DropKick/issues/171)
 - DropKick doesnot seems to work when AutopostBack is set to true for the DropDownList in asp.net [\#164](https://github.com/Robdel12/DropKick/issues/164)
 - Height changes on long values [\#162](https://github.com/Robdel12/DropKick/issues/162)
-- doesnt work with jquery 2.0 [\#160](https://github.com/Robdel12/DropKick/issues/160)
 - Cannot read property '$select' of undefined [\#158](https://github.com/Robdel12/DropKick/issues/158)
 - Dropkick doesn't work in IE 12 [\#157](https://github.com/Robdel12/DropKick/issues/157)
 - v1.3.2 doesn't work in IE7/8 [\#155](https://github.com/Robdel12/DropKick/issues/155)
@@ -498,7 +504,7 @@
 - Updates [\#122](https://github.com/Robdel12/DropKick/pull/122) ([caiovaccaro](https://github.com/caiovaccaro))
 - Globally handle a click outside of the dropdown  [\#117](https://github.com/Robdel12/DropKick/pull/117) ([cskevint](https://github.com/cskevint))
 - jQuery 1.9 support [\#104](https://github.com/Robdel12/DropKick/pull/104) ([joeblynch](https://github.com/joeblynch))
-- fix: if two selects have one same name in a page [\#93](https://github.com/Robdel12/DropKick/pull/93) ([laishua](https://github.com/laishua))
+- fix: if two selects have one same name in a page [\#93](https://github.com/Robdel12/DropKick/pull/93) ([laishulu](https://github.com/laishulu))
 - Fix browser detection to make dropkick work in IE 10 [\#88](https://github.com/Robdel12/DropKick/pull/88) ([steve-v-jedo](https://github.com/steve-v-jedo))
 - Fixed issue \#58 [\#73](https://github.com/Robdel12/DropKick/pull/73) ([clupasq](https://github.com/clupasq))
 - Remove unused variables, small cleanup [\#23](https://github.com/Robdel12/DropKick/pull/23) ([bdukes](https://github.com/bdukes))
