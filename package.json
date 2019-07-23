@@ -1,6 +1,7 @@
 {
   "name": "dropkickjs",
   "version": "2.2.5",
+  "license": "MIT",
   "author": {
     "name": "Robert DeLuca"
   },
