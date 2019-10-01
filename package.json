@@ -56,7 +56,7 @@
     "sass-loader": "^7.1.0",
     "sinon": "^2.3.8",
     "sinon-chai": "^2.12.0",
-    "style-loader": "^0.18.2",
+    "style-loader": "^0.23.1",
     "surge": "^0.21.3",
     "uglifyjs-webpack-plugin": "^1.3.0",
     "webpack": "^3.3.0",
