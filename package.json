@@ -39,7 +39,7 @@
     "chai-jquery": "^2.0.0",
     "css-loader": "^0.28.4",
     "custom-event": "^1.0.1",
-    "documentation": "^4.0.0-rc.1",
+    "documentation": "^12.1.2",
     "dotenv": "^4.0.0",
     "dotenv-webpack": "^1.5.4",
     "extract-text-webpack-plugin": "^3.0.0",
