@@ -54,7 +54,7 @@
     "mocha": "^6.2.1",
     "node-sass": "4.5.3",
     "sass-loader": "^7.1.0",
-    "sinon": "^2.3.8",
+    "sinon": "^4.5.0",
     "sinon-chai": "^2.12.0",
     "style-loader": "^0.23.1",
     "surge": "^0.21.3",
