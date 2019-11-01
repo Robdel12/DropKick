@@ -52,7 +52,7 @@
     "karma-mocha-reporter": "^2.2.3",
     "karma-webpack": "2.0.3",
     "mocha": "^6.2.1",
-    "node-sass": "4.5.3",
+    "node-sass": "4.13.0",
     "sass-loader": "^7.1.0",
     "sinon": "^4.5.0",
     "sinon-chai": "^2.12.0",
