@@ -5135,8 +5135,8 @@ just-extend@^4.0.2:
   resolved "https://registry.yarnpkg.com/just-extend/-/just-extend-4.0.2.tgz#f3f47f7dfca0f989c55410a7ebc8854b07108afc"
 
 karma-browserstack-launcher@^1.3.0:
-  version "1.5.2"
-  resolved "https://registry.yarnpkg.com/karma-browserstack-launcher/-/karma-browserstack-launcher-1.5.2.tgz#e3387c7ade74f6f33725669dbae7f889f206b7aa"
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/karma-browserstack-launcher/-/karma-browserstack-launcher-1.6.0.tgz#2f6000647073e77ae296653b8830b279669766ef"
   dependencies:
     browserstack "~1.5.1"
     browserstack-local "^1.3.7"
