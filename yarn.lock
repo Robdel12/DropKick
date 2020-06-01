@@ -2262,7 +2262,7 @@ check-error@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/check-error/-/check-error-1.0.2.tgz#574d312edd88bb5dd8912e9286dd6c0aed4aac82"
 
-chokidar@3.3.0, chokidar@^3.0.0:
+chokidar@3.3.0:
   version "3.3.0"
   resolved "https://registry.yarnpkg.com/chokidar/-/chokidar-3.3.0.tgz#12c0714668c55800f659e262d4962a97faf554a6"
   dependencies:
@@ -2291,7 +2291,7 @@ chokidar@^1.7.0:
   optionalDependencies:
     fsevents "^1.0.0"
 
-chokidar@^2.0.4, chokidar@^2.1.8:
+chokidar@^2.1.8:
   version "2.1.8"
   resolved "https://registry.yarnpkg.com/chokidar/-/chokidar-2.1.8.tgz#804b3a7b6a99358c3c5c61e71d8728f041cff917"
   dependencies:
@@ -2308,6 +2308,20 @@ chokidar@^2.0.4, chokidar@^2.1.8:
     upath "^1.1.1"
   optionalDependencies:
     fsevents "^1.2.7"
+
+chokidar@^3.0.0, chokidar@^3.4.0:
+  version "3.4.0"
+  resolved "https://registry.yarnpkg.com/chokidar/-/chokidar-3.4.0.tgz#b30611423ce376357c765b9b8f904b9fba3c0be8"
+  dependencies:
+    anymatch "~3.1.1"
+    braces "~3.0.2"
+    glob-parent "~5.1.0"
+    is-binary-path "~2.1.0"
+    is-glob "~4.0.1"
+    normalize-path "~3.0.0"
+    readdirp "~3.4.0"
+  optionalDependencies:
+    fsevents "~2.1.2"
 
 chownr@^1.0.1:
   version "1.1.3"
@@ -3096,9 +3110,9 @@ doctrine-temporary-fork@2.1.0:
   dependencies:
     esutils "^2.0.2"
 
-documentation@^12.1.4:
-  version "12.3.0"
-  resolved "https://registry.yarnpkg.com/documentation/-/documentation-12.3.0.tgz#2bf429433a1edcb32dd35f60bcdc95bf3858ae4a"
+documentation@^13.0.0:
+  version "13.0.0"
+  resolved "https://registry.yarnpkg.com/documentation/-/documentation-13.0.0.tgz#7be30a05cf9f37aee64d6778410fd871477d8d95"
   dependencies:
     "@babel/core" "^7.9.0"
     "@babel/generator" "^7.9.4"
@@ -3129,7 +3143,7 @@ documentation@^12.1.4:
     ansi-html "^0.0.7"
     babelify "^10.0.0"
     chalk "^2.3.0"
-    chokidar "^2.0.4"
+    chokidar "^3.4.0"
     concat-stream "^1.6.0"
     diff "^4.0.1"
     doctrine-temporary-fork "2.1.0"
@@ -3984,6 +3998,10 @@ fsevents@^1.2.7:
 fsevents@~2.1.1:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/fsevents/-/fsevents-2.1.1.tgz#74c64e21df71721845d0c44fe54b7f56b82995a9"
+
+fsevents@~2.1.2:
+  version "2.1.3"
+  resolved "https://registry.yarnpkg.com/fsevents/-/fsevents-2.1.3.tgz#fb738703ae8d2f9fe900c33836ddebee8b97f23e"
 
 fstream-ignore@^1.0.5:
   version "1.0.5"
@@ -6523,6 +6541,10 @@ picomatch@^2.0.4:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/picomatch/-/picomatch-2.1.0.tgz#0fd042f568d08b1ad9ff2d3ec0f0bfb3cb80e177"
 
+picomatch@^2.2.1:
+  version "2.2.2"
+  resolved "https://registry.yarnpkg.com/picomatch/-/picomatch-2.2.2.tgz#21f333e9b6b8eaff02468f5146ea406d345f4dad"
+
 pify@^2.0.0, pify@^2.3.0:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/pify/-/pify-2.3.0.tgz#ed141a6ac043a849ea588498e7dca8b15330e90c"
@@ -7194,6 +7216,12 @@ readdirp@~3.2.0:
   resolved "https://registry.yarnpkg.com/readdirp/-/readdirp-3.2.0.tgz#c30c33352b12c96dfb4b895421a49fd5a9593839"
   dependencies:
     picomatch "^2.0.4"
+
+readdirp@~3.4.0:
+  version "3.4.0"
+  resolved "https://registry.yarnpkg.com/readdirp/-/readdirp-3.4.0.tgz#9fdccdf9e9155805449221ac645e8303ab5b9ada"
+  dependencies:
+    picomatch "^2.2.1"
 
 redent@^1.0.0:
   version "1.0.0"
