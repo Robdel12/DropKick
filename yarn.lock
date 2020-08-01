@@ -3231,21 +3231,17 @@ domutils@1.5.1:
     dom-serializer "0"
     domelementtype "1"
 
-dotenv-defaults@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/dotenv-defaults/-/dotenv-defaults-1.0.2.tgz#441cf5f067653fca4bbdce9dd3b803f6f84c585d"
+dotenv-defaults@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/dotenv-defaults/-/dotenv-defaults-2.0.0.tgz#f48577d885c7755d2a4ce1f7f3706552c0cb367e"
   dependencies:
-    dotenv "^6.2.0"
+    dotenv "^8.2.0"
 
-dotenv-webpack@^1.5.4:
-  version "1.8.0"
-  resolved "https://registry.yarnpkg.com/dotenv-webpack/-/dotenv-webpack-1.8.0.tgz#7ca79cef2497dd4079d43e81e0796bc9d0f68a5e"
+dotenv-webpack@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/dotenv-webpack/-/dotenv-webpack-2.0.0.tgz#064ae42dbb214778d8aff0c76dc97253594f9ec3"
   dependencies:
-    dotenv-defaults "^1.0.2"
-
-dotenv@^6.2.0:
-  version "6.2.0"
-  resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-6.2.0.tgz#941c0410535d942c8becf28d3f357dbd9d476064"
+    dotenv-defaults "^2.0.0"
 
 dotenv@^8.2.0:
   version "8.2.0"
