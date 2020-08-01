@@ -5735,9 +5735,9 @@ minimatch@3.0.4, minimatch@^3.0.0, minimatch@^3.0.2, minimatch@^3.0.4, minimatch
   dependencies:
     brace-expansion "^1.1.7"
 
-minimist@1.1.1:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/minimist/-/minimist-1.1.1.tgz#1bc2bc71658cdca5712475684363615b0b4f695b"
+minimist@1.2.3:
+  version "1.2.3"
+  resolved "https://registry.yarnpkg.com/minimist/-/minimist-1.2.3.tgz#3db5c0765545ab8637be71f333a104a965a9ca3f"
 
 minimist@^1.1.0, minimist@^1.1.3, minimist@^1.2.0, minimist@^1.2.3, minimist@^1.2.5:
   version "1.2.5"
@@ -8446,13 +8446,13 @@ surge-ignore@0.2.0:
   resolved "https://registry.yarnpkg.com/surge-ignore/-/surge-ignore-0.2.0.tgz#5a7f8a20a71188cf9e75a2cfe8eb182de90daf3b"
 
 surge@^0.21.3:
-  version "0.21.3"
-  resolved "https://registry.yarnpkg.com/surge/-/surge-0.21.3.tgz#8abfba77bac551d0db9bae0fc14a450874fd9e8d"
+  version "0.21.6"
+  resolved "https://registry.yarnpkg.com/surge/-/surge-0.21.6.tgz#8eca1bf8dfe7d657af89dfce639a8d1bd6e31e20"
   dependencies:
     cli-table3 "^0.5.1"
     inquirer "^6.2.2"
     is-domain "0.0.1"
-    minimist "1.1.1"
+    minimist "1.2.3"
     moniker "0.1.2"
     netrc "0.1.4"
     progress "1.1.8"
