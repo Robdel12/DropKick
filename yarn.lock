@@ -3547,9 +3547,9 @@ dotenv-defaults@^2.0.1:
   dependencies:
     dotenv "^8.2.0"
 
-dotenv-webpack@^5.0.0:
-  version "5.0.0"
-  resolved "https://registry.yarnpkg.com/dotenv-webpack/-/dotenv-webpack-5.0.0.tgz#8b79b656a84353c19f732f847824111c45871158"
+dotenv-webpack@^6.0.0:
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/dotenv-webpack/-/dotenv-webpack-6.0.0.tgz#cd42454ee754fe8b7adb4fb70196f6e45f41876c"
   dependencies:
     dotenv-defaults "^2.0.1"
 
