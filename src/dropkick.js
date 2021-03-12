@@ -1109,7 +1109,7 @@ Dropkick.build = function( sel, idpre ) {
     ret.elem.appendChild( _.create( "div", {
       "class": "dk-selected " + ( selOpt ? selOpt.className : "" ),
       "tabindex": sel.tabindex || 0,
-      "innerHTML": selOpt ? selOpt.text : '&nbsp;',
+      "innerHTML": selOpt ? selOpt.innerHTML : '&nbsp;',
       "id": idpre + "-combobox",
       "aria-live": "assertive",
       "aria-owns": optList.id,
