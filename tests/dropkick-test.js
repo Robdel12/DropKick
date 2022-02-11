@@ -1,4 +1,5 @@
 import { expect } from 'chai';
+import sinon from 'sinon';
 import {
   $,
   buildSelect,
@@ -261,6 +262,19 @@ describe('Dropkick tests', function() {
       it('does not select the disabled option', function() {
         expect($('.dk-selected').text()).to.equal('first');
       });
+    });
+  });
+
+  describe('security', function() {
+    it('does not construct html from option node text', function(done) {
+      window.xssCallback = sinon.fake();
+      let select = buildSelect('xss_select', ['<img src="img.gif" onload="xssCallback()" onerror="xssCallback()">']);
+      this.dk = new Dropkick(select);
+      expect(this.dk.data.elem.querySelector('img')).to.equal(null);
+      setTimeout(function() {
+        expect(window.xssCallback).not.to.have.been.called;
+        done();
+      }, 10);
     });
   });
 });
