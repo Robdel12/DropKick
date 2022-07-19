@@ -9,7 +9,7 @@
 - Put the stylesheet where you would like
 - Add an ID or class to the select(s) you would like to DropKick
 
-If you're using jQuery:
+If you're using [jQuery](https://jquery.com/):
 - `$("#ID").dropkick( options );`
 
 Pure JS:
